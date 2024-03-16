@@ -1,0 +1,13 @@
+.logo-white{
+    color : white;
+    filter: invert(100%);
+}
+
+.form-control-dark::placeholder{
+    color: white;
+}
+
+.form-control-dark:focus{
+    border-color: #ffffff;
+    box-shadow: 0 0 0 0.2rem rgba(211, 211, 211, 0.6);
+}
