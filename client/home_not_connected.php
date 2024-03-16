@@ -9,6 +9,10 @@
 </head>
 <body>
     <?php require('../inc/header_not_connected.php');?>
+    <main>
+
+    </main>
+    <?php require('../inc/footer_not_connected.php'); ?>
     <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
