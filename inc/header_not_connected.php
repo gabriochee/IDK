@@ -4,17 +4,6 @@
       <img src="../inc/logo.svg" alt="Logo IDK" class="navbar-brand img-fluid logo-white" width="50px" height="50px">
     </nav>
 
-    <ul class="nav justify-content-center fw-light">
-      <li>
-        <a href="#" class="nav-link text-white">Acceuil</a>
-      </li>
-      <li>
-        <a href="#" class="nav-link text-white">Questionnaire</a>
-      </li>
-      <li>
-        <a href="#" class="nav-link text-white">A propos</a>
-      </li>
-    </ul>
 
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
       <div class="container-fluid">
@@ -28,8 +17,20 @@
             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
           </div>
 
-          <div class="offcanvas-body">
-            <ul class="navbar-nav align-items-center gap-2 flex-grow-1 col-3">
+          <div class="offcanvas-body d-md-flex gap-5">
+            <ul class="nav justify-content-center fw-light me-lg-5">
+              <li>
+                <a href="#" class="nav-link text-white">Acceuil</a>
+              </li>
+              <li>
+                <a href="#" class="nav-link text-white">Questionnaire</a>
+              </li>
+              <li>
+                <a href="#" class="nav-link text-white">A propos</a>
+              </li>
+            </ul>
+
+            <ul class="navbar-nav align-items-center gap-2 flex-grow-1 col-3 m-md-0 mt-5 m-auto">
               <li class="nav-item">
                 <button class="nav-btn btn btn-primary btn-sm btn-warning text-white border border-light border-2 rounded-3">Inscription</button>
               </li>
@@ -38,7 +39,8 @@
               </li>
               <li class="nav-item">
                 <button class="nav-link btn">
-                  <img src="../inc/dark_mode_logo.svg" alt="Mode sombre">
+                  <i class="bi bi-moon-stars"></i>
+                  <!-- <img src="../inc/dark_mode_logo.svg" alt="Mode sombre"> -->
                 </button>
               </li>
             </ul>
