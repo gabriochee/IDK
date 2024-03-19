@@ -31,6 +31,10 @@ body {
   font-size: 0.7em;
 }
 
+.bigger-radio{
+  transform: scale(1.5);
+}
+
 /* ----------------- HOME_NOT_CONNECTED CSS ----------------- */
   .carousel {
     margin-bottom: 4rem;
