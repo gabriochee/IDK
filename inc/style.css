@@ -112,3 +112,10 @@ body {
     }
   }
 
+/* ----------------------- LOGIN CSS --------------------------- */
+
+@media (max-width: 425px) {
+  .minimize-input{
+    font-size: 0.9em !important;
+  }
+}
