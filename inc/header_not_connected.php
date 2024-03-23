@@ -17,7 +17,7 @@
           </div>
 
           <div class="offcanvas-body d-md-flex gap-lg-5">
-            <ul class="nav justify-content-center fw-light me-lg-5">
+            <ul class="nav justify-content-center fw-light me-lg-5 col-xl-5">
               <li>
                 <a href="#" class="nav-link text-white">Acceuil</a>
               </li>

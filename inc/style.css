@@ -119,3 +119,8 @@ body {
     font-size: 0.9em !important;
   }
 }
+
+/* ----------------- CONTACT - NOT - CONNECTED --------------- */
+.not-resizable{
+  resize: none;
+}
