@@ -3,20 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../inc/style.css">
-    <link rel="stylesheet" href="../bootstrap/bootstrap-icons/font/bootstrap-icons.min.css">
-    <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../inc/style.css">
+    <link rel="stylesheet" href="../../bootstrap/bootstrap-icons/font/bootstrap-icons.min.css">
+    <script src="../../bootstrap/js/bootstrap.bundle.min.js"></script>
     <title>IDK</title>
 </head>
 <body>
-    <?php require('../inc/header_not_connected.php');?>      
+    <?php require('../../inc/not_connected/header.php');?>      
     <main>
 
         <div class="container text-center m-auto">
             <div class="row">
                 <div class="col-lg-6 m-auto p-4">
-                    <img src="../inc/logo.svg" alt="Logo IDK" class="navbar-brand img-fluid my-5" width="150px" height="150px">
+                    <img src="../../inc/logo.svg" alt="Logo IDK" class="navbar-brand img-fluid my-5" width="150px" height="150px">
                     <h1 class="mb-5">Phrase d'accroche</h1>
                     <p class="mb-5">Texte explicatif du service : Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
                     <button class="nav-btn btn btn-primary btn-lg btn-block btn-warning text-white border border-light border-2 rounded-3 mb-5">Commencer le questionnaire</button>
@@ -158,6 +158,6 @@
         </div>
 
     </main>
-    <?php require('../inc/footer_not_connected.php'); ?>    
+    <?php require('../../inc/not_connected/footer.php'); ?>    
 </body>
 </html>

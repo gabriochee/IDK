@@ -1,4 +1,3 @@
-
 <footer class="bg-dark text-white pt-2 fw-light mt-3">
     <div class="container-fluid px-5">
         <div class="container-fluid d-md-flex justify-content-lg-center align-items-center border-bottom px-0">
@@ -9,7 +8,7 @@
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                 </p>
             </div>
-            <div class="container-fluid col-7 fs-6 pe-0 ps-xl-5">
+            <div class="container-fluid col-7 fs-6">
                 <ul class="nav justify-content-center justify-content-between">
                     <li class="nav-item">
                         <a href="#" class="nav-link text-white text-start">Questionnaire</a>
@@ -27,19 +26,18 @@
             </div>
         </div>
         <div class="container-fluid fw-light d-flex justify-content-center justify-content-evenly align-items-center p-2 m-0 border-bottom">
-            <div class="container-fluid d-flex justify-content-center gap-3 align-items-center py-3">
-                <button class="nav-btn btn btn-primary btn-sm btn-warning text-white border border-light border-2 rounded-3">Déconnexion</button>
-            </div>
+                <button class="nav-btn btn btn-primary btn-sm btn-warning text-white border border-light border-2 rounded-3 py-2 my-2">Déconnexion</button>
         </div>
-        <div class="container-fluid d-flex justify-content-center gap-4 p-2">
+
+        <div class="container-fluid d-flex justify-content-center gap-4 p-2 mb-2">
             <a href="#" class="icon-link">
-                <img class="img-thumbnail bg-dark border-0" src="../inc/instagram_logo.svg" alt="Instagram" width="35px" height="35px">
+                <i class="bi bi-instagram icon-white text-center fs-3"></i>
             </a>
             <a href="#" class="icon-link">
-                <img class="img-thumbnail bg-dark border-0" src="../inc/facebook_logo.svg" alt="Instagram" width="35px" height="35px">
+                <i class="bi bi-facebook icon-white text-center fs-3"></i>
             </a>
             <a href="#" class="icon-link">
-                <img class="img-thumbnail bg-dark border-0" src="../inc/linkedin_logo.svg" alt="Instagram" width="35px" height="35px">
+                <i class="bi bi-linkedin icon-white text-center fs-3"></i>
             </a>
         </div>
     </div>

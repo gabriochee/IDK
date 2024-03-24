@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../bootstrap/bootstrap-icons/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="../inc/style.css">
+    <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../inc/style.css">
+    <link rel="stylesheet" href="../../bootstrap/bootstrap-icons/font/bootstrap-icons.min.css">
+    <script src="../../bootstrap/js/bootstrap.bundle.min.js"></script>
     <title>IDK</title>
 </head>
 <body>
-    <?php require('../inc/header_backoffice.php');?>
+    <?php require('../inc/backoffice/header.php');?>
     <main>
         <div class="container-fluid d-flex justify-content-center my-5 py-2">
             <img src="../inc/logo.svg" alt="Logo IDK" class="img-thumbnail bg-transparent border-0">
@@ -31,7 +32,6 @@
         </ul>
     </main>
 
-    <?php require('../inc/footer_backoffice.php'); ?>
-    <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
+    <?php require('../inc/backoffice/footer.php'); ?>
 </body>
 </html>

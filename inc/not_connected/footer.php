@@ -2,7 +2,7 @@
     <div class="container-fluid px-5">
         <div class="container-fluid d-md-flex justify-content-lg-center align-items-center border-bottom px-0">
             <div class="container-fluid p-0 d-flex flex-column align-items-md-start align-items-center">
-                <img src="../inc/logo.svg" alt="Logo IDK" width="30px" height="30px" class="img-flip logo-white mb-3">
+                <img src="../../inc/logo.svg" alt="Logo IDK" width="30px" height="30px" class="img-flip logo-white mb-3">
                 <p class="col-10 text-md-start text-center m-auto m-md-0 pe-md-3 mb-5">
                     Here you can use rows and columns to organize your footer content.
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit.
@@ -31,15 +31,15 @@
                 <button class="nav-btn btn btn-primary btn-sm btn-warning text-white border border-light border-2 rounded-3">Inscription</button>
             </div>
         </div>
-        <div class="container-fluid d-flex justify-content-center gap-4 p-2">
+        <div class="container-fluid d-flex justify-content-center gap-4 p-2 mb-2">
             <a href="#" class="icon-link">
-                <img class="img-thumbnail bg-dark border-0" src="../inc/instagram_logo.svg" alt="Instagram" width="35px" height="35px">
+                <i class="bi bi-instagram icon-white text-center fs-3"></i>
             </a>
             <a href="#" class="icon-link">
-                <img class="img-thumbnail bg-dark border-0" src="../inc/facebook_logo.svg" alt="Instagram" width="35px" height="35px">
+                <i class="bi bi-facebook icon-white text-center fs-3"></i>
             </a>
             <a href="#" class="icon-link">
-                <img class="img-thumbnail bg-dark border-0" src="../inc/linkedin_logo.svg" alt="Instagram" width="35px" height="35px">
+                <i class="bi bi-linkedin icon-white text-center fs-3"></i>
             </a>
         </div>
     </div>

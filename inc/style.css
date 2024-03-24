@@ -124,3 +124,9 @@ body {
 .not-resizable{
   resize: none;
 }
+
+/* ------------------------- FOOTER ------------------------ */
+
+.icon-white {
+  color: white;
+}
