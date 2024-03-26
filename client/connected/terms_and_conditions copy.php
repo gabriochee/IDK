@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    <?php require('../../inc/not_connected/header.php'); ?>
+    <?php require('../../inc/connected/header.php'); ?>
 
     <main>
         <div class="container-fluid d-flex justify-content-center">
@@ -71,7 +71,7 @@
         </div>
     </main>
 
-    <?php require('../../inc/not_connected/footer.php'); ?>
+    <?php require('../../inc/connected/footer.php'); ?>
 </body>
 
 </html>
