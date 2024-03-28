@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    <?php require('../../inc/not_connected/header.php'); ?>
+    <?php require('../../inc/connected/header.php'); ?>
 
     <main>
         <div class="container text-center col-lg-6 my-md-5 py-5">
@@ -46,7 +46,7 @@
 
     <h6 class="ms-md-5">Question 1 : <span class="fw-bold">Réponse 1</span> > Question 2 : <span class="fw-bold">Réponse 1 & Réponse 2</span> > Question 3 : <span class="fw-bold">Réponse 1</span></h6>
 
-    <?php require('../../inc/not_connected/footer.php'); ?>
+    <?php require('../../inc/connected/footer.php'); ?>
 </body>
 
 </html>
