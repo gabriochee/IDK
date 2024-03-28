@@ -12,7 +12,7 @@
         <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
 
           <div class="offcanvas-header justify-content-start">
-            <img src="../inc/logo.svg" alt="Logo IDK" width="50px" height="50px" class="img-fluid logo-white ms-3">
+            <img src="../logo.svg" alt="Logo IDK" width="50px" height="50px" class="img-fluid logo-white ms-3">
             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
           </div>
 
