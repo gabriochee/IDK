@@ -131,8 +131,12 @@ body {
   color: white;
 }
 
-.no-x-overflow{
+.overflox-y-hidden{
   overflow-x: hidden;
+}
+
+.max-height{
+  max-height: 30vh;
 }
 
 @media (min-width: 576px) {
