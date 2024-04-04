@@ -24,27 +24,27 @@
 
         <div class="container col-sm-6 col-xl-4">
             <form action="" class="needs-validation" method="post">
-                <div class="container px-sm-4 col-sm-11">
-                    <input type="text" class="form-control fs-3 minimize-input border-dark border-2 rounded-0 rounded-top text-center py-3" id="username" placeholder="Addresse email/pseudo" value="" required="">
+                <div class="container px-sm-4 col-sm-10">
+                    <input type="text" class="form-control fs-4 minimize-input border-dark border-2 rounded-0 rounded-top text-center py-3" id="username" placeholder="Addresse email/pseudo" value="" required="">
                     <div class="invalid-feedback">Veuillez fournir un pseudo ou email valide.</div>
                 </div>
 
-                <div class="container px-sm-4 col-sm-11">
-                    <input type="password" class="form-control fs-3 minimize-input border-dark border-2 rounded-0 rounded-bottom text-center py-3" name="password" id="password" placeholder="Mot de passe" value="" required="">
+                <div class="container px-sm-4 col-sm-10">
+                    <input type="password" class="form-control fs-4 minimize-input border-dark border-2 rounded-0 rounded-bottom text-center py-3" name="password" id="password" placeholder="Mot de passe" value="" required="">
                     <div class="invalid-feedback">Veuillez fournir un mot de passe valide.</div>
                 </div>
 
-                <div class="container px-sm-4 col-sm-11 mt-4">
-                    <button class="btn btn-lg w-100 py-3 fs-3 btn-warning border-dark border-2" type="submit">
+                <div class="container px-sm-4 col-sm-10 mt-4">
+                    <button class="btn btn-lg w-100 py-2 fs-4 btn-warning border-dark border-2" type="submit">
                         Connexion
                     </button>
                 </div>
 
-                <div class="container px-sm-4 col-sm-11 mt-4">
-                    <button class="btn btn-lg w-100 py-2 mt-5 fs-3 btn-warning border-dark border-2" type="submit">
+                <div class="container px-sm-4 col-sm-10 mt-4">
+                    <button class="btn btn-lg w-100 py-2 mt-5 fs-4 btn-warning border-dark border-2" type="submit">
                         S'inscrire
                     </button>
-                    <button class="btn btn-lg w-100 py-2 my-2 fs-3 btn-warning border-dark border-2" type="submit">
+                    <button class="btn btn-lg w-100 py-2 my-2 fs-4 btn-warning border-dark border-2" type="submit">
                         Mot de passe oublié
                     </button>
                 </div>
