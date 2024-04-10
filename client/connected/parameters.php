@@ -20,8 +20,8 @@
             <h3 class="my-auto ms-5">Pseudo utilisateur</h3>
         </div>
 
-        <div class="container col-sm-10 col-xl-8">
-            <form action="" class="needs-validation" method="post">
+        <form action="" class="needs-validation" method="post">
+            <div class="container col-sm-10 col-xl-8">
                 <div class="container d-lg-flex justify-content-center justify-content-evenly">
                     <div class="col-lg-5">
                         <label for="lastname" class="form-label fs-3 m-0">Nom</label>
@@ -121,32 +121,29 @@
                         Modifier les informations
                     </button>
                 </div>
+            </div>
+            <div class="container-fluid mt-5">
+                <p class="container fs-3 col-sm-3 m-0 fw-bold">Préférences newsletter : </p>
+                <div class="d-sm-flex container col-5 ps-0 mx-0 my-4">
 
-                <div class="container">
-                    <div class="container my-3 col-11">
-                        <p class="container fs-3 col-sm-2 m-0">Préférences newsletter : </p>
+                    <h4 class="col-4 text-center mb-0 mt-1">Abonnement : </h4>
+                    
+                    <div class="d-flex align-items-center ms-2 me-5">
+                        <input id="yes" name="choice" type="radio" class="form-check-input bigger-radio border-dark border-1" required>
+                        <label class="form-check-label fs-3 mx-2" for="choice">Oui</label>
+                    </div>
 
-                        <div class="d-sm-flex container ps-0">
-
-                            <div class="container d-flex align-items-center">
-                                <input id="man" name="paymentMethod" type="radio" class="form-check-input bigger-radio border-dark border-1" required>
-                                <label class="form-check-label fs-3 mx-2" for="credit">Homme</label>
-                            </div>
-
-                            <div class="container d-flex align-items-center">
-                                <input id="woman" name="paymentMethod" type="radio" class="form-check-input bigger-radio border-dark border-1" required>
-                                <label class="form-check-label fs-3 mx-2" for="credit">Femme</label>
-                            </div>
-
-                            <div class="container d-flex align-items-center">
-                                <input id="other" name="paymentMethod" type="radio" class="form-check-input bigger-radio border-dark border-1" required>
-                                <label class="form-check-label fs-3 mx-2" for="credit">Autre</label>
-                            </div>
-                        </div>
+                    <div class="d-flex align-items-center">
+                        <input id="no" name="choice" type="radio" class="form-check-input bigger-radio border-dark border-1" required>
+                        <label class="form-check-label fs-3 mx-2" for="choice">Non</label>
                     </div>
                 </div>
-            </form>
-        </div>
+            </div>
+            <a class="fs-4 fw-bold col-4 mb-0 mt-1 link-dark link-underline-opacity-0 link-underline-opacity-100-hover ms-4" href=#>Exporter ses données</a>
+            <br>
+            <br>
+            <a class="fs-4 fw-bold col-4 mb-0 mt-1 link-dark link-underline-opacity-0 link-underline-opacity-100-hover ms-4" href=#>Se désinscrire</a>
+        </form>
 
     </main>
 
