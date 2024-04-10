@@ -19,22 +19,26 @@
           <div class="offcanvas-body d-md-flex gap-lg-5">
             <ul class="nav justify-content-center fw-light me-lg-5 col-xl-5">
               <li>
-                <a href="#" class="nav-link text-white">Acceuil</a>
+                <a <?php if(basename($_SERVER['PHP_SELF']) == 'home.php') echo 'class="nav-link text-decoration-underline text-white"'; ?> class="nav-link text-white" href="../../client/not_connected/home.php" class="nav-link text-white">Acceuil</a>
               </li>
               <li>
-                <a href="#" class="nav-link text-white">Questionnaire</a>
+                <a <?php if(basename($_SERVER['PHP_SELF']) == 'questionnaire.php') echo 'class="nav-link text-decoration-underline text-white"'; ?> class="nav-link text-white" href="../../client/not_connected/questionnaire.php" class="nav-link text-white">Questionnaire</a>
               </li>
               <li>
-                <a href="#" class="nav-link text-white">A propos</a>
+                <a <?php if(basename($_SERVER['PHP_SELF']) == 'about.php') echo 'class="nav-link text-decoration-underline text-white"'; ?> class="nav-link text-white" href="../../client/not_connected/about.php" class="nav-link text-white">A propos</a>
               </li>
             </ul>
 
             <ul class="navbar-nav d-flex justify-content-lg-end align-items-center gap-2 flex-grow-1 col-3 m-md-0 m-auto">
               <li class="nav-item">
-                <button class="nav-btn btn btn-primary btn-sm btn-warning text-white border border-light border-2 rounded-3">Inscription</button>
+                <a href="../../client/not_connected/signin.php">
+                  <button class="nav-btn btn btn-primary btn-sm btn-warning text-white border border-light border-2 rounded-3">Inscription</button>
+                </a>
               </li>
               <li class="nav-item">
-                <button class="nav-btn btn btn-primary btn-sm btn-warning text-white border border-light border-2 rounded-3">Connexion</button>
+                <a href="../../client/connected/login.php">
+                  <button class="nav-btn btn btn-primary btn-sm btn-warning text-white border border-light border-2 rounded-3">Connexion</button>
+                </a>
               </li>
               <li class="nav-item">
                 <button class="nav-link btn">

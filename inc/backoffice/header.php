@@ -1,65 +1,14 @@
-<header class="bg-dark text-white p-1">
-  <div class="container d-flex align-items-center justify-content-center justify-content-md-between border-bottom p-0">
-    <nav class="navbar col-2">
-      <img src="../../inc/logo.svg" alt="Logo IDK" class="navbar-brand img-fluid logo-white" width="50px" height="50px">
-    </nav>
-
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark d-flex flex-lg-fill ms-3">
-      <div class="container-fluid ps-5 pe-0">
-        <button class="navbar-toggler bg-warning" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
-
-          <div class="offcanvas-header justify-content-start">
-            <img src="../logo.svg" alt="Logo IDK" width="50px" height="50px" class="img-fluid logo-white ms-3">
-            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-          </div>
-
-          <div class="offcanvas-body d-md-flex gap-lg-5">
-            <ul class="nav justify-content-center fw-light me-xl-5 col-1 col-sm-4 col-md-9 m-auto">
-              <li>
-                <a href="#" class="nav-link text-white">Acceuil</a>
-              </li>
-              <li>
-                <a href="#" class="nav-link text-white">Pages</a>
-              </li>
-              <li>
-                <a href="#" class="nav-link text-white">Utilisateurs</a>
-              </li>
-              <li>
-                <a href="#" class="nav-link text-white">Messagerie</a>
-              </li>
-              <li>
-                <a href="#" class="nav-link text-white">Fonctions</a>
-              </li>
-              <li>
-                <a href="#" class="nav-link text-white">Listes</a>
-              </li>
-              <li>
-                <a href="#" class="nav-link text-white">Commentaires</a>
-              </li>
-              <li>
-                <a href="#" class="nav-link text-white">Newsletter</a>
-              </li>
-            </ul>
-
-            <ul class="navbar-nav d-flex justify-content-lg-end align-items-center gap-2 flex-grow-1 m-md-0 mt-5">
-              <li class="nav-item">
-                <button class="nav-btn btn btn-primary btn-sm btn-warning text-white border border-light border-2 rounded-3">Déconnexion</button>
-              </li>
-              <li class="nav-item">
-                <button class="nav-link btn">
-                  <i class="bi bi-moon-stars"></i>
-                </button>
-              </li>
-            </ul>
-          </div>
+<header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+    <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="../admin/home_backoffice.php">
+        <img src="../inc/logo.svg" alt="Logo IDK" class="logo-white" width="40px" height="40px">
+    </a>
+    <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <input class="form-control form-control-dark w-100" type="text" placeholder="Recherche" aria-label="Search">
+    <div class="navbar-nav">
+        <div class="nav-item text-nowrap">
+            <a class="nav-link px-3" href="#">Déconnexion</a>
         </div>
-      </div>
-    </nav>
-  </div>
-  <form class="d-flex justify-content-center col-5 m-auto mt-2 mb-2">
-    <input type="search" class="form-control bg-dark text-white form-control-dark" placeholder="Rechercher..." aria-label="Search">
-  </form>
+    </div>
 </header>

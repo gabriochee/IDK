@@ -1,8 +1,7 @@
 <footer class="bg-dark text-white pt-2 fw-light mt-3">
     <div class="container-fluid px-5">
         <div class="container-fluid d-md-flex justify-content-lg-center align-items-center border-bottom px-0">
-            <div class="container-fluid p-0 d-flex flex-column align-items-md-start align-items-center">
-                <img src="../../inc/logo.svg" alt="Logo IDK" width="30px" height="30px" class="img-flip logo-white mb-3">
+            <div class="container-fluid p-0 d-flex flex-column align-items-md-start align-items-center my-3">
                 <p class="col-10 text-md-start text-center m-auto m-md-0 pe-md-3 mb-5">
                     Here you can use rows and columns to organize your footer content.
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit.
@@ -11,16 +10,16 @@
             <div class="container-fluid col-7 fs-6 pe-0 ps-xl-5">
                 <ul class="nav justify-content-center justify-content-between">
                     <li class="nav-item">
-                        <a href="#" class="nav-link text-white text-start">Questionnaire</a>
+                        <a <?php if(basename($_SERVER['PHP_SELF']) == 'questionnaire.php') echo 'class="nav-link text-decoration-underline text-white"'; ?> class="nav-link text-white" href="../../client/connected/questionnaire.php" class="nav-link text-white text-start">Questionnaire</a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link text-white text-start">A propos</a>
+                        <a <?php if(basename($_SERVER['PHP_SELF']) == 'about.php') echo 'class="nav-link text-decoration-underline text-white"'; ?> class="nav-link text-white" href="../../client/connected/about.php" class="nav-link text-white text-start">A propos</a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link text-white text-start">Conditions générales</a>
+                        <a <?php if(basename($_SERVER['PHP_SELF']) == 'terms_and_conditions.php') echo 'class="nav-link text-decoration-underline text-white"'; ?> class="nav-link text-white" href="../../client/connected/terms_and_conditions.php" class="nav-link text-white text-start">Conditions générales</a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link text-white text-start">Contact</a>
+                        <a <?php if(basename($_SERVER['PHP_SELF']) == 'contact.php') echo 'class="nav-link text-decoration-underline text-white"'; ?> class="nav-link text-white" href="../../client/connected/contact.php" class="nav-link text-white text-start">Contact</a>
                     </li>
                 </ul>
             </div>

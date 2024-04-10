@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../inc/functions.php">
     <link rel="stylesheet" href="../../inc/style.css">
     <link rel="stylesheet" href="../../bootstrap/bootstrap-icons/font/bootstrap-icons.min.css">
-    <script src="../../bootstrap/js/bootstrap.bundle.min.js"></script>
     <title>IDK</title>
 </head>
 
@@ -126,6 +126,8 @@
     </main>
 
     <?php require('../../inc/not_connected/footer.php'); ?>
-</body>
 
+<script src="../../bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../../inc/script.js"></script>
+</body>
 </html>

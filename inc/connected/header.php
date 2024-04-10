@@ -12,17 +12,17 @@
         <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
 
           <div class="offcanvas-header justify-content-start">
-            <img src="../logo.svg" alt="Logo IDK" width="50px" height="50px" class="img-fluid logo-white ms-3">
+            <img src="../../logo.svg" alt="Logo IDK" width="50px" height="50px" class="img-fluid logo-white ms-3">
             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
           </div>
 
           <div class="offcanvas-body d-md-flex gap-lg-5">
             <ul class="nav justify-content-center fw-light me-xl-5 col-1 col-sm-4 col-md-9 m-auto">
               <li>
-                <a href="#" class="nav-link text-white">Acceuil</a>
+                <a <?php if(basename($_SERVER['PHP_SELF']) == 'home.php') echo 'class="nav-link text-decoration-underline text-white"'; ?> class="nav-link text-white" href="../../client/connected/home.php" class="nav-link text-white">Acceuil</a>
               </li>
               <li>
-                <a href="#" class="nav-link text-white">Questionnaire</a>
+              <a <?php if(basename($_SERVER['PHP_SELF']) == 'questionnaire.php') echo 'class="nav-link text-decoration-underline text-white"'; ?> class="nav-link text-white" href="../../client/connected/questionnaire.php" class="nav-link text-white">Questionnaire</a>
               </li>
               <li>
                 <a href="#" class="nav-link text-white">Fusion</a>
