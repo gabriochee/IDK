@@ -23,26 +23,26 @@
                 <div class="container d-lg-flex justify-content-center justify-content-evenly">
                     <div class="col-lg-5">
                         <label for="lastname" class="form-label fs-3 m-0">Nom</label>
-                        <input type="text" class="form-control fs-1 border-dark border-2 rounded-3" id="lastname" placeholder="" value="" required="">
+                        <input type="text" class="form-control fs-3 border-dark border-2 rounded-3" id="lastname" placeholder="" value="" required="">
                         <div class="invalid-feedback">Veuillez fournir un nom valide.</div>
                     </div>
 
                     <div class="col-lg-5">
                         <label for="firstname" class="form-label fs-3 m-0">Prenom</label>
-                        <input type="text" class="form-control fs-1 border-dark border-2 rounded-3" id="firstname" placeholder="" value="" required="">
+                        <input type="text" class="form-control fs-3 border-dark border-2 rounded-3" id="firstname" placeholder="" value="" required="">
                         <div class="invalid-feedback">Veuillez fournir un prénom valide.</div>
                     </div>
                 </div>
 
                 <div class="container px-sm-4 col-sm-11">
                     <label for="phone" class="form-label fs-3 m-0 mt-3">Numéro de téléphone</label>
-                    <input type="number" class="form-control fs-1 border-dark border-2 rounded-3" id="phone" placeholder="" value="" required="">
+                    <input type="number" class="form-control fs-3 border-dark border-2 rounded-3" id="phone" placeholder="" value="" required="">
                     <div class="invalid-feedback">Veuillez fournir un numéro de téléphone valide.</div>
                 </div>
 
                 <div class="container px-sm-4 col-sm-11">
                     <label for="mail" class="form-label fs-3 m-0 mt-3">Email</label>
-                    <input type="email" class="form-control fs-1 border-dark border-2 rounded-3" name="mail" id="mail" required>
+                    <input type="email" class="form-control fs-3 border-dark border-2 rounded-3" name="mail" id="mail" required>
                     <div class="invalid-feedback">Veuillez fournir un prénom valide.</div>
                 </div>
 
