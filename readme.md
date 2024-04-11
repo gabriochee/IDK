@@ -42,6 +42,8 @@
   ```
 
 - Pas de lignes HTML trop longues. Il est assez pénible de devoir scroller a essayer d'aller d'un bout à l'autre d'une ligne alors n'hésitez pas à casser vos lignes.
+
+  Surtout que les éditeurs modernes vous donnent la possibilité de casser les lignes automatiquement afin de vous fournir un affichage optimal.
   ```html
   <h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean non purus id quam ornare venenatis in ut justo. In hac habitasse platea dictumst. Phasellus at maximus orci. Vivamus efficitur sit amet orci id luctus. Nullam molestie dapibus orci <span style="font-weight : 2em;">sit amet</span> molestie.</h3>
                                                                                                                                                                                                                                                   <!-- Imaginez scroller a chaque fois pour modifier ce span... -->
