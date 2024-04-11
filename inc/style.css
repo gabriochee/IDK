@@ -1,4 +1,4 @@
-body {
+body, .bg-idk{
     background-color: #E8EDDF;
   }
 /* ---------------------------------------------------------
@@ -137,6 +137,14 @@ body {
 
 .max-height{
   max-height: 30vh;
+}
+
+/* ------------------------ ERROR ------------------------- */
+
+.error-background{
+  background-image: url("../inc/background_error.svg");
+  background-repeat: round repeat;
+  background-size: 300px;
 }
 
 @media (min-width: 576px) {
