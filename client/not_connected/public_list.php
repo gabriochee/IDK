@@ -44,6 +44,7 @@
                 <?php require('../../inc/components/card.php'); ?>
                 <?php require('../../inc/components/card.php'); ?>
                 <?php require('../../inc/components/card.php'); ?>
+                <?php require('../../inc/components/card.php'); ?>
             </div>
         </div>
 

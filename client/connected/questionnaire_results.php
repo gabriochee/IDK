@@ -44,7 +44,7 @@
             <a href="#" class="btn btn-primary btn-sm btn-warning border border-dark border-2 rounded-3 fs-4 col-md-3">Ajouter à une liste</a>
         </div>
 
-        <div class="container-fluid col-10 fs-5 border border-2 border-dark overflow-auto max-height" style="background-color : #CFDBD5;">
+        <div class="container-fluid col-10 fs-5 border border-2 border-dark overflow-auto list-list-height" style="background-color : #CFDBD5;">
             <ul>
                 <?php 
                     for ($i = 1; $i <= 11; $i++){

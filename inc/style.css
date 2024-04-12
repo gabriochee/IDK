@@ -131,10 +131,6 @@ body, .bg-idk{
   color: white;
 }
 
-.max-height{
-  max-height: 30vh;
-}
-
 /* ------------------------ ERROR ------------------------- */
 
 .error-background{
@@ -142,6 +138,14 @@ body, .bg-idk{
   background-repeat: round repeat;
   background-size: 300px;
 }
+
+/* ----------- QUESTIONNAIRE - RESULTS - CONNECTED ----------- */
+
+.list-list-height{
+  max-height: 30vh;
+}
+
+/* ------------------- GENERAL ------------------ */
 
 .no-overflow-x{
   overflow-x: hidden !important;
