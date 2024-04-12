@@ -131,10 +131,6 @@ body, .bg-idk{
   color: white;
 }
 
-.overflox-y-hidden{
-  overflow-x: hidden;
-}
-
 .max-height{
   max-height: 30vh;
 }
@@ -145,6 +141,10 @@ body, .bg-idk{
   background-image: url("../inc/background_error.svg");
   background-repeat: round repeat;
   background-size: 300px;
+}
+
+.no-overflow-x{
+  overflow-x: hidden !important;
 }
 
 @media (min-width: 576px) {

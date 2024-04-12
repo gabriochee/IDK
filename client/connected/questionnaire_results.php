@@ -25,46 +25,11 @@
         </div>
 
         <div class="d-lg-flex row row-cols-lg-6 row-cols-2 row-cols-md-3 gap-3 justify-content-center mt-5 pt-5">
-            <div class="card border-2 rounded-0" style="background-color: #CFDBD5;">
-                <img src="../../inc/movie_card_placeholder.jpg" class="card-img-top rounded-0 border-2 border-dark p-4" alt="...">
-                <div class="card-body text-center">
-                    <h5 class="card-title mb-4">Nom oeuvre</h5>
-                    <a href="#" class="nav-btn btn btn-primary btn-sm btn-warning border border-dark border-2 rounded-3 fs-4">En voir plus</a>
-                </div>
-            </div>
-
-            <div class="card border-2 rounded-0" style="background-color: #CFDBD5;">
-                <img src="../../inc/movie_card_placeholder.jpg" class="card-img-top rounded-0 border-2 border-dark p-4" alt="...">
-                <div class="card-body text-center">
-                    <h5 class="card-title mb-4">Nom oeuvre</h5>
-                    <a href="#" class="nav-btn btn btn-primary btn-sm btn-warning border border-dark border-2 rounded-3 fs-4">En voir plus</a>
-                </div>
-            </div>
-
-            <div class="card border-2 rounded-0" style="background-color: #CFDBD5;">
-                <img src="../../inc/movie_card_placeholder.jpg" class="card-img-top rounded-0 border-2 border-dark p-4" alt="...">
-                <div class="card-body text-center">
-                    <h5 class="card-title mb-4">Nom oeuvre</h5>
-                    <a href="#" class="nav-btn btn btn-primary btn-sm btn-warning border border-dark border-2 rounded-3 fs-4">En voir plus</a>
-                </div>
-            </div>
-
-            <div class="card border-2 rounded-0" style="background-color: #CFDBD5;">
-                <img src="../../inc/movie_card_placeholder.jpg" class="card-img-top rounded-0 border-2 border-dark p-4" alt="...">
-                <div class="card-body text-center">
-                    <h5 class="card-title mb-4">Nom oeuvre</h5>
-                    <a href="#" class="nav-btn btn btn-primary btn-sm btn-warning border border-dark border-2 rounded-3 fs-4">En voir plus</a>
-                </div>
-            </div>
-
-            <div class="card border-2 rounded-0" style="background-color: #CFDBD5;">
-                <img src="../../inc/movie_card_placeholder.jpg" class="card-img-top rounded-0 border-2 border-dark p-4" alt="...">
-                <div class="card-body text-center">
-                    <h5 class="card-title mb-4">Nom oeuvre</h5>
-                    <a href="#" class="nav-btn btn btn-primary btn-sm btn-warning border border-dark border-2 rounded-3 fs-4">En voir plus</a>
-                </div>
-            </div>
-
+            <?php require('../../inc/components/card.php'); ?>
+            <?php require('../../inc/components/card.php'); ?>
+            <?php require('../../inc/components/card.php'); ?>
+            <?php require('../../inc/components/card.php'); ?>
+            <?php require('../../inc/components/card.php'); ?>
         </div>
 
         <div class="container-fluid d-flex flex-column text-center">
@@ -81,17 +46,11 @@
 
         <div class="container-fluid col-10 fs-5 border border-2 border-dark overflow-auto max-height" style="background-color : #CFDBD5;">
             <ul>
-                <li class="py-2">Liste 1 - Ajouter</li>
-                <li class="py-2"> Liste 2 - Ajouter</li>
-                <li class="py-2"> Liste 3 - Ajouter</li>
-                <li class="py-2"> Liste 4 - Ajouter</li>
-                <li class="py-2"> Liste 5 - Ajouter</li>
-                <li class="py-2"> Liste 6 - Ajouter</li>
-                <li class="py-2"> Liste 7 - Ajouter</li>
-                <li class="py-2"> Liste 8 - Ajouter</li>
-                <li class="py-2"> Liste 9 - Ajouter</li>
-                <li class="py-2"> Liste 10 - Ajouter</li>
-                <li class="py-2"> Liste 11 - Ajouter</li>
+                <?php 
+                    for ($i = 1; $i <= 11; $i++){
+                        echo "<li class='py-2'> Liste $i - <a href='#' class='link-dark link-underline-opacity-0 link-underline-opacity-100-hover'>Ajouter</a></li>";
+                    }
+                ?>
             </ul>
         </div>
 
