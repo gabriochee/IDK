@@ -12,7 +12,7 @@
     </head>
 
     <body id="connected-Oeuvre">
-        <?php require('../../inc/connected/header.php'); ?>
+        <?php require('../../inc/not_connected/header.php'); ?>
 
         <div class="container mt-5">
             <div class="row justify-content-center">
@@ -180,6 +180,6 @@
                 
             </div>
         </div>
-        <?php require('../../inc/connected/footer.php'); ?>
+        <?php require('../../inc/not_connected/footer.php'); ?>
     </body>
 </html>
