@@ -125,6 +125,46 @@ body, .bg-idk{
   resize: none;
 }
 
+/* ----------------- HOME - CONNECTED --------------- */
+@media(max-width: 490px){
+  #connected-home .small-text {
+    font-size: 50% !important;
+  }
+}
+
+
+/* ----------------- OEUVRE - CONNECTED --------------- */
+
+#connected-Oeuvre .text{
+  font-size: 80%;
+}
+
+
+#connected-Oeuvre .img-custom-1{
+  width: 25rem;
+}
+
+@media(max-width: 490px){
+  #connected-Oeuvre .text{
+    font-size: 10px;
+  }
+}
+#connected-Oeuvre .text-card{
+  font-size: 10px;
+}
+#connected-Oeuvre .text-note{
+  font-size: 5px;
+}
+
+#connected-Oeuvre .color-custom-1{
+  background: #D9D9D9;
+}
+
+#connected-Oeuvre .color-custom-2{
+  background: #CFDBD5;
+}
+
+
 /* ------------------------- FOOTER ------------------------ */
 
 .icon-white {

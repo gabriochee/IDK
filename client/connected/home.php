@@ -11,7 +11,7 @@
         <title>IDK</title>
     </head>
 
-    <body>
+    <body id="connected-home">
         <?php require('../../inc/connected/header.php'); ?>
         <section>
             <div class="container">
@@ -77,10 +77,10 @@
                 </div>
 
                 <div class="d-flex  flex-row-reverse bd-highlight ">
-                    <a href="#" class="m-3 btn btn-primary btn-warning text-white border border-light border-2">Voir plus</a>
-                    <button type="button" href="#" class="m-3 btn btn-primary btn-warning text-white border border-light border-2">Partager</button>
-                    <button type="button" class="m-3 btn btn-primary btn-warning text-white border border-light border-2">Supprimer</button>
-                    <button type="button" class="m-3 p-2 btn btn-primary btn-warning text-white border border-light border-2">Renommer</button>
+                    <a href="#" class="m-3 btn btn-primary btn-warning text-white border border-light border-2 small-text">Voir plus</a>
+                    <button type="button" href="#" class="m-3 btn btn-primary btn-warning text-white border border-light border-2 small-text">Partager</button>
+                    <button type="button" class="m-3 btn btn-primary btn-warning text-white border border-light border-2 small-text">Supprimer</button>
+                    <button type="button" class="m-3 p-2 btn btn-primary btn-warning text-white border border-light border-2 small-text">Renommer</button>
                 </div>
             </div>
 
@@ -138,10 +138,10 @@
                 </div>
 
                 <div class="d-flex  flex-row-reverse bd-highlight ">
-                    <a href="#" class="m-3 btn btn-primary btn-warning text-white border border-light border-2">Voir plus</a>
-                    <button type="button" href="#" class="m-3 btn btn-primary btn-warning text-white border border-light border-2">Partager</button>
-                    <button type="button" class="m-3 btn btn-primary btn-warning text-white border border-light border-2">Supprimer</button>
-                    <button type="button" class="m-3 p-2 btn btn-primary btn-warning text-white border border-light border-2">Renommer</button>
+                    <a href="#" class="m-3 btn btn-primary btn-warning text-white border border-light border-2 small-text">Voir plus</a>
+                    <button type="button" href="#" class="m-3 btn btn-primary btn-warning text-white border border-light border-2 small-text">Partager</button>
+                    <button type="button" class="m-3 btn btn-primary btn-warning text-white border border-light border-2 small-text">Supprimer</button>
+                    <button type="button" class="m-3 p-2 btn btn-primary btn-warning text-white border border-light border-2 small-text">Renommer</button>
                 </div>
             </div>
 
@@ -198,10 +198,10 @@
                 </div>
 
                 <div class="d-flex  flex-row-reverse bd-highlight ">
-                    <a href="#" class="m-3 btn btn-primary btn-warning text-white border border-light border-2">Voir plus</a>
-                    <button type="button" href="#" class="m-3 btn btn-primary btn-warning text-white border border-light border-2">Partager</button>
-                    <button type="button" class="m-3 btn btn-primary btn-warning text-white border border-light border-2">Supprimer</button>
-                    <button type="button" class="m-3 p-2 btn btn-primary btn-warning text-white border border-light border-2">Renommer</button>
+                    <a href="#" class="m-3 btn btn-primary btn-warning text-white border border-light border-2 small-text">Voir plus</a>
+                    <button type="button" href="#" class="m-3 btn btn-primary btn-warning text-white border border-light border-2 small-text">Partager</button>
+                    <button type="button" class="m-3 btn btn-primary btn-warning text-white border border-light border-2 small-text">Supprimer</button>
+                    <button type="button" class="m-3 p-2 btn btn-primary btn-warning text-white border border-light border-2 small-text">Renommer</button>
                 </div>
             </div>
             
