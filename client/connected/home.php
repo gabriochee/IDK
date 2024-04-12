@@ -221,7 +221,7 @@
             
 
 
-
+        
 
 
             
@@ -245,6 +245,66 @@
                     </div>
                 </div>
             </div>
+
+            <hr class="featurette-divider">
+            <h1 class="text-center">Liste les plus populaires</h1>
+            <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                </div>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#E8EDDF"/></svg>
+                        <div class="container">
+                            <div class="carousel-caption text-start text-dark d-flex">
+                                <div class="w-50">
+                                    <h1><br>Nom œuvre</h1>
+                                    <p><br><br>De Antoine Dupont<br>Genre<br>Sortie le jj/mm/aaaa<br><br><br></p>
+                                    <button class="nav-btn btn btn-primary btn-lg btn-warning text-white border border-light border-2 rounded-3 d-flex m-auto">En voir plus</button>
+                                </div>
+                                <div class="w-50" style="background-color: #5956CA;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#E8EDDF"/></svg>
+                        <div class="container">
+                            <div class="carousel-caption text-start text-dark d-flex">
+                                <div class="w-50">
+                                    <h1><br>Nom œuvre</h1>
+                                    <p><br>De Antoine Dupont<br>Genre<br>Sortie le jj/mm/aaaa<br><br><br><br></p>
+                                    <button class="nav-btn btn btn-primary btn-lg btn-warning text-white border border-light border-2 rounded-3 d-flex m-auto">En voir plus</button>
+                                </div>
+                                <div class="w-50" style="background-color: #5956CA;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#E8EDDF"/></svg>
+                        <div class="container">
+                            <div class="carousel-caption text-start text-dark d-flex">
+                                <div class="w-50">
+                                    <h1><br>Nom œuvre</h1>
+                                    <p><br>De Antoine Dupont<br>Genre<br>Sortie le jj/mm/aaaa<br><br><br><br></p>
+                                    <button class="nav-btn btn btn-primary btn-lg btn-warning text-white border border-light border-2 rounded-3 d-flex m-auto">En voir plus</button>
+                                </div>
+                                <div class="w-50" style="background-color: #5956CA;"></div>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+
 
             <div class="container marketing">
                 <hr class="featurette-divider">

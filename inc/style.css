@@ -136,32 +136,32 @@ body, .bg-idk{
 /* ----------------- OEUVRE - CONNECTED --------------- */
 
 #connected-Oeuvre .text{
-  font-size: 80%;
+  font-size: 80% !important;
 }
 
 
 #connected-Oeuvre .img-custom-1{
-  width: 25rem;
+  width: 25rem !important;
 }
 
 @media(max-width: 490px){
   #connected-Oeuvre .text{
-    font-size: 10px;
+    font-size: 10px !important;
   }
 }
 #connected-Oeuvre .text-card{
-  font-size: 10px;
+  font-size: 10px !important;
 }
 #connected-Oeuvre .text-note{
-  font-size: 5px;
+  font-size: 5px !important;
 }
 
 #connected-Oeuvre .color-custom-1{
-  background: #D9D9D9;
+  background: #D9D9D9 !important;
 }
 
 #connected-Oeuvre .color-custom-2{
-  background: #CFDBD5;
+  background: #CFDBD5 !important;
 }
 
 
