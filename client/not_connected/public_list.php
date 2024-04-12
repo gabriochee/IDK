@@ -23,7 +23,7 @@
             <h5>Publiée le jj/mm/aaaa</h5>
         </div>
 
-        <div class="container">
+        <div class="container mt-sm-0 mt-5">
             <h5>De <a href="#" class="link-dark link-underline-opacity-0 link-underline-opacity-100-hover">Eric123</a>
                 <br>
                 <br>
@@ -38,7 +38,7 @@
         </div>
 
         <!-- besoin de changer la taille verticale de cette div, si vous trouvez comment faire dites moi svp. -->
-        <div class="container m-0 mt-5 p-0 w-75 m-auto border border-3 border-dark rounded-3 overflow-auto no-overflow-x" style="background-color: #CFDBD5;">
+        <div class="container m-0 mt-5 p-0 w-75 list-height m-auto border border-3 border-dark rounded-3 overflow-auto no-overflow-x" style="background-color: #CFDBD5;">
             <div class="d-lg-flex row gx-2 gy-3 px-5 py-4 row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-1">
                 <?php require('../../inc/components/card.php'); ?>
                 <?php require('../../inc/components/card.php'); ?>

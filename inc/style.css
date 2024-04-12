@@ -145,6 +145,18 @@ body, .bg-idk{
   max-height: 30vh;
 }
 
+/* ---------------- PUBLIC - LIST ------------------- */
+
+.list-height{
+  max-height: 29rem;
+}
+
+@media screen and (max-width: 1024px) {
+  .list-height{
+    max-height: 24rem;
+  }
+}
+
 /* ------------------- GENERAL ------------------ */
 
 .no-overflow-x{
