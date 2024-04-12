@@ -10,7 +10,7 @@
     <title>IDK</title>
 </head>
 <body>
-    <?php require('../../inc/not_connected/header.php');?>      
+    <?php require('../../inc/connected/header.php');?>      
     <main>
 
         <div class="container text-center m-auto">
@@ -158,7 +158,7 @@
         </div>
 
     </main>
-    <?php require('../../inc/not_connected/footer.php'); ?>
+    <?php require('../../inc/connected/footer.php'); ?>
 
 <script src="../../bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="../../inc/script.js"></script>
