@@ -10,76 +10,77 @@
     <title>IDK</title>
 </head>
 
-<body>
-    <?php require('../../inc/connected/header.php'); ?>
+<body id="connected_contact">
+    <?php require('../../inc/not_connected/header.php'); ?>
 
     <main>
-        <div class="container-fluid d-flex justify-content-center my-5 py-2">
-            <img src="../../inc/logo.svg" alt="Logo IDK" class="img-thumbnail bg-transparent border-0">
+        <div class="container-fluid d-flex justify-content-center">
+            <div class="d-flex flex-column my-5 gap-5 text-center">
+                <img src="../../inc/logo.svg" alt="Logo IDK" width="200px" height="200px" class="container-fluid img-thumbnail bg-transparent border-0">
+                <h3 class="mt-1">Contact</h3>
+            </div>
         </div>
-
-        <div class="container col-sm-10 col-xl-8">
-            <form action="" class="needs-validation" method="post">
-                <div class="container d-lg-flex justify-content-center justify-content-evenly">
-                    <div class="col-lg-5">
-                        <label for="lastname" class="form-label fs-3 m-0">Nom</label>
-                        <input type="text" class="form-control fs-3 border-dark border-2 rounded-3" id="lastname" placeholder="" value="" required="">
-                        <div class="invalid-feedback">Veuillez fournir un nom valide.</div>
-                    </div>
-
-                    <div class="col-lg-5">
-                        <label for="firstname" class="form-label fs-3 m-0">Prenom</label>
-                        <input type="text" class="form-control fs-3 border-dark border-2 rounded-3" id="firstname" placeholder="" value="" required="">
-                        <div class="invalid-feedback">Veuillez fournir un prénom valide.</div>
-                    </div>
-                </div>
-
-                <div class="container px-sm-4 col-sm-11">
-                    <label for="phone" class="form-label fs-3 m-0 mt-3">Numéro de téléphone</label>
-                    <input type="number" class="form-control fs-3 border-dark border-2 rounded-3" id="phone" placeholder="" value="" required="">
-                    <div class="invalid-feedback">Veuillez fournir un numéro de téléphone valide.</div>
-                </div>
-
-                <div class="container px-sm-4 col-sm-11">
-                    <label for="mail" class="form-label fs-3 m-0 mt-3">Email</label>
-                    <input type="email" class="form-control fs-3 border-dark border-2 rounded-3" name="mail" id="mail" required>
-                    <div class="invalid-feedback">Veuillez fournir un prénom valide.</div>
-                </div>
-
-                <div class="container px-sm-4 col-sm-11">
-                    <label for="message" class="form-label fs-3 m-0 mt-3">Message</label>
-                    <textarea class="form-control fs-5 border-dark border-2 rounded-3 not-resizable" name="message" id="message" rows="10" cols="50" maxlength="950"></textarea>
-                    <div class="invalid-feedback">Veuillez fournir un message valide.</div>
-                </div>
-
-                <div class="container d-sm-flex justify-content-center my-3 col-11">
-                    <p class="container fs-3 col-lg-5 m-0">Canal de réponse : </p>
-
-                    <div class="d-sm-flex justify-content-center container ps-0">
-
-                        <div class="container d-flex align-items-center">
-                            <input id="mail" name="paymentMethod" type="radio" class="form-check-input bigger-radio border-dark border-1" value="mail" required>
-                            <label class="form-check-label fs-3 mx-2" for="mail">Mail</label>
+        <div class="contact-form row g-5 justify-content-center mb-4">
+            <div class="col-md-7 col-lg-8">
+                <form  method="post" id="form-contact">
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <label for="sexe" class="form-label">Sexe</label>
+                            <select class="form-select" id="sexe" name="sexe" required>
+                                <option value="Mr">Homme</option>
+                                <option value="Mme">Femme</option>
+                                <option value="Mme">Autre</option>
+                            </select>
                         </div>
-
-                        <div class="container d-flex align-items-center">
-                            <input id="message" name="paymentMethod" type="radio" class="form-check-input bigger-radio border-dark border-1" value="message" required>
-                            <label class="form-check-label fs-3 mx-2" for="message">Messagerie</label>
+                        <div class="col-sm-6">
+                            <label for="firstName" class="form-label">Prénom</label>
+                            <input type="text" class="form-control" id="firstName" name="firstName" pattern="[a-zA-ZÀ-ÿ0-9.' -]{2,40}" required>
+                            <div class="invalid-feedback">Veuillez fournir un prénom valide.</div>
                         </div>
+                        <div class="col-sm-6">
+                            <label for="lastName" class="form-label">Nom</label>
+                            <input type="text" class="form-control" id="lastName" name="lastName" pattern="[a-zA-ZÀ-ÿ0-9.' -]{2,40}" required>
+                            <div class="invalid-feedback">Veuillez fournir un nom valide.</div>
+                        </div>
+                        <div class="col-12">
+                            <label for="pseudo" class="form-label">Pseudo</label>
+                            <input type="pseudo" class="form-control" id="pseudo" name="pseudo" pattern="[a-zA-ZÀ-ÿ0-9.' -]{2,40}" required>
+                            <div class="invalid-feedback">Veuillez fournir un pseudo existant.</div>
+                        </div>
+                        <div class="col-12">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" pattern="{,100}"required>
+                            <div class="invalid-feedback">Veuillez fournir un email valide.</div>
+                        </div>
+                        <div class="col-12">
+                            <label for="number" class="form-label">Numéro de portable <span class="text-muted">(Optionel)</span></label>
+                            <input type="text" class="form-control" id="number" name="number" pattern="[0-9]{10}">
+                            <div class="invalid-feedback">Veuillez fournir un numéro de téléphone valide.</div>
+                        </div>
+                        <div class="col-12">
+                            <label for="theme" class="form-label">Objet de la demande <span class="text-muted">(Optionel)</span></label>
+                            <input type="text" class="form-control" id="theme" name="theme" pattern="[a-zA-ZÀ-ÿ0-9._,;:?!/*€$&@#()' -]{2,40}">
+                        </div>
+                        <div class="col-12">
+                            <label for="message" class="form-label">Votre message</label>
+                            <textarea class="form-control" id="message" name="message" rows="15" minlength="15" maxlength="500" required></textarea>
+                            <div class="invalid-feedback">Veuillez fournir un message valide.</div>
+                        </div>
+                        <div class="col-12">
+                            <label for="reponse_canal" class="form-label">Canal de réponse</label>
+                            <select class="form-select" id="reponse_canal" name="reponse_canal" required>
+                                <option value="email">Mail</option>
+                                <option value="message">Messagerie</option>
+                            </select>
+                        </div>
+                        <button class="w-100 btn btn-secondary btn-lg btn-warning border-dark border-2" type="submit">Envoyer</button>
                     </div>
-                </div>
-
-                <div class="container px-sm-4 col-sm-11 mt-4">
-                    <button class="btn btn-lg w-100 py-3 fs-3 btn-warning border-dark border-2" type="submit">
-                        Envoyer
-                    </button>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
-
     </main>
 
-    <?php require('../../inc/connected/footer.php'); ?>
+    <?php require('../../inc/not_connected/footer.php'); ?>
 
 <script src="../../bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="../../inc/script.js"></script>

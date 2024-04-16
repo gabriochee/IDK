@@ -1,203 +1,15 @@
-body, .bg-idk{
-    background-color: #E8EDDF;
-}
 /* ---------------------------------------------------------
 ------------------------------------------------------------
---------------------------- INCLUDE ------------------------
+--------------------------- GLOBAL -------------------------
 ------------------------------------------------------------
 ------------------------------------------------------------ */
-
-/* --------------- HEADER_NOT_CONNECTED CSS ---------------- */
-.logo-white{
-  color : white;
-  filter: invert(100%);
+body, .bg-idk{
+  background-color: #E8EDDF;
 }
 
-.form-control-dark::placeholder{
-  color: white;
+.backoffice body {
+  font-size: .875rem;
 }
-
-.form-control-dark:focus{
-  border-color: #ffffff;
-  box-shadow: 0 0 0 0.2rem rgba(211, 211, 211, 0.6);
-}
-
-.form-control-dark[type="search"]::-webkit-search-cancel-button {
-  filter: brightness(100);
-  cursor: pointer;
-}
-
-.tiny-text{
-  font-size: 0.7em;
-}
-
-.bigger-radio{
-  transform: scale(1.5);
-}
-
-/* ----------------- HOME_NOT_CONNECTED CSS ----------------- */
-  .carousel {
-    margin-bottom: 4rem;
-  }
-
-  .carousel-caption {
-    bottom: 3rem;
-    z-index: 10;
-  }
-
-  .carousel-item {
-    height: 32rem;
-  }
-
-  .carousel-item > img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    min-width: 100%;
-    height: 32rem;
-  }
-
-  .bd-placeholder-img {
-    font-size: 1.125rem;
-    text-anchor: middle;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    user-select: none;
-  }
-
-  .marketing .col-lg-4 {
-    margin-bottom: 1.5rem;
-    text-align: center;
-  }
-
-  .marketing h2 {
-    font-weight: 400;
-  }
-
-  .marketing .col-lg-4 p {
-    margin-right: .75rem;
-    margin-left: .75rem;
-  }
-
-  .featurette-divider {
-    margin: 5rem 0;
-  }
-
-  .featurette-heading {
-    font-weight: 300;
-    line-height: 1;
-    letter-spacing: -.05rem;
-  }
-
-  @media (min-width: 40em) {
-    .carousel-caption p {
-      margin-bottom: 1.25rem;
-      font-size: 1.25rem;
-      line-height: 1.4;
-    }
-    .featurette-heading {
-      font-size: 50px;
-    }
-  }
-  
-  @media (min-width: 62em) {
-    .featurette-heading {
-      margin-top: 7rem;
-    }
-  }
-  
-  @media (min-width: 768px) {
-    .bd-placeholder-img-lg {
-      font-size: 3.5rem;
-    }
-  }
-
-/* ----------------------- LOGIN CSS --------------------------- */
-
-@media (max-width: 425px) {
-  .minimize-input{
-    font-size: 0.9em !important;
-  }
-}
-
-/* ----------------- CONTACT - NOT - CONNECTED --------------- */
-.not-resizable{
-  resize: none;
-}
-
-/* ----------------- HOME - CONNECTED --------------- */
-@media(max-width: 490px){
-  #connected-home .small-text {
-    font-size: 50% !important;
-  }
-}
-
-
-/* ----------------- OEUVRE - CONNECTED --------------- */
-
-#connected-Oeuvre .text{
-  font-size: 80% !important;
-}
-
-
-#connected-Oeuvre .img-custom-1{
-  width: 25rem !important;
-}
-
-@media(max-width: 490px){
-  #connected-Oeuvre .text{
-    font-size: 10px !important;
-  }
-}
-#connected-Oeuvre .text-card{
-  font-size: 10px !important;
-}
-#connected-Oeuvre .text-note{
-  font-size: 5px !important;
-}
-
-#connected-Oeuvre .color-custom-1{
-  background: #D9D9D9 !important;
-}
-
-#connected-Oeuvre .color-custom-2{
-  background: #CFDBD5 !important;
-}
-
-
-/* ------------------------- FOOTER ------------------------ */
-
-.icon-white {
-  color: white;
-}
-
-/* ------------------------ ERROR ------------------------- */
-
-.error-background{
-  background-image: url("../inc/background_error.svg");
-  background-repeat: round repeat;
-  background-size: 300px;
-}
-
-/* ----------- QUESTIONNAIRE - RESULTS - CONNECTED ----------- */
-
-.list-list-height{
-  max-height: 30vh;
-}
-
-/* ---------------- PUBLIC - LIST ------------------- */
-
-.list-height{
-  max-height: 29rem;
-}
-
-@media screen and (max-width: 1024px) {
-  .list-height{
-    max-height: 24rem;
-  }
-}
-
-/* ------------------- GENERAL ------------------ */
 
 .no-overflow-x{
   overflow-x: hidden !important;
@@ -352,4 +164,323 @@ body, .bg-idk{
   .fs-lg-4 {
     font-size: 1.5rem !important;
   }
+}
+
+/* ---------------------------------------------------------
+------------------------------------------------------------
+--------------------------- INCLUDE ------------------------
+------------------------------------------------------------
+------------------------------------------------------------ */
+/* ------------ NOT_CONNECTED-CONNECTED/FOOTER ------------- */
+.icon-white {
+  color: white;
+}
+
+/* ----------------- NOT_CONNECTED/HEADER ------------------ */
+.logo-white {
+  color : white;
+  filter: invert(100%);
+}
+
+.form-control-dark::placeholder {
+  color: white;
+}
+
+.form-control-dark:focus {
+  border-color: #ffffff;
+  box-shadow: 0 0 0 0.2rem rgba(211, 211, 211, 0.6);
+}
+
+.form-control-dark[type="search"]::-webkit-search-cancel-button {
+  filter: brightness(100);
+  cursor: pointer;
+}
+
+.tiny-text {
+  font-size: 0.7em;
+}
+
+.bigger-radio {
+  transform: scale(1.5);
+}
+
+/* ------------------------ ERROR -------------------------- */
+.error-background {
+  background-image: url("../inc/background_error.svg");
+  background-repeat: round repeat;
+  background-size: 300px;
+}
+
+/* ------------------- BACKOFFICE/SIDEBAR ------------------ */
+.backoffice .sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 100; 
+  padding: 48px 0 0;
+  box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+}
+
+.backoffice .sidebar-sticky {
+  position: relative;
+  top: 0;
+  height: calc(100vh - 48px);
+  padding-top: .5rem;
+  overflow-x: hidden;
+  overflow-y: auto; 
+}
+
+.backoffice .sidebar .nav-link {
+  font-weight: 500;
+  color: #333;
+}
+
+.backoffice .sidebar .nav-link .feather {
+  margin-right: 4px;
+  color: #727272;
+}
+
+.backoffice .sidebar .nav-link.active {
+  color: #2470dc;
+}
+
+.backoffice .sidebar .nav-link:hover .feather,
+.backoffice .sidebar .nav-link.active .feather {
+  color: inherit;
+}
+
+.backoffice .sidebar-heading {
+  font-size: .75rem;
+  text-transform: uppercase;
+}
+
+@media (max-width: 767.98px) {
+  .backoffice .sidebar {
+      top: 5rem;
+  }
+}
+
+/* ------------------- BACKOFFICE/NAVBAR ------------------- */
+.backoffice .navbar-brand {
+  padding-top: .75rem;
+  padding-bottom: .75rem;
+  font-size: 1rem;
+  background-color: rgba(0, 0, 0, .25);
+  box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25);
+}
+
+.backoffice .navbar .navbar-toggler {
+  top: .25rem;
+  right: 1rem;
+}
+
+.backoffice .navbar .form-control {
+  padding: .75rem 1rem;
+  border-width: 0;
+  border-radius: 0;
+}
+
+.backoffice .form-control-dark {
+  color: #fff;
+  background-color: rgba(255, 255, 255, .1);
+  border-color: rgba(255, 255, 255, .1);
+}
+
+.backoffice .form-control-dark:focus {
+  border-color: transparent;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
+}
+
+/* ---------------------------------------------------------
+------------------------------------------------------------
+--------------------------- CLIENT -------------------------
+------------------------------------------------------------
+------------------------------------------------------------ */
+/* ------------------ NOT_CONNECTED/HOME ------------------- */
+.carousel {
+  margin-bottom: 4rem;
+}
+
+.carousel-caption {
+  bottom: 3rem;
+  z-index: 10;
+}
+
+.carousel-item {
+  height: 32rem;
+}
+
+.carousel-item > img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  height: 32rem;
+}
+
+.bd-placeholder-img {
+  font-size: 1.125rem;
+  text-anchor: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+.marketing .col-lg-4 {
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.marketing h2 {
+  font-weight: 400;
+}
+
+.marketing .col-lg-4 p {
+  margin-right: .75rem;
+  margin-left: .75rem;
+}
+
+.featurette-divider {
+  margin: 5rem 0;
+}
+
+.featurette-heading {
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -.05rem;
+}
+
+@media (min-width: 40em) {
+  .carousel-caption p {
+    margin-bottom: 1.25rem;
+    font-size: 1.25rem;
+    line-height: 1.4;
+  }
+  .featurette-heading {
+    font-size: 50px;
+  }
+}
+
+@media (min-width: 62em) {
+  .featurette-heading {
+    margin-top: 7rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .bd-placeholder-img-lg {
+    font-size: 3.5rem;
+  }
+}
+
+/* -------------------- CONNECTED/HOME --------------------- */
+@media(max-width: 490px) {
+  #connected-home .small-text {
+    font-size: 50% !important;
+  }
+}
+
+/* ------------------ NOT_CONNECTED/CONTACT ---------------- */
+.not-resizable{
+  resize: none;
+}
+
+/* -------------------- CONNECTED/LOGIN -------------------- */
+@media (max-width: 425px) {
+.minimize-input{
+  font-size: 0.9em !important;
+}
+}
+
+/* ------------- NOT_CONNECTED-CONNECTED/OEUVRE ------------ */
+#oeuvre .img-custom-1 {
+  width: 35rem !important;
+}
+
+@media(max-width: 490px) {
+  #oeuvre .text {
+    font-size: 10px !important;
+  }
+}
+
+#oeuvre .color-custom-1 {
+  background: #D9D9D9 !important;
+}
+
+#oeuvre .color-custom-2 {
+  background: #CFDBD5 !important;
+}
+
+#oeuvre .menu-oeuvre {
+  height: 60px;
+}
+
+#oeuvre .menu-oeuvre-2 {
+  max-height: 250px;
+}
+#oeuvre #commentaire-cinq, #oeuvre #commentaire-quatre, #oeuvre #commentaire-trois, 
+#oeuvre #commentaire-deux, #oeuvre #commentaire-un, #oeuvre #commentaire-zero {
+  display: none;
+}
+/* ----------------- QUESTIONNAIRE_RESULT ------------------ */
+.list-list-height {
+  max-height: 30vh;
+}
+
+/* ---------------------- PUBLIC_LIST ---------------------- */
+.list-height {
+  max-height: 29rem;
+}
+
+@media screen and (max-width: 1024px) {
+  .list-height {
+    max-height: 24rem;
+  }
+}
+
+/* ---------------------------------------------------------
+------------------------------------------------------------
+--------------------------- ADMIN --------------------------
+------------------------------------------------------------
+------------------------------------------------------------ */
+/* -------------------- MODERATION_USER -------------------- */
+#backoffice_moderation_user .table-cell {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+}
+
+#backoffice_moderation_user .menu-oeuvre-2 {
+  max-height: 250px;
+}
+/* ---------------------- EDIT_OEUVRE ---------------------- */
+#backoffice_edit_oeuvre .img-custom-1 {
+  width: 30rem !important;
+}
+
+@media(max-width: 490px) {
+  #backoffice_edit_oeuvre .text {
+    font-size: 10px !important;
+  }
+}
+
+#backoffice_edit_oeuvre .color-custom-1 {
+  background: #D9D9D9 !important;
+}
+
+#backoffice_edit_oeuvre .color-custom-2 {
+  background: #CFDBD5 !important;
+}
+
+#backoffice_edit_oeuvre .menu-oeuvre {
+  height: 60px;
+}
+
+#backoffice_edit_oeuvre .menu-oeuvre-2 {
+  max-height: 250px;
+}
+#backoffice_edit_oeuvre #commentaire-cinq, #backoffice_edit_oeuvre #commentaire-quatre, #backoffice_edit_oeuvre #commentaire-trois, 
+#backoffice_edit_oeuvre #commentaire-deux, #backoffice_edit_oeuvre #commentaire-un, #backoffice_edit_oeuvre #commentaire-zero {
+  display: none;
 }

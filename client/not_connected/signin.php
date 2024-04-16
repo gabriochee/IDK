@@ -116,9 +116,7 @@
                 </div>
 
                 <div class="container px-sm-4 col-sm-11 mt-4">
-                    <button class="btn btn-lg w-100 py-3 fs-3 btn-warning border-dark border-2" type="submit">
-                        S'inscrire
-                    </button>
+                    <button class="btn btn-lg w-100 py-3 fs-3 btn-warning border-dark border-2" type="submit">S'inscrire</button>
                 </div>
             </form>
         </div>

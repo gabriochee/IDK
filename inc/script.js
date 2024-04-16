@@ -7,3 +7,19 @@ document.getElementById("modifier-home").addEventListener("click", function() {
         maDiv.style.display = "none";
     }
 });
+document.getElementById("modifier-terms").addEventListener("click", function() {
+    var maDiv = document.getElementById("form-terms");
+    if (maDiv.style.display === "none") {
+        maDiv.style.display = "block";
+    } else {
+        maDiv.style.display = "none";
+    }
+});
+document.getElementById("modifier-about").addEventListener("click", function() {
+    var maDiv = document.getElementById("form-about");
+    if (maDiv.style.display === "none") {
+        maDiv.style.display = "block";
+    } else {
+        maDiv.style.display = "none";
+    }
+});
