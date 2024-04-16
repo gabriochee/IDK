@@ -16,9 +16,9 @@
 
     <main>
         <div class="container-fluid d-flex justify-content-center">
-            <div class="d-flex flex-column my-5 py-2 gap-5 text-center">
-                <img src="../../inc/logo.svg" alt="logo idk" width="200px" height="200px" class="container-fluid img-thumbnail bg-transparent border-0">
-                <h3 class="mt-5">Conditions Générales</h3>
+            <div class="d-flex flex-column my-5 gap-5 text-center">
+                <img src="../../inc/logo.svg" alt="Logo IDK" width="200px" height="200px" class="container-fluid img-thumbnail bg-transparent border-0">
+                <h3 class="mt-1">Conditions Générales</h3>
             </div>
         </div>
         <div class="container col-9 mb-5">
