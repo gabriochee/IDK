@@ -1,11 +1,15 @@
 <?php
-if (isset($_POST['lastname'])) {
-    if ($_POST['password'] != $_POST['password-confirmation']) {
-        header('Location: ./signin.php');
-        exit();
-    }
-}
+    $serverAddress = "152.228.217.19";
+    $username = "distant";
+    $password = "LEG2024IDKdistant!";
 
+    try{
+        $bdd = new PDO("mysql:host=$serverAddress;dbname=projet", $username, $password);
+        $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        echo 'Connexion réussie !';
+    } catch (PDOException $e){
+        echo "Erreur : " . $e->getMessage();
+    }
 ?>
 <!DOCTYPE html>
 <html lang="fr">
