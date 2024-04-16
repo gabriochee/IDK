@@ -20,24 +20,24 @@
         </div>
 
         <div class="container col-sm-10 col-xl-8">
-            <form action="" class="needs-validation" method="post">
+            <form action="./confirmation.php" class="needs-validation" id="signin-form" method="post">
                 <div class="container d-lg-flex justify-content-center justify-content-evenly">
                     <div class="col-lg-5">
                         <label for="lastname" class="form-label fs-3 m-0">Nom</label>
-                        <input type="text" class="form-control fs-3 border-dark border-2 rounded-3" id="lastname" placeholder="" value="" required="">
+                        <input type="text" class="form-control fs-3 border-dark border-2 rounded-3" id="lastname" name="lastname" maxlength="100" required>
                         <div class="invalid-feedback">Veuillez fournir un nom valide.</div>
                     </div>
 
                     <div class="col-lg-5">
                         <label for="firstname" class="form-label fs-3 m-0">Prenom</label>
-                        <input type="text" class="form-control fs-3 border-dark border-2 rounded-3" id="firstname" placeholder="" value="" required="">
+                        <input type="text" class="form-control fs-3 border-dark border-2 rounded-3" id="firstname" name="firstname" maxlength="100" required>
                         <div class="invalid-feedback">Veuillez fournir un prénom valide.</div>
                     </div>
                 </div>
 
                 <div class="container px-sm-4 col-sm-11">
                     <label for="username" class="form-label fs-3 m-0 mt-3">Pseudo</label>
-                    <input type="text" class="form-control fs-3 border-dark border-2 rounded-3" id="username" placeholder="" value="" required="">
+                    <input type="text" class="form-control fs-3 border-dark border-2 rounded-3" id="username" name="username" maxlength="100" required>
                     <div class="invalid-feedback">Veuillez fournir un prénom valide.</div>
                 </div>
 
@@ -47,18 +47,18 @@
                     <div class="d-sm-flex justify-content-center container ps-0">
 
                         <div class="container d-flex align-items-center">
-                            <input id="man" name="paymentMethod" type="radio" class="form-check-input bigger-radio border-dark border-1" required>
-                            <label class="form-check-label fs-3 mx-2" for="credit">Homme</label>
+                            <input id="man" name="gender" type="radio" class="form-check-input bigger-radio border-dark border-1" required value="man">
+                            <label class="form-check-label fs-3 mx-2" for="gender">Homme</label>
                         </div>
 
                         <div class="container d-flex align-items-center">
-                            <input id="woman" name="paymentMethod" type="radio" class="form-check-input bigger-radio border-dark border-1" required>
-                            <label class="form-check-label fs-3 mx-2" for="credit">Femme</label>
+                            <input id="woman" name="gender" type="radio" class="form-check-input bigger-radio border-dark border-1" required value="woman">
+                            <label class="form-check-label fs-3 mx-2" for="gender">Femme</label>
                         </div>
 
                         <div class="container d-flex align-items-center">
-                            <input id="other" name="paymentMethod" type="radio" class="form-check-input bigger-radio border-dark border-1" required>
-                            <label class="form-check-label fs-3 mx-2" for="credit">Autre</label>
+                            <input id="other" name="gender" type="radio" class="form-check-input bigger-radio border-dark border-1" required value="other">
+                            <label class="form-check-label fs-3 mx-2" for="gender">Autre</label>
                         </div>
                     </div>
                 </div>
@@ -66,7 +66,7 @@
                 <div class="container d-sm-flex justify-content-center justify-content-evenly gap-3 m-0 mt-3">
                     <div class="col-sm-3">
                         <label for="birthday-day" class="form-label fs-3">Jour</label>
-                        <input type="number" class="form-control fs-3 border-dark border-2 rounded-3" id="birthday-day" min="1" max="31" value="" required="">
+                        <input type="number" class="form-control fs-3 border-dark border-2 rounded-3" id="birthday-day" min="1" max="31">
                         <div class="invalid-feedback">Veuillez fournir un jour valide.</div>
                     </div>
 
@@ -99,24 +99,24 @@
 
                 <div class="container px-sm-4 col-sm-11">
                     <label for="mail" class="form-label fs-3 m-0 mt-3">Email</label>
-                    <input type="email" class="form-control fs-3 border-dark border-2 rounded-3" name="mail" id="mail" placeholder="" value="" required="">
+                    <input type="email" class="form-control fs-3 border-dark border-2 rounded-3" name="mail" id="mail" maxlength="200" required>
                     <div class="invalid-feedback">Veuillez fournir un prénom valide.</div>
                 </div>
 
                 <div class="container px-sm-4 col-sm-11">
                     <label for="password" class="form-label fs-3 m-0 mt-3">Mot de passe</label>
-                    <input type="password" class="form-control fs-3 border-dark border-2 rounded-3" name="password" id="password" placeholder="" value="" required="">
+                    <input type="password" class="form-control fs-3 border-dark border-2 rounded-3" name="password" id="password" maxlength="100" required>
                     <div class="invalid-feedback">Veuillez fournir un mot de passe valide.</div>
                 </div>
 
                 <div class="container px-sm-4 col-sm-11">
                     <label for="password-confirmation" class="form-label fs-3 m-0 mt-3">Mot de passe confirmation</label>
-                    <input type="password" class="form-control fs-3 border-dark border-2 rounded-3" name="password-confirmation" id="password-confirmation" placeholder="" value="" required="">
+                    <input type="password" class="form-control fs-3 border-dark border-2 rounded-3" name="password-confirmation" id="password-confirmation" maxlength="100" required>
                     <div class="invalid-feedback">Veuillez fournir un mot de passe valide.</div>
                 </div>
 
                 <div class="container px-sm-4 col-sm-11 mt-4">
-                    <button class="btn btn-lg w-100 py-3 fs-3 btn-warning border-dark border-2" type="submit">
+                    <button class="btn btn-lg w-100 py-3 fs-3 btn-warning border-dark border-2" id="signin-btn" type="submit">
                         S'inscrire
                     </button>
                 </div>
@@ -128,6 +128,6 @@
     <?php require('../../inc/not_connected/footer.php'); ?>
 
 <script src="../../bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="../../inc/script.js"></script>
+<script src="../../inc/signin.js"></script>
 </body>
 </html>
