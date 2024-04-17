@@ -3,13 +3,14 @@
     $username = "distant";
     $password = "LEG2024IDKdistant!";
     $salt = '9dQ4!;';
+    $hash = hash('sha256',$_POST['password'].$salt);
+    $today = date('Y-m-d');
 
     if (isset($_POST['username'])) {
         try {
             $bdd = new PDO("mysql:host=$serverAddress;dbname=projet;port=3306", $username, $password);
             $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $result = $bdd->query(("INSERT INTO UTILISATEUR(user_id, role, nom, prenom, date_naissance, genre, pseudo, mail, mdp, date_inscription, photo_utilisateur, statut_newsletter)"));
-            echo 'Connexion réussie !';
+            $result = $bdd->query(("INSERT INTO UTILISATEUR(role, nom, prenom, date_naissance, genre, pseudo, mail, mdp, date_inscription, photo_utilisateur, statut_newsletter) VALUES ('utilisateur', '{$_POST['lastname']}', '{$_POST['firstname']}', \"{$_POST['birthday-year']}-{$_POST['birthday-month']}-{$_POST['birthday-day']}\", '{$_POST['gender']}', '{$_POST['username']}', '{$_POST['mail']}', '{$hash}', '{$today}', 'N/A', 'abonne');")); 
         } catch (PDOException $e) {
             echo "Erreur : " . $e->getMessage();
             echo '<br>';

@@ -66,7 +66,7 @@
                 <div class="container d-sm-flex justify-content-center justify-content-evenly gap-3 m-0 mt-3">
                     <div class="col-sm-3">
                         <label for="birthday-day" class="form-label fs-3">Jour</label>
-                        <input type="number" class="form-control fs-3 border-dark border-2 rounded-3" id="birthday-day" min="1" max="31">
+                        <input type="number" class="form-control fs-3 border-dark border-2 rounded-3" id="birthday-day" name="birthday-day" min="1" max="31">
                         <div class="invalid-feedback">Veuillez fournir un jour valide.</div>
                     </div>
 
@@ -74,18 +74,18 @@
                         <label for="birthday-month" class="form-label fs-3">Mois</label>
                         <select class="form-control fs-3 border-dark border-2 rounded-3" name="birthday-month" id="birdthday-month">
                             <option disabled selected value></option>
-                            <option value="janvier">janvier</option>
-                            <option value="fevrier">février</option>
-                            <option value="mars">mars</option>
-                            <option value="avril">avril</option>
-                            <option value="mai">mai</option>
-                            <option value="juin">juin</option>
-                            <option value="juillet">juillet</option>
-                            <option value="aout">août</option>
-                            <option value="septembre">septembre</option>
-                            <option value="octobre">octobre</option>
-                            <option value="novembre">novembre</option>
-                            <option value="decembre">décembre</option>
+                            <option value="01">janvier</option>
+                            <option value="02">février</option>
+                            <option value="03">mars</option>
+                            <option value="04">avril</option>
+                            <option value="05">mai</option>
+                            <option value="06">juin</option>
+                            <option value="O7">juillet</option>
+                            <option value="08">août</option>
+                            <option value="09">septembre</option>
+                            <option value="10">octobre</option>
+                            <option value="11">novembre</option>
+                            <option value="12">décembre</option>
                         </select>
                         <div class="invalid-feedback">Veuillez fournir un mois valide.</div>
                     </div>

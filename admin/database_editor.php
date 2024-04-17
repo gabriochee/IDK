@@ -40,7 +40,7 @@
                         $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                         $result = $bdd->query(($_POST['query-prompt']));
                         foreach ($result->fetchAll() as $row){
-                            echo $row['Database'] . " ". $row['Field'] . " " . $row['Type'];
+                            echo $row['Field'] . " " . $row['Type'];
                             echo '<br>';
                         }
                         //var_dump($result->fetchAll());
