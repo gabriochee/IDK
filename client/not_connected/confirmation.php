@@ -2,14 +2,21 @@
     $serverAddress = "152.228.217.19";
     $username = "distant";
     $password = "LEG2024IDKdistant!";
+    $salt = '9dQ4!;';
 
-    try{
-        $bdd = new PDO("mysql:host=$serverAddress;dbname=projet", $username, $password);
-        $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        echo 'Connexion réussie !';
-    } catch (PDOException $e){
-        echo "Erreur : " . $e->getMessage();
+    if (isset($_POST['username'])) {
+        try {
+            $bdd = new PDO("mysql:host=$serverAddress;dbname=projet;port=3306", $username, $password);
+            $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $result = $bdd->query(("INSERT INTO UTILISATEUR(user_id, role, nom, prenom, date_naissance, genre, pseudo, mail, mdp, date_inscription, photo_utilisateur, statut_newsletter)"));
+            echo 'Connexion réussie !';
+        } catch (PDOException $e) {
+            echo "Erreur : " . $e->getMessage();
+            echo '<br>';
+            echo "Code erreur : " . $e->getCode();
+        }
     }
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">
