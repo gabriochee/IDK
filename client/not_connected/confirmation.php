@@ -1,12 +1,12 @@
 <?php
-    $serverAddress = "152.228.217.19";
-    $username = "distant";
-    $password = "LEG2024IDKdistant!";
-    $salt = '9dQ4!;';
-    $hash = hash('sha256',$_POST['password'].$salt);
-    $today = date('Y-m-d');
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $serverAddress = "152.228.217.19";
+        $username = "distant";
+        $password = "LEG2024IDKdistant!";
+        $salt = '$2y$13$XGo6BMuvSwv396CLHqnRUt';
+        $hash = crypt($_POST['password'], $salt);
+        $today = date('Y-m-d');
 
-    if (isset($_POST['username'])) {
         try {
             $bdd = new PDO("mysql:host=$serverAddress;dbname=projet;port=3306", $username, $password);
             $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

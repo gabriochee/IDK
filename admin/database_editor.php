@@ -39,11 +39,12 @@
                         $bdd = new PDO("mysql:host=$serverAddress;dbname=projet;port=3306", $username, $password);
                         $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                         $result = $bdd->query(($_POST['query-prompt']));
-                        foreach ($result->fetchAll() as $row){
+                        $fetchedResult = $result->fetchAll();
+                        foreach ($fetchedResult as $row){
                             echo $row['Field'] . " " . $row['Type'];
                             echo '<br>';
                         }
-                        //var_dump($result->fetchAll());
+                        var_dump($fetchedResult);
                     } catch (PDOException $e) {
                         echo "Erreur : " . $e->getMessage();
                         echo '<br>';
