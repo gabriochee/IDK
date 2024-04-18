@@ -3,8 +3,8 @@
         $serverAddress = "152.228.217.19";
         $username = "distant";
         $password = "LEG2024IDKdistant!";
-        $salt = '$2y$13$XGo6BMuvSwv396CLHqnRUt';
-        $hash = crypt($_POST['password'], $salt);
+        $pepper = 'sZB8J0az0z';
+        $hash = password_hash($_POST['password'].$pepper, PASSWORD_BCRYPT, ['cost' => 13]);
         $today = date('Y-m-d');
 
         try {
