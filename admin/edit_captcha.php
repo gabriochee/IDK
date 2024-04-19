@@ -69,6 +69,17 @@
                             <input type="text" class="form-control fs-5 border-dark border-2 rounded-3" id="question" name="question" maxlength="200" required>
                             <div class="invalid-feedback">Veuillez fournir une question valide.</div>
                         </div>
+
+                        <div class="container px-0" id="answers">
+                            <div id="answer">
+                                <label for="answer1" class="form-label fs-3 m-0 mt-3">Réponse 1</label>
+                                <button type="button" class="delete-btn nav-btn btn btn-primary btn-sm btn-danger text-white border border-light border-2 rounded-3 px-3 mb-2" onclick="deleteAnswer(this)">Supprimer</button>
+                                <input type="text" class="form-control fs-5 border-dark border-2 rounded-3" id="answer1" name="answer1" maxlength="200" required>
+                                <div class="invalid-feedback">Veuillez fournir une réponse valide.</div>
+                            </div>
+                        </div>
+
+                        <button type="button" id="add-answer" class="nav-btn btn btn-primary btn-sm btn-warning text-white border border-light border-2 rounded-3 fs-1 mt-5 px-3">+</button>
                     </form>
                 </div>
             </main>
@@ -77,7 +88,7 @@
     </div>
 
     <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="../inc/script.js"></script>
+    <script src="../inc/edit_captcha.js"></script>
 </body>
 
 </html>
