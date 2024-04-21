@@ -80,7 +80,7 @@
                             <option value="04">avril</option>
                             <option value="05">mai</option>
                             <option value="06">juin</option>
-                            <option value="O7">juillet</option>
+                            <option value="07">juillet</option>
                             <option value="08">août</option>
                             <option value="09">septembre</option>
                             <option value="10">octobre</option>
