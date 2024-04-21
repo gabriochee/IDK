@@ -4,25 +4,27 @@ const addAnswer = document.getElementById('add-answer');
 
 let answerNum = 1;
 
-function deleteAnswer(element){
-    answerNum--;
-    let currentNum = parseInt(element.parentNode.childNodes[1].htmlFor.match(/\d+/)[0]);
-    
-    Array.from(element.parentNode.parentNode.childNodes).forEach(child => {
-        if (child.tagName != undefined){
-            let childNum = child.childNodes[1].htmlFor.match(/\d+/)[0];
-            let newChildNum = (parseInt(childNum) - 1).toString();
+function deleteAnswer(element) {
+  answerNum--;
+  let pNode = element.parentNode;
 
-            if (parseInt(childNum) > currentNum){
-                child.childNodes[1].htmlFor =  child.childNodes[1].htmlFor.replace(childNum, newChildNum);
-                child.childNodes[1].innerHTML = child.childNodes[1].innerHTML.replace(childNum, newChildNum);
-                child.childNodes[5].id = child.childNodes[1].id.replace(childNum, newChildNum);
-                child.childNodes[5].name = child.childNodes[5].name.replace(childNum, newChildNum);
-            }
-        }
-    });
+  pNode.parentNode.parentNode.childNodes.forEach((element) => {
+    if (element.tagName != undefined) {
+      let currentNum = parseInt(pNode.childNodes[1].childNodes[1].htmlFor.match(/\d+/)[0]);
 
-    element.parentNode.remove();
+      let childNum = element.childNodes[1].childNodes[1].childNodes[1].htmlFor.match(/\d+/)[0];
+      let newChildNum = (parseInt(childNum) - 1).toString();
+
+      if (parseInt(childNum) > currentNum) {
+        element.childNodes[1].childNodes[1].childNodes[1].htmlFor = element.childNodes[1].childNodes[1].childNodes[1].htmlFor.replace(childNum, newChildNum);
+        element.childNodes[1].childNodes[1].childNodes[1].innerHTML = element.childNodes[1].childNodes[1].childNodes[1].innerHTML.replace(childNum, newChildNum);
+        element.childNodes[3].id = element.childNodes[3].id.replace(childNum, newChildNum);
+        element.childNodes[3].name = element.childNodes[3].name.replace(childNum, newChildNum);
+      }
+    }
+  });
+
+  pNode.parentNode.remove();
 }
 
 addAnswer.onclick = function (){
@@ -30,13 +32,14 @@ addAnswer.onclick = function (){
     let newAnswer = answer.cloneNode(true);
     let childNodes = newAnswer.childNodes;
 
-    childNodes[1].innerHTML = "Réponse ".concat((answerNum).toString());
+    childNodes[1].childNodes[1].childNodes[1].innerHTML = "Réponse ".concat((answerNum).toString());
     let answerNumStr = "answer".concat((answerNum).toString());
 
-    childNodes[1].htmlFor = answerNumStr;
-    childNodes[5].id = answerNumStr;
-    childNodes[5].name = answerNumStr;
-    childNodes[5].value = "";
+    childNodes[1].childNodes[1].childNodes[1].htmlFor = answerNumStr;
+    childNodes[1].childNodes[1].childNodes[3].checked = false;
+    childNodes[3].id = answerNumStr;
+    childNodes[3].name = answerNumStr;
+    childNodes[3].value = "";
 
     newAnswer.removeAttribute('id');
 
