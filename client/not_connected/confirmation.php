@@ -31,8 +31,6 @@
         $hash = password_hash($_POST['password'].$pepper, PASSWORD_BCRYPT, ['cost' => 13]);
         $today = date('Y-m-d');
 
-        
-
         try {
             $bdd = new PDO("mysql:host=$serverAddress;dbname=projet;port=3306", $username, $password);
             $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
