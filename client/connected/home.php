@@ -71,9 +71,9 @@
                 </div>
 
                 <hr class="featurette-divider my-4">
-                <h3 class="text-center">Listes : </h3>
+                <h3>Mes Listes : </h3>
 
-                <div class="py-3 d-flex justify-content-center">
+                <!-- <div class="py-3 d-flex justify-content-center">
                     <div class="row w-100">
                         <div class="col-md-12">
                             <label class="labels">Titre</label>
@@ -123,8 +123,8 @@
                             </table>
                         </div>
                     </div>
-                </div>
-
+                </div> -->
+<!-- 
                 <hr class="featurette-divider my-2">
                 <div class="py-3 d-flex justify-content-center">
                     <div class="row w-100">
@@ -166,21 +166,27 @@
                             </table>
                         </div>     
                     </div>
-                </div>
+                </div> -->
 
                 <div>
-                    <div class="container">
+                    <!-- <div class="container">
                         <div>
                             <div class="d-flex flex-column">
-                                <p class="fs-2 fw-bold">Mes listes</p>
                                 <p class="fs-6">Liste par défaut : A voir</p>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="container">
-                        <div class="d-flex  flex-wrap justify-content-around">
-                            <div class="card text-center btn-custom " style="width: 15rem;">
-                                <img src="../../inc/film.svg" style="width: 13rem; margin: auto;" class="card-img-top border border-dark mt-3 " alt="...">
+                        <div class="d-flex">
+                                <h5>Déja vu :</h5>
+                                <button type="button" class="m-3 p-2 btn btn-primary btn-warning text-white border border-light border-2 small-text">Voir plus</button>
+                                <button type="button" class="m-3 p-2 btn btn-primary btn-warning text-white border border-light border-2 small-text">Partager</button>
+                                <button type="button" class="m-3 p-2 btn btn-primary btn-warning text-white border border-light border-2 small-text">Renommer</button>
+                                <button type="button" class="m-3 p-2 btn btn-primary btn-warning text-white border border-light border-2 small-text">Supprimer</button>
+                        </div>
+                        <div class="d-flex flex-wrap justify-content-around">
+                            <div class="card text-center btn-custom" style="width: 15rem;">
+                                <img src="../../inc/movie_card_placeholder.jpg" style="width: 13rem; margin: auto;" class="card-img-top border border-dark mt-3 " alt="...">
                                 <div class="card-body ">
                                     <h5 class="card-title text-center">Nom oeuvre</h5>
                                     <div class="d-flex row justify-content-around">
@@ -190,7 +196,7 @@
                                 </div>
                             </div>
                             <div class="card text-center btn-custom" style="width: 15rem;">
-                                <img src="../../inc/film.svg" style="width: 13rem; margin: auto;" class="card-img-top border border-dark mt-3 " alt="...">
+                                <img src="../../inc/movie_card_placeholder.jpg" style="width: 13rem; margin: auto;" class="card-img-top border border-dark mt-3 " alt="...">
                                 <div class="card-body ">
                                     <h5 class="card-title text-center">Nom oeuvre</h5>
                                     <div class="d-flex row justify-content-around">
@@ -200,7 +206,7 @@
                                 </div>
                             </div>
                             <div class="card text-center btn-custom" style="width: 15rem;">
-                                <img src="../../inc/film.svg" style="width: 13rem; margin: auto;" class="card-img-top border border-dark mt-3 " alt="...">
+                                <img src="../../inc/movie_card_placeholder.jpg" style="width: 13rem; margin: auto;" class="card-img-top border border-dark mt-3 " alt="...">
                                 <div class="card-body ">
                                     <h5 class="card-title text-center">Nom oeuvre</h5>
                                     <div class="d-flex row justify-content-around">
@@ -210,7 +216,17 @@
                                 </div>
                             </div>
                             <div class="card text-center btn-custom" style="width: 15rem;">
-                                <img src="../../inc/film.svg" style="width: 13rem; margin: auto;" class="card-img-top border border-dark mt-3 " alt="...">
+                                <img src="../../inc/movie_card_placeholder.jpg" style="width: 13rem; margin: auto;" class="card-img-top border border-dark mt-3 " alt="...">
+                                <div class="card-body ">
+                                    <h5 class="card-title text-center">Nom oeuvre</h5>
+                                    <div class="d-flex row justify-content-around">
+                                        <button type="button" class="btn btn-primary col-5 px-1 btn-warning text-white border border-light border-2"  >Supprimer</button>
+                                        <a href="#" class="btn btn-primary col-6 px-1 btn-warning text-white border border-light border-2">En savoir plus</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card text-center btn-custom" style="width: 15rem;">
+                                <img src="../../inc/movie_card_placeholder.jpg" style="width: 13rem; margin: auto;" class="card-img-top border border-dark mt-3 " alt="...">
                                 <div class="card-body ">
                                     <h5 class="card-title text-center">Nom oeuvre</h5>
                                     <div class="d-flex row justify-content-around">
@@ -221,24 +237,24 @@
                             </div>
                         </div>
 
-                        <div class="d-flex  flex-row-reverse bd-highlight ">
+                        <div class="d-flex flex-row-reverse bd-highlight ">
                             <a href="#" class="m-3 btn btn-primary btn-warning text-white border border-light border-2 small-text">Voir plus</a>
                             <button type="button" href="#" class="m-3 btn btn-primary btn-warning text-white border border-light border-2 small-text">Partager</button>
                             <button type="button" class="m-3 btn btn-primary btn-warning text-white border border-light border-2 small-text">Supprimer</button>
                             <button type="button" class="m-3 p-2 btn btn-primary btn-warning text-white border border-light border-2 small-text">Renommer</button>
                         </div>
                     </div>
-                    <div class="container">
+                    <!-- <div class="container">
                         <div= >
                             <div class="d-flex flex-column">
                                 <p class="fs-6">Liste par défaut : Vu</p>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="container">
-                        <div class="d-flex  flex-wrap justify-content-around">
+                        <div class="d-flex flex-wrap justify-content-around">
                             <div class="card text-center btn-custom" style="width: 15rem;">
-                                <img src="../../inc/film.svg" style="width: 13rem; margin: auto;" class="card-img-top border border-dark mt-3 " alt="...">
+                                <img src="../../inc/movie_card_placeholder.jpg" style="width: 13rem; margin: auto;" class="card-img-top border border-dark mt-3 " alt="...">
                                 <div class="card-body ">
                                     <h5 class="card-title text-center">Nom oeuvre</h5>
                                     <div class="d-flex row justify-content-around">
@@ -279,22 +295,22 @@
                             </div>
                         </div>
 
-                        <div class="d-flex  flex-row-reverse bd-highlight ">
+                        <div class="d-flex flex-row-reverse bd-highlight ">
                             <a href="#" class="m-3 btn btn-primary btn-warning text-white border border-light border-2 small-text">Voir plus</a>
                             <button type="button" href="#" class="m-3 btn btn-primary btn-warning text-white border border-light border-2 small-text">Partager</button>
                             <button type="button" class="m-3 btn btn-primary btn-warning text-white border border-light border-2 small-text">Supprimer</button>
                             <button type="button" class="m-3 p-2 btn btn-primary btn-warning text-white border border-light border-2 small-text">Renommer</button>
                         </div>
                     </div>
-                    <div class="container">
+                    <!-- <div class="container">
                         <div= >
                             <div class="d-flex flex-column">
                                 <p class="fs-6">Liste par défaut : Mes avis</p>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="container">
-                        <div class="d-flex  flex-wrap justify-content-around">
+                        <div class="d-flex flex-wrap justify-content-around">
                             <div class="card text-center btn-custom" style="width: 15rem;">
                                 <img src="../../inc/film.svg" style="width: 13rem; margin: auto;" class="card-img-top border border-dark mt-3 " alt="...">
                                 <div class="card-body ">
@@ -337,7 +353,7 @@
                             </div>
                         </div>
 
-                        <div class="d-flex  flex-row-reverse bd-highlight ">
+                        <div class="d-flex flex-row-reverse bd-highlight ">
                             <a href="#" class="m-3 btn btn-primary btn-warning text-white border border-light border-2 small-text">Voir plus</a>
                             <button type="button" href="#" class="m-3 btn btn-primary btn-warning text-white border border-light border-2 small-text">Partager</button>
                             <button type="button" class="m-3 btn btn-primary btn-warning text-white border border-light border-2 small-text">Supprimer</button>
