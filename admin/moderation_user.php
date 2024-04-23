@@ -412,8 +412,6 @@
             </main>
         </div>
     </div>
-
-<script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="../inc/script.js"></script>
+    <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

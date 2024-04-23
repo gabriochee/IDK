@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,10 +9,8 @@
     <link rel="stylesheet" href="../../bootstrap/bootstrap-icons/font/bootstrap-icons.min.css">
     <title>IDK</title>
 </head>
-
 <body class="overflox-y-hidden">
     <?php require('../../inc/not_connected/header.php'); ?>
-
     <main>
         <div class="container-fluid d-flex flex-column text-center">
             <div class="my-5 py-2 gap-5">
@@ -55,10 +52,7 @@
         </div>
 
     </main>
-
     <?php require('../../inc/not_connected/footer.php'); ?>
-
-<script src="../../bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="../../inc/script.js"></script>
+    <script src="../../bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

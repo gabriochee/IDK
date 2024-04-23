@@ -9,10 +9,8 @@
     <link rel="stylesheet" href="../../bootstrap/bootstrap-icons/font/bootstrap-icons.min.css">
     <title>IDK</title>
 </head>
-
 <body id="not_connected_contact">
     <?php require('../../inc/not_connected/header.php'); ?>
-
     <main>
         <div class="container-fluid d-flex justify-content-center">
             <div class="d-flex flex-column my-5 gap-5 text-center">
@@ -67,10 +65,7 @@
             </div>
         </div>
     </main>
-
     <?php require('../../inc/not_connected/footer.php'); ?>
-
-<script src="../../bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="../../inc/script.js"></script>
+    <script src="../../bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="fr">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +9,6 @@
     <title>IDK</title>
 </head>
 <!--  faire un renvoie vers connected/home ou not-connected/home en fonction du statue  -->
-
 <body class="container-fluid min-vh-100 error-background d-flex flex-column text-center align-items-center">
     <!-- <main class="container-fluid d-flex no-wrap flex-column">
         <div class="d-flex justify-content-between">
@@ -36,9 +34,7 @@
             <h1 class="display-1 fw-bold">404</h1>
         </div>
     </div>
-
     <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="../inc/script.js"></script>
 </body>
-
 </html>

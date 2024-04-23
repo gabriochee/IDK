@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,10 +9,8 @@
     <link rel="stylesheet" href="../../bootstrap/bootstrap-icons/font/bootstrap-icons.min.css">
     <title>IDK</title>
 </head>
-
 <body>
     <?php require('../../inc/connected/header.php'); ?>
-
     <main>
         <div class="container-fluid d-flex justify-content-center">
             <div class="d-flex flex-column my-5 gap-5 text-center">
@@ -46,10 +43,7 @@
             <p>Chez IDK, nous croyons que chaque film et série mérite d'être découvert. Notre mission est de vous aider à trouver ces pépites cinématographiques qui enrichiront votre vie et stimuleront votre imagination.<br>Merci de faire partie de notre communauté et de nous permettre de vous accompagner dans votre voyage cinématographique.</p>
         </div>
     </main>
-
     <?php require('../../inc/connected/footer.php'); ?>
-
-<script src="../../bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="../../inc/script.js"></script>
+    <script src="../../bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -8,7 +8,7 @@ if (isset($_POST['connecter'])) {
     var_dump($email);
     $password = $_POST['password'];
     if($email != "" && $password != ""){
-        $req = $bdd->query("SELECT * FROM UTILISATEUR WHERE mail = '$email';");
+        $req = $bdd->query("SELECT * FROM UTILISATEUR WHERE mail = '$email';");//erreur pas mettre le * pour un appel SQL
         $reponse = $req->fetch();
         $_SESSION['email'] = $email;
     }
@@ -18,8 +18,7 @@ if (isset($_POST['connecter'])) {
 
 
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -29,7 +28,6 @@ if (isset($_POST['connecter'])) {
     <link rel="stylesheet" href="../../bootstrap/bootstrap-icons/font/bootstrap-icons.min.css">
     <title>IDK</title>
 </head>
-
 <body>
     <header class="container w-100 d-flex justify-content-end mt-5 h-100">
         <button class="nav-link btn">
@@ -70,8 +68,6 @@ if (isset($_POST['connecter'])) {
             </form>
         </div>
     </main>
-
-<script src="../../bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="../../inc/script.js"></script>
+    <script src="../../bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

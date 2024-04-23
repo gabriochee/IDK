@@ -367,7 +367,7 @@
             </div>
         </div>
     </main>
-
-<?php require('../../inc/connected/footer.php'); ?>
+    <?php require('../../inc/connected/footer.php'); ?>
+    <script src="../../bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

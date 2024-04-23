@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +9,6 @@
     <link rel="stylesheet" href="../bootstrap/bootstrap-icons/font/bootstrap-icons.min.css">
     <title>IDK</title>
 </head>
-
 <body id="home_backoffice" class="backoffice">
     <?php require('../inc/backoffice/header.php'); ?>
     <div class="container-fluid">
@@ -105,9 +103,7 @@
 
         </div>
     </div>
-
+    <script src="../inc/js/edit_captcha.js"></script>
     <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="../inc/edit_captcha.js"></script>
 </body>
-
 </html>

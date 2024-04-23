@@ -12,7 +12,6 @@
 <body>
     <?php require('../../inc/not_connected/header.php');?>      
     <main>
-
         <div class="container text-center m-auto">
             <div class="row">
                 <div class="col-lg-6 m-auto p-4">
@@ -159,8 +158,6 @@
 
     </main>
     <?php require('../../inc/not_connected/footer.php'); ?>
-
-<script src="../../bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="../../inc/script.js"></script>
+    <script src="../../bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

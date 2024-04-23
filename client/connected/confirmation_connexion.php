@@ -9,6 +9,7 @@
     require '../not_connected/PHPMailer/src/PHPMailer.php';
     require '../not_connected/PHPMailer/src/SMTP.php';
     $email = $_SESSION['email'];
+    
     if (isset($_POST['code'])) {
         
         $mail = new PHPMailer(true);
@@ -46,6 +47,7 @@
         }
         
     }
+
     if (isset($_POST['connect'])) {
     
         $connect = $_POST['entrer_code'];
@@ -71,8 +73,7 @@
 
 
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -82,7 +83,6 @@
     <link rel="stylesheet" href="../../bootstrap/bootstrap-icons/font/bootstrap-icons.min.css">
     <title>IDK</title>
 </head>
-
 <body>
     <header class="container w-100 d-flex justify-content-end mt-5 h-100">
         <button class="nav-link btn">
@@ -121,8 +121,6 @@
                 
         </div>
     </main>
-
-<script src="../../bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="../../inc/script.js"></script>
+    <script src="../../bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

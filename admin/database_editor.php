@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +9,6 @@
     <link rel="stylesheet" href="../bootstrap/bootstrap-icons/font/bootstrap-icons.min.css">
     <title>IDK</title>
 </head>
-
 <body id="backoffice_diary_log" class="backoffice">
     <?php require('../inc/backoffice/header.php'); ?>
     <div class="container-fluid">
@@ -55,9 +53,7 @@
             </main>
         </div>
     </div>
-
+    <script src="../inc/js/database_editor.js"></script>
     <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="../inc/database_editor.js"></script>
 </body>
-
 </html>

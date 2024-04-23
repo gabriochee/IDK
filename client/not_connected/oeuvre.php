@@ -1,6 +1,5 @@
 <!doctype html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,10 +9,8 @@
     <link rel="stylesheet" href="../../bootstrap/bootstrap-icons/font/bootstrap-icons.min.css">
     <title>IDK</title>
 </head>
-
 <body id="oeuvre">
     <?php require('../../inc/connected/header.php'); ?>
-
     <main>
         <div class="container mt-5">
             <div class="row justify-content-center">
@@ -317,69 +314,7 @@
         </div>
                     
     <?php require('../../inc/connected/footer.php'); ?>          
-
-<script>
-const cinq = document.getElementById("commentaire-cinq");
-const quatre = document.getElementById("commentaire-quatre");
-const trois = document.getElementById("commentaire-trois");
-const deux = document.getElementById("commentaire-deux");
-const un = document.getElementById("commentaire-un");
-const zero = document.getElementById("commentaire-zero");
-document.getElementById("note-cinq").addEventListener("click", function() {
-        cinq.style.display = "block";
-        quatre.style.display = "none";
-        trois.style.display = "none";
-        deux.style.display = "none";
-        un.style.display = "none";
-        zero.style.display = "none";
-});
-document.getElementById("note-quatre").addEventListener("click", function() {
-    cinq.style.display = "none";
-    quatre.style.display = "block";
-    trois.style.display = "none";
-    deux.style.display = "none";
-    un.style.display = "none";
-    zero.style.display = "none";
-});
-document.getElementById("note-trois").addEventListener("click", function() {
-    cinq.style.display = "none";
-    quatre.style.display = "none";
-    trois.style.display = "block";
-    deux.style.display = "none";
-    un.style.display = "none";
-    zero.style.display = "none";
-});
-document.getElementById("note-deux").addEventListener("click", function() {
-    cinq.style.display = "none";
-    quatre.style.display = "none";
-    trois.style.display = "none";
-    deux.style.display = "block";
-    un.style.display = "none";
-    zero.style.display = "none";
-});
-document.getElementById("note-un").addEventListener("click", function() {
-    cinq.style.display = "none";
-    quatre.style.display = "none";
-    trois.style.display = "none";
-    deux.style.display = "none";
-    un.style.display = "block";
-    zero.style.display = "none";
-});
-document.getElementById("note-zero").addEventListener("click", function() {
-    cinq.style.display = "none";
-    quatre.style.display = "none";
-    trois.style.display = "none";
-    deux.style.display = "none";
-    un.style.display = "none";
-    zero.style.display = "block";
-});
-    
-var noConnectedElement = document.getElementById("no-connected");
-noConnectedElement.addEventListener("click", function() {
-        window.location.href = "../not_connected/signin.php";
-});
-</script>
-<script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="../inc/script.js"></script>
+    <script src="../../inc/js/oeuvre.js"></script>
+    <script src="../../bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
