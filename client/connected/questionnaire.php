@@ -12,6 +12,14 @@
 <body>
     <?php require('../../inc/connected/header.php'); ?>
     <main>
+        <div class="container text-center m-auto">
+            <div class="row">
+                <div class="col-lg-6 m-auto p-4">
+                    <img src="../../inc/logo.svg" alt="Logo IDK" class="navbar-brand img-fluid my-5" width="150px" height="150px">
+                    <h3 class="mt-1">Questionnaire</h3>
+                </div>
+            </div>
+        </div>
         <div class="container text-center col-lg-6 my-md-5 py-5">
             <h3>Question 1 : A chaque réponse avec dans certains cas plusieurs possibles, la question se supprime et celle d’apres apparait car en fonction les prochaines question seront différentes, avec un fil d’ariane des réponses.</h3>
         </div>

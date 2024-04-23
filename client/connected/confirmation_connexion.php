@@ -84,14 +84,18 @@
     <title>IDK</title>
 </head>
 <body>
-    <header class="container w-100 d-flex justify-content-end mt-5 h-100">
+    <header class="container w-100 d-flex justify-content-end mt-5">
         <button class="nav-link btn">
             <i class="bi bi-moon-stars fs-3" height="100" width="100"></i>
         </button>
     </header>
     <main>
-        <div class="container-fluid d-flex justify-content-center my-5 py-2">
-            <img src="../../inc/logo.svg" alt="Logo IDK" class="img-thumbnail bg-transparent border-0">
+        <div class="container text-center m-auto">
+            <div class="row">
+                <div class="col-lg-6 m-auto p-4">
+                    <img src="../../inc/img/logo.svg" alt="Logo IDK" class="navbar-brand img-fluid my-5" width="150px" height="150px">
+                </div>
+            </div>
         </div>
 
         <div class="container col-sm-6 col-xl-4">

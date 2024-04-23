@@ -35,8 +35,12 @@ if (isset($_POST['connecter'])) {
         </button>
     </header>
     <main>
-        <div class="container-fluid d-flex justify-content-center my-5 py-2">
-            <img src="../../inc/logo.svg" alt="Logo IDK" class="img-thumbnail bg-transparent border-0">
+    <div class="container text-center m-auto">
+            <div class="row">
+                <div class="col-lg-6 m-auto p-4">
+                    <img src="../../inc/img/logo.svg" alt="Logo IDK" class="navbar-brand img-fluid my-5" width="150px" height="150px">
+                </div>
+            </div>
         </div>
 
         <div class="container col-sm-6 col-xl-4">
@@ -52,7 +56,7 @@ if (isset($_POST['connecter'])) {
                 </div>
 
                 <div class="container px-sm-4 col-sm-10 mt-4">
-                    <button class="btn btn-lg w-100 py-2 fs-4 btn-warning border-dark border-2" type="submit" name ="connecter">
+                    <button class="btn btn-lg w-100 py-2 fs-4 btn-warning border-dark border-2" type="submit" name="connecter">
                         Connexion
                     </button>
                 </div>

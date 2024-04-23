@@ -12,10 +12,14 @@
 <body class="no-x-overflow">
     <?php require('../../inc/not_connected/header.php'); ?>
     <main>
-        <div class="container-fluid d-flex flex-column text-center">
-            <div class="mt-5 py-2 gap-5">
-                <img src="../../inc/logo.svg" alt="Logo IDK" width="200px" height="200px" class="img img-thumbnail bg-transparent border-0">
+        <div class="container text-center m-auto">
+            <div class="row">
+                <div class="col-lg-6 m-auto p-4">
+                    <img src="../../inc/logo.svg" alt="Logo IDK" class="navbar-brand img-fluid my-5" width="150px" height="150px">
+                </div>
             </div>
+        </div>
+        <div class="container-fluid d-flex flex-column text-center">
             <h3 class="mt-5 mx-auto col-6">Liste : Nom de la liste</h3>
             <h5>Publiée le jj/mm/aaaa</h5>
         </div>

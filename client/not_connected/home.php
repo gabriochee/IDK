@@ -22,7 +22,6 @@
                 </div>
             </div>
         </div>
-
         <div class="container marketing">
             <div class="row d-flex justify-content-around mb-5">
                 <div class="col-lg-3 border border-dark border-2 text-center rounded-2" style="height: 350px; background-color: #CFDBD5;">

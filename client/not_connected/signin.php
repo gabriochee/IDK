@@ -12,10 +12,14 @@
 <body>
     <?php require('../../inc/not_connected/header.php'); ?>
     <main>
-        <div class="container-fluid d-flex justify-content-center my-5 py-2">
-            <img src="../../inc/logo.svg" alt="Logo IDK" class="img-thumbnail bg-transparent border-0">
+        <div class="container text-center m-auto">
+            <div class="row">
+                <div class="col-lg-6 m-auto p-4">
+                    <img src="../../inc/logo.svg" alt="Logo IDK" class="navbar-brand img-fluid my-5" width="150px" height="150px">
+                    <h3 class="mt-1">S'inscrire</h3>
+                </div>
+            </div>
         </div>
-
         <div class="container col-sm-10 col-xl-8">
             <form action="./confirmation.php" class="needs-validation" id="signin-form" method="post">
                 <div class="container d-lg-flex justify-content-center justify-content-evenly">
