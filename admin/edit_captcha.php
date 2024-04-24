@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +10,7 @@
     <link rel="stylesheet" href="../bootstrap/bootstrap-icons/font/bootstrap-icons.min.css">
     <title>IDK</title>
 </head>
+
 <body id="home_backoffice" class="backoffice">
     <?php require('../inc/backoffice/header.php'); ?>
     <div class="container-fluid">
@@ -20,6 +22,7 @@
                     $serverAddress = "152.228.217.19";
                     $username = "distant";
                     $password = "LEG2024IDKdistant!";
+                    $bdd;
 
                     try {
                         $bdd = new PDO("mysql:host=$serverAddress;dbname=projet;port=3306", $username, $password);
@@ -30,7 +33,7 @@
                         $captchaId = $result->fetchAll()[0]['LAST_INSERT_ID()'];
                         $isGoodAnswer = 'false';
                         foreach ($_POST as $key => $answer) {
-                            if (str_contains($key, 'good-answer')){
+                            if (str_contains($key, 'good-answer')) {
                                 $isGoodAnswer = 'true';
                                 continue;
                             }
@@ -58,13 +61,36 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Nombres d'utilisateurs connecté(s) :</td>
-                                <td>-</td>
-                                <td>-</td>
-                            </tr>
                             <?php
+                            try {
+                                $serverAddress = "152.228.217.19";
+                                $username = "distant";
+                                $password = "LEG2024IDKdistant!";
 
+                                $bdd = new PDO("mysql:host=$serverAddress;dbname=projet;port=3306", $username, $password);
+                                $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+                                $data = $bdd->query('SELECT CAPTCHA.question, CAPTCHA.id_captcha, REPONSE_CAPTCHA.contenu 
+                                         FROM REPONSE_CAPTCHA
+                                         JOIN ASSOCIATION_REPONSES_CAPTCHA
+                                         ON ASSOCIATION_REPONSES_CAPTCHA.id_reponse = REPONSE_CAPTCHA.id_reponse
+                                         JOIN CAPTCHA
+                                         ON ASSOCIATION_REPONSES_CAPTCHA.id_captcha = CAPTCHA.id_captcha;');
+                                
+                                $fetchedData = $data->fetchAll();
+
+                                if ($fetchedData) {
+                                    foreach ($fetchedData as $row) {
+                                        echo '<tr>';
+                                        for ($i = 0; $i < count($row); $i++) {
+                                            echo "<td>" . $row[$i] . "</td>";
+                                        }
+                                        echo '</tr>';
+                                    }
+                                }
+                            } catch (PDOException $e) {
+                                echo "Erreur : " . $e->getMessage();
+                            }
                             ?>
                         </tbody>
                     </table>
@@ -106,4 +132,5 @@
     <script src="../inc/js/edit_captcha.js"></script>
     <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
