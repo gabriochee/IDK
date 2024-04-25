@@ -4,7 +4,7 @@ const addAnswer = document.getElementById('add-answer');
 
 let answerNum = 1;
 
-console.log(captchaData);
+// Partie pour l'éditeur de captcha
 
 function deleteAnswer(element) {
   answerNum--;
@@ -47,3 +47,28 @@ addAnswer.onclick = function (){
 
     answers.appendChild(newAnswer);
 };
+
+// Partie pour l'affichage du tableau de captcha
+
+console.log(captchaData)
+
+let captchaArray = {};
+
+if (captchaData != undefined && captchaData != null) {
+  let currentCaptcha = captchaData[0][1];
+  let currentQuestion = captchaData[0][0];
+  let currentAnswers = [];
+  for (const property in captchaData) {
+    if (captchaData[property][1] == currentCaptcha){
+      currentAnswers.push(captchaData[property][2])
+    } else {
+      captchaArray[currentQuestion] = currentAnswers;
+      currentCaptcha = captchaData[property][1];
+      currentAnswers = [captchaData[property][2]];
+      currentQuestion = captchaData[property][0];
+    }
+  }
+  captchaArray[currentQuestion] = currentAnswers;
+}
+
+console.log(captchaArray);
