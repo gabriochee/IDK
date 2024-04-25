@@ -78,11 +78,14 @@
                                          ON ASSOCIATION_REPONSES_CAPTCHA.id_captcha = CAPTCHA.id_captcha;');
                                 
                                 $fetchedData = $data->fetchAll();
+                                $json = json_encode($fetchedData);
+                                
+                                echo "<script>let captchaData = $json;</script>";
 
                                 if ($fetchedData) {
                                     foreach ($fetchedData as $row) {
                                         echo '<tr>';
-                                        for ($i = 0; $i < count($row); $i++) {
+                                        for ($i = 0; $i < count($row)/2; $i++) {
                                             echo "<td>" . $row[$i] . "</td>";
                                         }
                                         echo '</tr>';

@@ -4,6 +4,8 @@ const addAnswer = document.getElementById('add-answer');
 
 let answerNum = 1;
 
+console.log(captchaData);
+
 function deleteAnswer(element) {
   answerNum--;
   let pNode = element.parentNode;
