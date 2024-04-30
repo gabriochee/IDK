@@ -44,7 +44,7 @@
                         </div>
                         <div class="col-12">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" name="email" pattern="{,100}"required>
+                            <input type="email" class="form-control" id="email" name="email" pattern="{,100}" required>
                             <div class="invalid-feedback">Veuillez fournir un email valide.</div>
                         </div>
                         <div class="col-12">

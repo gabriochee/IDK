@@ -1,5 +1,5 @@
 <?php
-
+// mettre dans un inc et changer les chemin
 $serverAddress = "152.228.217.19";
 $username = "distant";
 $password = "LEG2024IDKdistant!";
@@ -15,5 +15,4 @@ try {
     echo "Code erreur : " . $e->getCode();
     echo "Erreur lors de l'envoi de l'e-mail : " . $mail->ErrorInfo;
 }
-
 ?>
