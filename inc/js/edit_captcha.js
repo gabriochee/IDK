@@ -2,6 +2,8 @@ const answers = document.getElementById('answers');
 const answer = document.getElementById('answer');
 const addAnswer = document.getElementById('add-answer');
 const captchaTable = document.getElementById('captcha-table');
+const deleteBtn = document.getElementsByClassName("delete-btn")[0];
+
 
 let answerNum = 1;
 
@@ -89,24 +91,36 @@ function createAnswersCard(answers, captchaNumber){
   let tbody = document.createElement('tbody');
   let tableRowHead = document.createElement('tr');
   let tableHead = document.createElement('th');
+  let form = document.createElement('form');
+  let deleteCaptchaBtn = deleteBtn.cloneNode();
 
   div.id = 'collapse' + captchaNumber;
   div.classList.add('collapse');
   card.classList.add('card', 'card-body');
   table.classList.add('table', 'table-bordered');
+  form.classList.add('needs-validation');
+  deleteCaptchaBtn.classList.remove('border-light');
+
   tableHead.innerHTML = 'Réponses';
+  form.action = "./edit_captcha.php";
+  form.method = "post";
+  deleteCaptchaBtn.setAttribute('onclick', '');
+  deleteCaptchaBtn.setAttribute('value', answers[1]);
+  deleteCaptchaBtn.setAttribute('name', 'deleteCaptchaId');
+  deleteCaptchaBtn.type = "submit";
+  deleteCaptchaBtn.innerHTML = "Supprimer";
 
   tableRowHead.appendChild(tableHead);
   tbody.appendChild(tableRowHead);
 
-for (const answer of answers){
+for (const answer of answers[0]){
   let answerRow = document.createElement('td');
   if (answer[1] == 1){
     let badge = document.createElement('span');
     badge.classList.add('badge', 'bg-success', 'align-items-center');
     badge.innerHTML = "Bonne réponse";
 
-    answerRow.classList.add('d-flex', 'justify-content-between');
+    answerRow.classList.add('d-flex', 'justify-content-between', 'table-success');
     answerRow.innerHTML = answer[0];
     answerRow.appendChild(badge);
   } else {
@@ -119,6 +133,11 @@ for (const answer of answers){
 
 table.appendChild(tbody);
 card.appendChild(table);
+
+form.appendChild(deleteCaptchaBtn);
+
+card.appendChild(form);
+
 div.appendChild(card);
 
 return div;
@@ -131,7 +150,9 @@ if (captchaData != undefined && captchaData != null) {
   let currentCaptcha = captchaData[0][1];
   let currentQuestion = captchaData[0][0];
   let currentAnswers = [];
-  for (const property in captchaData) {
+  let property;
+
+  for (property in captchaData) {
     if (captchaData[property][1] == currentCaptcha){
       currentAnswers.push(
         [
@@ -140,7 +161,7 @@ if (captchaData != undefined && captchaData != null) {
         ]
       )
     } else {
-      captchaArray[currentQuestion] = currentAnswers;
+      captchaArray[currentQuestion] = [currentAnswers, captchaData[property][1]];
       currentCaptcha = captchaData[property][1];
       currentAnswers = [
         [
@@ -151,7 +172,7 @@ if (captchaData != undefined && captchaData != null) {
       currentQuestion = captchaData[property][0];
     }
   }
-  captchaArray[currentQuestion] = currentAnswers;
+  captchaArray[currentQuestion] = [currentAnswers, captchaData[property][1]];
 }
 
 let i = 0;
