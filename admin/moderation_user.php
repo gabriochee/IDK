@@ -30,140 +30,45 @@
                                     <th class="table-cell" scope="col">Email</th>
                                     <th class="table-cell" scope="col">Date de naissance</th>
                                     <th></th>
+                                    <th></th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td class="table-cell" scope="row">#1234</td>
-                                    <td class="table-cell">Léo Belarbi</td>
-                                    <td class="table-cell">pepe01</td>
-                                    <td class="table-cell">Homme</td>
-                                    <td class="table-cell">13/04/2024 13:12:32</td>
-                                    <td class="table-cell">email@email.email</td>
-                                    <td class="table-cell">06/01/1999</td>
-                                    <td class="table-cell"><button type="button" class="btn btn-sm btn-outline-secondary">En voir plus</button></td>
-                                </tr>
-                                <tr>
-                                    <td class="table-cell" scope="row">#1234</td>
-                                    <td class="table-cell">Léo Belarbi</td>
-                                    <td class="table-cell">pepe01</td>
-                                    <td class="table-cell">Homme</td>
-                                    <td class="table-cell">13/04/2024 13:12:32</td>
-                                    <td class="table-cell">email@email.email</td>
-                                    <td class="table-cell">06/01/1999</td>
-                                    <td class="table-cell"><button type="button" class="btn btn-sm btn-outline-secondary">En voir plus</button></td>
-                                </tr>
-                                <tr>
-                                    <td class="table-cell" scope="row">#1234</td>
-                                    <td class="table-cell">Léo Belarbi</td>
-                                    <td class="table-cell">pepe01</td>
-                                    <td class="table-cell">Homme</td>
-                                    <td class="table-cell">13/04/2024 13:12:32</td>
-                                    <td class="table-cell">email@email.email</td>
-                                    <td class="table-cell">06/01/1999</td>
-                                    <td class="table-cell"><button type="button" class="btn btn-sm btn-outline-secondary">En voir plus</button></td>
-                                </tr>
-                                <tr>
-                                    <td class="table-cell" scope="row">#1234</td>
-                                    <td class="table-cell">Léo Belarbi</td>
-                                    <td class="table-cell">pepe01</td>
-                                    <td class="table-cell">Homme</td>
-                                    <td class="table-cell">13/04/2024 13:12:32</td>
-                                    <td class="table-cell">email@email.email</td>
-                                    <td class="table-cell">06/01/1999</td>
-                                    <td class="table-cell"><button type="button" class="btn btn-sm btn-outline-secondary">En voir plus</button></td>
-                                </tr>
-                                <tr>
-                                    <td class="table-cell" scope="row">#1234</td>
-                                    <td class="table-cell">Léo Belarbi</td>
-                                    <td class="table-cell">pepe01</td>
-                                    <td class="table-cell">Homme</td>
-                                    <td class="table-cell">13/04/2024 13:12:32</td>
-                                    <td class="table-cell">email@email.email</td>
-                                    <td class="table-cell">06/01/1999</td>
-                                    <td class="table-cell"><button type="button" class="btn btn-sm btn-outline-secondary">En voir plus</button></td>
-                                </tr>
-                                <tr>
-                                    <td class="table-cell" scope="row">#1234</td>
-                                    <td class="table-cell">Léo Belarbi</td>
-                                    <td class="table-cell">pepe01</td>
-                                    <td class="table-cell">Homme</td>
-                                    <td class="table-cell">13/04/2024 13:12:32</td>
-                                    <td class="table-cell">email@email.email</td>
-                                    <td class="table-cell">06/01/1999</td>
-                                    <td class="table-cell"><button type="button" class="btn btn-sm btn-outline-secondary">En voir plus</button></td>
-                                </tr>
-                                <tr>
-                                    <td class="table-cell" scope="row">#1234</td>
-                                    <td class="table-cell">Léo Belarbi</td>
-                                    <td class="table-cell">pepe01</td>
-                                    <td class="table-cell">Homme</td>
-                                    <td class="table-cell">13/04/2024 13:12:32</td>
-                                    <td class="table-cell">email@email.email</td>
-                                    <td class="table-cell">06/01/1999</td>
-                                    <td class="table-cell"><button type="button" class="btn btn-sm btn-outline-secondary">En voir plus</button></td>
-                                </tr>
-                                <tr>
-                                    <td class="table-cell" scope="row">#1234</td>
-                                    <td class="table-cell">Léo Belarbi</td>
-                                    <td class="table-cell">pepe01</td>
-                                    <td class="table-cell">Homme</td>
-                                    <td class="table-cell">13/04/2024 13:12:32</td>
-                                    <td class="table-cell">email@email.email</td>
-                                    <td class="table-cell">06/01/1999</td>
-                                    <td class="table-cell"><button type="button" class="btn btn-sm btn-outline-secondary">En voir plus</button></td>
-                                </tr>
-                                <tr>
-                                    <td class="table-cell" scope="row">#1234</td>
-                                    <td class="table-cell">Léo Belarbi</td>
-                                    <td class="table-cell">pepe01</td>
-                                    <td class="table-cell">Homme</td>
-                                    <td class="table-cell">13/04/2024 13:12:32</td>
-                                    <td class="table-cell">email@email.email</td>
-                                    <td class="table-cell">06/01/1999</td>
-                                    <td class="table-cell"><button type="button" class="btn btn-sm btn-outline-secondary">En voir plus</button></td>
-                                </tr>
-                                </tr>
-                                <tr>
-                                    <td class="table-cell" scope="row">#1234</td>
-                                    <td class="table-cell">Léo Belarbi</td>
-                                    <td class="table-cell">pepe01</td>
-                                    <td class="table-cell">Homme</td>
-                                    <td class="table-cell">13/04/2024 13:12:32</td>
-                                    <td class="table-cell">email@email.email</td>
-                                    <td class="table-cell">06/01/1999</td>
-                                    <td class="table-cell"><button type="button" class="btn btn-sm btn-outline-secondary">En voir plus</button></td>
-                                </tr>
-                                <tr>
-                                    <td class="table-cell" scope="row">#1234</td>
-                                    <td class="table-cell">Léo Belarbi</td>
-                                    <td class="table-cell">pepe01</td>
-                                    <td class="table-cell">Homme</td>
-                                    <td class="table-cell">13/04/2024 13:12:32</td>
-                                    <td class="table-cell">email@email.email</td>
-                                    <td class="table-cell">06/01/1999</td>
-                                    <td class="table-cell"><button type="button" class="btn btn-sm btn-outline-secondary">En voir plus</button></td>
-                                </tr>
-                                <tr>
-                                    <td class="table-cell" scope="row">#1234</td>
-                                    <td class="table-cell">Léo Belarbi</td>
-                                    <td class="table-cell">pepe01</td>
-                                    <td class="table-cell">Homme</td>
-                                    <td class="table-cell">13/04/2024 13:12:32</td>
-                                    <td class="table-cell">email@email.email</td>
-                                    <td class="table-cell">06/01/1999</td>
-                                    <td class="table-cell"><button type="button" class="btn btn-sm btn-outline-secondary">En voir plus</button></td>
-                                </tr>
-                                <tr>
-                                    <td class="table-cell" scope="row">#1234</td>
-                                    <td class="table-cell">Léo Belarbi</td>
-                                    <td class="table-cell">pepe01</td>
-                                    <td class="table-cell">Homme</td>
-                                    <td class="table-cell">13/04/2024 13:12:32</td>
-                                    <td class="table-cell">email@email.email</td>
-                                    <td class="table-cell">06/01/1999</td>
-                                    <td class="table-cell"><button type="button" class="btn btn-sm btn-outline-secondary">En voir plus</button></td>
-                                </tr>
+                                <?php 
+                                    require('../client/connected/db.php');
+
+                                    $userInformations = false;
+
+                                    if (isset($_POST['show'])){
+                                        $userInformations = ($bdd->query("SELECT id_user, nom, prenom, pseudo, genre, date_inscription, mail, telephone, date_naissance FROM UTILISATEUR WHERE id_user = {$_POST['show']};"))->fetchAll();
+                                    }
+
+                                    $queryResponse = $bdd->query("SELECT id_user, CONCAT(prenom, ' ', nom) as prenom_nom, pseudo, genre, date_inscription, mail, date_naissance FROM UTILISATEUR;");
+
+                                    $result = $queryResponse->fetchAll();
+                                    $idUser;
+
+                                    foreach ($result as $row){
+                                        echo '<tr>';
+                                        foreach ($row as $key => $info){
+                                            if (gettype($key) === 'string'){
+                                                if ($key == 'id_user'){
+                                                    $idUser = $info;
+                                                    $info = '#' . $info;
+                                                }
+                                                echo '<td class="table-cell">' . $info . '</td>';
+                                            }
+                                        }
+                                        echo '<form action="moderation_user.php" method="post">';
+                                        echo '<td class="table-cell"><button type="submit" class="btn btn-sm btn-outline-secondary" name=show value=' . $idUser . '>En voir plus</button></td>';
+                                        echo '<td class="table-cell"><button type="submit" class="btn btn-sm btn-warning" name=ban value='. $idUser .'>Bannir</button></td>';
+                                        echo '<td class="table-cell"><button type="submit" class="btn btn-sm btn-danger" name=delete value='. $idUser .'>Supprimer</button></td>';
+                                        echo '</form>';
+                                        echo '</tr>';
+                                    }
+                                    
+                                ?>
                             </tbody>
                         </table>
                     </div>
@@ -175,8 +80,8 @@
                         <div class="col-md-4 border-right">
                             <div class="d-flex flex-column align-items-center text-center p-3 py-5">
                                 <img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
-                                <span class="font-weight-bold">#1234</span>
-                                <span class="text-black-50">Léo Belarbi</span>
+                                <span class="font-weight-bold"><?php if($userInformations){ echo '#' . $userInformations[0]['id_user'];} ?></span>
+                                <span class="text-black-50"><?php if ($userInformations){echo $userInformations[0]['prenom'] . ' ' . $userInformations[0]['nom'];} ?></span>
                                 <div class="d-flex justify-content-center">
                                     <button class="nav-btn btn btn-primary btn-block btn-warning text-white border border-light border-2 rounded-3 w-100 mb-3">Supprimer</button>
                                 </div>
@@ -187,29 +92,29 @@
                                 <div class="row mt-2">
                                     <div class="col-md-6">
                                         <label class="labels">Nom</label>
-                                        <input type="text" class="form-control" value="">
+                                        <input type="text" class="form-control" value="<?php if ($userInformations){echo $userInformations[0]['nom'];}?>">
                                     </div>
                                     <div class="col-md-6">
                                         <label class="labels">Prénom</label>
-                                        <input type="text" class="form-control" value="">
+                                        <input type="text" class="form-control" value="<?php if ($userInformations){echo $userInformations[0]['prenom'];}?>">
                                     </div>
                                     <div class="col-md-12">
                                         <label class="labels">Pseudo</label>
-                                        <input type="text" class="form-control" value="">
+                                        <input type="text" class="form-control" value="<?php if ($userInformations){echo $userInformations[0]['pseudo'];}?>">
                                     </div>
                                     <div class="col-md-12">
                                         <label class="labels">Sexe</label>
                                         <div class="d-sm-flex justify-content-center container ps-0">
                                             <div class="container d-flex align-items-center ps-0">
-                                                <input id="man" name="paymentMethod" type="radio" class="form-check-input border-dark mt-0" required>
+                                                <input id="man" name="paymentMethod" type="radio" class="form-check-input border-dark mt-0" required <?php if ($userInformations){if ($userInformations[0]['genre'] == 'man') { echo 'checked';}}?>>
                                                 <label class="form-check-label labels mx-2" for="credit">Homme</label>
                                             </div>
                                             <div class="container d-flex align-items-center ps-0">
-                                                <input id="woman" name="paymentMethod" type="radio" class="form-check-input border-dark mt-0" required>
+                                                <input id="woman" name="paymentMethod" type="radio" class="form-check-input border-dark mt-0" required <?php if ($userInformations){if ($userInformations[0]['genre'] == 'woman') { echo 'checked';}}?>>
                                                 <label class="form-check-label labels mx-2" for="credit">Femme</label>
                                             </div>
                                             <div class="container d-flex align-items-center ps-0">
-                                                <input id="other" name="paymentMethod" type="radio" class="form-check-input border-dark mt-0" required>
+                                                <input id="other" name="paymentMethod" type="radio" class="form-check-input border-dark mt-0" required <?php if ($userInformations){if ($userInformations[0]['genre'] == 'other') { echo 'checked';}}?>>
                                                 <label class="form-check-label labels mx-2" for="credit">Autre</label>
                                             </div>
                                         </div>
@@ -218,24 +123,24 @@
                                         <label class="labels">Date de naissance</label>
                                         <div class="col-md-4">
                                             <label class="labels">Jour</label>
-                                            <input type="text" class="form-control" value="">
+                                            <input type="text" class="form-control" value="<?php if ($userInformations){echo date('d', strtotime($userInformations[0]['date_naissance']));}?>">
                                         </div>
                                         <div class="col-md-4">
                                             <label class="labels">Mois</label>
-                                            <input type="text" class="form-control" value="">
+                                            <input type="text" class="form-control" value="<?php if ($userInformations){echo date('m', strtotime($userInformations[0]['date_naissance']));}?>">
                                         </div>
                                         <div class="col-md-4">
                                             <label class="labels">Année</label>
-                                            <input type="text" class="form-control" value="">
+                                            <input type="text" class="form-control" value="<?php if ($userInformations){echo date('Y', strtotime($userInformations[0]['date_naissance']));}?>">
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <label class="labels">Email</label>
-                                        <input type="text" class="form-control" value="">
+                                        <input type="text" class="form-control" value="<?php if ($userInformations){echo $userInformations[0]['mail'];}?>">
                                     </div>
                                     <div class="col-md-12">
                                         <label class="labels">Numéro de mobile</label>
-                                        <input type="text" class="form-control" value="">
+                                        <input type="text" class="form-control" value="<?php if ($userInformations){echo $userInformations[0]['telephone'];}?>">
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-center">
