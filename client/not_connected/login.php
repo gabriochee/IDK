@@ -8,16 +8,12 @@ if (isset($_POST['connecter'])) {
     $password = $_POST['password'];
     $pepper = 'sZB8J0az0z';
     if($email != "" && $password != ""){
-<<<<<<< HEAD:client/not_connected/login.php
         $req = $bdd->prepare("SELECT mail, mdp, id_user FROM UTILISATEUR WHERE mail = :email;");
         $req->execute(
             array(
                 "email" => $email
             )
         );
-=======
-        $req = $bdd->query("SELECT * FROM UTILISATEUR WHERE mail = '$email';");//erreur pas mettre le * pour un appel SQL
->>>>>>> ba71503596b7da4659b3667a8b7341760ffe0bda:client/connected/login.php
         $reponse = $req->fetch();
         
         if($reponse){

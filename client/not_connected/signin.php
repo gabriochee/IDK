@@ -20,48 +20,14 @@
                 </div>
             </div>
         </div>
-<<<<<<< HEAD
-
-        <div class="container col-sm-10 col-xl-8">
-            <form action="./confirmation_inscription.php" class="needs-validation" id="signin-form" method="post">
-                <div class="container d-lg-flex justify-content-center justify-content-evenly">
-                    <div class="col-lg-5">
-                        <label for="lastname" class="form-label fs-3 m-0">Nom</label>
-                        <input type="text" class="form-control fs-3 border-dark border-2 rounded-3" id="lastname" name="lastname" maxlength="100" required>
-                        <div class="invalid-feedback">Veuillez fournir un nom valide.</div>
-                    </div>
-
-                    <div class="col-lg-5">
-                        <label for="firstname" class="form-label fs-3 m-0">Prenom</label>
-                        <input type="text" class="form-control fs-3 border-dark border-2 rounded-3" id="firstname" name="firstname" maxlength="100" required>
-                        <div class="invalid-feedback">Veuillez fournir un prénom valide.</div>
-                    </div>
-                </div>
-
-                <div class="container px-sm-4 col-sm-11">
-                    <label for="username" class="form-label fs-3 m-0 mt-3">Pseudo</label>
-                    <input type="text" class="form-control fs-3 border-dark border-2 rounded-3" id="username" name="username" maxlength="100" required>
-                    <div class="invalid-feedback">Veuillez fournir un prénom valide.</div>
-                </div>
-
-                <div class="container d-sm-flex justify-content-center my-3 col-11">
-                    <p class="container fs-3 col-sm-2 m-0">Sexe : </p>
-
-                    <div class="d-sm-flex justify-content-center container ps-0">
-
-                        <div class="container d-flex align-items-center">
-                            <input id="man" name="gender" type="radio" class="form-check-input bigger-radio border-dark border-1" required value="man">
-                            <label class="form-check-label fs-3 mx-2" for="gender">Homme</label>
-=======
         <div class="contact-form row g-5 justify-content-center mb-4">
             <div class="col-md-7 col-lg-8">
-                <form action="./confirmation.php" class="needs-validation" id="signin-form" method="post">
+                <form action="./confirmation_inscription.php" class="needs-validation" id="signin-form" method="post">
                     <div class="row g-3">
                         <div class="col-sm-6">
                             <label for="firstName" class="form-label">Prénom</label>
                             <input type="text" class="form-control" id="firstName" name="firstName" pattern="[a-zA-ZÀ-ÿ0-9.' -]{2,40}" required>
                             <div class="invalid-feedback">Veuillez fournir un prénom valide.</div>
->>>>>>> ba71503596b7da4659b3667a8b7341760ffe0bda
                         </div>
                         <div class="col-sm-6">
                             <label for="lastName" class="form-label">Nom</label>

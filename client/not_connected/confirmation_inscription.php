@@ -6,16 +6,17 @@
         $hash = password_hash($_POST['password'].$pepper, PASSWORD_BCRYPT, ['cost' => 13]);
         $today = date('Y-m-d');
         try{
-            $sql = "INSERT INTO UTILISATEUR(role, nom, prenom, date_naissance, sexe, pseudo, mail, mdp, date_inscription, photo_utilisateur, statut_newsletter, code_verification)
-                    VALUES ('utilisateur', :lastname, :firstname, :birthdate, :gender, :username, :mail, :hash, :today, 'N/A', 'abonne', NULL)";
+            $sql = "INSERT INTO UTILISATEUR(role, nom, prenom, date_naissance, sexe, pseudo, mail, mdp, date_inscription, photo_utilisateur, statut_newsletter, code_verification, telephone, banni)
+                    VALUES ('utilisateur', :lastname, :firstname, :birthdate, :gender, :username, :mail, :hash, :today, 'N/A', 'abonne', NULL, :phone ,'0')";
             $stmt = $bdd->prepare($sql);
-            $stmt->bindParam(':lastname', $_POST['lastname']);
-            $stmt->bindParam(':firstname', $_POST['firstname']);
+            $stmt->bindParam(':lastname', $_POST['lastName']);
+            $stmt->bindParam(':firstname', $_POST['firstName']);
+            $stmt->bindParam(':username', $_POST['username']);
+            $stmt->bindParam(':gender', $_POST['sexe']);
             $birthdate = $_POST['birthday-year'] . '-' . $_POST['birthday-month'] . '-' . $_POST['birthday-day'];
             $stmt->bindParam(':birthdate', $birthdate);
-            $stmt->bindParam(':gender', $_POST['gender']);
-            $stmt->bindParam(':username', $_POST['username']);
-            $stmt->bindParam(':mail', $_POST['mail']);
+            $stmt->bindParam(':mail', $_POST['email']);
+            $stmt->bindParam(':phone', $_POST['phone']);
             $stmt->bindParam(':hash', $hash);
             $stmt->bindParam(':today', $today);
             $stmt->execute();
@@ -23,7 +24,7 @@
             $req = $bdd->prepare("SELECT mail, mdp, id_user FROM UTILISATEUR WHERE mail = :email;");
             $req->execute(
                 array(
-                    "email" => $_POST['mail']
+                    "email" => $_POST['email']
                 )
             );
             $reponse = $req->fetch();
