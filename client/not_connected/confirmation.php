@@ -34,7 +34,9 @@
         try {
             $bdd = new PDO("mysql:host=$serverAddress;dbname=projet;port=3306", $username, $password);
             $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $result = $bdd->query(("INSERT INTO UTILISATEUR(role, nom, prenom, date_naissance, genre, pseudo, mail, mdp, date_inscription, photo_utilisateur, statut_newsletter, code_verification) VALUES ('utilisateur', '{$_POST['lastname']}', '{$_POST['firstname']}', \"{$_POST['birthday-year']}-{$_POST['birthday-month']}-{$_POST['birthday-day']}\", '{$_POST['gender']}', '{$_POST['username']}', '{$_POST['mail']}', '{$hash}', '{$today}', 'N/A', 'abonne', 'NULL');"));
+            $result = $bdd->query(("INSERT INTO UTILISATEUR(role, nom, prenom, date_naissance, sexe, pseudo, mail, mdp, date_inscription, photo_utilisateur, statut_newsletter, code_verification, telephone, banni)
+             VALUES 
+             ('utilisateur', '{$_POST['lastName']}', '{$_POST['firstName']}', \"{$_POST['birthday-year']}-{$_POST['birthday-month']}-{$_POST['birthday-day']}\", '{$_POST['sexe']}', '{$_POST['username']}', '{$_POST['mail']}', '{$hash}', '{$today}', 'N/A', 'abonne', NULL, {$_POST['phone']}, FALSE);"));
             
             $mail->send();
             echo "

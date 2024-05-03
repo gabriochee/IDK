@@ -42,20 +42,20 @@
                         <div class="col-12">
                             <label for="sexe" class="form-label">Sexe</label>
                             <select class="form-select" id="sexe" name="sexe" required>
-                                <option value="Mr">Homme</option>
-                                <option value="Mme">Femme</option>
-                                <option value="Mme">Autre</option>
+                                <option value="homme">Homme</option>
+                                <option value="feem">Femme</option>
+                                <option value="autre">Autre</option>
                             </select>
                         </div>
                         <div class="container d-sm-flex justify-content-center justify-content-evenly gap-3 m-0 mt-3">
                             <div class="col-sm-3">
                                 <label for="birthday-day" class="form-label fs-3">Jour</label>
-                                <input type="number" class="form-control fs-3 border-dark border-2 rounded-3" id="birthday-day" name="birthday-day" min="1" max="31">
+                                <input type="number" class="form-control" id="birthday-day" name="birthday-day" min="1" max="31">
                                 <div class="invalid-feedback">Veuillez fournir un jour valide.</div>
                             </div>
                             <div class="col-sm-3">
                                 <label for="birthday-month" class="form-label fs-3">Mois</label>
-                                <select class="form-control fs-3 border-dark border-2 rounded-3" name="birthday-month" id="birdthday-month">
+                                <select class="form-control" name="birthday-month" id="birdthday-month">
                                     <option disabled selected value></option>
                                     <option value="01">janvier</option>
                                     <option value="02">février</option>
@@ -75,7 +75,7 @@
 
                             <div class="col-sm-3">
                                 <label for="birthday-year" class="form-label fs-3">Année</label>
-                                <input type="number" class="form-control fs-3 border-dark border-2 rounded-3" name="birthday-year" id="birdthday-year" min="1900" max="<?php echo (date("Y")); ?>">
+                                <input type="number" class="form-control" name="birthday-year" id="birdthday-year" min="1900" max="<?php echo (date("Y")); ?>">
                                 <div class="invalid-feedback">Veuillez fournir une année valide.</div>
                             </div>
                         </div>
@@ -83,6 +83,11 @@
                             <label for="email" class="form-label">Email</label>
                             <input type="email" class="form-control" id="email" name="email" pattern="{,100}" required>
                             <div class="invalid-feedback">Veuillez fournir un email valide.</div>
+                        </div>
+                        <div class="col-12">
+                            <label for="phone" class="form-label">Numéro de téléphone</label>
+                            <input type="tel" class="form-control" id="phone" name="phone" pattern="{,100}" required>
+                            <div class="invalid-feedback">Veuillez fournir un numéro de téléphone valide.</div>
                         </div>
                         <div class="col-12">
                             <label for="password" class="form-label">Mot de passse</label>
