@@ -43,7 +43,7 @@
                             <label for="sexe" class="form-label">Sexe</label>
                             <select class="form-select" id="sexe" name="sexe" required>
                                 <option value="homme">Homme</option>
-                                <option value="feem">Femme</option>
+                                <option value="femme">Femme</option>
                                 <option value="autre">Autre</option>
                             </select>
                         </div>
