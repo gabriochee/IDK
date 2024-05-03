@@ -1,18 +1,19 @@
 <?php
     session_start();
-    require_once('db.php');
-
+    require_once('../../inc/db.php');
+    
     use PHPMailer\PHPMailer\PHPMailer;
     use PHPMailer\PHPMailer\Exception;
 
     require '../not_connected/PHPMailer/src/Exception.php';
     require '../not_connected/PHPMailer/src/PHPMailer.php';
     require '../not_connected/PHPMailer/src/SMTP.php';
+    
     $email = $_SESSION['email'];
     if (isset($_POST['code'])) {
-        
         $mail = new PHPMailer(true);
         $mail->isSMTP();
+        
         $mail->Host = 'smtp.gmail.com';
         $mail->SMTPAuth = true;
         $mail->Username = 'annuelprojet2@gmail.com';
@@ -29,38 +30,45 @@
         $mail->Subject = 'Email verification';
         $mail->Body    = '<p>Your verification code is: <b style="font-size: 30px;">' . $verification_code . '</b></p>';
         
-        $result = $bdd->query("UPDATE UTILISATEUR SET code_verification = '$verification_code' WHERE mail = '$email';");
-
-        
+        $req = $bdd->prepare("UPDATE UTILISATEUR SET code_verification = :verification_code WHERE mail = :email;");
+        $req->execute(
+            array(
+                "email" => $email,
+                "verification_code" => $verification_code
+            )
+        );
         try {
             $mail->send();
             
+            header('Location: confirmation_connexion.php?email_sent=true');
+            exit; 
+            
         } catch (PDOException $e) {
             echo "Erreur : " . $e->getMessage();
-            echo '<br>';
             echo "Code erreur : " . $e->getCode();
-            echo 'salut';
-            echo "Erreur lors de l'envoi de l'e-mail : " . $e->getMessage(); // Affiche le message d'erreur générique de PHPMailer
-            // Gestion des erreurs d'envoi d'e-mail
             echo "Erreur lors de l'envoi de l'e-mail : " . $mail->ErrorInfo;
         }
-        
+            
+       
     }
     if (isset($_POST['connect'])) {
     
         $connect = $_POST['entrer_code'];
         if($connect != ""){
             $email = $_SESSION['email'];
-            $req = $bdd->query("SELECT * FROM UTILISATEUR WHERE mail = '$email';");
+            $req = $bdd->prepare("SELECT mail, code_verification FROM UTILISATEUR WHERE mail = :email;");
+            $req->execute(
+                array(
+                    "email" => $email
+                )
+            );
             $reponse = $req->fetch();
-            
-            var_dump($reponse);
             if ($reponse) {
                 $code_verification = $reponse['code_verification'];
                 if ($connect == $code_verification) {
-                    echo "Code correct. L'utilisateur est authentifié.";
+                    header('Location: ../connected/home.php');
                 } else {
-                    echo "Code incorrect. Veuillez réessayer.";
+                    header('Location: confirmation_connexion.php?wrong_code=true');
                 }
             }
         }
@@ -97,12 +105,26 @@
         <div class="container col-sm-6 col-xl-4">
 
 
-            <form action="./home.php" class="needs-validation" method="POST">
+            <form action="confirmation_connexion.php" class="needs-validation" method="POST">
                 <div class="container px-sm-4 col-sm-10">
                     <label for="entrer_code">Veuillez entrer votre code envoyé par mail</label>
                     <input type="text" class="form-control fs-4 minimize-input border-dark border-2 rounded-0 rounded-top text-center py-3" id="username" placeholder="" name ="entrer_code" value="" required="">
                     <div class="invalid-feedback">Veuillez fournir le code de vérification envoyé par mail.</div>
                 </div>
+
+                <div class="text-center">
+                    <?php 
+                    //vérifies si wrong_code existe et si elle est = a true
+                        if (isset($_GET['wrong_code'])&& $_GET['wrong_code'] === 'true'){
+                            echo "Le code est faux";
+                        }
+                        
+                        if (isset($_GET['email_sent']) && $_GET['email_sent'] === 'true') {
+                            echo 'le mail de vérification a été envoyé';
+                        }
+                    ?>
+                </div>
+
                 <div class="container px-sm-4 col-sm-10 mt-4">
                     <button class="btn btn-lg w-100 py-2 fs-4 btn-warning border-dark border-2" type="submit" name ="connect">
                         Connexion

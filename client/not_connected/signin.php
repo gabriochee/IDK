@@ -20,7 +20,7 @@
         </div>
 
         <div class="container col-sm-10 col-xl-8">
-            <form action="./confirmation.php" class="needs-validation" id="signin-form" method="post">
+            <form action="./confirmation_inscription.php" class="needs-validation" id="signin-form" method="post">
                 <div class="container d-lg-flex justify-content-center justify-content-evenly">
                     <div class="col-lg-5">
                         <label for="lastname" class="form-label fs-3 m-0">Nom</label>
