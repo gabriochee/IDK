@@ -9,15 +9,15 @@
     <link rel="stylesheet" href="../../bootstrap/bootstrap-icons/font/bootstrap-icons.min.css">
     <title>IDK</title>
 </head>
-
 <body id="connected_contact">
     <?php require('../../inc/not_connected/header.php'); ?>
-
     <main>
-        <div class="container-fluid d-flex justify-content-center">
-            <div class="d-flex flex-column my-5 gap-5 text-center">
-                <img src="../../inc/logo.svg" alt="Logo IDK" width="200px" height="200px" class="container-fluid img-thumbnail bg-transparent border-0">
-                <h3 class="mt-1">Contact</h3>
+        <div class="container text-center m-auto">
+            <div class="row">
+                <div class="col-lg-6 m-auto p-4">
+                    <img src="../../inc/img/logo.svg" alt="Logo IDK" class="navbar-brand img-fluid my-5" width="150px" height="150px">
+                    <h3 class="mt-1">Contact</h3>
+                </div>
             </div>
         </div>
         <div class="contact-form row g-5 justify-content-center mb-4">
@@ -79,10 +79,7 @@
             </div>
         </div>
     </main>
-
     <?php require('../../inc/not_connected/footer.php'); ?>
-
-<script src="../../bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="../../inc/script.js"></script>
+    <script src="../../bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

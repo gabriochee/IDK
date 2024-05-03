@@ -17,7 +17,7 @@
                 <a class="nav-link" href="#">Edit : Newsletter</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Edit : Captcha</a>
+                <a class="nav-link" href="../admin/edit_captcha.php">Edit : Captcha</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Edit : Oeuvre</a>

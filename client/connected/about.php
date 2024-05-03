@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,15 +9,15 @@
     <link rel="stylesheet" href="../../bootstrap/bootstrap-icons/font/bootstrap-icons.min.css">
     <title>IDK</title>
 </head>
-
 <body>
     <?php require('../../inc/connected/header.php'); ?>
-
     <main>
-        <div class="container-fluid d-flex justify-content-center">
-            <div class="d-flex flex-column my-5 gap-5 text-center">
-                <img src="../../inc/logo.svg" alt="Logo IDK" width="200px" height="200px" class="container-fluid img-thumbnail bg-transparent border-0">
-                <h3 class="mt-1">A propos</h3>
+        <div class="container text-center m-auto">
+            <div class="row">
+                <div class="col-lg-6 m-auto p-4">
+                    <img src="../../inc/logo.svg" alt="Logo IDK" class="navbar-brand img-fluid my-5" width="150px" height="150px">
+                    <h3 class="mt-1">A propos</h3>
+                </div>
             </div>
         </div>
         <div class="container col-9 mb-5">
@@ -46,10 +45,7 @@
             <p>Chez IDK, nous croyons que chaque film et série mérite d'être découvert. Notre mission est de vous aider à trouver ces pépites cinématographiques qui enrichiront votre vie et stimuleront votre imagination.<br>Merci de faire partie de notre communauté et de nous permettre de vous accompagner dans votre voyage cinématographique.</p>
         </div>
     </main>
-
     <?php require('../../inc/connected/footer.php'); ?>
-
-<script src="../../bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="../../inc/script.js"></script>
+    <script src="../../bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

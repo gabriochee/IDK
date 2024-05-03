@@ -12,7 +12,6 @@
 <body>
     <?php require('../../inc/not_connected/header.php');?>      
     <main>
-
         <div class="container text-center m-auto">
             <div class="row">
                 <div class="col-lg-6 m-auto p-4">
@@ -23,7 +22,6 @@
                 </div>
             </div>
         </div>
-
         <div class="container marketing">
             <div class="row d-flex justify-content-around mb-5">
                 <div class="col-lg-3 border border-dark border-2 text-center rounded-2" style="height: 350px; background-color: #CFDBD5;">
@@ -159,8 +157,6 @@
 
     </main>
     <?php require('../../inc/not_connected/footer.php'); ?>
-
-<script src="../../bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="../../inc/script.js"></script>
+    <script src="../../bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

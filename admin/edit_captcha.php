@@ -22,54 +22,52 @@
                     $serverAddress = "152.228.217.19";
                     $username = "distant";
                     $password = "LEG2024IDKdistant!";
+                    $bdd;
 
                     try {
                         $bdd = new PDO("mysql:host=$serverAddress;dbname=projet;port=3306", $username, $password);
                         $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                        $treated_str = htmlspecialchars($_POST['question']);
-                        $bdd->query("INSERT INTO CAPTCHA(question) VALUES ('$treated_str');");
-                        $result = $bdd->query('SELECT LAST_INSERT_ID();');
-                        $captchaId = $result->fetchAll()[0]['LAST_INSERT_ID()'];
-                        $isGoodAnswer = 'false';
-                        foreach ($_POST as $key => $answer) {
-                            if (str_contains($key, 'good-answer')){
-                                $isGoodAnswer = 'true';
-                                continue;
+
+                        if (isset($_POST['deleteCaptchaId'])) {
+                            $dltId = htmlspecialchars($_POST['deleteCaptchaId']);
+                            $result = $bdd->query('SELECT REPONSE_CAPTCHA.id_reponse FROM REPONSE_CAPTCHA
+                                        JOIN ASSOCIATION_REPONSES_CAPTCHA ON
+                                        REPONSE_CAPTCHA.id_reponse = ASSOCIATION_REPONSES_CAPTCHA.id_reponse
+                                        WHERE id_captcha = ' . $dltId . ';');
+                            $bdd->query('DELETE FROM ASSOCIATION_REPONSES_CAPTCHA WHERE id_captcha = ' . $dltId . ';');
+                            $bdd->query('DELETE FROM CAPTCHA WHERE id_captcha = ' . $dltId . ';');
+                            $data = $result->fetchAll();
+                            foreach($data as $val){
+                                $bdd->query('DELETE FROM REPONSE_CAPTCHA WHERE id_reponse = ' . htmlspecialchars($val['id_reponse']) . ';');
                             }
-                            if (str_contains($key, 'answer')) {
-                                $bdd->query("INSERT INTO REPONSE_CAPTCHA(contenu, bonne_reponse) VALUES ('$answer', $isGoodAnswer);");
-                                $result = $bdd->query('SELECT LAST_INSERT_ID();');
-                                $reponseId = $result->fetchAll()[0]['LAST_INSERT_ID()'];
-                                $bdd->query("INSERT INTO ASSOCIATION_REPONSES_CAPTCHA(id_captcha, id_reponse) VALUES ($captchaId, $reponseId);");
-                            }
+
+                        } else {
+                            $treated_str = htmlspecialchars($_POST['question']);
+                            $bdd->query("INSERT INTO CAPTCHA(question) VALUES ('$treated_str');");
+                            $result = $bdd->query('SELECT LAST_INSERT_ID();');
+                            $captchaId = $result->fetchAll()[0]['LAST_INSERT_ID()'];
                             $isGoodAnswer = 'false';
+                            foreach ($_POST as $key => $answer) {
+                                if (str_contains($key, 'good-answer')) {
+                                    $isGoodAnswer = 'true';
+                                    continue;
+                                }
+                                if (str_contains($key, 'answer')) {
+                                    $bdd->query("INSERT INTO REPONSE_CAPTCHA(contenu, bonne_reponse) VALUES ('$answer', $isGoodAnswer);");
+                                    $result = $bdd->query('SELECT LAST_INSERT_ID();');
+                                    $reponseId = $result->fetchAll()[0]['LAST_INSERT_ID()'];
+                                    $bdd->query("INSERT INTO ASSOCIATION_REPONSES_CAPTCHA(id_captcha, id_reponse) VALUES ($captchaId, $reponseId);");
+                                }
+                                $isGoodAnswer = 'false';
+                            }
                         }
                     } catch (PDOException $e) {
                         echo "Erreur : " . $e->getMessage();
                     }
                 }
                 ?>
-                <div class="table-responsive mt-4">
-                    <h3>Captchas : </h3>
-                    <table class="table table-striped table-sm border border-2 border-dark">
-                        <thead class="table-dark">
-                            <tr>
-                                <th scope="col">Question</th>
-                                <th scope="col">ID Captcha</th>
-                                <th scope="col">Réponses</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Nombres d'utilisateurs connecté(s) :</td>
-                                <td>-</td>
-                                <td>-</td>
-                            </tr>
-                            <?php
-
-                            ?>
-                        </tbody>
-                    </table>
+                <div class="table-responsive mt-4" id="captcha-table">
+                    <h3>Captchas</h3>
                 </div>
                 <div class="container-fluid px-0">
                     <h3>Ajouter des captchas</h3>
@@ -105,9 +103,31 @@
 
         </div>
     </div>
+    <?php
+    try {
+        $serverAddress = "152.228.217.19";
+        $username = "distant";
+        $password = "LEG2024IDKdistant!";
 
+        $bdd = new PDO("mysql:host=$serverAddress;dbname=projet;port=3306", $username, $password);
+        $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        $data = $bdd->query('SELECT CAPTCHA.question, CAPTCHA.id_captcha, REPONSE_CAPTCHA.contenu, REPONSE_CAPTCHA.bonne_reponse
+                                         FROM REPONSE_CAPTCHA
+                                         JOIN ASSOCIATION_REPONSES_CAPTCHA
+                                         ON ASSOCIATION_REPONSES_CAPTCHA.id_reponse = REPONSE_CAPTCHA.id_reponse
+                                         JOIN CAPTCHA
+                                         ON ASSOCIATION_REPONSES_CAPTCHA.id_captcha = CAPTCHA.id_captcha;');
+
+        $fetchedData = $data->fetchAll();
+        $json = json_encode($fetchedData);
+
+        echo "<script>let captchaData = $json;</script>";
+    } catch (PDOException $e) {
+        echo "Erreur : " . $e->getMessage();
+    }
+    ?>
+    <script src="../inc/js/edit_captcha.js"></script>
     <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="../inc/edit_captcha.js"></script>
 </body>
-
 </html>

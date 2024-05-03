@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +9,6 @@
     <link rel="stylesheet" href="../bootstrap/bootstrap-icons/font/bootstrap-icons.min.css">
     <title>IDK</title>
 </head>
-
 <body id="backoffice_diary_log" class="backoffice">
     <?php require('../inc/backoffice/header.php'); ?>
     <div class="container-fluid">
@@ -38,13 +36,33 @@
                     try {
                         $bdd = new PDO("mysql:host=$serverAddress;dbname=projet;port=3306", $username, $password);
                         $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                        $result = $bdd->query(($_POST['query-prompt']));
+                        $query = $_POST['query-prompt'];
+                        $result = $bdd->query($query);
                         $fetchedResult = $result->fetchAll();
-                        foreach ($fetchedResult as $row){
-                            echo $row['Field'] . " " . $row['Type'];
-                            echo '<br>';
+                        if (!$fetchedResult){
+                            echo 'vide.';
+                        } else if (str_contains($query, "SHOW COLUMNS")) {
+                            foreach ($fetchedResult as $row) {
+                                echo $row['Field'] . " " . $row['Type'];
+                                echo '<br>';
+                            }
+                        } else if (str_contains($query, "SELECT")){
+                            echo '<table class=\'table\'><tr>';
+                            for ($i = 0; $i < count($fetchedResult[0]); $i+=2){
+                                echo "<th>" . array_keys($fetchedResult[0])[$i] . "</th>";
+                            }
+                            echo '</tr>';
+                            foreach ($fetchedResult as $row) {
+                                echo '<tr>';
+                                for ($i = 0; $i < count($fetchedResult[0]); $i++) {
+                                    echo "<td>" . $row[$i] . "</td>";
+                                }
+                                echo '</tr>';
+                            }
+                            echo '</table>';
+                        } else {
+                            var_dump($fetchedResult);
                         }
-                        var_dump($fetchedResult);
                     } catch (PDOException $e) {
                         echo "Erreur : " . $e->getMessage();
                         echo '<br>';
@@ -55,9 +73,7 @@
             </main>
         </div>
     </div>
-
+    <script src="../inc/js/database_editor.js"></script>
     <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="../inc/database_editor.js"></script>
 </body>
-
 </html>
