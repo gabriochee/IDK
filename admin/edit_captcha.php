@@ -19,41 +19,46 @@
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
                 <?php
                 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                    $serverAddress = "152.228.217.19";
-                    $username = "distant";
-                    $password = "LEG2024IDKdistant!";
-                    $bdd;
+                    require('../client/connected/db.php');
 
                     try {
-                        $bdd = new PDO("mysql:host=$serverAddress;dbname=projet;port=3306", $username, $password);
-                        $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
+                        // Vérification s'il y a une requête de suppression d'un captcha
                         if (isset($_POST['deleteCaptchaId'])) {
+
                             $dltId = htmlspecialchars($_POST['deleteCaptchaId']);
                             $result = $bdd->query('SELECT REPONSE_CAPTCHA.id_reponse FROM REPONSE_CAPTCHA
                                         JOIN ASSOCIATION_REPONSES_CAPTCHA ON
                                         REPONSE_CAPTCHA.id_reponse = ASSOCIATION_REPONSES_CAPTCHA.id_reponse
                                         WHERE id_captcha = ' . $dltId . ';');
+
                             $bdd->query('DELETE FROM ASSOCIATION_REPONSES_CAPTCHA WHERE id_captcha = ' . $dltId . ';');
                             $bdd->query('DELETE FROM CAPTCHA WHERE id_captcha = ' . $dltId . ';');
+
                             $data = $result->fetchAll();
-                            foreach($data as $val){
+
+                            foreach ($data as $val) {
                                 $bdd->query('DELETE FROM REPONSE_CAPTCHA WHERE id_reponse = ' . htmlspecialchars($val['id_reponse']) . ';');
                             }
 
-                        } else {
+                            // Sinon on vérifie s'il y a un captcha a ajouter
+                        } elseif (isset($_POST['question'])) {
                             $treated_str = htmlspecialchars($_POST['question']);
+
                             $bdd->query("INSERT INTO CAPTCHA(question) VALUES ('$treated_str');");
+
                             $result = $bdd->query('SELECT LAST_INSERT_ID();');
                             $captchaId = $result->fetchAll()[0]['LAST_INSERT_ID()'];
+
                             $isGoodAnswer = 'false';
+
                             foreach ($_POST as $key => $answer) {
                                 if (str_contains($key, 'good-answer')) {
                                     $isGoodAnswer = 'true';
                                     continue;
+                                    // Si on trouve une clé 'good-answer', on le signale car cela veut dire que la réponse qui suit est LA bonne réponse.
                                 }
                                 if (str_contains($key, 'answer')) {
-                                    $bdd->query("INSERT INTO REPONSE_CAPTCHA(contenu, bonne_reponse) VALUES ('$answer', $isGoodAnswer);");
+                                    $bdd->query("INSERT INTO REPONSE_CAPTCHA(contenu, bonne_reponse) VALUES ('" . htmlspecialchars($answer) . "', $isGoodAnswer);");
                                     $result = $bdd->query('SELECT LAST_INSERT_ID();');
                                     $reponseId = $result->fetchAll()[0]['LAST_INSERT_ID()'];
                                     $bdd->query("INSERT INTO ASSOCIATION_REPONSES_CAPTCHA(id_captcha, id_reponse) VALUES ($captchaId, $reponseId);");
@@ -68,6 +73,35 @@
                 ?>
                 <div class="table-responsive mt-4" id="captcha-table">
                     <h3>Captchas</h3>
+                    <div class="card">
+                        <div class="card-body d-flex justify-content-between align-items-center">
+                            <input type="text" name="question" id="question" class="form-control w-75" value="Quel est le meilleur éditeur ?">
+                            <a class="btn btn-light collapsed" data-bs-toggle="collapse" href="#collapse2" role="button" aria-expended="false" aria-controls="#collapse2" aria-expanded="false">
+                                Réponses
+                            </a>
+                        </div>
+                    </div>
+                    <div id="collapse2" class="collapse" style="">
+                        <div class="card card-body">
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <th>Réponses</th>
+                                    </tr>
+                                    <tr>
+                                        <td>Nano</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Emacs</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="d-flex justify-content-between table-success">Vim<span class="badge bg-success align-items-center">Bonne réponse</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <form class="needs-validation" action="./edit_captcha.php" method="post"><button type="submit" class="delete-btn nav-btn btn btn-primary btn-sm btn-danger text-white border border-2 rounded-3 px-3" onclick="" value="22" name="deleteCaptchaId">Supprimer</button></form>
+                        </div>
+                    </div>
                 </div>
                 <div class="container-fluid px-0">
                     <h3>Ajouter des captchas</h3>
@@ -105,12 +139,7 @@
     </div>
     <?php
     try {
-        $serverAddress = "152.228.217.19";
-        $username = "distant";
-        $password = "LEG2024IDKdistant!";
-
-        $bdd = new PDO("mysql:host=$serverAddress;dbname=projet;port=3306", $username, $password);
-        $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        require('../client/connected/db.php');
 
         $data = $bdd->query('SELECT CAPTCHA.question, CAPTCHA.id_captcha, REPONSE_CAPTCHA.contenu, REPONSE_CAPTCHA.bonne_reponse
                                          FROM REPONSE_CAPTCHA
@@ -130,4 +159,5 @@
     <script src="../inc/js/edit_captcha.js"></script>
     <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
