@@ -14,8 +14,15 @@
     <?php require('../../inc/not_connected/header.php'); ?>
     <main>
         <div class="container text-center m-auto">
-            <div class="row">
-                <div class="col-lg-6 m-auto p-4">
+        <div class="text-center pt-5 fs-2">
+                    <?php 
+                        if (isset($_GET['wrong_email'])){
+                            echo "cet email a déja été utilisé ";
+                        }
+                    ?>
+                </div>
+            <div class="row mt-0 pt-0">
+                <div class="col-lg-6 m-auto p-4 mt-0 pt-0">
                     <img src="../../inc/logo.svg" alt="Logo IDK" class="navbar-brand img-fluid my-5" width="150px" height="150px">
                     <h3 class="mt-1">S'inscrire</h3>
                 </div>
@@ -100,7 +107,15 @@
                             <input type="password" class="form-control" id="password-confirmation" name="password-confirmation" maxlength="100" required>
                             <div class="invalid-feedback">Veuillez fournir un mot de passe valide.</div>
                         </div>
-                        <button class="w-100 btn btn-warning border-dark mt-5" id="signin-btn" type="submit" name="send">S'inscrire</button>
+                        <p class="col-12">Newsletter</p>
+                        <div class="col-12">
+                            <label for="sexe" class="form-label">Newsletter</label>
+                            <select class="form-select" name="newsletter" required>
+                                <option value="1">J'accepte de reçevoir la Newsletter</option>
+                                <option value="0">Je refuse de recevoir la Newsletter</option>
+                            </select>
+                        </div>
+                        <button class="w-100 btn btn-secondary btn-lg btn-warning border-dark border-2" id="signin-btn" type="submit" name="send">S'inscrire</button>
                     </div>
                 </form>
             </div>

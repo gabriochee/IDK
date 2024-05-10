@@ -5,6 +5,7 @@
     $test2 = $_SESSION['id_user'];
     var_dump($test1);
     var_dump($test2);
+    
 ?>
 <!DOCTYPE html>
 <html lang="fr">
