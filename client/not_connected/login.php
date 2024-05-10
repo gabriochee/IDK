@@ -63,8 +63,7 @@ if (isset($_POST['connecter'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../../inc/functions.php">
-    <link rel="stylesheet" href="../../inc/style.css">
+    <link rel="stylesheet" href="../../inc/style/style.css">
     <link rel="stylesheet" href="../../bootstrap/bootstrap-icons/font/bootstrap-icons.min.css">
     <title>IDK</title>
 </head>
