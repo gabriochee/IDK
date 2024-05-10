@@ -10,6 +10,7 @@
     <title>IDK</title>
 </head>
 <body>
+    <?php require('../../inc/php/db.php'); ?>
     <?php require('../../inc/not_connected/header.php'); ?>
     <main>
         <div class="container text-center m-auto">

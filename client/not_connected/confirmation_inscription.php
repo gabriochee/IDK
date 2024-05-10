@@ -1,6 +1,6 @@
 <?php
     session_start();
-    require_once('../../inc/db.php');
+    require_once('../../inc/php/db.php');
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $pepper = 'sZB8J0az0z';
         $hash = password_hash($_POST['password'].$pepper, PASSWORD_BCRYPT, ['cost' => 13]);

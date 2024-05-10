@@ -52,6 +52,6 @@
     </nav>
   </div>
   <form class="d-flex justify-content-center col-5 m-auto mt-2 mb-2">
-    <input type="search" class="form-control bg-dark text-white form-control-dark" placeholder="Rechercher..." aria-label="Search">
+    <input type="search" class="form-control bg-dark text-white form-control-dark" placeholder="Rechercher..." aria-label="Search" id="navbar_movie">
   </form>
 </header>

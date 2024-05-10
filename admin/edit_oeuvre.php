@@ -10,6 +10,7 @@
     <title>IDK</title>
 </head>
 <body id="backoffice_edit_oeuvre" class="backoffice">
+    <?php require('../inc/php/db.php'); ?>
     <?php require('../inc/backoffice/header.php');?>
     <div class="container-fluid">
         <div class="row">

@@ -20,7 +20,7 @@
                 <div class="table-responsive mt-4">
                     <h3 class="mb-3">Utilisateurs : </h3>
                     <?php
-                    require('../inc/db.php');
+                    require('../inc/php/db.php');
                     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         if (isset($_POST['id_user'])) {
                             try {

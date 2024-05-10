@@ -10,6 +10,7 @@
     <title>IDK</title>
 </head>
 <body id="oeuvre">
+    <?php require('../../inc/php/db.php'); ?>
     <?php require('../../inc/connected/header.php'); ?>
     <main>
         <div class="container mt-5">
