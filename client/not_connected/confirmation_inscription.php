@@ -1,7 +1,6 @@
 <?php
     session_start();
     require_once('../../inc/php/db.php');
-    require_once('../../inc/db.php');
     echo 'slt';
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         
