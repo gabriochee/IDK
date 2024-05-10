@@ -15,16 +15,39 @@ if (isset($_POST['connecter'])) {
             )
         );
         $reponse = $req->fetch();
-        
+        var_dump($reponse);
+        //si $reponse renvoie une valeur ca veut dire que le mail est dans la BDD
         if($reponse){
-            if (password_verify($password.$pepper, $reponse['mdp'])){
-                $_SESSION['email'] = $email;
-                $_SESSION['id_user'] = $reponse['id_user'];
-                header('Location: confirmation_connexion.php');
-            }else {
-            header('Location: login.php?wrong_mdp=true');
+            $req2 = $bdd->prepare("SELECT definitif,id_banni,date_ban,probleme FROM BAN WHERE id_banni = :id_user;");
+            $req2->execute(
+                array(
+                    "id_user" => $reponse['id_user']
+                )
+            );
+            $ban_ou_pas=$req2->fetch();
+            var_dump($ban_ou_pas['probleme']);
+            $_SESSION['email'] = $email;
+            $_SESSION['id_user'] = $reponse['id_user'];
+            //je vérifie si c'est un utilisateur avec un problème = ban ou supprime 
+            //si le ban est fini on met l'attribut problème à 0;
+            if($ban_ou_pas['probleme']==1){
+                if($ban_ou_pas['definitif']==1){
+                    header('Location: login.php?supprime');
+                }
+                if($ban_ou_pas['definitif']==0){
+                    header('Location: login.php?ban');
+                }
+            }
+            // si aucun problème je lui laisse l'accès
+            else{
+                if(password_verify($password.$pepper, $reponse['mdp'])){
+                    header('Location: confirmation_connexion.php');
+                }else {
+                    header('Location: login.php?wrong_mdp=true');
+                }
             }
         }
+        //si le mail entré n'st pas dans la BDD alors mail faux mais en dit que c mail ou mdp faux 
         else{
             header('Location: login.php?wrong_email=true');
         }
@@ -61,7 +84,7 @@ if (isset($_POST['connecter'])) {
         </div>
 
         <div class="container col-sm-6 col-xl-4">
-            <form action="./login.php" class="needs-validation" method="post">
+            <form action="login.php" class="needs-validation" method="post">
                 <div class="container px-sm-4 col-sm-10">
                     <input type="text" class="form-control fs-4 minimize-input border-dark border-2 rounded-0 rounded-top text-center py-3" id="username" placeholder="Addresse email/pseudo" name ="email" value="" required="">
                     <div class="invalid-feedback">Veuillez fournir un pseudo ou email valide.</div>
@@ -71,16 +94,29 @@ if (isset($_POST['connecter'])) {
                     <input type="password" class="form-control fs-4 minimize-input border-dark border-2 rounded-0 rounded-bottom text-center py-3" name="password" id="password" placeholder="Mot de passe" value="" required="">
                     <div class="invalid-feedback">Veuillez fournir un mot de passe valide.</div>
                 </div>
-                <div class="text-center">
-                    <?php 
+                <div class="text-center fs-4">
+                    <?php
+                        $req3 = $bdd->prepare("SELECT raison, date_ban, duree, DATE_ADD(date_ban, INTERVAL duree DAY) AS date_deban FROM BAN WHERE id_banni = :id_user;");
+
+                        $req3->execute(
+                            array(
+                                "id_user" => $_SESSION['id_user']
+                            )
+                        );
+                        $ban_info=$req3->fetch();
                         if (isset($_GET['wrong_email'])){
-                            echo "L'email n'existe pas ";
+                            echo "L'email ou le mot de passe ou les deux sont erronés";
                         }
                         
                         if (isset($_GET['wrong_mdp'])){
-                            echo 'coucou';
-                            echo "Le mot de passe est faux";
+                            echo "L'email ou le mot de passe ou les deux sont erronés";
                             
+                        }
+                        if(isset($_GET['supprime'])){
+                            echo "Ton compte a été supprimé pour le motif suivant: " . $ban_info['raison'];
+                        }
+                        if(isset($_GET['ban'])){
+                            echo "Ton compte a été ban jusqu'au: " .$ban_info['date_deban'] ." pour la raison suivante: ". $ban_info['raison'];
                         }
                     ?>
                 </div>
