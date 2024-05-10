@@ -1,9 +1,8 @@
 <?php
-
 session_start();
 require_once('../../inc/db.php');
 
-if (isset($_POST['connecter'])) {
+if (isset($_POST['connecter'])){
     $email = $_POST['email'];
     $password = $_POST['password'];
     $pepper = 'sZB8J0az0z';
@@ -21,18 +20,15 @@ if (isset($_POST['connecter'])) {
                 $_SESSION['email'] = $email;
                 $_SESSION['id_user'] = $reponse['id_user'];
                 header('Location: confirmation_connexion.php');
-            }else {
+            } else {
             header('Location: login.php?wrong_mdp=true');
             }
-        }
-        else{
+        } else {
             header('Location: login.php?wrong_email=true');
         }
     }
 }
-
 ?>
-
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -62,44 +58,26 @@ if (isset($_POST['connecter'])) {
 
         <div class="container col-sm-6 col-xl-4">
             <form action="./login.php" class="needs-validation" method="post">
-                <div class="container px-sm-4 col-sm-10">
-                    <input type="text" class="form-control fs-4 minimize-input border-dark border-2 rounded-0 rounded-top text-center py-3" id="username" placeholder="Addresse email/pseudo" name ="email" value="" required="">
-                    <div class="invalid-feedback">Veuillez fournir un pseudo ou email valide.</div>
+                <div class="form-floating">
+                    <input type="email" class="form-control fs-4 minimize-input" id="username" name ="email" value="" required="">
+                    <label for="floatingInput">Addresse email</label>
+                    <div class="invalid-feedback">Veuillez fournir un email valide.</div>
                 </div>
-
-                <div class="container px-sm-4 col-sm-10">
-                    <input type="password" class="form-control fs-4 minimize-input border-dark border-2 rounded-0 rounded-bottom text-center py-3" name="password" id="password" placeholder="Mot de passe" value="" required="">
+                <div class="form-floating">
+                    <input type="password" class="form-control fs-4 minimize-input" name="password" id="password" value="" required="">
+                    <label for="floatingPassword">Mot de passe</label>
                     <div class="invalid-feedback">Veuillez fournir un mot de passe valide.</div>
                 </div>
                 <div class="text-center">
                     <?php 
-                        if (isset($_GET['wrong_email'])){
-                            echo "L'email n'existe pas ";
-                        }
-                        
-                        if (isset($_GET['wrong_mdp'])){
-                            echo 'coucou';
-                            echo "Le mot de passe est faux";
-                            
-                        }
+                        if (isset($_GET['wrong_email'])){ echo "L'email n'existe pas "; }
+                        if (isset($_GET['wrong_mdp'])){ echo "Le mot de passe est faux"; }
                     ?>
                 </div>
                 
-
-                <div class="container px-sm-4 col-sm-10 mt-4">
-                    <button class="btn btn-lg w-100 py-2 fs-4 btn-warning border-dark border-2" type="submit" name="connecter">
-                        Connexion
-                    </button>
-                </div>
-                
-                <div class="container px-sm-4 col-sm-10 mt-4">
-                    <button class="btn btn-lg w-100 py-2 mt-5 fs-4 btn-warning border-dark border-2" type="submit">
-                        S'inscrire
-                    </button>
-                    <button class="btn btn-lg w-100 py-2 my-2 fs-4 btn-warning border-dark border-2" type="submit">
-                        Mot de passe oublié
-                    </button>
-                </div>
+                <button class="w-100 btn btn-warning border-dark mt-4" type="submit" name="connecter">Connexion</button>
+                <button class="w-100 btn btn-warning border-dark mt-1" type="submit" name="connecter">S'inscrire</button>
+                <button class="w-100 btn btn-warning border-dark mt-1" type="submit" name="connecter">Mot de passe oublié</button>
             </form>
         </div>
     </main>
