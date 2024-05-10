@@ -1,9 +1,8 @@
 <?php
-
 session_start();
 require_once('../../inc/db.php');
 
-if (isset($_POST['connecter'])) {
+if (isset($_POST['connecter'])){
     $email = $_POST['email'];
     $password = $_POST['password'];
     $pepper = 'sZB8J0az0z';
@@ -53,9 +52,7 @@ if (isset($_POST['connecter'])) {
         }
     }
 }
-
 ?>
-
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -84,58 +81,33 @@ if (isset($_POST['connecter'])) {
         </div>
 
         <div class="container col-sm-6 col-xl-4">
-            <form action="login.php" class="needs-validation" method="post">
+            <form action="./login.php" class="needs-validation" method="post">
                 <div class="container px-sm-4 col-sm-10">
                     <input type="text" class="form-control fs-4 minimize-input border-dark border-2 rounded-0 rounded-top text-center py-3" id="username" placeholder="Addresse email/pseudo" name ="email" value="" required="">
                     <div class="invalid-feedback">Veuillez fournir un pseudo ou email valide.</div>
                 </div>
-
-                <div class="container px-sm-4 col-sm-10">
-                    <input type="password" class="form-control fs-4 minimize-input border-dark border-2 rounded-0 rounded-bottom text-center py-3" name="password" id="password" placeholder="Mot de passe" value="" required="">
+                <div class="form-floating">
+                    <input type="password" class="form-control fs-4 minimize-input" name="password" id="password" value="" required="">
+                    <label for="floatingPassword">Mot de passe</label>
                     <div class="invalid-feedback">Veuillez fournir un mot de passe valide.</div>
                 </div>
-                <div class="text-center fs-4">
-                    <?php
-                        $req3 = $bdd->prepare("SELECT raison, date_ban, duree, DATE_ADD(date_ban, INTERVAL duree DAY) AS date_deban FROM BAN WHERE id_banni = :id_user;");
-
-                        $req3->execute(
-                            array(
-                                "id_user" => $_SESSION['id_user']
-                            )
-                        );
-                        $ban_info=$req3->fetch();
+                <div class="text-center">
+                    <?php 
                         if (isset($_GET['wrong_email'])){
-                            echo "L'email ou le mot de passe ou les deux sont erronés";
+                            echo "L'email n'existe pas ";
                         }
                         
                         if (isset($_GET['wrong_mdp'])){
-                            echo "L'email ou le mot de passe ou les deux sont erronés";
+                            echo 'coucou';
+                            echo "Le mot de passe est faux";
                             
-                        }
-                        if(isset($_GET['supprime'])){
-                            echo "Ton compte a été supprimé pour le motif suivant: " . $ban_info['raison'];
-                        }
-                        if(isset($_GET['ban'])){
-                            echo "Ton compte a été ban jusqu'au: " .$ban_info['date_deban'] ." pour la raison suivante: ". $ban_info['raison'];
                         }
                     ?>
                 </div>
                 
-
-                <div class="container px-sm-4 col-sm-10 mt-4">
-                    <button class="btn btn-lg w-100 py-2 fs-4 btn-warning border-dark border-2" type="submit" name="connecter">
-                        Connexion
-                    </button>
-                </div>
-                
-                <div class="container px-sm-4 col-sm-10 mt-4">
-                    <button class="btn btn-lg w-100 py-2 mt-5 fs-4 btn-warning border-dark border-2" type="submit">
-                        S'inscrire
-                    </button>
-                    <button class="btn btn-lg w-100 py-2 my-2 fs-4 btn-warning border-dark border-2" type="submit">
-                        Mot de passe oublié
-                    </button>
-                </div>
+                <button class="w-100 btn btn-warning border-dark mt-4" type="submit" name="connecter">Connexion</button>
+                <button class="w-100 btn btn-warning border-dark mt-1" type="submit" name="connecter">S'inscrire</button>
+                <button class="w-100 btn btn-warning border-dark mt-1" type="submit" name="connecter">Mot de passe oublié</button>
             </form>
         </div>
     </main>

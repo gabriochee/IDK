@@ -54,14 +54,14 @@
                                 <option value="autre">Autre</option>
                             </select>
                         </div>
-                        <div class="container d-sm-flex justify-content-center justify-content-evenly gap-3 m-0 mt-3">
-                            <div class="col-sm-3">
-                                <label for="birthday-day" class="form-label fs-3">Jour</label>
+                        <div class="col-12 d-flex justify-content-between">
+                            <div class="col-3">
+                                <label for="birthday-day" class="form-label">Jour</label>
                                 <input type="number" class="form-control" id="birthday-day" name="birthday-day" min="1" max="31">
                                 <div class="invalid-feedback">Veuillez fournir un jour valide.</div>
                             </div>
-                            <div class="col-sm-3">
-                                <label for="birthday-month" class="form-label fs-3">Mois</label>
+                            <div class="col-4">
+                                <label for="birthday-month" class="form-label">Mois</label>
                                 <select class="form-control" name="birthday-month" id="birdthday-month">
                                     <option disabled selected value></option>
                                     <option value="01">janvier</option>
@@ -80,8 +80,8 @@
                                 <div class="invalid-feedback">Veuillez fournir un mois valide.</div>
                             </div>
 
-                            <div class="col-sm-3">
-                                <label for="birthday-year" class="form-label fs-3">Année</label>
+                            <div class="col-3">
+                                <label for="birthday-year" class="form-label">Année</label>
                                 <input type="number" class="form-control" name="birthday-year" id="birdthday-year" min="1900" max="<?php echo (date("Y")); ?>">
                                 <div class="invalid-feedback">Veuillez fournir une année valide.</div>
                             </div>

@@ -10,7 +10,7 @@
     <title>IDK</title>
 </head>
 <body id="oeuvre">
-    <?php require('../../inc/connected/header.php'); ?>
+    <?php require('../../inc/not_connected/header.php'); ?>
     <main>
         <div class="container mt-5">
             <div class="row justify-content-center">
