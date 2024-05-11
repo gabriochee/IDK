@@ -1,5 +1,4 @@
 <?php
-// mettre dans un inc et changer les chemin
 $serverAddress = "152.228.217.19";
 $username = "distant";
 $password = "LEG2024IDKdistant!";
@@ -11,3 +10,15 @@ try {
 } catch (PDOException $e) {
     echo "Erreur : " . $e->getMessage(); 
 }
+
+try {
+    $bdd_imdb = new PDO("mysql:host=$serverAddress;dbname=IMDb;port=3306", $username, $password);
+    $bdd_imdb->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    echo "Erreur : " . $e->getMessage(); 
+}
+
+global $bdd;
+global $bdd_imdb;
+
+?>
