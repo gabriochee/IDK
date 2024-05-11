@@ -4,17 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../../inc/functions.php">
-    <link rel="stylesheet" href="../../inc/style.css">
+    <link rel="stylesheet" href="../../inc/style/style.css">
     <link rel="stylesheet" href="../../bootstrap/bootstrap-icons/font/bootstrap-icons.min.css">
     <title>IDK</title>
 </head>
 <body>
+    <?php require('../../inc/php/db.php'); ?>
     <?php require('../../inc/not_connected/header.php'); ?>
     <main>
         <div class="container text-center m-auto">
-            <div class="row">
-                <div class="col-lg-6 m-auto p-4">
+        <div class="text-center pt-5 fs-2">
+                    <?php 
+                        if (isset($_GET['wrong_email'])){
+                            echo "cet email a déja été utilisé ";
+                        }
+                    ?>
+                </div>
+            <div class="row mt-0 pt-0">
+                <div class="col-lg-6 m-auto p-4 mt-0 pt-0">
                     <img src="../../inc/logo.svg" alt="Logo IDK" class="navbar-brand img-fluid my-5" width="150px" height="150px">
                     <h3 class="mt-1">S'inscrire</h3>
                 </div>
@@ -47,14 +54,14 @@
                                 <option value="autre">Autre</option>
                             </select>
                         </div>
-                        <div class="container d-sm-flex justify-content-center justify-content-evenly gap-3 m-0 mt-3">
-                            <div class="col-sm-3">
-                                <label for="birthday-day" class="form-label fs-3">Jour</label>
+                        <div class="col-12 d-flex justify-content-between">
+                            <div class="col-3">
+                                <label for="birthday-day" class="form-label">Jour</label>
                                 <input type="number" class="form-control" id="birthday-day" name="birthday-day" min="1" max="31">
                                 <div class="invalid-feedback">Veuillez fournir un jour valide.</div>
                             </div>
-                            <div class="col-sm-3">
-                                <label for="birthday-month" class="form-label fs-3">Mois</label>
+                            <div class="col-4">
+                                <label for="birthday-month" class="form-label">Mois</label>
                                 <select class="form-control" name="birthday-month" id="birdthday-month">
                                     <option disabled selected value></option>
                                     <option value="01">janvier</option>
@@ -73,8 +80,8 @@
                                 <div class="invalid-feedback">Veuillez fournir un mois valide.</div>
                             </div>
 
-                            <div class="col-sm-3">
-                                <label for="birthday-year" class="form-label fs-3">Année</label>
+                            <div class="col-3">
+                                <label for="birthday-year" class="form-label">Année</label>
                                 <input type="number" class="form-control" name="birthday-year" id="birdthday-year" min="1900" max="<?php echo (date("Y")); ?>">
                                 <div class="invalid-feedback">Veuillez fournir une année valide.</div>
                             </div>
@@ -98,6 +105,14 @@
                             <label for="password-confirmation" class="form-label">Mot de passe confirmation</label>
                             <input type="password" class="form-control" id="password-confirmation" name="password-confirmation" maxlength="100" required>
                             <div class="invalid-feedback">Veuillez fournir un mot de passe valide.</div>
+                        </div>
+                        <p class="col-12">Newsletter</p>
+                        <div class="col-12">
+                            <label for="sexe" class="form-label">Newsletter</label>
+                            <select class="form-select" name="newsletter" required>
+                                <option value="1">J'accepte de reçevoir la Newsletter</option>
+                                <option value="0">Je refuse de recevoir la Newsletter</option>
+                            </select>
                         </div>
                         <button class="w-100 btn btn-secondary btn-lg btn-warning border-dark border-2" id="signin-btn" type="submit" name="send">S'inscrire</button>
                     </div>

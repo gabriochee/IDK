@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../../inc/functions.php">
-    <link rel="stylesheet" href="../../inc/style.css">
+    <link rel="stylesheet" href="../../inc/style/style.css">
     <link rel="stylesheet" href="../../bootstrap/bootstrap-icons/font/bootstrap-icons.min.css">
     <title>IDK</title>
 </head>
 <body class="no-x-overflow">
+    <?php require('../../inc/php/db.php'); ?>
     <?php require('../../inc/not_connected/header.php'); ?>
     <main>
         <div class="container text-center m-auto">
@@ -22,6 +22,8 @@
         <div class="container-fluid d-flex flex-column text-center">
             <h3 class="mt-5 mx-auto col-6">Liste : Nom de la liste</h3>
             <h5>Publiée le jj/mm/aaaa</h5>
+            <p class="fs-6 m-0">Crée le : 12/12/2023 13:12:23</p>
+            <p class="fs-6 m-0">Dèrnière maj le : 12/12/2023 13:12:23</p>
         </div>
 
         <div class="container mt-sm-0 mt-5">

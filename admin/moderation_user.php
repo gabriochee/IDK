@@ -5,8 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../inc/functions.php">
-    <link rel="stylesheet" href="../inc/style.css">
+    <link rel="stylesheet" href="../inc/style/style.css">
     <link rel="stylesheet" href="../bootstrap/bootstrap-icons/font/bootstrap-icons.min.css">
     <title>IDK</title>
 </head>
@@ -20,7 +19,7 @@
                 <div class="table-responsive mt-4">
                     <h3 class="mb-3">Utilisateurs : </h3>
                     <?php
-                    require('../inc/db.php');
+                    require('../inc/php/db.php');
                     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         if (isset($_POST['id_user'])) {
                             try {
