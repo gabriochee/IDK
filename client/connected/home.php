@@ -1,4 +1,6 @@
-
+<?php
+    session_start();
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -21,8 +23,7 @@
                         <span class="text-black-50">#1234</span>
                         <span>Pseudo</span>
                         <span>
-                            <?php 
-                                session_start();
+                            <?php
                                 $req = $bdd->prepare("SELECT pseudo FROM UTILISATEUR WHERE id_user = :id_user;");
                                 $req->execute(
                                     array(
