@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,8 +8,8 @@
     <link rel="stylesheet" href="../bootstrap/bootstrap-icons/font/bootstrap-icons.min.css">
     <title>IDK</title>
 </head>
-
 <body id="backoffice_moderation_user" class="backoffice">
+    <?php require('../inc/php/db.php'); ?>
     <?php require('../inc/backoffice/header.php'); ?>
     <div class="container-fluid">
         <div class="row">
@@ -19,7 +18,6 @@
                 <div class="table-responsive mt-4">
                     <h3 class="mb-3">Utilisateurs : </h3>
                     <?php
-                    require('../inc/php/db.php');
                     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         if (isset($_POST['id_user'])) {
                             try {
@@ -67,16 +65,14 @@
                                     $prep->bindValue(":datedeban", $date_deban->format("Y-m-d H-m-s"));
                                     $prep->bindParam(":raison", $_POST['raison']);
 
-                                    try{
+                                    try {
                                         $prep->execute();
                                     } catch (PDOException $e){
                                         echo $e->getMessage();
                                     }
-
                                 }
 
-                                $queryResponse = $bdd->query("SELECT id_user, CONCAT(prenom, ' ', nom) AS prenom_nom, pseudo, sexe, date_inscription, mail, date_naissance
-                                FROM UTILISATEUR WHERE NOT EXISTS(SELECT id_banni FROM BAN WHERE BAN.id_banni = UTILISATEUR.id_user);");
+                                $queryResponse = $bdd->query("SELECT id_user, CONCAT(prenom, ' ', nom) AS prenom_nom, pseudo, sexe, date_inscription, mail, date_naissance FROM UTILISATEUR WHERE NOT EXISTS(SELECT id_banni FROM BAN WHERE BAN.id_banni = UTILISATEUR.id_user);");
 
                                 $result = $queryResponse->fetchAll();
                                 $idUser;
@@ -159,12 +155,8 @@
                         <div class="col-md-4 border-right">
                             <div class="d-flex flex-column align-items-center text-center p-3 py-5">
                                 <img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
-                                <span class="font-weight-bold"><?php if ($userInformations) {
-                                                                    echo '#' . $userInformations[0]['id_user'];
-                                                                } ?></span>
-                                <span class="text-black-50"><?php if ($userInformations) {
-                                                                echo $userInformations[0]['prenom'] . ' ' . $userInformations[0]['nom'];
-                                                            } ?></span>
+                                <span class="font-weight-bold"><?php if ($userInformations) { echo '#' . $userInformations[0]['id_user']; } ?></span>
+                                <span class="text-black-50"><?php if ($userInformations) { echo $userInformations[0]['prenom'] . ' ' . $userInformations[0]['nom']; } ?></span>
                                 <div class="d-flex justify-content-center">
                                     <button class="nav-btn btn btn-primary btn-block btn-warning text-white border border-light border-2 rounded-3 w-100 mb-3">Supprimer</button>
                                 </div>
@@ -176,47 +168,29 @@
                                     <div class="row mt-2">
                                         <div class="col-md-6">
                                             <label class="labels">Nom</label>
-                                            <input type="text" name="lastName" class="form-control" value="<?php if ($userInformations) {
-                                                                                                                echo $userInformations[0]['nom'];
-                                                                                                            } ?>">
+                                            <input type="text" name="lastName" class="form-control" value="<?php if ($userInformations) { echo $userInformations[0]['nom']; } ?>">
                                         </div>
                                         <div class="col-md-6">
                                             <label class="labels">Prénom</label>
-                                            <input type="text" name="firstName" class="form-control" value="<?php if ($userInformations) {
-                                                                                                                echo $userInformations[0]['prenom'];
-                                                                                                            } ?>">
+                                            <input type="text" name="firstName" class="form-control" value="<?php if ($userInformations) { echo $userInformations[0]['prenom']; } ?>">
                                         </div>
                                         <div class="col-md-12">
                                             <label class="labels">Pseudo</label>
-                                            <input type="text" name="pseudo" class="form-control" value="<?php if ($userInformations) {
-                                                                                                                echo $userInformations[0]['pseudo'];
-                                                                                                            } ?>">
+                                            <input type="text" name="pseudo" class="form-control" value="<?php if ($userInformations) { echo $userInformations[0]['pseudo']; } ?>">
                                         </div>
                                         <div class="col-md-12">
                                             <label class="labels">Sexe</label>
                                             <div class="d-sm-flex justify-content-center container ps-0">
                                                 <div class="container d-flex align-items-center ps-0">
-                                                    <input id="homme" name="sexe" value="homme" type="radio" class="form-check-input border-dark mt-0" required <?php if ($userInformations) {
-                                                                                                                                                                    if ($userInformations[0]['sexe'] == 'homme') {
-                                                                                                                                                                        echo 'checked';
-                                                                                                                                                                    }
-                                                                                                                                                                } ?>>
+                                                    <input id="homme" name="sexe" value="homme" type="radio" class="form-check-input border-dark mt-0" required <?php if ($userInformations) { if ($userInformations[0]['sexe'] == 'homme') { echo 'checked';}} ?>>
                                                     <label class="form-check-label labels mx-2" for="homme">Homme</label>
                                                 </div>
                                                 <div class="container d-flex align-items-center ps-0">
-                                                    <input id="femme" name="sexe" value="femme" type="radio" class="form-check-input border-dark mt-0" required <?php if ($userInformations) {
-                                                                                                                                                                    if ($userInformations[0]['sexe'] == 'femme') {
-                                                                                                                                                                        echo 'checked';
-                                                                                                                                                                    }
-                                                                                                                                                                } ?>>
+                                                    <input id="femme" name="sexe" value="femme" type="radio" class="form-check-input border-dark mt-0" required <?php if ($userInformations) { if ($userInformations[0]['sexe'] == 'femme') { echo 'checked'; }} ?>>
                                                     <label class="form-check-label labels mx-2" for="femme">Femme</label>
                                                 </div>
                                                 <div class="container d-flex align-items-center ps-0">
-                                                    <input id="autre" name="sexe" value="autre" type="radio" class="form-check-input border-dark mt-0" required <?php if ($userInformations) {
-                                                                                                                                                                    if ($userInformations[0]['sexe'] == 'autre') {
-                                                                                                                                                                        echo 'checked';
-                                                                                                                                                                    }
-                                                                                                                                                                } ?>>
+                                                    <input id="autre" name="sexe" value="autre" type="radio" class="form-check-input border-dark mt-0" required <?php if ($userInformations) { if ($userInformations[0]['sexe'] == 'autre') { echo 'checked'; }} ?>>
                                                     <label class="form-check-label labels mx-2" for="autre">Autre</label>
                                                 </div>
                                             </div>
@@ -225,40 +199,28 @@
                                             <label class="labels">Date de naissance</label>
                                             <div class="col-md-4">
                                                 <label class="labels">Jour</label>
-                                                <input type="text" name="birthday-day" class="form-control" value="<?php if ($userInformations) {
-                                                                                                                        echo date('d', strtotime($userInformations[0]['date_naissance']));
-                                                                                                                    } ?>">
+                                                <input type="text" name="birthday-day" class="form-control" value="<?php if ($userInformations) { echo date('d', strtotime($userInformations[0]['date_naissance'])); } ?>">
                                             </div>
                                             <div class="col-md-4">
                                                 <label class="labels">Mois</label>
-                                                <input type="text" name="birthday-month" class="form-control" value="<?php if ($userInformations) {
-                                                                                                                            echo date('m', strtotime($userInformations[0]['date_naissance']));
-                                                                                                                        } ?>">
+                                                <input type="text" name="birthday-month" class="form-control" value="<?php if ($userInformations) { echo date('m', strtotime($userInformations[0]['date_naissance'])); } ?>">
                                             </div>
                                             <div class="col-md-4">
                                                 <label class="labels">Année</label>
-                                                <input type="text" name="birthday-year" class="form-control" value="<?php if ($userInformations) {
-                                                                                                                        echo date('Y', strtotime($userInformations[0]['date_naissance']));
-                                                                                                                    } ?>">
+                                                <input type="text" name="birthday-year" class="form-control" value="<?php if ($userInformations) { echo date('Y', strtotime($userInformations[0]['date_naissance']));} ?>">
                                             </div>
                                         </div>
                                         <div class="col-md-12">
                                             <label class="labels">Email</label>
-                                            <input type="text" name="mail" class="form-control" value="<?php if ($userInformations) {
-                                                                                                            echo $userInformations[0]['mail'];
-                                                                                                        } ?>">
+                                            <input type="text" name="mail" class="form-control" value="<?php if ($userInformations) { echo $userInformations[0]['mail']; } ?>">
                                         </div>
                                         <div class="col-md-12">
                                             <label class="labels">Numéro de mobile</label>
-                                            <input type="text" name="phone" class="form-control" value="<?php if ($userInformations) {
-                                                                                                            echo $userInformations[0]['telephone'];
-                                                                                                        } ?>">
+                                            <input type="text" name="phone" class="form-control" value="<?php if ($userInformations) { echo $userInformations[0]['telephone']; } ?>">
                                         </div>
                                     </div>
                                     <div class="d-flex justify-content-center">
-                                        <button class="nav-btn btn btn-primary btn-lg btn-block btn-warning text-white border border-light border-2 rounded-3 w-100 my-3" name='id_user' value="<?php if ($userInformations) {
-                                                                                                                                                                                                    echo $userInformations[0]['id_user'];
-                                                                                                                                                                                                } ?>">Modifier</button>
+                                        <button class="nav-btn btn btn-primary btn-lg btn-block btn-warning text-white border border-light border-2 rounded-3 w-100 my-3" name='id_user' value="<?php if ($userInformations) { echo $userInformations[0]['id_user']; } ?>">Modifier</button>
                                     </div>
                                 </div>
                             </form>
