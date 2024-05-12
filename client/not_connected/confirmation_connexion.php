@@ -5,9 +5,9 @@
     use PHPMailer\PHPMailer\PHPMailer;
     use PHPMailer\PHPMailer\Exception;
 
-    require '../not_connected/PHPMailer/src/Exception.php';
-    require '../not_connected/PHPMailer/src/PHPMailer.php';
-    require '../not_connected/PHPMailer/src/SMTP.php';
+    require '../../inc/library/PHPMailer/src/Exception.php';
+    require '../../inc/library/PHPMailer/src/PHPMailer.php';
+    require '../../inc/library/PHPMailer/src/SMTP.php';
     
     $email = $_SESSION['email'];
     
