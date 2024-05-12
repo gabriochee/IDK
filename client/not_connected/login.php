@@ -15,37 +15,68 @@ if (isset($_POST['connecter'])) {
             )
         );
         $reponse = $req->fetch();
-        var_dump($reponse);
         //si $reponse renvoie une valeur ca veut dire que le mail est dans la BDD
         if($reponse){
-            $req2 = $bdd->prepare("SELECT definitif,id_banni,date_ban,probleme FROM BAN WHERE id_banni = :id_user;");
-            $req2->execute(
-                array(
-                    "id_user" => $reponse['id_user']
-                )
-            );
-            $ban_ou_pas=$req2->fetch();
-            var_dump($ban_ou_pas['probleme']);
-            $_SESSION['email'] = $email;
-            $_SESSION['id_user'] = $reponse['id_user'];
-            //je vérifie si c'est un utilisateur avec un problème = ban ou supprime 
-            //si le ban est fini on met l'attribut problème à 0;
-            if($ban_ou_pas['probleme']==1){
-                if($ban_ou_pas['definitif']==1){
-                    header('Location: login.php?supprime');
+            
+            
+            if(password_verify($password.$pepper, $reponse['mdp'])){
+                $req2 = $bdd->prepare("SELECT definitif,id_banni,date_ban,probleme, date_deban FROM BAN WHERE id_banni = :id_user;");
+                $req2->execute(
+                    array(
+                        "id_user" => $reponse['id_user']
+                    )
+                );
+                $ban_ou_pas=$req2->fetch();
+                $_SESSION['email'] = $email;
+                $_SESSION['id_user'] = $reponse['id_user'];
+                $date_today = date('Y-m-d H:i:s');
+                //vérifie si l'utilisateur est toujours ban ou non a la connection s'il n'est plus ban
+                // l'attribut problème change et lui permet a nouveau de se connecter
+                
+                //je vérifie si c'est un utilisateur avec un problème donc soit ban soit supprime
+                if($ban_ou_pas['probleme']==1){
+                    if($date_today >= $ban_ou_pas['date_deban']){
+                        
+                        $req4 = $bdd->prepare("UPDATE BAN SET probleme = :probleme WHERE id_banni = :id_banni;");
+                        $req4->execute(
+                            array(
+                                "probleme" => 0,
+                                "id_banni" => $_SESSION['id_user']
+                            )
+                        );
+                        
+                    }
+                    $req5 = $bdd->prepare("SELECT probleme FROM BAN WHERE id_banni = :id_user;");
+                    $req5->execute(
+                        array(
+                            "id_user" => $reponse['id_user']
+                        )
+                    );
+                    $maj_probleme=$req5->fetch();
+                    if($maj_probleme['probleme']==0){
+                        header('Location: confirmation_connexion.php');
+                    }
+                    //definif =1 supprimé definitif =0 ban 
+                    else if($ban_ou_pas['definitif']==1){
+                        
+                        header('Location: login.php?supprime');
+                    }
+                    else if($ban_ou_pas['definitif']==0){
+                        
+                        header('Location: login.php?ban');
+                    }
+                    else{
+                        echo 'rien';
+                    }
                 }
-                if($ban_ou_pas['definitif']==0){
-                    header('Location: login.php?ban');
-                }
-            }
-            // si aucun problème je lui laisse l'accès
-            else{
-                if(password_verify($password.$pepper, $reponse['mdp'])){
+                else{
                     header('Location: confirmation_connexion.php');
-                }else {
-                    header('Location: login.php?wrong_mdp=true');
                 }
+                
+            }else {
+                header('Location: login.php?wrong_mdp=true');
             }
+
         }
         //si le mail entré n'st pas dans la BDD alors mail faux mais en dit que c mail ou mdp faux 
         else{
@@ -95,8 +126,8 @@ if (isset($_POST['connecter'])) {
                 </div>
                 <div class="text-center fs-4">
                     <?php
-                        $req3 = $bdd->prepare("SELECT raison, date_ban, duree, DATE_ADD(date_ban, INTERVAL duree DAY) AS date_deban FROM BAN WHERE id_banni = :id_user;");
-
+                        $req3 = $bdd->prepare("SELECT raison, date_ban, duree, date_deban FROM BAN WHERE id_banni = :id_user;");
+                        
                         $req3->execute(
                             array(
                                 "id_user" => $_SESSION['id_user']

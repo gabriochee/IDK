@@ -32,7 +32,7 @@
                     ?>
                     <input class="form-control form-control-white w-100 mb-3" type="text" placeholder="Recherche" aria-label="Search">
                     <div class="overflow-auto menu-oeuvre-2">
-                        <table class="table table-striped table-sm border border-3 border-dark ">
+                        <table class="table table-striped table-sm border border-3 border-dark" id="users-table">
                             <thead class="table-dark">
                                 <tr>
                                     <th class="table-cell" scope="col">#id</th>
@@ -53,9 +53,30 @@
 
                                 if (isset($_POST['show'])) {
                                     $userInformations = ($bdd->query("SELECT id_user, nom, prenom, pseudo, sexe, date_inscription, mail, telephone, date_naissance FROM UTILISATEUR WHERE id_user = {$_POST['show']};"))->fetchAll();
+                                } elseif (isset($_POST['ban-id'])) {
+                                    $sql = "INSERT INTO BAN(id_banni, definitif, date_ban, date_deban, raison) VALUES (:banid, :definitif, :dateban, :datedeban, :raison)";
+                                    $prep = $bdd->prepare($sql);
+                                    $prep->bindValue(":banid", intval($_POST['ban-id']));
+                                    $prep->bindValue(":definitif", (isset($_POST['definitif']) ? 1 : 0));
+                                    $prep->bindValue(":dateban", date("Y-m-d H-m-s"));
+
+                                    $interval = new DateInterval('P' . $_POST['ban-time-year'] . 'Y' . $_POST['ban-time-month'] . 'M' . $_POST['ban-time-day'] . 'DT' . $_POST['ban-time-hour'] . 'H' . $_POST['ban-time-minute'] . 'M' . $_POST['ban-time-second'] . 'S');
+
+                                    $date_deban = (new DateTime('now'))->add($interval);
+
+                                    $prep->bindValue(":datedeban", $date_deban->format("Y-m-d H-m-s"));
+                                    $prep->bindParam(":raison", $_POST['raison']);
+
+                                    try{
+                                        $prep->execute();
+                                    } catch (PDOException $e){
+                                        echo $e->getMessage();
+                                    }
+
                                 }
 
-                                $queryResponse = $bdd->query("SELECT id_user, CONCAT(prenom, ' ', nom) as prenom_nom, pseudo, sexe, date_inscription, mail, date_naissance FROM UTILISATEUR;");
+                                $queryResponse = $bdd->query("SELECT id_user, CONCAT(prenom, ' ', nom) AS prenom_nom, pseudo, sexe, date_inscription, mail, date_naissance
+                                FROM UTILISATEUR WHERE NOT EXISTS(SELECT id_banni FROM BAN WHERE BAN.id_banni = UTILISATEUR.id_user);");
 
                                 $result = $queryResponse->fetchAll();
                                 $idUser;
@@ -73,13 +94,60 @@
                                     }
                                     echo '<form action="moderation_user.php" method="post">';
                                     echo '<td class="table-cell"><button type="submit" class="btn btn-sm btn-outline-secondary" name=show value=' . $idUser . '>En voir plus</button></td>';
-                                    echo '<td class="table-cell"><button type="submit" class="btn btn-sm btn-warning" name=ban value=' . $idUser . '>Bannir</button></td>';
+                                    echo '<td class="table-cell"><button type="button" class="btn btn-sm btn-warning ban-menu-btn" data-bs-toggle="modal" data-bs-target="#banModal" value=' . $idUser . '>Bannir</button></td>';
                                     echo '<td class="table-cell"><button type="submit" class="btn btn-sm btn-danger" name=delete value=' . $idUser . '>Supprimer</button></td>';
                                     echo '</form>';
                                     echo '</tr>';
                                 }
-
                                 ?>
+                                <div class="modal fade" id="banModal" tabindex="-1">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5">Voulez vous bannir cet utilisateur ?</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                            </div>
+                                            <form action="moderation_user.php" method="post">
+                                                <div class="modal-body">
+                                                    <div class="container align-items-center fs-5">
+                                                        <input class="form-check-input p-1" type="checkbox" name="definitif" id="definitif" data-bs-toggle="collapse" data-bs-target="#duree-ban">
+                                                        <label for="definitif">Bannir définitivement</label>
+                                                    </div>
+                                                    <div class="container mt-3">
+                                                        <label for="raison">Raison</label>
+                                                        <input type="text" class="form-control" name="raison" id="raison" required>
+                                                    </div>
+                                                    <div class="collapse show mt-3" id="duree-ban">
+                                                        <div class="container d-flex justify-content-center">
+                                                            <div class="row row-cols-2 col-7">
+                                                                <label for="ban-time-year" class="col text-end">Année(s)</label>
+                                                                <input type="number" name="ban-time-year" class="col" id="ban-time-year" min=0 max=100 value="0">
+
+                                                                <label for="ban-time-month" class="col text-end">Mois</label>
+                                                                <input type="number" name="ban-time-month" class="col" id="ban-time-month" min=0 max=1000 value="0">
+
+                                                                <label for="ban-time-day" class="col text-end">Jour(s)</label>
+                                                                <input type="number" name="ban-time-day" class="col" id="ban-time-day" min=0 max=1000 value="0">
+
+                                                                <label for="ban-time-hour" class="col text-end">Heure(s)</label>
+                                                                <input type="number" name="ban-time-hour" class="col" id="ban-time-hour" min=0 max=10000 value="0">
+
+                                                                <label for="ban-time-minute" class="col text-end">Minute(s)</label>
+                                                                <input type="number" name="ban-time-minute" class="col" id="ban-time-minute" min=0 max=10000 value="0">
+
+                                                                <label for="ban-time-second" class="col text-end">Seconde(s)</label>
+                                                                <input type="number" name="ban-time-second" class="col" id="ban-time-second" min=0 max=10000 value="0">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="submit" id="ban-btn" class="btn btn-danger" name="ban-id">Bannir</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                             </tbody>
                         </table>
                     </div>
@@ -109,46 +177,46 @@
                                         <div class="col-md-6">
                                             <label class="labels">Nom</label>
                                             <input type="text" name="lastName" class="form-control" value="<?php if ($userInformations) {
-                                                                                                echo $userInformations[0]['nom'];
-                                                                                            } ?>">
+                                                                                                                echo $userInformations[0]['nom'];
+                                                                                                            } ?>">
                                         </div>
                                         <div class="col-md-6">
                                             <label class="labels">Prénom</label>
                                             <input type="text" name="firstName" class="form-control" value="<?php if ($userInformations) {
-                                                                                                echo $userInformations[0]['prenom'];
-                                                                                            } ?>">
+                                                                                                                echo $userInformations[0]['prenom'];
+                                                                                                            } ?>">
                                         </div>
                                         <div class="col-md-12">
                                             <label class="labels">Pseudo</label>
                                             <input type="text" name="pseudo" class="form-control" value="<?php if ($userInformations) {
-                                                                                                echo $userInformations[0]['pseudo'];
-                                                                                            } ?>">
+                                                                                                                echo $userInformations[0]['pseudo'];
+                                                                                                            } ?>">
                                         </div>
                                         <div class="col-md-12">
                                             <label class="labels">Sexe</label>
                                             <div class="d-sm-flex justify-content-center container ps-0">
                                                 <div class="container d-flex align-items-center ps-0">
                                                     <input id="homme" name="sexe" value="homme" type="radio" class="form-check-input border-dark mt-0" required <?php if ($userInformations) {
-                                                                                                                                                        if ($userInformations[0]['sexe'] == 'homme') {
-                                                                                                                                                            echo 'checked';
-                                                                                                                                                        }
-                                                                                                                                                    } ?>>
+                                                                                                                                                                    if ($userInformations[0]['sexe'] == 'homme') {
+                                                                                                                                                                        echo 'checked';
+                                                                                                                                                                    }
+                                                                                                                                                                } ?>>
                                                     <label class="form-check-label labels mx-2" for="homme">Homme</label>
                                                 </div>
                                                 <div class="container d-flex align-items-center ps-0">
                                                     <input id="femme" name="sexe" value="femme" type="radio" class="form-check-input border-dark mt-0" required <?php if ($userInformations) {
-                                                                                                                                                        if ($userInformations[0]['sexe'] == 'femme') {
-                                                                                                                                                            echo 'checked';
-                                                                                                                                                        }
-                                                                                                                                                    } ?>>
+                                                                                                                                                                    if ($userInformations[0]['sexe'] == 'femme') {
+                                                                                                                                                                        echo 'checked';
+                                                                                                                                                                    }
+                                                                                                                                                                } ?>>
                                                     <label class="form-check-label labels mx-2" for="femme">Femme</label>
                                                 </div>
                                                 <div class="container d-flex align-items-center ps-0">
                                                     <input id="autre" name="sexe" value="autre" type="radio" class="form-check-input border-dark mt-0" required <?php if ($userInformations) {
-                                                                                                                                                        if ($userInformations[0]['sexe'] == 'autre') {
-                                                                                                                                                            echo 'checked';
-                                                                                                                                                        }
-                                                                                                                                                    } ?>>
+                                                                                                                                                                    if ($userInformations[0]['sexe'] == 'autre') {
+                                                                                                                                                                        echo 'checked';
+                                                                                                                                                                    }
+                                                                                                                                                                } ?>>
                                                     <label class="form-check-label labels mx-2" for="autre">Autre</label>
                                                 </div>
                                             </div>
@@ -158,39 +226,39 @@
                                             <div class="col-md-4">
                                                 <label class="labels">Jour</label>
                                                 <input type="text" name="birthday-day" class="form-control" value="<?php if ($userInformations) {
-                                                                                                    echo date('d', strtotime($userInformations[0]['date_naissance']));
-                                                                                                } ?>">
+                                                                                                                        echo date('d', strtotime($userInformations[0]['date_naissance']));
+                                                                                                                    } ?>">
                                             </div>
                                             <div class="col-md-4">
                                                 <label class="labels">Mois</label>
                                                 <input type="text" name="birthday-month" class="form-control" value="<?php if ($userInformations) {
-                                                                                                    echo date('m', strtotime($userInformations[0]['date_naissance']));
-                                                                                                } ?>">
+                                                                                                                            echo date('m', strtotime($userInformations[0]['date_naissance']));
+                                                                                                                        } ?>">
                                             </div>
                                             <div class="col-md-4">
                                                 <label class="labels">Année</label>
                                                 <input type="text" name="birthday-year" class="form-control" value="<?php if ($userInformations) {
-                                                                                                    echo date('Y', strtotime($userInformations[0]['date_naissance']));
-                                                                                                } ?>">
+                                                                                                                        echo date('Y', strtotime($userInformations[0]['date_naissance']));
+                                                                                                                    } ?>">
                                             </div>
                                         </div>
                                         <div class="col-md-12">
                                             <label class="labels">Email</label>
                                             <input type="text" name="mail" class="form-control" value="<?php if ($userInformations) {
-                                                                                                echo $userInformations[0]['mail'];
-                                                                                            } ?>">
+                                                                                                            echo $userInformations[0]['mail'];
+                                                                                                        } ?>">
                                         </div>
                                         <div class="col-md-12">
                                             <label class="labels">Numéro de mobile</label>
                                             <input type="text" name="phone" class="form-control" value="<?php if ($userInformations) {
-                                                                                                echo $userInformations[0]['telephone'];
-                                                                                            } ?>">
+                                                                                                            echo $userInformations[0]['telephone'];
+                                                                                                        } ?>">
                                         </div>
                                     </div>
                                     <div class="d-flex justify-content-center">
                                         <button class="nav-btn btn btn-primary btn-lg btn-block btn-warning text-white border border-light border-2 rounded-3 w-100 my-3" name='id_user' value="<?php if ($userInformations) {
-                                                                                                                                                                                        echo $userInformations[0]['id_user'];
-                                                                                                                                                                                    } ?>">Modifier</button>
+                                                                                                                                                                                                    echo $userInformations[0]['id_user'];
+                                                                                                                                                                                                } ?>">Modifier</button>
                                     </div>
                                 </div>
                             </form>
@@ -365,6 +433,7 @@
         </div>
     </div>
     <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../inc/js/moderation_user.js"></script>
 </body>
 
 </html>
