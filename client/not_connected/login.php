@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-require_once('../../inc/db.php');
+require_once('../../inc/php/db.php');
 
 if (isset($_POST['connecter'])) {
     $email = $_POST['email'];

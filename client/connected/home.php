@@ -1,12 +1,4 @@
-<?php
-    session_start();
-    echo 'slt';
-    $test1 = $_SESSION['email'];
-    $test2 = $_SESSION['id_user'];
-    var_dump($test1);
-    var_dump($test2);
-    
-?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -28,7 +20,19 @@
                         <img class="mb-3" width="150px" src="../../inc/profile.svg">
                         <span class="text-black-50">#1234</span>
                         <span>Pseudo</span>
-                        <span>Léo Belarbi</span>
+                        <span>
+                            <?php 
+                                session_start();
+                                $req = $bdd->prepare("SELECT pseudo FROM UTILISATEUR WHERE id_user = :id_user;");
+                                $req->execute(
+                                    array(
+                                        "id_user" => $_SESSION['id_user']
+                                    )
+                                );
+                                $reponse = $req->fetch();
+                                echo $reponse['pseudo'];
+                            ?>
+                        </span>
                         <span>1 amis</span>
                         <button type="button" class="btn btn-sm btn-outline-secondary mt-3">Voir mes amis</button>
                     </div>
