@@ -10,7 +10,8 @@
 </head>
 <body id="oeuvre">
     <?php require('../../inc/php/db.php'); ?>
-    <?php require('../../inc/not_connected/header.php'); ?>
+    <?php require('../../inc/php/function_oeuvre.php'); ?>    
+    <?php require('../../inc/not_connected/header.php'); ?>  
     <main>
         <div class="container mt-5">
             <div class="row justify-content-center">
@@ -19,39 +20,44 @@
                 </div>
                 <div class="col-12 col-lg-5">
                     <div>
-                        <h1 class="m-3">Titre oeuvre</h1>
-                        <p class="m-1">Genres :</p>
-                        <p class="m-1">Date de sortie :</p>
-                        <p class="m-1">Durée :</p>
-                        <p class="m-1">Crée par :</p>
-                        <p class="m-1">Réalisateur :</p>
+                        <h1 class="m-1 mb-3"><?php echo $rep1['primaryTitle']; ?></h1>
+                        <p class="m-1">Durée : <?php echo $rep1['runtimeMinutes']; ?> minutes</p>
+                        <p class="m-1">Date de sortie : <?php echo $rep1['startYear']; ?></p>
+                        <p class="m-1">Nationalité : <?php echo $rep2['region']; ?></p>
+                        <p class="m-1">Genres : <?php foreach($rep3 as $genre){ echo $genre['genre'] . " ";} ?></p>
                         <p class="m-1">Acteurs principaux :</p>
-                        <p class="m-1">Nationalité :</p>                        
-                        <p class="m-1">Langue :</p>
+                        <p class="m-1">Réalisateur :</p>
+                        <p class="m-1">Producteur :</p>  
                     </div>
                     <div class ="container mt-4">
                         <div class="d-flex justify-content-center mt-2">
                             <div class="card col-1 mx-1 p-3 color-custom-1" style="width: 170px;">
                                 <div class="card-body d-flex flex-column justify-content-start align-items-center p-0">
                                     <p class="m-0 fw-bold fs-5">Public</p>
-                                    <p class="m-0 note-count fs-5 mt-2">1,1</p>
+                                    <p class="m-0 note-count fs-5 mt-2"><?php echo $averageRating; ?></p>
                                     <div class="d-flex justify-content-center my-2">
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star"></i>
-                                        <i class="bi bi-star"></i>
-                                        <i class="bi bi-star"></i>
-                                        <i class="bi bi-star"></i>
+                                        <?php 
+                                        for ($i = 1; $i < $averageRating; $i++) {
+                                            echo '<i class="bi bi-star-fill"></i>';
+                                        }
+                                        if ($partie_decimale > 0) {
+                                            echo '<i class="bi bi-star-half"></i>';
+                                        }
+                                        for ($i = 1; $i < (5 - $averageRating); $i++) {
+                                            echo '<i class="bi bi-star"></i>';
+                                        }
+                                        ?>
                                     </div>
-                                    <p class="mb-0 text-center">20 notes<br>2 critiques</p>
+                                    <p class="mb-0 text-center"><?php echo $rep4['numVotes']; ?> notes<br>2 critiques</p>
                                 </div>
                             </div>
                             <div class="card col-1 mx-1 p-3 color-custom-1" style="width: 170px;">
                                 <div class="card-body d-flex flex-column justify-content-start align-items-center p-0">
                                     <p class="m-0 fw-bold fs-5">Mes amis</p>
-                                    <p class="m-0 note-count fs-5 mt-2">2,2</p>
+                                    <p class="m-0 note-count fs-5 mt-2">--</p>
                                     <div class="d-flex justify-content-center my-2">
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star"></i>
+                                        <i class="bi bi-star"></i>
                                         <i class="bi bi-star"></i>
                                         <i class="bi bi-star"></i>
                                         <i class="bi bi-star"></i>
@@ -107,38 +113,6 @@
                             <br>
                             <p class="m-1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis neque quisquam eos tempore, debitis reprehenderit aut in voluptate delectus porro? Vero, molestiae. Laudantium ex magnam dignissimos dolor excepturi modi quia maiores est doloremque. Necessitatibus enim fuga aperiam esse eligendi error assumenda illo explicabo commodi. Fugit ut expedita enim saepe est dolorum molestiae minima, dignissimos nemo quas! Dignissimos dolore explicabo labore repellat corporis nesciunt assumenda optio dolorem nihil quam obcaecati, corrupti iste nemo modi pariatur ducimus? Animi aliquam reiciendis dignissimos nulla et officia alias fugiat! Commodi aliquam odio nesciunt. Esse ducimus mollitia sint velit blanditiis harum perspiciatis fugiat odio quod officiis.</p>
                             <br>
-                        </div>
-                        <div>
-                            <h3 class="m-3">Liste des épisodes :</h3>
-                            <ul>
-                                <li>Saison 1</li>
-                                    <ul>
-                                        <li>Episode 1 : Nom oeuvre</li>
-                                        <li>Episode 2 : Nom oeuvre</li>
-                                        <li>Episode 3 : Nom oeuvre</li>
-                                        <li class="text-decoration-underline">Episode 4 : Nom oeuvre</li>
-                                        <li>Episode 5 : Nom oeuvre</li>
-                                        <li>Episode 6 : Nom oeuvre</li>
-                                    </ul>
-                                <li>Saison 2</li>
-                                    <ul>
-                                        <li>Episode 1 : Nom oeuvre</li>
-                                        <li>Episode 2 : Nom oeuvre</li>
-                                        <li>Episode 3 : Nom oeuvre</li>
-                                        <li>Episode 4 : Nom oeuvre</li>
-                                        <li>Episode 5 : Nom oeuvre</li>
-                                        <li>Episode 6 : Nom oeuvre</li>
-                                    </ul>
-                                <li>Saison 3</li>
-                                    <ul>
-                                        <li>Episode 1 : Nom oeuvre</li>
-                                        <li>Episode 2 : Nom oeuvre</li>
-                                        <li>Episode 3 : Nom oeuvre</li>
-                                        <li>Episode 4 : Nom oeuvre</li>
-                                        <li>Episode 5 : Nom oeuvre</li>
-                                        <li>Episode 6 : Nom oeuvre</li>
-                                    </ul>
-                            </ul>
                         </div>
                         <br>
                         <div>
@@ -313,7 +287,7 @@
             </div>
         </div>
                     
-    <?php require('../../inc/connected/footer.php'); ?>          
+    <?php require('../../inc/not_connected/footer.php'); ?>          
     <script src="../../inc/js/oeuvre.js"></script>
     <script src="../../bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,8 +8,8 @@
     <link rel="stylesheet" href="../bootstrap/bootstrap-icons/font/bootstrap-icons.min.css">
     <title>IDK</title>
 </head>
-
-<body id="home_backoffice" class="backoffice">
+<body>
+    <?php require('../inc/php/db.php'); ?>
     <?php require('../inc/backoffice/header.php'); ?>
     <div class="container-fluid">
         <div class="row">
@@ -18,43 +17,32 @@
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
                 <?php
                 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                    require('../client/connected/db.php');
 
                     try {
-                        // Vérification s'il y a une requête de suppression d'un captcha
+                        
                         if (isset($_POST['deleteCaptchaId'])) {
 
                             $dltId = htmlspecialchars($_POST['deleteCaptchaId']);
-                            $result = $bdd->query('SELECT REPONSE_CAPTCHA.id_reponse FROM REPONSE_CAPTCHA
-                                        JOIN ASSOCIATION_REPONSES_CAPTCHA ON
-                                        REPONSE_CAPTCHA.id_reponse = ASSOCIATION_REPONSES_CAPTCHA.id_reponse
-                                        WHERE id_captcha = ' . $dltId . ';');
-
+                            $result = $bdd->query('SELECT REPONSE_CAPTCHA.id_reponse FROM REPONSE_CAPTCHA JOIN ASSOCIATION_REPONSES_CAPTCHA ON REPONSE_CAPTCHA.id_reponse = ASSOCIATION_REPONSES_CAPTCHA.id_reponse WHERE id_captcha = ' . $dltId . ';');
                             $bdd->query('DELETE FROM ASSOCIATION_REPONSES_CAPTCHA WHERE id_captcha = ' . $dltId . ';');
                             $bdd->query('DELETE FROM CAPTCHA WHERE id_captcha = ' . $dltId . ';');
-
                             $data = $result->fetchAll();
 
                             foreach ($data as $val) {
                                 $bdd->query('DELETE FROM REPONSE_CAPTCHA WHERE id_reponse = ' . htmlspecialchars($val['id_reponse']) . ';');
                             }
-
-                            // Sinon on vérifie s'il y a un captcha a ajouter
                         } elseif (isset($_POST['question'])) {
+
                             $treated_str = htmlspecialchars($_POST['question']);
-
                             $bdd->query("INSERT INTO CAPTCHA(question) VALUES ('$treated_str');");
-
                             $result = $bdd->query('SELECT LAST_INSERT_ID();');
                             $captchaId = $result->fetchAll()[0]['LAST_INSERT_ID()'];
-
                             $isGoodAnswer = 'false';
-
+                            
                             foreach ($_POST as $key => $answer) {
                                 if (str_contains($key, 'good-answer')) {
                                     $isGoodAnswer = 'true';
                                     continue;
-                                    // Si on trouve une clé 'good-answer', on le signale car cela veut dire que la réponse qui suit est LA bonne réponse.
                                 }
                                 if (str_contains($key, 'answer')) {
                                     $bdd->query("INSERT INTO REPONSE_CAPTCHA(contenu, bonne_reponse) VALUES ('" . htmlspecialchars($answer) . "', $isGoodAnswer);");
@@ -71,16 +59,14 @@
                 }
                 ?>
                 <div class="table-responsive mt-4" id="captcha-table">
-                    <h3>Captchas</h3>
+                    <h3>Captcha</h3>
                     <div class="card">
                         <div class="card-body d-flex justify-content-between align-items-center">
                             <input type="text" name="question" id="question" class="form-control w-75" value="Quel est le meilleur éditeur ?">
-                            <a class="btn btn-light collapsed" data-bs-toggle="collapse" href="#collapse2" role="button" aria-expended="false" aria-controls="#collapse2" aria-expanded="false">
-                                Réponses
-                            </a>
+                            <a class="btn btn-light collapsed" data-bs-toggle="collapse" href="#collapse2" role="button" aria-expended="false" aria-controls="#collapse2" aria-expanded="false">Réponses</a>
                         </div>
                     </div>
-                    <div id="collapse2" class="collapse" style="">
+                    <div id="collapse2" class="collapse">
                         <div class="card card-body">
                             <table class="table table-bordered">
                                 <tbody>
@@ -149,7 +135,6 @@
 
         $fetchedData = $data->fetchAll();
         $json = json_encode($fetchedData);
-
         echo "<script>let captchaData = $json;</script>";
     } catch (PDOException $e) {
         echo "Erreur : " . $e->getMessage();
