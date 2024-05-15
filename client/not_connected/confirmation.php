@@ -41,6 +41,12 @@
 
         } elseif (!preg_match("^(0?[1-9]$)|([1-2][0-9])|(3[0-1])$", $_POST['birthday-day'])){
 
+        } elseif (!preg_match("^(homme)|(femme)|(autre)$", $_POST['sexe'])){
+
+        } elseif (!preg_match("^[a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)*@[a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)*$",$_POST['mail'])){
+
+        } elseif (!preg_match("^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$", $_POST["phone"])){
+
         }
 
         $mail = new PHPMailer(true);
