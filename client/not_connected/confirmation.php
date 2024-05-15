@@ -7,6 +7,42 @@
     require '/../inc/library/PHPMailer/src/SMTP.php';
     var_dump($_POST);
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+        // Vérification des entrées utilisateurs
+
+        $requiredAttributes = [
+            "lastName"       => "prénom",
+            "firstName"      => "nom de famille",
+            "birthday-year"  => "date d'anniversaire",
+            "birthday-month" => "date d'anniversaire",
+            "birthday-day"   => "date d'anniversaire",
+            "sexe"           => "sexe",
+            "username"       => "pseudonyme",
+            "mail"           => "mail",
+            "password"       => "mot de passe",
+            "phone"          => "numéro de téléphone"
+        ];
+
+        foreach ($requiredAttributes as $attribute => $readable){
+            if (!isset($_POST[$attribute])){
+                header('HTTP/1.1 307 Temporary Redirect');
+                header("location : signin.php");
+                exit;
+            }
+        }
+
+        if (!preg_match("^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$", $_POST['password'])){
+            
+        } else if (!preg_match("^[a-zA-Z]+$", $_POST["firstName"]) || !preg_match("^[a-zA-Z]+$", $_POST['firstName'])){
+
+        } elseif (!preg_match("^(19[0-9][0-9])|(20[0-1][0-9]|202[0-4])$", $_POST['birthday-year'])){
+
+        } elseif (!preg_match("^(0?[1-9]$)|(1[0-2])$", $_POST['birthday-month'])){
+
+        } elseif (!preg_match("^(0?[1-9]$)|([1-2][0-9])|(3[0-1])$", $_POST['birthday-day'])){
+
+        }
+
         $mail = new PHPMailer(true);
         $mail->isSMTP();
         $mail->Host = 'smtp.gmail.com';
@@ -30,6 +66,7 @@
         $pepper = 'sZB8J0az0z';
         $hash = password_hash($_POST['password'].$pepper, PASSWORD_BCRYPT, ['cost' => 13]);
         $today = date('Y-m-d');
+
 
         try {
             $bdd = new PDO("mysql:host=$serverAddress;dbname=projet;port=3306", $username, $password);
