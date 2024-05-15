@@ -138,7 +138,7 @@
     </div>
     <?php
     try {
-        require('../client/connected/db.php');
+        require('../inc/php/db.php');
 
         $data = $bdd->query('SELECT CAPTCHA.question, CAPTCHA.id_captcha, REPONSE_CAPTCHA.contenu, REPONSE_CAPTCHA.bonne_reponse
                                          FROM REPONSE_CAPTCHA
