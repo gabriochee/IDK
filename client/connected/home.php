@@ -24,7 +24,7 @@
                         <span>Pseudo</span>
                         <span>
                             <?php
-                                $req = $bdd->prepare("SELECT pseudo FROM UTILISATEUR WHERE id_user = :id_user;");
+                                $req = $bdd->prepare("SELECT pseudo FROM utilisateur WHERE id_user = :id_user;");
                                 $req->execute(
                                     array(
                                         "id_user" => $_SESSION['id_user']

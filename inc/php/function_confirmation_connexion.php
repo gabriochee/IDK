@@ -31,7 +31,7 @@
         $mail->Subject = 'Email verification';
         $mail->Body    = '<p>Your verification code is: <b style="font-size: 30px;">' . $verification_code . '</b></p>';
         
-        $req = $bdd->prepare("UPDATE UTILISATEUR SET code_verification = :verification_code WHERE mail = :email;");
+        $req = $bdd->prepare("UPDATE utilisateur SET code_verification = :verification_code WHERE mail = :email;");
         $req->execute(
             array(
                 "email" => $email,
@@ -58,7 +58,7 @@
         $connect = $_POST['entrer_code'];
         if($connect != ""){
             $email = $_SESSION['email'];
-            $req = $bdd->prepare("SELECT mail, code_verification FROM UTILISATEUR WHERE mail = :email;");
+            $req = $bdd->prepare("SELECT mail, code_verification FROM utilisateur WHERE mail = :email;");
             $req->execute(
                 array(
                     "email" => $email

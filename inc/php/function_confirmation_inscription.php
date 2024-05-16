@@ -13,7 +13,7 @@
             $newsLetter=0;
 
         try{
-            $sql = "INSERT INTO UTILISATEUR(role, nom, prenom, date_naissance, sexe, pseudo, mail, mdp, date_inscription, photo_utilisateur, statut_newsletter, code_verification, telephone, supprime)
+            $sql = "INSERT INTO utilisateur(role, nom, prenom, date_naissance, sexe, pseudo, mail, mdp, date_inscription, photo_utilisateur, statut_newsletter, code_verification, telephone, supprime)
                     VALUES ('utilisateur', :lastname, :firstname, :birthdate, :gender, :username, :mail, :hash, :today, 'N/A', :abonne, NULL, :phone ,0)";
             $stmt = $bdd->prepare($sql);
             $stmt->bindParam(':lastname', $_POST['lastName']);
@@ -29,7 +29,7 @@
             $stmt->bindParam(':abonne', $newsLetter);
             $stmt->execute();
             
-            $req = $bdd->prepare("SELECT mail, mdp, id_user FROM UTILISATEUR WHERE mail = :email;");
+            $req = $bdd->prepare("SELECT mail, mdp, id_user FROM utilisateur WHERE mail = :email;");
             $req->execute(
                 array(
                     "email" => $_POST['email']

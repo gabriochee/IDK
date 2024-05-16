@@ -15,13 +15,13 @@ try {
 }
 
 try {
-    $bdd_imdb = new PDO("mysql:host=$serverAddress;dbname=IMDb;port=3306", $username, $password);
-    $bdd_imdb->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $bdd = new PDO("mysql:host=$serverAddress;dbname=IMDb;port=3306", $username, $password);
+    $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
     echo "Erreur : " . $e->getMessage(); 
 }
 
-$smtp = $bdd_imdb->prepare("SELECT id_work, primaryTitle FROM work_basics WHERE primaryTitle LIKE :keyword");
+$smtp = $bdd->prepare("SELECT id_work, primaryTitle FROM work_basics WHERE primaryTitle LIKE :keyword");
 $smtp->execute(array(":keyword" => '%'.$keyword.'%'));
 $res = $smtp->fetchAll(PDO::FETCH_ASSOC);
 

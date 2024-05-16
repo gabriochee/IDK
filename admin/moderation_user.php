@@ -21,7 +21,7 @@
                     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         if (isset($_POST['id_user'])) {
                             try {
-                                $result = $bdd->query("UPDATE UTILISATEUR SET nom = '{$_POST['lastName']}', prenom = '{$_POST['firstName']}', pseudo = '{$_POST['pseudo']}', sexe = '{$_POST['sexe']}', date_naissance = \"{$_POST['birthday-year']}-{$_POST['birthday-month']}-{$_POST['birthday-day']}\", mail = '{$_POST['mail']}', telephone = '{$_POST['phone']}' WHERE id_user = {$_POST['id_user']};");
+                                $result = $bdd->query("UPDATE utilisateur SET nom = '{$_POST['lastName']}', prenom = '{$_POST['firstName']}', pseudo = '{$_POST['pseudo']}', sexe = '{$_POST['sexe']}', date_naissance = \"{$_POST['birthday-year']}-{$_POST['birthday-month']}-{$_POST['birthday-day']}\", mail = '{$_POST['mail']}', telephone = '{$_POST['phone']}' WHERE id_user = {$_POST['id_user']};");
                             } catch (PDOException $e) {
                                 echo $e->getMessage();
                             }
@@ -50,9 +50,9 @@
                                 $userInformations = false;
 
                                 if (isset($_POST['show'])) {
-                                    $userInformations = ($bdd->query("SELECT id_user, nom, prenom, pseudo, sexe, date_inscription, mail, telephone, date_naissance FROM UTILISATEUR WHERE id_user = {$_POST['show']};"))->fetchAll();
+                                    $userInformations = ($bdd->query("SELECT id_user, nom, prenom, pseudo, sexe, date_inscription, mail, telephone, date_naissance FROM utilisateur WHERE id_user = {$_POST['show']};"))->fetchAll();
                                 } elseif (isset($_POST['ban-id'])) {
-                                    $sql = "INSERT INTO BAN(id_banni, definitif, date_ban, date_deban, raison) VALUES (:banid, :definitif, :dateban, :datedeban, :raison)";
+                                    $sql = "INSERT INTO ban(id_banni, definitif, date_ban, date_deban, raison) VALUES (:banid, :definitif, :dateban, :datedeban, :raison)";
                                     $prep = $bdd->prepare($sql);
                                     $prep->bindValue(":banid", intval($_POST['ban-id']));
                                     $prep->bindValue(":definitif", (isset($_POST['definitif']) ? 1 : 0));
@@ -71,7 +71,7 @@
                                         echo $e->getMessage();
                                     }
                                 } elseif (isset($_POST['delete-id'])){
-                                    $sql = "UPDATE UTILISATEUR SET supprime = 1 WHERE id_user = :id";
+                                    $sql = "UPDATE utilisateur SET supprime = 1 WHERE id_user = :id";
                                     $prep = $bdd->prepare($sql);
                                     $prep->bindValue(":id", $_POST['delete-id']);
 
@@ -83,7 +83,7 @@
                                 }
 
                                 $queryResponse = $bdd->query("SELECT id_user, CONCAT(prenom, ' ', nom) AS prenom_nom, pseudo, sexe, date_inscription, mail, date_naissance
-                                FROM UTILISATEUR WHERE supprime = 0 AND NOT EXISTS(SELECT id_banni FROM BAN WHERE BAN.id_banni = UTILISATEUR.id_user);");
+                                FROM utilisateur WHERE supprime = 0 AND NOT EXISTS(SELECT id_banni FROM ban WHERE ban.id_banni = utilisateur.id_user);");
 
                                 $result = $queryResponse->fetchAll();
                                 $idUser;

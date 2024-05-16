@@ -21,7 +21,7 @@
         
         $mail->setFrom('annuelprojet2@gmail.com');
         
-        $req = $bdd->prepare("SELECT mail FROM UTILISATEUR WHERE statut_newsletter ='1'");
+        $req = $bdd->prepare("SELECT mail FROM utilisateur WHERE statut_newsletter ='1'");
         $req->execute();
         $emails = $req->fetchAll(PDO::FETCH_COLUMN);
         // Configuration de l'e-mail en dehors de la boucle

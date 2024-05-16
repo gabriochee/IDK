@@ -6,7 +6,7 @@
         $password = $_POST['password'];
         $pepper = 'sZB8J0az0z';
         if($email != "" && $password != ""){
-            $req = $bdd->prepare("SELECT mail, mdp, id_user FROM UTILISATEUR WHERE mail = :email;");
+            $req = $bdd->prepare("SELECT mail, mdp, id_user FROM utilisateur WHERE mail = :email;");
             $req->execute(
                 array(
                     "email" => $email
@@ -18,7 +18,7 @@
                 
                 
                 if(password_verify($password.$pepper, $reponse['mdp'])){
-                    $req2 = $bdd->prepare("SELECT definitif,id_banni,date_ban,probleme, date_deban FROM BAN WHERE id_banni = :id_user;");
+                    $req2 = $bdd->prepare("SELECT definitif,id_banni,date_ban,probleme, date_deban FROM ban WHERE id_banni = :id_user;");
                     $req2->execute(
                         array(
                             "id_user" => $reponse['id_user']
@@ -35,7 +35,7 @@
                     if($ban_ou_pas['probleme']==1){
                         if($date_today >= $ban_ou_pas['date_deban']){
                             
-                            $req4 = $bdd->prepare("UPDATE BAN SET probleme = :probleme WHERE id_banni = :id_banni;");
+                            $req4 = $bdd->prepare("UPDATE ban SET probleme = :probleme WHERE id_banni = :id_banni;");
                             $req4->execute(
                                 array(
                                     "probleme" => 0,
@@ -44,7 +44,7 @@
                             );
                             
                         }
-                        $req5 = $bdd->prepare("SELECT probleme FROM BAN WHERE id_banni = :id_user;");
+                        $req5 = $bdd->prepare("SELECT probleme FROM ban WHERE id_banni = :id_user;");
                         $req5->execute(
                             array(
                                 "id_user" => $reponse['id_user']
