@@ -1,89 +1,6 @@
 <?php
 
 session_start();
-require_once('../../inc/php/db.php');
-
-if (isset($_POST['connecter'])) {
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-    $pepper = 'sZB8J0az0z';
-    if($email != "" && $password != ""){
-        $req = $bdd->prepare("SELECT mail, mdp, id_user FROM UTILISATEUR WHERE mail = :email;");
-        $req->execute(
-            array(
-                "email" => $email
-            )
-        );
-        $reponse = $req->fetch();
-        //si $reponse renvoie une valeur ca veut dire que le mail est dans la BDD
-        if($reponse){
-            
-            
-            if(password_verify($password.$pepper, $reponse['mdp'])){
-                $req2 = $bdd->prepare("SELECT definitif,id_banni,date_ban,probleme, date_deban FROM BAN WHERE id_banni = :id_user;");
-                $req2->execute(
-                    array(
-                        "id_user" => $reponse['id_user']
-                    )
-                );
-                $ban_ou_pas=$req2->fetch();
-                $_SESSION['email'] = $email;
-                $_SESSION['id_user'] = $reponse['id_user'];
-                $date_today = date('Y-m-d H:i:s');
-                //vérifie si l'utilisateur est toujours ban ou non a la connection s'il n'est plus ban
-                // l'attribut problème change et lui permet a nouveau de se connecter
-                
-                //je vérifie si c'est un utilisateur avec un problème donc soit ban soit supprime
-                if($ban_ou_pas['probleme']==1){
-                    if($date_today >= $ban_ou_pas['date_deban']){
-                        
-                        $req4 = $bdd->prepare("UPDATE BAN SET probleme = :probleme WHERE id_banni = :id_banni;");
-                        $req4->execute(
-                            array(
-                                "probleme" => 0,
-                                "id_banni" => $_SESSION['id_user']
-                            )
-                        );
-                        
-                    }
-                    $req5 = $bdd->prepare("SELECT probleme FROM BAN WHERE id_banni = :id_user;");
-                    $req5->execute(
-                        array(
-                            "id_user" => $reponse['id_user']
-                        )
-                    );
-                    $maj_probleme=$req5->fetch();
-                    if($maj_probleme['probleme']==0){
-                        header('Location: confirmation_connexion.php');
-                    }
-                    //definif =1 supprimé definitif =0 ban 
-                    else if($ban_ou_pas['definitif']==1){
-                        
-                        header('Location: login.php?supprime');
-                    }
-                    else if($ban_ou_pas['definitif']==0){
-                        
-                        header('Location: login.php?ban');
-                    }
-                    else{
-                        echo 'rien';
-                    }
-                }
-                else{
-                    header('Location: confirmation_connexion.php');
-                }
-                
-            }else {
-                header('Location: login.php?wrong_mdp=true');
-            }
-
-        }
-        //si le mail entré n'st pas dans la BDD alors mail faux mais en dit que c mail ou mdp faux 
-        else{
-            header('Location: login.php?wrong_email=true');
-        }
-    }
-}
 
 ?>
 
@@ -99,6 +16,7 @@ if (isset($_POST['connecter'])) {
     <title>IDK</title>
 </head>
 <body>
+    <?php require_once('../../inc/php/function_login.php');?>
     <header class="container w-100 d-flex justify-content-end mt-5 h-100">
         <button class="nav-link btn">
             <i class="bi bi-moon-stars fs-3" height="100" width="100"></i>
@@ -142,8 +60,8 @@ if (isset($_POST['connecter'])) {
                             echo "L'email ou le mot de passe ou les deux sont erronés";
                             
                         }
-                        if(isset($_GET['supprime'])){
-                            echo "Ton compte a été supprimé pour le motif suivant: " . $ban_info['raison'];
+                        if(isset($_GET['ban_def'])){
+                            echo "Ton compte a été ban_def pour le motif suivant: " . $ban_info['raison'];
                         }
                         if(isset($_GET['ban'])){
                             echo "Ton compte a été ban jusqu'au: " .$ban_info['date_deban'] ." pour la raison suivante: ". $ban_info['raison'];
