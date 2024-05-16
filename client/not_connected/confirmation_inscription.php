@@ -1,6 +1,5 @@
 <?php
     session_start();
-    require_once('../../inc/php/function_confirmation_inscription.php');
 ?>
 
 
@@ -24,6 +23,7 @@
             <div class="d-flex flex-column my-5 py-2 gap-5 text-center">
                 <img src="../../inc/logo.svg" alt="Logo IDK" width="200px" height="200px" class="container-fluid img-thumbnail bg-transparent border-0">
                 <h3 class="mt-5">En cours de confirmation<br>de la création du compte...</h3>
+                <?php require_once('../../inc/php/function_confirmation_inscription.php'); ?>
             </div>
         </div>
     </main>

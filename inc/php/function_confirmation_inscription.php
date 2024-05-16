@@ -9,11 +9,12 @@
         if($_POST['newsletter'] == 1){
             $newsLetter = 1;
         }
-        else
+        else{
             $newsLetter=0;
+        }
 
         try{
-            $sql = "INSERT INTO utilisateur(role, nom, prenom, date_naissance, sexe, pseudo, mail, mdp, date_inscription, photo_utilisateur, statut_newsletter, code_verification, telephone, supprime)
+            $sql = "INSERT INTO utilisateur(role_user, nom, prenom, date_naissance, sexe, pseudo, mail, mdp, date_inscription, photo_utilisateur, statut_newsletter, verification_code, telephone, supprime)
                     VALUES ('utilisateur', :lastname, :firstname, :birthdate, :gender, :username, :mail, :hash, :today, 'N/A', :abonne, NULL, :phone ,0)";
             $stmt = $bdd->prepare($sql);
             $stmt->bindParam(':lastname', $_POST['lastName']);
@@ -39,7 +40,8 @@
             $_SESSION['email'] = $reponse['mail'];
             $_SESSION['id_user'] = $reponse['id_user'];
         } catch (PDOException $e) {
-            header('Location: signin.php?wrong_email=true');
+            echo $e->getMessage();
+            //header('Location: signin.php?wrong_email=true');
         }
     }
 ?>
