@@ -1,42 +1,4 @@
-<?php
-    require_once('../inc/php/db.php');
 
-    use PHPMailer\PHPMailer\PHPMailer;
-    use PHPMailer\PHPMailer\Exception;
-
-    require '../client/not_connected/PHPMailer/src/Exception.php';
-    require '../client/not_connected/PHPMailer/src/PHPMailer.php';
-    require '../client/not_connected/PHPMailer/src/SMTP.php';
-
-    if(isset($_POST['envoyer'])){
-        $mail = new PHPMailer(true);
-        $mail->isSMTP();
-        
-        $mail->Host = 'smtp.gmail.com';
-        $mail->SMTPAuth = true;
-        $mail->Username = 'annuelprojet2@gmail.com';
-        $mail->Password = 'zwcsygpubwzvaysr';
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
-        $mail->Port = 465;
-        
-        $mail->setFrom('annuelprojet2@gmail.com');
-        
-        $req = $bdd->prepare("SELECT mail FROM UTILISATEUR WHERE statut_newsletter ='1'");
-        $req->execute();
-        $emails = $req->fetchAll(PDO::FETCH_COLUMN);
-        // Configuration de l'e-mail en dehors de la boucle
-        $mail->isHTML(true);
-        $mail->Subject= $_POST["subject"];
-        $mail->Body= $_POST["query-prompt"];
-        foreach ($emails as $email) {
-            $mail->addAddress($email);
-            
-        }
-        $mail->send(); 
-        
-        // Affichage du résultat de fetch
-    }
-?>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -53,6 +15,7 @@
     <div class="container-fluid">
         <div class="row">
             <?php require('../inc/backoffice/sidebar.php'); ?>
+            <?php require('../inc/php/function_edit_newsletter.php') ?>
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
                 <div class="table-responsive mt-4"><!-- ajouter un overflow -->
                     <form action="edit_newsletter.php" method="POST">
