@@ -1,8 +1,9 @@
 <?php
     session_start();
     require_once('../../inc/php/db.php');
-    echo 'slt';
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        
+        require('../../inc/php/verify_signin_parameters.php');
         
         $pepper = 'sZB8J0az0z';
         $hash = password_hash($_POST['password'].$pepper, PASSWORD_BCRYPT, ['cost' => 13]);
@@ -10,8 +11,9 @@
         if($_POST['newsletter'] == 1){
             $newsLetter = 1;
         }
-        else
+        else{
             $newsLetter=0;
+        }
 
         try{
             $sql = "INSERT INTO UTILISATEUR(role, nom, prenom, date_naissance, sexe, pseudo, mail, mdp, date_inscription, photo_utilisateur, statut_newsletter, code_verification, telephone, supprime)
