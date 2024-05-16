@@ -42,7 +42,7 @@
             $_SESSION['email'] = $reponse['mail'];
             $_SESSION['id_user'] = $reponse['id_user'];
         } catch (PDOException $e) {
-            //header('Location: signin.php?wrong_email=true');
+            header('Location: signin.php?wrong_email=true');
         }
     }
 ?>
