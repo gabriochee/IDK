@@ -44,7 +44,7 @@ session_start();
                 </div>
                 <div class="text-center fs-4">
                     <?php
-                        $req3 = $bdd->prepare("SELECT raison, date_ban, date_deban FROM ban WHERE id_banni = :id_user;");
+                        $req3 = $bdd->prepare("SELECT raison, date_ban, date_deban FROM ban WHERE id_ban = :id_user;");
                         
                         $req3->execute(
                             array(
