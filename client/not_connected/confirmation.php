@@ -7,6 +7,9 @@
     require '/../inc/library/PHPMailer/src/SMTP.php';
     var_dump($_POST);
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+        require('../../inc/php/verify_signin_parameters.php');
+
         $mail = new PHPMailer(true);
         $mail->isSMTP();
         $mail->Host = 'smtp.gmail.com';
@@ -17,7 +20,7 @@
         $mail->Port = 465;
         
         $mail->setFrom('annuelprojet2@gmail.com');
-        $mail->addAddress($_POST["mail"]);
+        $mail->addAddress($_POST['mail']);
 
         $mail->isHTML(true);
 
@@ -30,6 +33,7 @@
         $pepper = 'sZB8J0az0z';
         $hash = password_hash($_POST['password'].$pepper, PASSWORD_BCRYPT, ['cost' => 13]);
         $today = date('Y-m-d');
+
 
         try {
             $bdd = new PDO("mysql:host=$serverAddress;dbname=projet;port=3306", $username, $password);

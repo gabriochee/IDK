@@ -124,7 +124,15 @@
     </div>
     <?php
     try {
-        $data = $bdd->query('SELECT CAPTCHA.question, CAPTCHA.id_captcha, REPONSE_CAPTCHA.contenu, REPONSE_CAPTCHA.bonne_reponse FROM REPONSE_CAPTCHA JOIN ASSOCIATION_REPONSES_CAPTCHA ON ASSOCIATION_REPONSES_CAPTCHA.id_reponse = REPONSE_CAPTCHA.id_reponse JOIN CAPTCHA ON ASSOCIATION_REPONSES_CAPTCHA.id_captcha = CAPTCHA.id_captcha;');
+        require('../inc/php/db.php');
+
+        $data = $bdd->query('SELECT CAPTCHA.question, CAPTCHA.id_captcha, REPONSE_CAPTCHA.contenu, REPONSE_CAPTCHA.bonne_reponse
+                                         FROM REPONSE_CAPTCHA
+                                         JOIN ASSOCIATION_REPONSES_CAPTCHA
+                                         ON ASSOCIATION_REPONSES_CAPTCHA.id_reponse = REPONSE_CAPTCHA.id_reponse
+                                         JOIN CAPTCHA
+                                         ON ASSOCIATION_REPONSES_CAPTCHA.id_captcha = CAPTCHA.id_captcha;');
+
         $fetchedData = $data->fetchAll();
         $json = json_encode($fetchedData);
         echo "<script>let captchaData = $json;</script>";

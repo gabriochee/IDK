@@ -67,12 +67,23 @@
 
                                     try {
                                         $prep->execute();
+                                    } catch (PDOException $e) {
+                                        echo $e->getMessage();
+                                    }
+                                } elseif (isset($_POST['delete-id'])){
+                                    $sql = "UPDATE UTILISATEUR SET supprime = 1 WHERE id_user = :id";
+                                    $prep = $bdd->prepare($sql);
+                                    $prep->bindValue(":id", $_POST['delete-id']);
+
+                                    try {
+                                        $prep->execute();
                                     } catch (PDOException $e){
                                         echo $e->getMessage();
                                     }
                                 }
 
-                                $queryResponse = $bdd->query("SELECT id_user, CONCAT(prenom, ' ', nom) AS prenom_nom, pseudo, sexe, date_inscription, mail, date_naissance FROM UTILISATEUR WHERE NOT EXISTS(SELECT id_banni FROM BAN WHERE BAN.id_banni = UTILISATEUR.id_user);");
+                                $queryResponse = $bdd->query("SELECT id_user, CONCAT(prenom, ' ', nom) AS prenom_nom, pseudo, sexe, date_inscription, mail, date_naissance
+                                FROM UTILISATEUR WHERE supprime = 0 AND NOT EXISTS(SELECT id_banni FROM BAN WHERE BAN.id_banni = UTILISATEUR.id_user);");
 
                                 $result = $queryResponse->fetchAll();
                                 $idUser;
@@ -91,7 +102,7 @@
                                     echo '<form action="moderation_user.php" method="post">';
                                     echo '<td class="table-cell"><button type="submit" class="btn btn-sm btn-outline-secondary" name=show value=' . $idUser . '>En voir plus</button></td>';
                                     echo '<td class="table-cell"><button type="button" class="btn btn-sm btn-warning ban-menu-btn" data-bs-toggle="modal" data-bs-target="#banModal" value=' . $idUser . '>Bannir</button></td>';
-                                    echo '<td class="table-cell"><button type="submit" class="btn btn-sm btn-danger" name=delete value=' . $idUser . '>Supprimer</button></td>';
+                                    echo '<td class="table-cell"><button type="button" class="btn btn-sm btn-danger delete-menu-btn" data-bs-toggle="modal" data-bs-target="#deleteModal" name=delete value=' . $idUser . '>Supprimer</button></td>';
                                     echo '</form>';
                                     echo '</tr>';
                                 }
@@ -148,9 +159,24 @@
                         </table>
                     </div>
                 </div>
-                <hr class="featurette-divider my-2">
-
-                <div class="container rounded bg-white mt-5 mb-5">
+                <hr class="featurette-divider my-2 <?php if (!isset($_POST['show'])) {echo 'visually-hidden';} ?>">
+                <div class="modal fade" id="deleteModal" tabindex="-1">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5">Voulez vous supprimer cet utilisateur ?</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="moderation_user.php" method="post" class="d-flex justify-content-between">
+                                    <button type="submit" id="delete-btn" class="btn btn-danger" name="delete-id" value="">Supprimer</button>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container rounded bg-white mt-5 mb-5 <?php if (!isset($_POST['show'])) {echo 'visually-hidden';} ?>">
                     <div class="row">
                         <div class="col-md-4 border-right">
                             <div class="d-flex flex-column align-items-center text-center p-3 py-5">
