@@ -1,6 +1,6 @@
 <?php
 
-session_start();
+    session_start();
 
 ?>
 
@@ -44,11 +44,11 @@ session_start();
                 </div>
                 <div class="text-center fs-4">
                     <?php
-                        $req3 = $bdd->prepare("SELECT raison, date_ban, date_deban FROM ban WHERE id_banni = :id_user;");
+                        $req3 = $bdd->prepare("SELECT raison, date_ban, date_deban FROM ban WHERE id_ban = :id_ban;");
                         
                         $req3->execute(
                             array(
-                                "id_user" => $_SESSION['id_user']
+                                "id_ban" => $_SESSION['id_user']
                             )
                         );
                         $ban_info=$req3->fetch();

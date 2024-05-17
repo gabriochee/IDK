@@ -18,10 +18,10 @@
                 
                 
                 if(password_verify($password.$pepper, $reponse['mdp'])){
-                    $req2 = $bdd->prepare("SELECT definitif,id_banni,date_ban,probleme, date_deban FROM ban WHERE id_banni = :id_user;");
+                    $req2 = $bdd->prepare("SELECT definitif,id_ban,date_ban,probleme, date_deban FROM ban WHERE id_ban = :id_ban;");
                     $req2->execute(
                         array(
-                            "id_user" => $reponse['id_user']
+                            "id_ban" => $reponse['id_user']
                         )
                     );
                     $ban_ou_pas=$req2->fetch();
@@ -35,19 +35,19 @@
                     if($ban_ou_pas['probleme']==1){
                         if($date_today >= $ban_ou_pas['date_deban']){
                             
-                            $req4 = $bdd->prepare("UPDATE ban SET probleme = :probleme WHERE id_banni = :id_banni;");
+                            $req4 = $bdd->prepare("UPDATE ban SET probleme = :probleme WHERE id_ban = :id_ban;");
                             $req4->execute(
                                 array(
                                     "probleme" => 0,
-                                    "id_banni" => $_SESSION['id_user']
+                                    "id_ban" => $_SESSION['id_user']
                                 )
                             );
                             
                         }
-                        $req5 = $bdd->prepare("SELECT probleme FROM ban WHERE id_banni = :id_user;");
+                        $req5 = $bdd->prepare("SELECT probleme FROM ban WHERE id_ban = :id_ban;");
                         $req5->execute(
                             array(
-                                "id_user" => $reponse['id_user']
+                                "id_ban" => $reponse['id_user']
                             )
                         );
                         $maj_probleme=$req5->fetch();
