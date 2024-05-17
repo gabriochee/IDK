@@ -52,7 +52,7 @@
                                 if (isset($_POST['show'])) {
                                     $userInformations = ($bdd->query("SELECT id_user, nom, prenom, pseudo, sexe, date_inscription, mail, telephone, date_naissance FROM utilisateur WHERE id_user = {$_POST['show']};"))->fetchAll();
                                 } elseif (isset($_POST['ban-id'])) {
-                                    $sql = "INSERT INTO ban(id_banni, definitif, date_ban, date_deban, raison) VALUES (:banid, :definitif, :dateban, :datedeban, :raison)";
+                                    $sql = "INSERT INTO ban(id_ban, definitif, date_ban, date_deban, raison) VALUES (:banid, :definitif, :dateban, :datedeban, :raison)";
                                     $prep = $bdd->prepare($sql);
                                     $prep->bindValue(":banid", intval($_POST['ban-id']));
                                     $prep->bindValue(":definitif", (isset($_POST['definitif']) ? 1 : 0));
@@ -82,8 +82,13 @@
                                     }
                                 }
 
-                                $queryResponse = $bdd->query("SELECT id_user, CONCAT(prenom, ' ', nom) AS prenom_nom, pseudo, sexe, date_inscription, mail, date_naissance
-                                FROM utilisateur WHERE supprime = 0 AND NOT EXISTS(SELECT id_banni FROM ban WHERE ban.id_banni = utilisateur.id_user);");
+                                                                                                                                                                                                        try {
+
+                                                                                                                                                                                                    $queryResponse = $bdd->query("SELECT id_user, CONCAT(prenom, ' ', nom) AS prenom_nom, pseudo, sexe, date_inscription, mail, date_naissance
+                                FROM utilisateur WHERE supprime = 0 AND NOT EXISTS(SELECT id_ban FROM ban WHERE ban.id_ban = utilisateur.id_user);");
+                                } catch (PDOException $e){
+                                    echo $e->getMessage();
+                                }
 
                                 $result = $queryResponse->fetchAll();
                                 $idUser;

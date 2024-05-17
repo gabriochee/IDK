@@ -39,7 +39,7 @@
                             $req4->execute(
                                 array(
                                     "probleme" => 0,
-                                    "id_banni" => $_SESSION['id_user']
+                                    "id_ban" => $_SESSION['id_user']
                                 )
                             );
                             
