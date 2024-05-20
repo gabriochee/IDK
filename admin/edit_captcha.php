@@ -60,36 +60,6 @@
                 ?>
                 <div class="table-responsive mt-4" id="captcha-table">
                     <h3>Captcha</h3>
-                    <div class="card">
-                        <div class="card-body d-flex justify-content-between">
-                            <input type="text" name="question" id="question" class="form-control me-2" value="Quel est le meilleur éditeur ?">
-                            <a class="btn btn-light collapsed" data-bs-toggle="collapse" href="#collapse2" role="button" aria-expended="false" aria-controls="#collapse2" aria-expanded="false">Réponses</a>
-                        </div>
-                    </div>
-                    <div id="collapse2" class="collapse">
-                        <div class="card card-body">
-                            <table class="table table-bordered">
-                                <tbody>
-                                    <tr>
-                                        <th>Réponses</th>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="text" name="question" id="question" class="form-control" value="Nano"></td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="text" name="question" id="question" class="form-control" value="Emacs"></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="d-flex justify-content-between table-success"><input type="text" name="question" id="question" class="form-control bg-success-subtle border-1 border border-secondary-subtle me-1" value="Vim"><span class="badge bg-success">Bonne réponse</span></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-
-                            <form class="needs-validation" action="./edit_captcha.php" method="post">
-                                <button type="submit" class="delete-btn nav-btn btn btn-primary btn-sm btn-danger text-white border border-2 rounded-3 px-3" onclick="" value="22" name="deleteCaptchaId">Supprimer</button>
-                                <button type="button" class="modify-btn nav-btn btn btn-primary btn-sm btn-warning text-white rounded-3 px-3" onclick="">Modifier</button></form>
-                        </div>
-                    </div>
                 </div>
                 <div class="container-fluid px-0">
                     <h3>Ajouter des captchas</h3>

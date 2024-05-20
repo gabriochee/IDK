@@ -57,10 +57,22 @@ addAnswer.onclick = function (){
 };
 
 function modifyCaptcha(element){
-  let question = {};
-  let answers = {};
+  let question;
+  let answers = [];
+  let formdata = new FormData();
+  let i = 1;
 
-  console.log(element.parentNode.parentNode.childNodes[0].querySelectorAll('tr[answer-id]'));
+  for (const row of element.parentNode.parentNode.childNodes[0].querySelectorAll('tr[answer-id]')){
+    formdata.append(`answer-${row.getAttribute("answer-id")}`, row.querySelector('input').value);
+    i++;
+  };
+
+  formdata.append(`question-${element.value}`, element.parentNode.parentNode.parentNode.previousSibling.querySelector('.form-control').value);
+
+  const reponse = fetch("http://localhost:3000/inc/php/edit_captcha.php", {
+    method : "POST",
+    body : formdata
+  }).then(data => data.text()).then(data => console.log(data));
 
 }
 
@@ -85,7 +97,7 @@ function createCaptchaCard(captchaQuestion, captchaNumber){
   questionInput.classList.add('form-control', 'me-2');
   showAnswersBtn.classList.add('btn', 'btn-light');
 
-  questionInput.value = captchaQuestion;
+  questionInput.value = (new DOMParser().parseFromString(captchaQuestion, "text/html")).documentElement.textContent;
   
   for (const attr in btnAttributes){
     showAnswersBtn.setAttribute(attr, btnAttributes[attr]);
@@ -126,6 +138,7 @@ function createAnswersCard(answers, captchaNumber){
   deleteCaptchaBtn.setAttribute('name', 'deleteCaptchaId');
   deleteCaptchaBtn.type = "submit";
   modifyCaptchaBtn.setAttribute('onclick', 'modifyCaptcha(this)');
+  modifyCaptchaBtn.setAttribute('value', answers[1]);
   deleteCaptchaBtn.textContent = "Supprimer";
   modifyCaptchaBtn.textContent = 'Modifier';
 
@@ -153,7 +166,7 @@ for (const answer of answers[0]){
     answerRow.appendChild(rowInput);
   }
 
-  rowInput.value = answer[0];
+  rowInput.value = (new DOMParser().parseFromString(answer[0], "text/html")).documentElement.textContent;
 
   row.appendChild(answerRow);
   tbody.appendChild(row);
