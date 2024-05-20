@@ -3,9 +3,14 @@ const answer = document.getElementById('answer');
 const addAnswer = document.getElementById('add-answer');
 const captchaTable = document.getElementById('captcha-table');
 const deleteBtn = document.getElementsByClassName("delete-btn")[0];
-
+const modifyBtn = deleteBtn.cloneNode();
 
 let answerNum = 1;
+
+modifyBtn.classList.remove("border", "border-2", "btn-danger", "delete-btn");
+modifyBtn.onclick = 'modifyCaptcha(this)';
+modifyBtn.type = 'button';
+modifyBtn.classList.add("modify-btn", "btn-warning", "ms-2");
 
 // Partie pour l'éditeur de captcha
 
@@ -51,11 +56,20 @@ addAnswer.onclick = function (){
     answers.appendChild(newAnswer);
 };
 
+function modifyCaptcha(element){
+  let question = {};
+  let answers = {};
+
+  console.log(element.parentNode.parentNode.childNodes[0].querySelectorAll('tr[answer-id]'));
+
+}
+
 // Partie pour l'affichage du tableau de captcha
 
 function createCaptchaCard(captchaQuestion, captchaNumber){
   let card = document.createElement('div');
   let cardContent = card.cloneNode();
+  let questionInput = document.createElement('input');
   let showAnswersBtn = document.createElement('a');
 
   let btnAttributes = {
@@ -67,16 +81,18 @@ function createCaptchaCard(captchaQuestion, captchaNumber){
   }
 
   card.classList.add('card');
-  cardContent.classList.add('card-body', 'd-flex', 'justify-content-between', 'align-items-center');
+  cardContent.classList.add('card-body', 'd-flex', 'justify-content-between');
+  questionInput.classList.add('form-control', 'me-2');
   showAnswersBtn.classList.add('btn', 'btn-light');
 
-  cardContent.innerHTML = captchaQuestion;
+  questionInput.value = captchaQuestion;
   
   for (const attr in btnAttributes){
     showAnswersBtn.setAttribute(attr, btnAttributes[attr]);
   }
   showAnswersBtn.innerText = 'Réponses';
 
+  cardContent.appendChild(questionInput);
   cardContent.appendChild(showAnswersBtn);
   card.appendChild(cardContent);
 
@@ -93,6 +109,7 @@ function createAnswersCard(answers, captchaNumber){
   let tableHead = document.createElement('th');
   let form = document.createElement('form');
   let deleteCaptchaBtn = deleteBtn.cloneNode();
+  let modifyCaptchaBtn = modifyBtn.cloneNode();
 
   div.id = 'collapse' + captchaNumber;
   div.classList.add('collapse');
@@ -108,25 +125,36 @@ function createAnswersCard(answers, captchaNumber){
   deleteCaptchaBtn.setAttribute('value', answers[1]);
   deleteCaptchaBtn.setAttribute('name', 'deleteCaptchaId');
   deleteCaptchaBtn.type = "submit";
-  deleteCaptchaBtn.innerHTML = "Supprimer";
+  modifyCaptchaBtn.setAttribute('onclick', 'modifyCaptcha(this)');
+  deleteCaptchaBtn.textContent = "Supprimer";
+  modifyCaptchaBtn.textContent = 'Modifier';
 
   tableRowHead.appendChild(tableHead);
   tbody.appendChild(tableRowHead);
 
 for (const answer of answers[0]){
   let answerRow = document.createElement('td');
+  let rowInput = document.createElement('input');
+  let row = document.createElement('tr');
+
+  row.setAttribute("answer-id", answer[2]);
+  rowInput.classList.add('form-control');
+
   if (answer[1] == 1){
     let badge = document.createElement('span');
-    badge.classList.add('badge', 'bg-success', 'align-items-center');
+    badge.classList.add('badge', 'bg-success');
     badge.innerHTML = "Bonne réponse";
 
     answerRow.classList.add('d-flex', 'justify-content-between', 'table-success');
-    answerRow.innerHTML = answer[0];
+    rowInput.classList.add('bg-success-subtle', 'border', 'border-1', 'border-secondary-subtle', 'me-2')
+    answerRow.appendChild(rowInput);
     answerRow.appendChild(badge);
-  } else {
-    answerRow.innerHTML = answer[0];
+  }  else {
+    answerRow.appendChild(rowInput);
   }
-  let row = document.createElement('tr');
+
+  rowInput.value = answer[0];
+
   row.appendChild(answerRow);
   tbody.appendChild(row);
 }
@@ -135,6 +163,7 @@ table.appendChild(tbody);
 card.appendChild(table);
 
 form.appendChild(deleteCaptchaBtn);
+form.appendChild(modifyCaptchaBtn);
 
 card.appendChild(form);
 
@@ -146,33 +175,35 @@ return div;
 
 let captchaArray = {};
 
-if (captchaData != undefined && captchaData != null) {
-  let currentCaptcha = captchaData[0][1];
-  let currentQuestion = captchaData[0][0];
+if (Array.isArray(captchaData) && captchaData.length) {
+  let currentCaptcha = captchaData[0]['id_captcha'];
+  let currentQuestion = captchaData[0]['question'];
   let currentAnswers = [];
   let property;
 
   for (property in captchaData) {
-    if (captchaData[property][1] == currentCaptcha){
+    if (captchaData[property]['id_captcha'] == currentCaptcha){
       currentAnswers.push(
         [
-          captchaData[property][2],
-          captchaData[property][3]
+          captchaData[property]['contenu'],
+          captchaData[property]['bonne_reponse'],
+          captchaData[property]['id_reponse']
         ]
       )
     } else {
-      captchaArray[currentQuestion] = [currentAnswers, captchaData[property][1]];
-      currentCaptcha = captchaData[property][1];
+      captchaArray[currentQuestion] = [currentAnswers, captchaData[property]['id_captcha']];
+      currentCaptcha = captchaData[property]['id_captcha'];
       currentAnswers = [
         [
-          captchaData[property][2],
-          captchaData[property][3]
+          captchaData[property]['contenu'],
+          captchaData[property]['bonne_reponse'],
+          captchaData[property]['id_reponse']
         ]
       ];
-      currentQuestion = captchaData[property][0];
+      currentQuestion = captchaData[property]['question'];
     }
   }
-  captchaArray[currentQuestion] = [currentAnswers, captchaData[property][1]];
+  captchaArray[currentQuestion] = [currentAnswers, captchaData[property]['id_captcha']];
 }
 
 let i = 0;
