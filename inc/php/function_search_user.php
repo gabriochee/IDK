@@ -5,7 +5,6 @@
     $req1 = $bdd->prepare("SELECT pseudo, nom, prenom, id_user FROM utilisateur");
     $req1->execute();
     $rep1 = $req1->fetchAll();
-    var_dump($_SESSION['id_user']);
 
     //on veut afficher ceux qui nous ont envoyé donc utilisateur.id_user = demande_ami.envoyeur quand c a nous que l'on a envoyé donc "receveur"=>$_SESSION['id_user']
     $req2 = $bdd->prepare("SELECT pseudo, nom, prenom, id_user FROM utilisateur INNER JOIN demande_ami ON utilisateur.id_user = demande_ami.envoyeur WHERE demande_ami.receveur = :receveur");
@@ -15,7 +14,6 @@
             )
     );
     $rep2 = $req2->fetchAll();
-    var_dump ($rep2);
 
     //on veut afficher ceux que nous avons fait une demande d'ami
     $req3 = $bdd->prepare("SELECT pseudo, nom, prenom, id_user FROM utilisateur INNER JOIN demande_ami ON utilisateur.id_user = demande_ami.receveur WHERE demande_ami.envoyeur = :envoyeur");
@@ -25,7 +23,6 @@
             )
     );
     $rep3 = $req3->fetchAll();
-    var_dump ($rep3);
     
     //on veut afficher nos amis
     $req4 = $bdd->prepare("SELECT pseudo, nom, prenom, id_user FROM utilisateur INNER JOIN ami ON (utilisateur.id_user = ami.id_user_1 AND ami.id_user_2 = :other) OR (utilisateur.id_user = ami.id_user_2 AND ami.id_user_1 = :other) WHERE utilisateur.id_user != :other");
