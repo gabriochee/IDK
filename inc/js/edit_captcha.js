@@ -57,10 +57,22 @@ addAnswer.onclick = function (){
 };
 
 function modifyCaptcha(element){
-  let question = {};
-  let answers = {};
+  let question;
+  let answers = [];
+  let formdata = new FormData();
+  let i = 1;
 
-  console.log(element.parentNode.parentNode.childNodes[0].querySelectorAll('tr[answer-id]'));
+  for (const row of element.parentNode.parentNode.childNodes[0].querySelectorAll('tr[answer-id]')){
+    formdata.append(`answer-${row.getAttribute("answer-id")}`, row.querySelector('input').value);
+    i++;
+  };
+
+  formdata.append(`question-${element.value}`, element.parentNode.parentNode.parentNode.previousSibling.querySelector('.form-control').value);
+
+  const reponse = fetch("http://localhost:3000/inc/php/edit_captcha.php", {
+    method : "POST",
+    body : formdata
+  }).then(data => data.text()).then(data => console.log(data));
 
 }
 
