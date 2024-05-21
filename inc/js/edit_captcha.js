@@ -6,6 +6,7 @@ const deleteBtn = document.getElementsByClassName("delete-btn")[0];
 const modifyBtn = deleteBtn.cloneNode();
 
 let answerNum = 1;
+let isSelectingGoodAnswer = false;
 
 modifyBtn.classList.remove("border", "border-2", "btn-danger", "delete-btn");
 modifyBtn.onclick = 'modifyCaptcha(this)';
@@ -57,23 +58,59 @@ addAnswer.onclick = function (){
 };
 
 function modifyCaptcha(element){
-  let question;
-  let answers = [];
-  let formdata = new FormData();
-  let i = 1;
+  let question = {};
+  let answers = {};
+
+  isSelectingGoodAnswer = false;
 
   for (const row of element.parentNode.parentNode.childNodes[0].querySelectorAll('tr[answer-id]')){
-    formdata.append(`answer-${row.getAttribute("answer-id")}`, row.querySelector('input').value);
-    i++;
+    let goodAnswer = false;
+
+    if (row.querySelector('span')){
+      goodAnswer = true;
+    } else if (row.querySelector('input.bigger-radio') != null){
+      goodAnswer = row.querySelector('input.bigger-radio').checked;
+    }
+
+    answers[row.getAttribute('answer-id')] = [row.querySelector('input').value, goodAnswer];
   };
 
-  formdata.append(`question-${element.value}`, element.parentNode.parentNode.parentNode.previousSibling.querySelector('.form-control').value);
+  question[element.value] = element.parentNode.parentNode.parentNode.previousSibling.querySelector('.form-control').value;
 
   const reponse = fetch("http://localhost:3000/inc/php/edit_captcha.php", {
     method : "POST",
-    body : formdata
+    header: {"Content-type": "application/json; charset=UTF-8"},
+    body : JSON.stringify({question : question, answers : answers})
   }).then(data => data.text()).then(data => console.log(data));
 
+}
+
+function changeGoodAnswer(element){
+
+  if (isSelectingGoodAnswer){
+    alert("Veuillez terminer la sélection en cours avant d'en commencer une nouvelle.");
+  } else {
+    isSelectingGoodAnswer = true;
+    element.parentNode.querySelector("span").remove();
+    element.parentNode.querySelector("input").classList.remove('bg-success-subtle');
+    element.parentNode.classList.remove('table-success');
+
+    for (const row of element.parentNode.parentNode.parentNode.querySelectorAll('td')) {
+      let radio = document.createElement('input');
+      radio.type = 'radio';
+      radio.name = 'isGoodAnswer';
+      radio.classList.add('form-check-label', 'bigger-radio', 'ms-2');
+
+      if (row == element.parentNode) {
+        radio.checked = true;
+      }
+
+      row.classList.add('d-flex')
+      row.appendChild(radio);
+    }
+
+    element.remove();
+  }
 }
 
 // Partie pour l'affichage du tableau de captcha
@@ -97,7 +134,7 @@ function createCaptchaCard(captchaQuestion, captchaNumber){
   questionInput.classList.add('form-control', 'me-2');
   showAnswersBtn.classList.add('btn', 'btn-light');
 
-  questionInput.value = captchaQuestion;
+  questionInput.value = (new DOMParser().parseFromString(captchaQuestion, "text/html")).documentElement.textContent;
   
   for (const attr in btnAttributes){
     showAnswersBtn.setAttribute(attr, btnAttributes[attr]);
@@ -138,6 +175,7 @@ function createAnswersCard(answers, captchaNumber){
   deleteCaptchaBtn.setAttribute('name', 'deleteCaptchaId');
   deleteCaptchaBtn.type = "submit";
   modifyCaptchaBtn.setAttribute('onclick', 'modifyCaptcha(this)');
+  modifyCaptchaBtn.setAttribute('value', answers[1]);
   deleteCaptchaBtn.textContent = "Supprimer";
   modifyCaptchaBtn.textContent = 'Modifier';
 
@@ -154,18 +192,32 @@ for (const answer of answers[0]){
 
   if (answer[1] == 1){
     let badge = document.createElement('span');
-    badge.classList.add('badge', 'bg-success');
+    let removeBadgeButton = document.createElement('button');
+    let removeIcon = document.createElement('i');
+
+    badge.classList.add('badge', 'bg-success', 'ms-2', 'me-2');
     badge.innerHTML = "Bonne réponse";
 
+    removeBadgeButton.classList.add("btn", "btn-secondary");
+    removeBadgeButton.type = 'button';
+    removeBadgeButton.title = 'Changer de bonne réponse';
+    removeBadgeButton.setAttribute('onclick', 'changeGoodAnswer(this)');
+
+    removeIcon.classList.add('bi', 'bi-x-lg');
+
     answerRow.classList.add('d-flex', 'justify-content-between', 'table-success');
-    rowInput.classList.add('bg-success-subtle', 'border', 'border-1', 'border-secondary-subtle', 'me-2')
+    rowInput.classList.add('bg-success-subtle', 'border', 'border-1', 'border-secondary-subtle')
+
+    removeBadgeButton.appendChild(removeIcon);
+
     answerRow.appendChild(rowInput);
     answerRow.appendChild(badge);
+    answerRow.appendChild(removeBadgeButton);
   }  else {
     answerRow.appendChild(rowInput);
   }
 
-  rowInput.value = answer[0];
+  rowInput.value = (new DOMParser().parseFromString(answer[0], "text/html")).documentElement.textContent;
 
   row.appendChild(answerRow);
   tbody.appendChild(row);
