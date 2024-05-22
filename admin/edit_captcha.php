@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
     <link rel="stylesheet" href="../bootstrap/bootstrap-icons/font/bootstrap-icons.min.css">
     <title>IDK</title>
 </head>
+
 <body>
     <?php require('../inc/php/db.php'); ?>
     <?php require('../inc/backoffice/header.php'); ?>
@@ -15,89 +17,43 @@
         <div class="row">
             <?php require('../inc/backoffice/sidebar.php'); ?>
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-                <?php
-                if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-                    try {
-                        
-                        if (isset($_POST['deleteCaptchaId'])) {
-
-                            $dltId = htmlspecialchars($_POST['deleteCaptchaId']);
-                            $result = $bdd->query('SELECT reponse_captcha.id_reponse FROM reponse_captcha JOIN correspondance_captcha ON reponse_captcha.id_reponse = correspondance_captcha.id_reponse WHERE id_captcha = ' . $dltId . ';');
-                            $bdd->query('DELETE FROM correspondance_captcha WHERE id_captcha = ' . $dltId . ';');
-                            $bdd->query('DELETE FROM captcha WHERE id_captcha = ' . $dltId . ';');
-                            $data = $result->fetchAll();
-
-                            foreach ($data as $val) {
-                                $bdd->query('DELETE FROM reponse_captcha WHERE id_reponse = ' . htmlspecialchars($val['id_reponse']) . ';');
-                            }
-                        } elseif (isset($_POST['question'])) {
-
-                            $treated_str = htmlspecialchars($_POST['question']);
-                            $bdd->query("INSERT INTO captcha(question) VALUES ('$treated_str');");
-                            $result = $bdd->query('SELECT LAST_INSERT_ID();');
-                            $captchaId = $result->fetchAll()[0]['LAST_INSERT_ID()'];
-                            $isGoodAnswer = 'false';
-                            
-                            foreach ($_POST as $key => $answer) {
-                                if (str_contains($key, 'good-answer')) {
-                                    $isGoodAnswer = 'true';
-                                    continue;
-                                }
-                                if (str_contains($key, 'answer')) {
-                                    $bdd->query("INSERT INTO reponse_captcha(contenu, bonne_reponse) VALUES ('" . htmlspecialchars($answer) . "', $isGoodAnswer);");
-                                    $result = $bdd->query('SELECT LAST_INSERT_ID();');
-                                    $reponseId = $result->fetchAll()[0]['LAST_INSERT_ID()'];
-                                    $bdd->query("INSERT INTO correspondance_captcha(id_captcha, id_reponse) VALUES ($captchaId, $reponseId);");
-                                }
-                                $isGoodAnswer = 'false';
-                            }
-                        }
-                    } catch (PDOException $e) {
-                        echo "Erreur : " . $e->getMessage();
-                    }
-                }
-                ?>
                 <div class="table-responsive mt-4" id="captcha-table">
                     <h3>Captcha</h3>
                 </div>
                 <div class="container-fluid px-0">
                     <h3>Ajouter des captchas</h3>
-                    <form action="./edit_captcha.php" class="needs-validation" id="signin-form" method="post">
-                        <div class="container px-0">
-                            <label for="question" class="form-label fs-3 m-0 mt-3">Question</label>
-                            <input type="text" class="form-control fs-5 border-dark border-2 rounded-3" id="question" name="question" maxlength="200" required>
-                            <div class="invalid-feedback">Veuillez fournir une question valide.</div>
-                        </div>
+                    <div class="container px-0">
+                        <label for="question" class="form-label fs-3 m-0 mt-3">Question</label>
+                        <input type="text" class="form-control fs-5 border-dark border-2 rounded-3" id="question" name="question" maxlength="150" required>
+                        <div class="invalid-feedback">Veuillez fournir une question valide.</div>
+                    </div>
 
-                        <div class="container px-0" id="answers">
-                            <div id="answer">
-                                <div class="container d-flex align-items-center justify-content-between px-0 mt-3">
-                                    <div class="d-flex align-items-center px-0 mx-0">
-                                        <label for="answer1" class="form-label fs-3 m-0">Réponse 1</label>
-                                        <input name="good-answer" type="radio" class="form-check-input bigger-radio border-dark border-1 align-items-center my-0 ms-3" required value="good-answer">
-                                        <label class="form-check-label fs-5 mx-2" for="good-answer">Bonne réponse</label>
-                                    </div>
-
-                                    <button type="button" class="delete-btn nav-btn btn btn-primary btn-sm btn-danger text-white border border-light border-2 rounded-3 px-3" onclick="deleteAnswer(this)">Supprimer</button>
+                    <div class="container px-0" id="answers">
+                        <div id="answer">
+                            <div class="container d-flex align-items-center justify-content-between px-0 mt-3">
+                                <div class="d-flex align-items-center px-0 mx-0">
+                                    <label for="answer1" class="form-label fs-3 m-0">Réponse 1</label>
+                                    <input name="good-answer" type="radio" class="form-check-input bigger-radio border-dark border-1 align-items-center my-0 ms-3" required value="good-answer">
+                                    <label class="form-check-label fs-5 mx-2" for="good-answer">Bonne réponse</label>
                                 </div>
 
-                                <input type="text" class="form-control fs-5 border-dark border-2 rounded-3" id="answer1" name="answer1" maxlength="200" required>
-                                <div class="invalid-feedback">Veuillez fournir une réponse valide.</div>
+                                <button type="button" class="delete-btn nav-btn btn btn-primary btn-sm btn-danger text-white border border-light border-2 rounded-3 px-3" onclick="deleteAnswer(this)">Supprimer</button>
                             </div>
-                        </div>
 
-                        <button type="button" id="add-answer" class="nav-btn btn btn-primary btn-sm btn-warning text-white border border-light border-2 rounded-3 fs-1 mt-5 px-3">+</button>
-                        <button type="submit" id="submit-captacha" class="nav-btn btn btn-primary btn-sm btn-success text-white border border-light border-2 rounded-3 fs-4 mt-5 py-3">Enregistrer</button>
-                    </form>
+                            <input type="text" class="form-control fs-5 border-dark border-2 rounded-3" id="answer1" name="answer1" maxlength="150" required>
+                            <div class="invalid-feedback">Veuillez fournir une réponse valide.</div>
+                        </div>
+                    </div>
+
+                    <button type="button" id="add-answer" class="nav-btn btn btn-primary btn-sm btn-warning text-white border border-light border-2 rounded-3 fs-1 mt-5 px-3">+</button>
+                    <button type="button" id="submit-captacha" class="nav-btn btn btn-primary btn-sm btn-success text-white border border-light border-2 rounded-3 fs-4 mt-5 py-3" onclick="createCaptcha(this)">Enregistrer</button>
                 </div>
             </main>
-
         </div>
     </div>
     <?php
     try {
-        require('../inc/php/db.php');
+        require_once('../inc/php/db.php');
 
         $data = $bdd->query('SELECT captcha.question, captcha.id_captcha, reponse_captcha.contenu, reponse_captcha.bonne_reponse, reponse_captcha.id_reponse
                                          FROM reponse_captcha

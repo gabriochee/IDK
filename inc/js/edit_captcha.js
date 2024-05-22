@@ -7,6 +7,7 @@ const modifyBtn = deleteBtn.cloneNode();
 
 let answerNum = 1;
 let isSelectingGoodAnswer = false;
+let i = 0;
 
 modifyBtn.classList.remove("border", "border-2", "btn-danger", "delete-btn");
 modifyBtn.onclick = 'modifyCaptcha(this)';
@@ -77,11 +78,11 @@ function modifyCaptcha(element){
 
   question[element.value] = element.parentNode.parentNode.parentNode.previousSibling.querySelector('.form-control').value;
 
-  const reponse = fetch("http://localhost:3000/inc/php/edit_captcha.php", {
+  fetch("http://localhost:3000/inc/php/edit_captcha.php", {
     method : "POST",
     header: {"Content-type": "application/json; charset=UTF-8"},
     body : JSON.stringify({question : question, answers : answers})
-  }).then(data => data.text()).then(data => console.log(data));
+  }).then(data => data.text()).then(data => element.parentNode.parentNode.querySelector('table').innerHTML = data);
 
 }
 
@@ -113,6 +114,73 @@ function changeGoodAnswer(element){
   }
 }
 
+function deleteCaptcha(element){
+  fetch("http://localhost:3000/inc/php/delete_captcha.php?" + new URLSearchParams({deleteCaptchaId : element.value}))
+  .then(data => data.text()).then(data => console.log(data));
+
+  element.parentNode.parentNode.parentNode.previousSibling.remove();
+  element.parentNode.parentNode.parentNode.remove();
+
+  --i;
+
+}
+
+function createCaptcha(element){
+  let answers = [];
+  let question;
+  let goodAnswerSelected = false;
+  ++i;
+
+  console.log(i);
+
+  for (const answer of element.parentNode.querySelectorAll('input[type="text"]')){
+    if (answer.name == "question"){
+
+      if (answer.value == ""){
+        alert("Le champ de la question est vide.");
+        return;
+      }
+
+      question = answer.value;
+    } else {
+
+      if (answer.value == ""){
+        alert("Un ou plusieurs champs réponses sont vides.");
+        return;
+      }
+
+      let goodAnswer = answer.parentNode.querySelector('input[type="radio"]').checked;
+
+      if (goodAnswer){
+        goodAnswerSelected = true;
+      }
+
+      answers.push(
+        {
+          answer      : answer.value, 
+          good_answer : goodAnswer
+        }
+      );
+
+    }
+  }
+
+  if (!goodAnswerSelected){
+    alert("Vous devez sélectionnez obligatoirement une bonne réponse.");
+    return;
+  }
+
+  fetch("http://localhost:3000/inc/php/create_captcha.php", {
+    method : "POST",
+    header: {"Content-type": "application/json; charset=UTF-8"},
+    body : JSON.stringify({question : question, answers : answers})
+  }).then(data => data.text()).then(data => {
+    data.replaceAll('#collapse0', '#collapse'.concat(i.toString(10)));
+    captchaTable.insertAdjacentHTML('beforeend', data);
+  });
+
+}
+
 // Partie pour l'affichage du tableau de captcha
 
 function createCaptchaCard(captchaQuestion, captchaNumber){
@@ -134,6 +202,7 @@ function createCaptchaCard(captchaQuestion, captchaNumber){
   questionInput.classList.add('form-control', 'me-2');
   showAnswersBtn.classList.add('btn', 'btn-light');
 
+  questionInput.setAttribute('maxlength', 150);
   questionInput.value = (new DOMParser().parseFromString(captchaQuestion, "text/html")).documentElement.textContent;
   
   for (const attr in btnAttributes){
@@ -156,7 +225,7 @@ function createAnswersCard(answers, captchaNumber){
   let tbody = document.createElement('tbody');
   let tableRowHead = document.createElement('tr');
   let tableHead = document.createElement('th');
-  let form = document.createElement('form');
+  let btnsContainer = document.createElement('div');
   let deleteCaptchaBtn = deleteBtn.cloneNode();
   let modifyCaptchaBtn = modifyBtn.cloneNode();
 
@@ -164,16 +233,11 @@ function createAnswersCard(answers, captchaNumber){
   div.classList.add('collapse');
   card.classList.add('card', 'card-body');
   table.classList.add('table', 'table-bordered');
-  form.classList.add('needs-validation');
   deleteCaptchaBtn.classList.remove('border-light');
 
   tableHead.innerHTML = 'Réponses';
-  form.action = "./edit_captcha.php";
-  form.method = "post";
-  deleteCaptchaBtn.setAttribute('onclick', '');
+  deleteCaptchaBtn.setAttribute('onclick', 'deleteCaptcha(this)');
   deleteCaptchaBtn.setAttribute('value', answers[1]);
-  deleteCaptchaBtn.setAttribute('name', 'deleteCaptchaId');
-  deleteCaptchaBtn.type = "submit";
   modifyCaptchaBtn.setAttribute('onclick', 'modifyCaptcha(this)');
   modifyCaptchaBtn.setAttribute('value', answers[1]);
   deleteCaptchaBtn.textContent = "Supprimer";
@@ -188,6 +252,7 @@ for (const answer of answers[0]){
   let row = document.createElement('tr');
 
   row.setAttribute("answer-id", answer[2]);
+  rowInput.setAttribute('maxlength', 150);
   rowInput.classList.add('form-control');
 
   if (answer[1] == 1){
@@ -226,10 +291,10 @@ for (const answer of answers[0]){
 table.appendChild(tbody);
 card.appendChild(table);
 
-form.appendChild(deleteCaptchaBtn);
-form.appendChild(modifyCaptchaBtn);
+btnsContainer.appendChild(deleteCaptchaBtn);
+btnsContainer.appendChild(modifyCaptchaBtn);
 
-card.appendChild(form);
+card.appendChild(btnsContainer);
 
 div.appendChild(card);
 
@@ -270,9 +335,9 @@ if (Array.isArray(captchaData) && captchaData.length) {
   captchaArray[currentQuestion] = [currentAnswers, captchaData[property]['id_captcha']];
 }
 
-let i = 0;
 for (const question in captchaArray){
   captchaTable.appendChild(createCaptchaCard(question, i));
   captchaTable.appendChild(createAnswersCard(captchaArray[question], i));
-  i++;
+  ++i;
+  console.log(i);
 }
