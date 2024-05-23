@@ -121,7 +121,7 @@ function deleteCaptcha(element){
   element.parentNode.parentNode.parentNode.previousSibling.remove();
   element.parentNode.parentNode.parentNode.remove();
 
-  --i;
+  i--;
 
 }
 
@@ -129,9 +129,6 @@ function createCaptcha(element){
   let answers = [];
   let question;
   let goodAnswerSelected = false;
-  ++i;
-
-  console.log(i);
 
   for (const answer of element.parentNode.querySelectorAll('input[type="text"]')){
     if (answer.name == "question"){
@@ -170,12 +167,17 @@ function createCaptcha(element){
     return;
   }
 
+  i++;
+
+  console.log(i);
+
   fetch("http://localhost:3000/inc/php/create_captcha.php", {
     method : "POST",
     header: {"Content-type": "application/json; charset=UTF-8"},
     body : JSON.stringify({question : question, answers : answers})
   }).then(data => data.text()).then(data => {
-    data.replaceAll('#collapse0', '#collapse'.concat(i.toString(10)));
+    data = data.replace(/collapse0/g, "collapse".concat(i.toString()));
+    console.log(data);
     captchaTable.insertAdjacentHTML('beforeend', data);
   });
 
@@ -338,6 +340,5 @@ if (Array.isArray(captchaData) && captchaData.length) {
 for (const question in captchaArray){
   captchaTable.appendChild(createCaptchaCard(question, i));
   captchaTable.appendChild(createAnswersCard(captchaArray[question], i));
-  ++i;
-  console.log(i);
+  i++;
 }
