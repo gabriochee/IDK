@@ -169,8 +169,6 @@ function createCaptcha(element){
 
   i++;
 
-  console.log(i);
-
   fetch("http://localhost:3000/inc/php/create_captcha.php", {
     method : "POST",
     header: {"Content-type": "application/json; charset=UTF-8"},
@@ -306,6 +304,8 @@ return div;
 
 let captchaArray = {};
 
+console.log(captchaData)
+
 if (Array.isArray(captchaData) && captchaData.length) {
   let currentCaptcha = captchaData[0]['id_captcha'];
   let currentQuestion = captchaData[0]['question'];
@@ -322,8 +322,9 @@ if (Array.isArray(captchaData) && captchaData.length) {
         ]
       )
     } else {
-      captchaArray[currentQuestion] = [currentAnswers, captchaData[property]['id_captcha']];
+      captchaArray[currentQuestion] = [currentAnswers, currentCaptcha];
       currentCaptcha = captchaData[property]['id_captcha'];
+      currentQuestion = captchaData[property]['question'];
       currentAnswers = [
         [
           captchaData[property]['contenu'],
@@ -331,9 +332,9 @@ if (Array.isArray(captchaData) && captchaData.length) {
           captchaData[property]['id_reponse']
         ]
       ];
-      currentQuestion = captchaData[property]['question'];
     }
   }
+
   captchaArray[currentQuestion] = [currentAnswers, captchaData[property]['id_captcha']];
 }
 
