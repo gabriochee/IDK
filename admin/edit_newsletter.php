@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -10,7 +8,7 @@
     <link rel="stylesheet" href="../bootstrap/bootstrap-icons/font/bootstrap-icons.min.css">
     <title>IDK</title>
 </head>
-<body id="backoffice_diary_log" class="backoffice">
+<body id="backoffice_edit_newsletter" class="backoffice">
     <?php require('../inc/backoffice/header.php'); ?>
     <div class="container-fluid">
         <div class="row">

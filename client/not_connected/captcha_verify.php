@@ -18,7 +18,6 @@
 ?>
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,8 +26,7 @@
     <link rel="stylesheet" href="../../bootstrap/bootstrap-icons/font/bootstrap-icons.min.css">
     <title>IDK</title>
 </head>
-
-<body>
+<body id="not_connected_captcha_verify">
     <?php require_once('../../inc/php/function_login.php'); ?>
     <header class="container w-100 d-flex justify-content-end mt-5 h-100">
         <button class="nav-link btn">

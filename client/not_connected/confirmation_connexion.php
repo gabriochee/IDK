@@ -2,9 +2,6 @@
     session_start();
     require('../../inc/php/function_confirmation_connexion.php');
 ?>
-
-
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -15,7 +12,7 @@
     <link rel="stylesheet" href="../../bootstrap/bootstrap-icons/font/bootstrap-icons.min.css">
     <title>IDK</title>
 </head>
-<body>
+<body id="not_connected_confirmation_connexion">
     <header class="container w-100 d-flex justify-content-end mt-5">
         <button class="nav-link btn">
             <i class="bi bi-moon-stars fs-3" height="100" width="100"></i>

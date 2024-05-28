@@ -1,7 +1,6 @@
 <?php
     session_start();
     require('../../inc/php/function_search_user.php');
-    
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -13,20 +12,18 @@
     <link rel="stylesheet" href="../../bootstrap/bootstrap-icons/font/bootstrap-icons.min.css">
     <title>IDK</title>
 </head>
-<body>
-    
+<body id="connected_show_user">
     <?php require('../../inc/connected/header.php'); ?>
     <h1 class ="text-center my-5">All user connected</h1>
     <div class="container text-center m-auto">
-    <div class="row">
-        <div class="d-flex justify-content-around">*
+        <div class="row">
+            <div class="d-flex justify-content-around">*
             
             <?php /*foreach($rep1 as $rep1):?>
                 <?php if($rep1['id_user'] !== $_SESSION['id_user']):?>
                     <div class="card-body bg-primary m-5">
                         <p class="card-text">pseudo: <?= $rep1['pseudo']?> <br>nom: <?= $rep1['nom']?> <br>prenom: <?= $rep1['prenom']?></p>
                         <a href="show_user.php?id=''" class="nav-btn btn btn-primary btn-lg btn-warning text-white border border-light border-2 rounded-3 d-flex m-auto text-center">Unfriend</a>
-
                     </div>
                 <?php endif; ?>
             <?php endforeach; */?>

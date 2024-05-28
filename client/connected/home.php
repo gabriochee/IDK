@@ -11,8 +11,7 @@
     <link rel="stylesheet" href="../../bootstrap/bootstrap-icons/font/bootstrap-icons.min.css">
     <title>IDK</title>
 </head>
-<body id="connected-home">
-    
+<body id="connected_home">
     <?php require('../../inc/connected/header.php'); ?>
     <?php require('../../inc/php/db.php'); ?>
     <main>

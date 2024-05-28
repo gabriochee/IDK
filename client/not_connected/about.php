@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../../bootstrap/bootstrap-icons/font/bootstrap-icons.min.css">
     <title>IDK</title>
 </head>
-<body>
+<body id="not_connected_about">
     <?php require('../../inc/php/db.php'); ?>
     <?php require('../../inc/not_connected/header.php'); ?>
     <main>
@@ -45,7 +45,6 @@
             <p>Chez IDK, nous croyons que chaque film et série mérite d'être découvert. Notre mission est de vous aider à trouver ces pépites cinématographiques qui enrichiront votre vie et stimuleront votre imagination.<br>Merci de faire partie de notre communauté et de nous permettre de vous accompagner dans votre voyage cinématographique.</p>
         </div>
     </main>
-
     <?php require('../../inc/not_connected/footer.php'); ?>
     <script src="../../bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
