@@ -70,19 +70,19 @@
         <div id="resultats"></div>
         <script>
             const searchKeyword = async () => {
-            document.querySelector("#resultats").innerHTML = "";
-            let keyword = document.querySelector("#navbar_movie").value;
-            if(keyword.length > 3) {
-                const searchUrl = window.location.href; 
-                const req = await fetch(`../../inc/php/navbar_movie.php?keyword=${keyword}`);
-                const json = await req.json()
-                if(json.length > 0) {
-                    json.forEach((post) => {
-                        const linkUrl = `oeuvre_test.php?mv=${post.id_work}`;
-                        document.querySelector("#resultats").innerHTML += `<a href="${linkUrl}">${post.primaryTitle}</a><br>`;
-                    });
+                document.querySelector("#resultats").innerHTML = "";
+                let keyword = document.querySelector("#navbar_movie").value;
+                if(keyword.length > 3) {
+                    const searchUrl = window.location.href; 
+                    const req = await fetch(`../../inc/php/navbar_movie.php?keyword=${keyword}`);
+                    const json = await req.json()
+                    if(json.length > 0) {
+                        json.forEach((post) => {
+                            const linkUrl = `oeuvre_test.php?mv=${post.id_work}`;
+                            document.querySelector("#resultats").innerHTML += `<a href="${linkUrl}">${post.primaryTitle}</a><br>`;
+                        });
+                    }
                 }
-            }
             }
         </script>
     </header>    

@@ -12,8 +12,9 @@
     <title>IDK</title>
 </head>
 <body id="connected-home">
-    <?php require('../../inc/php/db.php'); ?>
+    
     <?php require('../../inc/connected/header.php'); ?>
+    <?php require('../../inc/php/db.php'); ?>
     <main>
         <div class="container mt-5 mb-5">
             <div class="row">

@@ -27,9 +27,17 @@
               <li>
                 <a href="#" class="nav-link text-white">Fusion</a>
               </li>
-              <li>
-                <a href="#" class="nav-link text-white">Conversation</a>
-              </li>
+              <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                  Menu amitié
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                  <li><a class="dropdown-item" href="../../client/connected/show_user.php">Les utilisateurs</a></li>
+                  <li><a class="dropdown-item" href="../../client/connected/my_requested_friend.php">Mes envoies de demandes(en attente)</a></li>
+                  <li><a class="dropdown-item" href="../../client/connected/my_friend_req.php">Mes receptions de demandes(en cours)</a></li>
+                  <li><a class="dropdown-item" href="../../client/connected/my_friend_list.php">Mes amis</a></li>
+                </ul>
+              </div>
               <li>
                 <a href="#" class="nav-link text-white">Paramètres</a>
               </li>
