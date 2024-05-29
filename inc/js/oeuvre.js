@@ -59,9 +59,11 @@ document.getElementById("note-zero").addEventListener("click", function() {
 });
     
 const noConnectedElement = document.getElementById("no-connected");
-noConnectedElement.addEventListener("click", function() {
+if (noConnectedElement !== null) {
+  noConnectedElement.addEventListener("click", function () {
     window.location.href = "../not_connected/signin.php";
-});
+  });
+}
 
 const options = {
   method: 'GET',

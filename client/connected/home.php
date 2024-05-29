@@ -1,7 +1,7 @@
 <?php
     session_start();
     require_once('../../inc/php/log.php');
-    server_log("Consultation de la page " . $_SERVER['SCRIPT_FILENAME']);
+    server_log("Consultation de la page " . __FILE__);
 ?>
 <!DOCTYPE html>
 <html lang="fr">
