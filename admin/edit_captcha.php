@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,8 +8,7 @@
     <link rel="stylesheet" href="../bootstrap/bootstrap-icons/font/bootstrap-icons.min.css">
     <title>IDK</title>
 </head>
-
-<body>
+<body id="backoffice_edit_captcha">
     <?php require('../inc/php/db.php'); ?>
     <?php require('../inc/backoffice/header.php'); ?>
     <div class="container-fluid">
@@ -72,5 +70,4 @@
     <script src="../inc/js/edit_captcha.js"></script>
     <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>

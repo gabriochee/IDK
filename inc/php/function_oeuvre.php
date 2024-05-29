@@ -1,5 +1,4 @@
 <?php 
-
 if(isset($_GET['mv'])) {
     $req1 = $bdd->query("SELECT primaryTitle, startYear, runtimeMinutes FROM work_basics WHERE id_work = {$_GET['mv']}");
     $rep1 = $req1->fetch();
@@ -16,5 +15,4 @@ if(isset($_GET['mv'])) {
     header("location: home.php"); 
     exit(); 
 }
-
 ?>

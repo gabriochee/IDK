@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="../../bootstrap/bootstrap-icons/font/bootstrap-icons.min.css">
     <title>IDK</title>
 </head>
-<body>
+<body id="connected_questionnaire">
     <?php require('../../inc/php/db.php'); ?>
     <?php require('../../inc/connected/header.php'); ?>
     <main>

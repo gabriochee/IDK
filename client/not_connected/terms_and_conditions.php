@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="utf-8">
@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../../bootstrap/bootstrap-icons/font/bootstrap-icons.min.css">
     <title>IDK</title>
 </head>
-<body>
+<body id="not_connected_terms_and_conditions">
     <?php require('../../inc/php/db.php'); ?>
     <?php require('../../inc/not_connected/header.php'); ?>
     <main>

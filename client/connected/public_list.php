@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../../bootstrap/bootstrap-icons/font/bootstrap-icons.min.css">
     <title>IDK</title>
 </head>
-<body class="no-x-overflow">
+<body id="connected_public_list" class="no-x-overflow">
     <?php require('../../inc/php/db.php'); ?>
     <?php require('../../inc/not_connected/header.php'); ?>
     <main>

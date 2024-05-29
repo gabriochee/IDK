@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../bootstrap/bootstrap-icons/font/bootstrap-icons.min.css">
     <title>IDK</title>
 </head>
-<body id="home_backoffice" class="backoffice">
+<body id="backoffice_home_backoffice" class="backoffice">
     <?php require('../inc/php/db.php'); ?>
     <?php require('../inc/backoffice/header.php');?>
     <div class="container-fluid">

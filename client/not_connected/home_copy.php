@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -9,7 +8,7 @@
     <link rel="stylesheet" href="../../bootstrap/bootstrap-icons/font/bootstrap-icons.min.css">
     <title>IDK</title>
 </head>
-<body>
+<body id="not_connected_home">
     <?php require('../../inc/php/db.php'); ?> 
     <header class="bg-dark text-white p-1">
         <div class="container d-flex align-items-center justify-content-center justify-content-md-between border-bottom p-0">

@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const app = document.getElementById('not_connected-questionnaire');
+    const app = document.getElementById('question_reponses');
 
     const questions = [
         {
@@ -55,12 +55,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const question = questions[currentQuestionIndex];
         app.innerHTML = `
-            <div class="question">
-                <h2>${question.question}</h2>
-                <div class="options">
-                    ${question.options.map(option => `<button class="option">${option}</button>`).join('')}
-                </div>
+            <div class="container text-center col-lg-6 my-md-5 py-2">
+                <h3>${question.question}</h3>
             </div>
+            ${question.options.map(option => `<div class="options container col-4 text-center py-1 py-md-1"><button class="option col nav-btn btn btn-primary btn-sm btn-warning border border-dark border-2 rounded-3 fs-sm-5 px-3 w-100">${option}</button></div>`).join('')}
         `;
 
         document.querySelectorAll('.option').forEach(button => {
@@ -74,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function displayResults() {
         // Envoyer les réponses au backend pour obtenir les recommandations de films
-        fetch('process.php', {
+        fetch('function_questionnaire.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
