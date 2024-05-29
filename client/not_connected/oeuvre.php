@@ -16,11 +16,11 @@
         <div class="container mt-5">
             <div class="row justify-content-center">
                 <div class="row col-12 col-lg-6 img-fluid img-custom-1 " >
-                    <img src="../../inc/test.jpeg" alt="affiche de l'oeuvre">
+                    <img src="../../inc/test.jpeg" id="movie-poster" alt="affiche de l'oeuvre">
                 </div>
                 <div class="col-12 col-lg-5">
                     <div>
-                        <h1 class="m-1 mb-3"><?php echo $rep1['primaryTitle']; ?></h1>
+                        <h1 class="m-1 mb-3" id="movie-title"><?php echo $rep1['primaryTitle']; ?></h1>
                         <p class="m-1">Durée : <?php echo $rep1['runtimeMinutes']; ?> minutes</p>
                         <p class="m-1">Date de sortie : <?php echo $rep1['startYear']; ?></p>
                         <p class="m-1">Nationalité : <?php echo $rep2['region']; ?></p>
@@ -109,10 +109,7 @@
                     <div>
                         <div>
                             <h2 class="m-5">Synopsis & infos</h2>
-                            <p class="m-1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, perferendis. Numquam corrupti inventore, laborum odio nam aliquid. Reprehenderit doloribus beatae accusantium. Eum ullam blanditiis architecto. Tempora, esse. Porro aut suscipit accusantium. Nihil, temporibus quam quidem iste unde expedita repudiandae assumenda quaerat, voluptatibus ducimus modi laudantium! At, provident aspernatur? Quas, unde. Amet suscipit alias temporibus mollitia praesentium dolorum veritatis magnam illo, molestias ratione a nobis minus. Nihil ab inventore ratione, dolor ullam non exercitationem consequatur blanditiis a, eaque repellendus tenetur fuga quis, ea recusandae? Unde sunt neque dolore quasi voluptates assumenda nihil, ducimus vitae numquam consequuntur vero! Quos cupiditate sequi molestias?</p>
-                            <br>
-                            <p class="m-1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis neque quisquam eos tempore, debitis reprehenderit aut in voluptate delectus porro? Vero, molestiae. Laudantium ex magnam dignissimos dolor excepturi modi quia maiores est doloremque. Necessitatibus enim fuga aperiam esse eligendi error assumenda illo explicabo commodi. Fugit ut expedita enim saepe est dolorum molestiae minima, dignissimos nemo quas! Dignissimos dolore explicabo labore repellat corporis nesciunt assumenda optio dolorem nihil quam obcaecati, corrupti iste nemo modi pariatur ducimus? Animi aliquam reiciendis dignissimos nulla et officia alias fugiat! Commodi aliquam odio nesciunt. Esse ducimus mollitia sint velit blanditiis harum perspiciatis fugiat odio quod officiis.</p>
-                            <br>
+                            <p class="m-1" id="movie-synopsis"></p>
                         </div>
                         <br>
                         <div>

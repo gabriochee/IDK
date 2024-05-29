@@ -5,6 +5,10 @@ const deux = document.getElementById("commentaire-deux");
 const un = document.getElementById("commentaire-un");
 const zero = document.getElementById("commentaire-zero");
 
+const movieTitle = document.getElementById("movie-title");
+const moviePoster = document.getElementById("movie-poster");
+const movieSynposis = document.getElementById("movie-synopsis");
+
 document.getElementById("note-cinq").addEventListener("click", function() {
         cinq.style.display = "block";
         quatre.style.display = "none";
@@ -58,3 +62,32 @@ const noConnectedElement = document.getElementById("no-connected");
 noConnectedElement.addEventListener("click", function() {
     window.location.href = "../not_connected/signin.php";
 });
+
+const options = {
+  method: 'GET',
+  headers: {
+    accept: 'application/json',
+    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1OTBhYWMzNjU1YmExZTEwMTcyYWJlZjU3MDc0OTgwZCIsInN1YiI6IjY1ZjAyYTlhN2YwNTQwMDE2NDg1YzIxZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.atWZDSfbE9mllUcg52T_TxrGckrUxIARkgiOhCxpaE4'
+  }
+};
+
+function onError(error){
+    console.error(error);
+}
+
+function onResponse(response){
+    response.json().then(work).catch(onError);
+}
+
+function work(jsonData) {
+  const movie = jsonData.results[0];
+  const synopsis = movie.overview;
+  const posterPath = movie.poster_path;
+
+  const rootPosterPath = "https://image.tmdb.org/t/p/w500/";
+
+  moviePoster.src = rootPosterPath + posterPath;
+  movieSynposis.textContent = synopsis;
+}
+
+fetch('https://api.themoviedb.org/3/search/movie?query=' + movieTitle.textContent, options).then(onResponse).catch(onError);
