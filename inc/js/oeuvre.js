@@ -5,7 +5,6 @@ const deux = document.getElementById("commentaire-deux");
 const un = document.getElementById("commentaire-un");
 const zero = document.getElementById("commentaire-zero");
 
-const movieTitle = document.getElementById("movie-title");
 const moviePoster = document.getElementById("movie-poster");
 const movieSynposis = document.getElementById("movie-synopsis");
 
@@ -92,4 +91,4 @@ function work(jsonData) {
   movieSynposis.textContent = synopsis;
 }
 
-fetch('https://api.themoviedb.org/3/search/movie?query=' + movieTitle.textContent, options).then(onResponse).catch(onError);
+fetch('https://api.themoviedb.org/3/search/movie?query=' + movieTitle + '&year=' + movieYear, options).then(onResponse).catch(onError);
