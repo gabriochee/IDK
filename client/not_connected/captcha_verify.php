@@ -1,5 +1,12 @@
 <?php 
     require_once('../../inc/php/db.php');
+    require_once('../../inc/php/log.php');
+
+    $root_path = __FILE__;
+    $parent_path = dirname(dirname($root_path));
+    $relative_path = str_replace($parent_path, '', $root_path);
+
+    server_log("Consultation de la page " . $relative_path);
 
     if (isset($_GET['captcha_id']) && isset($_GET['captcha_answer'])){
         $request = $bdd->prepare('SELECT bonne_reponse FROM reponse_captcha JOIN correspondance_captcha ON correspondance_captcha.id_reponse = reponse_captcha.id_reponse WHERE reponse_captcha.id_reponse = :id_reponse AND correspondance_captcha.id_captcha = :id_captcha;');

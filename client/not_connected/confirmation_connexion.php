@@ -1,6 +1,13 @@
 <?php
     session_start();
     require('../../inc/php/function_confirmation_connexion.php');
+    require_once('../../inc/php/log.php');
+
+    $root_path = __FILE__;
+    $parent_path = dirname(dirname($root_path));
+    $relative_path = str_replace($parent_path, '', $root_path);
+
+    server_log("Consultation de la page " . $relative_path);
 ?>
 <!DOCTYPE html>
 <html lang="fr">
