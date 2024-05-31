@@ -31,12 +31,12 @@
                 <?php endif; ?>
             <?php endforeach; */?>
             <?php
-             
                 foreach ($rep1 as $user) {
                     if ($user['id_user'] !== $_SESSION['id_user']) {
                         echo '<div class="card-body bg-primary m-5">';
                         echo '    <div class="card-text"><span>' . htmlspecialchars($user['pseudo']). '<br>' . htmlspecialchars($user['nom']).'<br>'.htmlspecialchars($user['prenom']).'</span></div>';
                     $test=is_friend_already($_SESSION['id_user'], $user['id_user'], $bdd);
+                    
                     // Vérifier si une demande d'ami a déjà été envoyée
                     if  ($test){
                         echo '<button class="btn btn-secondary" disabled>already friend</button>';
@@ -49,6 +49,7 @@
                     
                     echo '</div>';
                     }
+                    
                 }    
             ?>
 

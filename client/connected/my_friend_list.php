@@ -22,14 +22,12 @@
         <div class="d-flex justify-content-around">
             <?php 
                 foreach($rep4 as $rep4){
-                        echo '<div class="card-body bg-primary m-5">';
-                        echo '    <div class="card-text"><span>' . htmlspecialchars($rep4['pseudo']). '<br>' . htmlspecialchars($rep4['nom']).'<br>'.htmlspecialchars($rep4['prenom']).'</span></div>';
-                        //if($i_sended_req = )
-                        echo '    <a href="my_friend_req.php?demande=supp_friend&id='.$rep4['id_user'].'" class="nav-btn btn btn-primary btn-lg btn-warning text-white border border-light border-2 rounded-3 d-flex m-auto text-center" type="submit" name="envoyer_ami">supprimer ami</a>';
-                        echo '</div>';
-                    }
-                
-                    
+                    echo '<div class="card-body bg-primary m-5">';
+                    echo '    <div class="card-text"><span>' . htmlspecialchars($rep4['pseudo']). '<br>' . htmlspecialchars($rep4['nom']).'<br>'.htmlspecialchars($rep4['prenom']).'</span></div>';
+                    //if($i_sended_req = )
+                    echo '    <a href="my_friend_req.php?demande=supp_friend&id='.$rep4['id_user'].'" class="nav-btn btn btn-primary btn-lg btn-warning text-white border border-light border-2 rounded-3 d-flex m-auto text-center" type="submit" name="envoyer_ami">supprimer ami</a>';
+                    echo '</div>';
+                }
             ?>
             
             

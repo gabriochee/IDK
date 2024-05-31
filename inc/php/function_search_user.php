@@ -1,5 +1,7 @@
 <?php
     require("db.php");
+    
+    
 
     // Fetch users
     $req1 = $bdd->prepare("SELECT pseudo, nom, prenom, id_user FROM utilisateur");
@@ -25,10 +27,10 @@
     $rep3 = $req3->fetchAll();
     
     //on veut afficher nos amis
-    $req4 = $bdd->prepare("SELECT pseudo, nom, prenom, id_user FROM utilisateur INNER JOIN ami ON (utilisateur.id_user = ami.id_user_1 AND ami.id_user_2 = :other) OR (utilisateur.id_user = ami.id_user_2 AND ami.id_user_1 = :other) WHERE utilisateur.id_user != :other");
+    $req4 = $bdd->prepare("SELECT pseudo, nom, prenom, id_user FROM utilisateur INNER JOIN ami ON (utilisateur.id_user = ami.id_user_1 AND ami.id_user_2 = :me) OR (utilisateur.id_user = ami.id_user_2 AND ami.id_user_1 = :me) WHERE utilisateur.id_user != :me");
     $req4->execute(
         array(
-            "other"=>$_SESSION['id_user']
+            "me"=>$_SESSION['id_user']
         )
     );
     $rep4 = $req4->fetchAll();
@@ -36,7 +38,7 @@
     //vérifier si le get de demande et id ont bien recupéré une valeur
     if(isset($_GET['demande']) && isset($_GET['id'])){
         //
-        if(isset($_SESSION['user_id'])){
+        if(isset($_SESSION['id_user'])){
             
             if ($_GET['demande'] === 'attente_demande_ami') {
                 try {
@@ -85,8 +87,7 @@
         }
         else{
             //header('Location: ')
-            die($e->getMessage());
-            exit;
+            echo 'marche pas ';
         }
         
     }
