@@ -1,5 +1,5 @@
 <?php
-    require_once('db.php');
+    require('db.php');
 
     if (isset($_POST['connecter'])) {
         $email = $_POST['email'];

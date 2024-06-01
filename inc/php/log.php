@@ -1,5 +1,5 @@
 <?php
-require_once('db.php');
+require('db.php');
 date_default_timezone_set('Europe/Paris');
 
 function server_log($action){

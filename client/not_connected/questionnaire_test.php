@@ -1,20 +1,13 @@
-<?php
-    require_once('../../inc/php/log.php');
+<?php require('../../inc/php/scraping_log.php'); ?>
 
-    $root_path = __FILE__;
-    $parent_path = dirname(dirname($root_path));
-    $relative_path = str_replace($parent_path, '', $root_path);
-
-    server_log("Consultation de la page " . $relative_path);
-?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../inc/library/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../../inc/style/style.css">
-    <link rel="stylesheet" href="../../bootstrap/bootstrap-icons/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../../inc/library/bootstrap/bootstrap-icons/font/bootstrap-icons.min.css">
     <title>IDK</title>
 </head>
 <body id="not_connected_questionnaire">
@@ -23,7 +16,7 @@
         <div class="container text-center m-auto">
             <div class="row">
                 <div class="col-lg-6 m-auto p-4">
-                    <img src="../../inc/logo.svg" alt="Logo IDK" class="navbar-brand img-fluid my-5" width="150px" height="150px">
+                    <img src="../../inc/img/logo.svg" alt="Logo IDK" class="navbar-brand img-fluid my-5" width="150px" height="150px">
                     <h3 class="mt-1">Questionnaire</h3>
                 </div>
             </div>
@@ -32,6 +25,7 @@
     </main>
     <?php require('../../inc/not_connected/footer.php'); ?>
     <script src="../../inc/js/questionnaire.js"></script>
-    <script src="../../bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../../inc/js/search_movie.js"></script>
+    <script src="../../inc/library/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

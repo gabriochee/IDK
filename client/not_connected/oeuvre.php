@@ -1,20 +1,13 @@
-<?php
-    require_once('../../inc/php/log.php');
+<?php require('../../inc/php/scraping_log.php'); ?>
 
-    $root_path = __FILE__;
-    $parent_path = dirname(dirname($root_path));
-    $relative_path = str_replace($parent_path, '', $root_path);
-
-    server_log("Consultation de la page " . $relative_path);
-?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../inc/library/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../../inc/style/style.css">
-    <link rel="stylesheet" href="../../bootstrap/bootstrap-icons/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../../inc/library/bootstrap/bootstrap-icons/font/bootstrap-icons.min.css">
     <title>IDK</title>
 </head>
 <body id="oeuvre">
@@ -25,7 +18,7 @@
         <div class="container mt-5">
             <div class="row justify-content-center">
                 <div class="row col-12 col-lg-6 img-fluid img-custom-1 " >
-                    <img src="../../inc/test.jpeg" id="movie-poster" alt="affiche de l'oeuvre">
+                    <img src="../../inc/img/test.jpeg" id="movie-poster" alt="affiche de l'oeuvre">
                 </div>
                 <div class="col-12 col-lg-5">
                     <div>
@@ -299,6 +292,7 @@
         const movieYear = <?php echo $rep1['startYear']; ?>;
     </script>
     <script src="../../inc/js/oeuvre.js"></script>
-    <script src="../../bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../../inc/js/search_movie.js"></script>
+    <script src="../../inc/library/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

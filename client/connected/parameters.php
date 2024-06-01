@@ -1,29 +1,23 @@
-<?php
-    session_start();
-    require_once('../../inc/php/log.php');
+<?php session_start(); ?>
+<?php require('../../inc/php/session.php'); ?>
+<?php require('../../inc/php/scraping_log.php'); ?>
 
-    $root_path = __FILE__;
-    $parent_path = dirname(dirname($root_path));
-    $relative_path = str_replace($parent_path, '', $root_path);
-
-    server_log("Consultation de la page " . $relative_path);
-?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../inc/library/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../../inc/style/style.css">
-    <link rel="stylesheet" href="../../bootstrap/bootstrap-icons/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../../inc/library/bootstrap/bootstrap-icons/font/bootstrap-icons.min.css">
     <title>IDK</title>
 </head>
 <body id="connected_parameters">
     <?php require('../../inc/php/db.php'); ?>
-    <?php require('../../inc/not_connected/header.php'); ?>
+    <?php require('../../inc/connected/header.php'); ?>
     <main>
         <div class="container-fluid d-flex justify-content-center gap-5 my-5 py-2">
-            <img src="../../inc/movie_card_placeholder.jpg" alt="Logo IDK" class="img img-thumbnail bg-transparent border-3 border-dark rounded-circle">
+            <img src="../../inc/movie_card_placeholder.jpg" alt="" class="img img-thumbnail bg-transparent border-3 border-dark rounded-circle">
             <h3 class="my-auto ms-5">Pseudo utilisateur</h3>
         </div>
 
@@ -153,7 +147,8 @@
         </form>
 
     </main>
-    <?php require('../../inc/not_connected/footer.php'); ?>
-    <script src="../../bootstrap/js/bootstrap.bundle.min.js"></script>
+    <?php require('../../inc/connected/footer.php'); ?>
+    <script src="../../inc/js/search_movie.js"></script>
+    <script src="../../inc/library/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

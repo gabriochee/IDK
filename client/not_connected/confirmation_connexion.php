@@ -1,22 +1,15 @@
-<?php
-    session_start();
-    require('../../inc/php/function_confirmation_connexion.php');
-    require_once('../../inc/php/log.php');
+<?php session_start(); ?>
+<?php require('../../inc/php/function_confirmation_connexion.php'); ?>
+<?php require('../../inc/php/scraping_log.php'); ?>
 
-    $root_path = __FILE__;
-    $parent_path = dirname(dirname($root_path));
-    $relative_path = str_replace($parent_path, '', $root_path);
-
-    server_log("Consultation de la page " . $relative_path);
-?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../inc/library/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../../inc/style/style.css">
-    <link rel="stylesheet" href="../../bootstrap/bootstrap-icons/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../../inc/library/bootstrap/bootstrap-icons/font/bootstrap-icons.min.css">
     <title>IDK</title>
 </head>
 <body id="not_connected_confirmation_connexion">
@@ -28,53 +21,38 @@
     <main>
         <div class="container text-center m-auto">
             <div class="row">
-                <div class="col-lg-6 m-auto p-4">
-                    <img src="../../inc/img/logo.svg" alt="Logo IDK" class="navbar-brand img-fluid my-5" width="150px" height="150px">
+                <div class="col-lg-6 m-auto p-3">
+                    <img src="../../inc/img/logo.svg" alt="Logo IDK" class="navbar-brand img-fluid my-4" width="150px" height="150px">
                 </div>
             </div>
         </div>
 
         <div class="container col-sm-6 col-xl-4">
-
-
-            <form action="confirmation_connexion.php" class="needs-validation" method="POST">
-                <div class="container px-sm-4 col-sm-10">
-                    <label for="entrer_code">Veuillez entrer votre code envoyé par mail</label>
-                    <input type="text" class="form-control fs-4 minimize-input border-dark border-2 rounded-0 rounded-top text-center py-3" id="username" placeholder="" name ="entrer_code" value="" required="">
-                    <div class="invalid-feedback">Veuillez fournir le code de vérification envoyé par mail.</div>
-                </div>
-
-                <div class="text-center">
+            <div class="row g-3">
+                <form action="confirmation_connexion.php" class="needs-validation" method="POST">
+                    <div class="col-12">
+                        <label for="entrer_code">Veuillez entrer votre code envoyé par mail</label>
+                        <input type="text" class="form-control fs-4 minimize-input border-dark border-2 rounded-0 rounded-top text-center py-2" id="username" placeholder="" name ="entrer_code" value="" required="">
+                        <div class="invalid-feedback">Veuillez fournir le code de vérification envoyé par mail.</div>
+                    </div>
+                    <div class="text-center fs-4">
                     <?php 
-                    //vérifies si wrong_code existe et si elle est = a true
-                        if (isset($_GET['wrong_code'])&& $_GET['wrong_code'] === 'true'){
-                            echo "Le code est faux";
-                        }
-                        
-                        if (isset($_GET['email_sent']) && $_GET['email_sent'] === 'true') {
-                            echo 'le mail de vérification a été envoyé';
-                        }
+                        if (isset($_GET['wrong_code'])&& $_GET['wrong_code'] === 'true') {echo "Le code est faux";}
+                        if (isset($_GET['email_sent']) && $_GET['email_sent'] === 'true') {echo 'Le mail de vérification a été envoyé';}
                     ?>
-                </div>
-
-                <div class="container px-sm-4 col-sm-10 mt-4">
-                    <button class="btn btn-lg w-100 py-2 fs-4 btn-warning border-dark border-2" type="submit" name ="connect">
-                        Connexion
-                    </button>
-                </div>
-            </form>
-
-
-            <form action="confirmation_connexion.php" method="POST">
-                <div class="container px-sm-4 col-sm-10 mt-4">
-                    <button class="btn btn-lg w-100 py-2 fs-4 btn-warning border-dark border-2" type="buton" name ="code">
-                        envoyer le code par mail
-                    </button>
-                </div>
-            </form>
-                
+                    </div>
+                    <div class="col-12 mt-1">
+                        <button class="btn btn-lg w-100 py-2 fs-4 btn-warning border-dark border-2" type="submit" name ="connect">Connexion</button>
+                    </div>
+                </form>
+                <form action="confirmation_connexion.php" method="POST">
+                    <div class="col-12">
+                        <button class="btn btn-lg w-100 py-2 fs-4 btn-warning border-dark border-2" type="buton" name ="code">Envoyer le code par mail</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </main>
-    <script src="../../bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../../inclibrary/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

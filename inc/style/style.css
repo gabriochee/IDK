@@ -171,6 +171,13 @@ body, .bg-idk{
 --------------------------- INCLUDE ------------------------
 ------------------------------------------------------------
 ------------------------------------------------------------ */
+/* ------------ NOT_CONNECTED-CONNECTED/HEADER ------------- */
+#resultats_movie {
+  max-height: 150px;
+  overflow-y: auto; 
+  border-top: 1px solid #ccc; 
+}
+
 /* ------------ NOT_CONNECTED-CONNECTED/FOOTER ------------- */
 .icon-white {
   color: white;
