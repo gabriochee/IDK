@@ -36,7 +36,7 @@
     //vérifier si le get de demande et id ont bien recupéré une valeur
     if(isset($_GET['demande']) && isset($_GET['id'])){
         //
-        if(isset($_SESSION['user_id'])){
+        if(isset($_SESSION['id_user'])){
             
             if ($_GET['demande'] === 'attente_demande_ami') {
                 try {
@@ -82,8 +82,7 @@
                     die($e->getMessage());
                 }
             }
-        }
-        else{
+        } else {
             //header('Location: ')
             die($e->getMessage());
             exit;

@@ -100,7 +100,7 @@
                             <div class="invalid-feedback">Veuillez fournir un numéro de téléphone valide.</div>
                         </div>
                         <div class="col-12">
-                            <label for="password" class="form-label">Mot de passse</label>
+                            <label for="password" class="form-label">Mot de passe </label>
                             <input type="password" class="form-control" id="password" name="password" maxlength="100" required>
                             <div class="invalid-feedback">Veuillez fournir un mot de passe valide.</div>
                         </div>
