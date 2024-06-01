@@ -1,3 +1,12 @@
+<?php
+    require_once('../../inc/php/log.php');
+
+    $root_path = __FILE__;
+    $parent_path = dirname(dirname($root_path));
+    $relative_path = str_replace($parent_path, '', $root_path);
+
+    server_log("Consultation de la page " . $relative_path);
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -20,7 +29,7 @@
                 </div>
                 <div class="col-12 col-lg-5">
                     <div>
-                        <h1 class="m-1 mb-3" id="movie-title"><?php echo $rep1['primaryTitle']; ?></h1>
+                        <h1 class="m-1 mb-3"><?php echo $rep1['primaryTitle']; ?></h1>
                         <p class="m-1">Durée : <?php echo $rep1['runtimeMinutes']; ?> minutes</p>
                         <p class="m-1">Date de sortie : <?php echo $rep1['startYear']; ?></p>
                         <p class="m-1">Nationalité : <?php echo $rep2['region']; ?></p>
@@ -284,7 +293,11 @@
             </div>
         </div>
                     
-    <?php require('../../inc/not_connected/footer.php'); ?>          
+    <?php require('../../inc/not_connected/footer.php'); ?>
+    <script type="text/javascript">
+        const movieTitle = "<?php echo $rep1['primaryTitle']; ?>";
+        const movieYear = <?php echo $rep1['startYear']; ?>;
+    </script>
     <script src="../../inc/js/oeuvre.js"></script>
     <script src="../../bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
