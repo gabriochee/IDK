@@ -1,3 +1,4 @@
+
 <?php
     session_start();
     require_once('../../inc/php/log.php');
@@ -8,6 +9,7 @@
 
     server_log("Consultation de la page " . $relative_path);
 ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
