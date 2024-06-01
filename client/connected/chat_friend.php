@@ -59,10 +59,10 @@ require('../../inc/php/function_chat_friend.php');
                                 </div>
                             </div>
                         </li>
-                        <form id="myForm">
+                        <form id="myMessage">
                             <li class="bg-white mb-3">
                                 <div data-mdb-input-init class="form-outline">
-                                    <textarea class="form-control" id="myText" rows="4" name="user_message"></textarea>
+                                    <textarea class="form-control" id="messageText" rows="4" name="user_message"></textarea>
                                     <label class="form-label" for="myText">Message</label>
                                 </div>
                             </li>
@@ -76,15 +76,16 @@ require('../../inc/php/function_chat_friend.php');
     <?php require('../../inc/connected/footer.php'); ?>
     <script src="../../bootstrap/js/bootstrap.bundle.min.js"></script>
     <script>
-        /*document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function() {
             if (typeof friendData !== 'undefined') {
                 let listFriend = document.getElementById('friendsList');
+                
                 friendData.forEach(function(friend) {
                     let listItem = document.createElement('div');
                     listItem.className = 'p-2 border-bottom';
                     listItem.style.backgroundColor = '#eee';
                     listItem.innerHTML = `
-                        <a href="#!" onclick="test('${friend.pseudo}')" name="friendDisplay" class="d-flex justify-content-between">
+                        <a id="ami" onclick="test('${friend.pseudo}, ${friend.id_user}')" name="friendDisplay" class="d-flex justify-content-between">
                             <div class="d-flex flex-row">
                                 <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-8.webp" alt="avatar" class="rounded-circle d-flex align-self-center me-3 shadow-1-strong" width="60">
                                 <div class="pt-1">
@@ -105,30 +106,32 @@ require('../../inc/php/function_chat_friend.php');
             }
         });
 
-        function test(pseudo) {
+        function test(pseudo, idCurrentFriend) {
             console.log("Friend clicked:", pseudo);
+            
             document.getElementById('friend-name').innerText = pseudo;
-        }*/
+            currentFriend =idCurrentFriend;
+            console.log(currentFriend);
+        }
 
-        document.getElementById('myForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Empêcher le rechargement de la page 
+        document.getElementById('myMessage').addEventListener('submit', function(event) {
+            event.preventDefault(); // Empêcher le rechargement de la page
+            const messageText = document.getElementById('messageText').value;
 
-            const myTextValue = document.getElementById('myText').value;
-            console.log("Texte du formulaire : ", myTextValue);
-            const dataToSend = JSON.stringify({ text: myTextValue });
-            console.log("Données JSON envoyées : ", dataToSend);
-            //fetch('http://localhost/Projet_annuel/IDK-2/inc/php/function_chat_friend.php', {
-            fetch('../../inc/php/function_chat_friend.php', {
+            fetch('test_server.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                
-                body: JSON.stringify({ text: myTextValue })
+                body: JSON.stringify({ message: messageText })
             })
             .then(response => response.json())
-            .then(text => {
-                console.log(text);
+            .then(data => {
+                if (data.status === 'success') {
+                    alert('Message envoyé avec succès !');
+                } else {
+                    alert('Erreur lors de l\'envoi du message.');
+                }
             })
             .catch(error => {
                 console.error('Erreur:', error);

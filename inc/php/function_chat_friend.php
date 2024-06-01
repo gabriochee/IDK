@@ -1,7 +1,7 @@
 <?php
 require("db.php");
 
-/*try {
+try {
     $req1 = $bdd->prepare("
         SELECT pseudo, nom, prenom, id_user 
         FROM utilisateur 
@@ -17,26 +17,28 @@ require("db.php");
     echo "<script>let friendData = $json;</script>";
 } catch (PDOException $e) {
     echo "Erreur : " . $e->getMessage();
-}*/
+}
 
+if(isset($_POST['submit'])){
+    try {
+        $data = json_decode(file_get_contents('php://input'), true);
 
-try {
-    $data = json_decode(file_get_contents('php://input'), true);
-    if (isset($data['myText']) && isset($data['friendId'])) {
-        $myText = $data['text'];
-        
-        $sql = "INSERT INTO test (contenu_message) VALUES (:contentMessage)";
-        $stmt = $bdd->prepare($sql);
-        $stmt->bindParam(':contentMessage', $myText);
-        if ($stmt->execute()) {
-            echo json_encode(["status" => "success"]);
+        if (isset($data['message'])) {
+            $message = $data['message'];
+
+            $stmt = $bdd->prepare("INSERT INTO test (contenu_message) VALUES (:message)");
+            $stmt->bindParam(':message', $message);
+
+            if ($stmt->execute()) {
+                echo json_encode(["status" => "success"]);
+            } else {
+                echo json_encode(["status" => "error"]);
+            }
         } else {
-            echo json_encode(["status" => "error", "message" => "Erreur lors de l'insertion des données"]);
+            echo json_encode(["status" => "error", "message" => "Champ message absent"]);
         }
-    } else {
-        echo json_encode(["status" => "error", "message" => "Données invalides"]);
+    } catch (PDOException $e) {
+        echo json_encode(["status" => "error", "message" => $e->getMessage()]);
     }
-} catch (PDOException $e) {
-    echo json_encode(["status" => "error", "message" => $e->getMessage()]);
 }
 ?>
