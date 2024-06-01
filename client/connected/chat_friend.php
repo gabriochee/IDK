@@ -76,7 +76,7 @@ require('../../inc/php/function_chat_friend.php');
     <?php require('../../inc/connected/footer.php'); ?>
     <script src="../../bootstrap/js/bootstrap.bundle.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        /*document.addEventListener('DOMContentLoaded', function() {
             if (typeof friendData !== 'undefined') {
                 let listFriend = document.getElementById('friendsList');
                 friendData.forEach(function(friend) {
@@ -108,13 +108,15 @@ require('../../inc/php/function_chat_friend.php');
         function test(pseudo) {
             console.log("Friend clicked:", pseudo);
             document.getElementById('friend-name').innerText = pseudo;
-        }
+        }*/
 
         document.getElementById('myForm').addEventListener('submit', function(event) {
             event.preventDefault(); // Empêcher le rechargement de la page 
 
             const myTextValue = document.getElementById('myText').value;
-            
+            console.log("Texte du formulaire : ", myTextValue);
+            const dataToSend = JSON.stringify({ text: myTextValue });
+            console.log("Données JSON envoyées : ", dataToSend);
             //fetch('http://localhost/Projet_annuel/IDK-2/inc/php/function_chat_friend.php', {
             fetch('../../inc/php/function_chat_friend.php', {
                 method: 'POST',
@@ -122,11 +124,11 @@ require('../../inc/php/function_chat_friend.php');
                     'Content-Type': 'application/json'
                 },
                 
-                body: JSON.stringify({ myText: myTextValue })
+                body: JSON.stringify({ text: myTextValue })
             })
             .then(response => response.json())
-            .then(data => {
-                console.log(data);
+            .then(text => {
+                console.log(text);
             })
             .catch(error => {
                 console.error('Erreur:', error);
