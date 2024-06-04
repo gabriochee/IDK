@@ -1,4 +1,5 @@
-<?php session_start(); ?> 
+<?php session_start(); ?>     
+<?php require('../../inc/php/function_inscription.php'); ?>
 <?php require('../../inc/php/scraping_log.php'); ?>
 
 <!DOCTYPE html>
@@ -18,17 +19,13 @@
             <div class="d-flex flex-column my-5 py-2 gap-5 text-center">
                 <img src="../../inc/img/logo.svg" alt="Logo IDK" width="200px" height="200px" class="container-fluid img-thumbnail bg-transparent border-0">
                 <h3 class="mt-5">En cours de confirmation<br>de la création du compte...</h3>
-                <?php require('../../inc/php/function_confirmation_inscription.php'); ?>
             </div>
         </div>
     </main>
-
     <?php require('../../inc/not_connected/footer.php'); ?>
-
     <script src="../../inc/library/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="../../inc/js/search_movie.js"></script>
     <script>
-        // Redirection après 5 secondes
         setTimeout(function() {
             window.location.href = 'confirmation_connexion.php';
         }, 5000);

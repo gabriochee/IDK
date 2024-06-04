@@ -1,5 +1,5 @@
 <?php 
-if (!isset($_SESSION['user_id'])) {
+if(isset($_SESSION['id_user'])) {
     header("Location: ../connected/home.php");
     exit();
 }
@@ -104,7 +104,8 @@ if (!isset($_SESSION['user_id'])) {
                             <div class="invalid-feedback">Veuillez fournir un numéro de téléphone valide.</div>
                         </div>
                         <div class="col-12">
-                            <label for="password" class="form-label">Mot de passe </label>
+                            <label for="password" class="form-label">Mot de passe</label><br/>
+                            <label for="password" class="form-label m-0"><i><small>8 et 16 caractères, au moins une majuscules, une minuscules, un chiffres et un caractères spécial.</small></i></label>
                             <input type="password" class="form-control" id="password" name="password" maxlength="100" required>
                             <div class="invalid-feedback">Veuillez fournir un mot de passe valide.</div>
                         </div>

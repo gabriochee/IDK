@@ -1,5 +1,5 @@
 <?php 
-if (!isset($_SESSION['user_id'])) {
+if(isset($_SESSION['id_user'])) {
     header("Location: ../connected/home.php");
     exit();
 }
