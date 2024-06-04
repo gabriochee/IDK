@@ -1,5 +1,11 @@
-<?php session_start(); ?>
-<?php require('../../inc/php/session.php'); ?>
+<?php 
+session_start();
+
+if(isset($_SESSION['user_id'])){
+    header("Location: ../not_connected/login.php");
+    exit();
+}
+?>
 <?php require('../../inc/php/scraping_log.php'); ?>
 
 <!DOCTYPE html>
@@ -13,8 +19,8 @@
     <title>IDK</title>
 </head>
 <body id="connected_home">
-    <?php require('../../inc/connected/header.php'); ?>
     <?php require('../../inc/php/db.php'); ?>
+    <?php require('../../inc/connected/header.php'); ?>
     <?php require('../../inc/php/affichage_data_user.php'); ?>
     <?php require('../../inc/php/function_search_user.php'); ?>
     <main>
@@ -82,7 +88,7 @@
                         </div>
                         <div class="d-flex  flex-wrap justify-content-around">
                             <div class="card text-center btn-custom" style="width: 15rem;">
-                                <img src="../../inc/film.svg" style="width: 13rem; margin: auto;" class="card-img-top border border-dark mt-3" alt="...">
+                                <img src="../../inc/img/film.svg" style="width: 13rem; margin: auto;" class="card-img-top border border-dark mt-3" alt="...">
                                 <div class="card-body">
                                     <h5 class="card-title text-center">Nom oeuvre</h5>
                                     <div class="d-flex row justify-content-around">
@@ -92,7 +98,7 @@
                                 <p>Ajouté le 12/12/2023 13:12:23</p>
                             </div>
                             <div class="card text-center btn-custom" style="width: 15rem;">
-                                <img src="../../inc/film.svg" style="width: 13rem; margin: auto;" class="card-img-top border border-dark mt-3" alt="...">
+                                <img src="../../inc/img/film.svg" style="width: 13rem; margin: auto;" class="card-img-top border border-dark mt-3" alt="...">
                                 <div class="card-body">
                                     <h5 class="card-title text-center">Nom oeuvre</h5>
                                     <div class="d-flex row justify-content-around">
@@ -102,7 +108,7 @@
                                 <p>Ajouté le 12/12/2023 13:12:23</p>
                             </div>
                             <div class="card text-center btn-custom" style="width: 15rem;">
-                                <img src="../../inc/film.svg" style="width: 13rem; margin: auto;" class="card-img-top border border-dark mt-3" alt="...">
+                                <img src="../../inc/img/film.svg" style="width: 13rem; margin: auto;" class="card-img-top border border-dark mt-3" alt="...">
                                 <div class="card-body">
                                     <h5 class="card-title text-center">Nom oeuvre</h5>
                                     <div class="d-flex row justify-content-around">
@@ -112,7 +118,7 @@
                                 <p>Ajouté le 12/12/2023 13:12:23</p>
                             </div>
                             <div class="card text-center btn-custom" style="width: 15rem;">
-                                <img src="../../inc/film.svg" style="width: 13rem; margin: auto;" class="card-img-top border border-dark mt-3" alt="...">
+                                <img src="../../inc/img/film.svg" style="width: 13rem; margin: auto;" class="card-img-top border border-dark mt-3" alt="...">
                                 <div class="card-body">
                                     <h5 class="card-title text-center">Nom oeuvre</h5>
                                     <div class="d-flex row justify-content-around">
@@ -122,7 +128,7 @@
                                 <p>Ajouté le 12/12/2023 13:12:23</p>
                             </div>
                             <div class="card text-center btn-custom" style="width: 15rem;">
-                                <img src="../../inc/film.svg" style="width: 13rem; margin: auto;" class="card-img-top border border-dark mt-3" alt="...">
+                                <img src="../../inc/img/film.svg" style="width: 13rem; margin: auto;" class="card-img-top border border-dark mt-3" alt="...">
                                 <div class="card-body">
                                     <h5 class="card-title text-center">Nom oeuvre</h5>
                                     <div class="d-flex row justify-content-around">
@@ -149,7 +155,7 @@
                         </div>
                         <div class="d-flex  flex-wrap justify-content-around">
                             <div class="card text-center btn-custom" style="width: 15rem;">
-                                <img src="../../inc/film.svg" style="width: 13rem; margin: auto;" class="card-img-top border border-dark mt-3" alt="...">
+                                <img src="../../inc/img/film.svg" style="width: 13rem; margin: auto;" class="card-img-top border border-dark mt-3" alt="...">
                                 <div class="card-body">
                                     <h5 class="card-title text-center">Nom oeuvre</h5>
                                     <div class="d-flex row justify-content-around">
@@ -159,7 +165,7 @@
                                 <p>Ajouté le 12/12/2023 13:12:23</p>
                             </div>
                             <div class="card text-center btn-custom" style="width: 15rem;">
-                                <img src="../../inc/film.svg" style="width: 13rem; margin: auto;" class="card-img-top border border-dark mt-3" alt="...">
+                                <img src="../../inc/img/film.svg" style="width: 13rem; margin: auto;" class="card-img-top border border-dark mt-3" alt="...">
                                 <div class="card-body">
                                     <h5 class="card-title text-center">Nom oeuvre</h5>
                                     <div class="d-flex row justify-content-around">
@@ -169,7 +175,7 @@
                                 <p>Ajouté le 12/12/2023 13:12:23</p>
                             </div>
                             <div class="card text-center btn-custom" style="width: 15rem;">
-                                <img src="../../inc/film.svg" style="width: 13rem; margin: auto;" class="card-img-top border border-dark mt-3" alt="...">
+                                <img src="../../inc/img/film.svg" style="width: 13rem; margin: auto;" class="card-img-top border border-dark mt-3" alt="...">
                                 <div class="card-body">
                                     <h5 class="card-title text-center">Nom oeuvre</h5>
                                     <div class="d-flex row justify-content-around">
@@ -179,7 +185,7 @@
                                 <p>Ajouté le 12/12/2023 13:12:23</p>
                             </div>
                             <div class="card text-center btn-custom" style="width: 15rem;">
-                                <img src="../../inc/film.svg" style="width: 13rem; margin: auto;" class="card-img-top border border-dark mt-3" alt="...">
+                                <img src="../../inc/img/film.svg" style="width: 13rem; margin: auto;" class="card-img-top border border-dark mt-3" alt="...">
                                 <div class="card-body">
                                     <h5 class="card-title text-center">Nom oeuvre</h5>
                                     <div class="d-flex row justify-content-around">
@@ -189,7 +195,7 @@
                                 <p>Ajouté le 12/12/2023 13:12:23</p>
                             </div>
                             <div class="card text-center btn-custom" style="width: 15rem;">
-                                <img src="../../inc/film.svg" style="width: 13rem; margin: auto;" class="card-img-top border border-dark mt-3" alt="...">
+                                <img src="../../inc/img/film.svg" style="width: 13rem; margin: auto;" class="card-img-top border border-dark mt-3" alt="...">
                                 <div class="card-body">
                                     <h5 class="card-title text-center">Nom oeuvre</h5>
                                     <div class="d-flex row justify-content-around">

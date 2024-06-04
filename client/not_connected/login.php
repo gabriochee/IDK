@@ -1,4 +1,4 @@
-<?php session_start(); ?>
+<?php session_start() ?>
 <?php require('../../inc/php/scraping_log.php'); ?>
 
 <!DOCTYPE html>
@@ -40,9 +40,11 @@
                     </div>
                     <div class="text-center fs-4">
                     <?php
-                        $req3 = $bdd->prepare("SELECT raison, date_ban, date_deban FROM ban WHERE id_ban = :id_ban;");
-                        $req3->execute( array("id_ban" => $_SESSION['id_user']) );
-                        $ban_info = $req3->fetch();
+                        if(isset($_SESSION['id_user'])) {
+                            $req3 = $bdd->prepare("SELECT raison, date_ban, date_deban FROM ban WHERE id_ban = :id_ban;");
+                            $req3->execute( array("id_ban" => $_SESSION['id_user']) );
+                            $ban_info = $req3->fetch();
+                        }
                         if(isset($_GET['wrong_email'])) {echo "L'email ou le mot de passe ou les deux sont erronés";}
                         if(isset($_GET['wrong_mdp'])) {echo "L'email ou le mot de passe ou les deux sont erronés";}
                         if(isset($_GET['ban_def'])) {echo "Ton compte a été ban_def pour le motif suivant: " . $ban_info['raison'];}

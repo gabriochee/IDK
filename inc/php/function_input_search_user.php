@@ -1,7 +1,5 @@
 <?php 
 
-session_start();
-
 require('../../inc/php/function_search_user.php');
 
 if (isset($_GET['keyword_user'])) {

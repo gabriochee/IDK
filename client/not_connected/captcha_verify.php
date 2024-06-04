@@ -1,19 +1,24 @@
 <?php 
-    require('../../inc/php/db.php');
-    if (isset($_GET['captcha_id']) && isset($_GET['captcha_answer'])){
-        $request = $bdd->prepare('SELECT bonne_reponse FROM reponse_captcha JOIN correspondance_captcha ON correspondance_captcha.id_reponse = reponse_captcha.id_reponse WHERE reponse_captcha.id_reponse = :id_reponse AND correspondance_captcha.id_captcha = :id_captcha;');
+if (!isset($_SESSION['user_id'])) {
+    header("Location: ../connected/home.php");
+    exit();
+}
 
-        $request->bindParam(":id_captcha", $_GET['captcha_id']);
-        $request->bindParam(":id_reponse", $_GET['captcha_answer']);
+require('../../inc/php/db.php');
+if (isset($_GET['captcha_id']) && isset($_GET['captcha_answer'])){
+    $request = $bdd->prepare('SELECT bonne_reponse FROM reponse_captcha JOIN correspondance_captcha ON correspondance_captcha.id_reponse = reponse_captcha.id_reponse WHERE reponse_captcha.id_reponse = :id_reponse AND correspondance_captcha.id_captcha = :id_captcha;');
 
-        $request->execute();
-        $data = $request->fetch();
-        
-        if ($data['bonne_reponse'] === 1){
-            header('HTTP/1.1 307 Temporary Redirect');
-            header('Location: confirmation_connexion.php');
-        }
+    $request->bindParam(":id_captcha", $_GET['captcha_id']);
+    $request->bindParam(":id_reponse", $_GET['captcha_answer']);
+
+    $request->execute();
+    $data = $request->fetch();
+    
+    if ($data['bonne_reponse'] === 1){
+        header('HTTP/1.1 307 Temporary Redirect');
+        header('Location: confirmation_connexion.php');
     }
+}
 ?>
 <?php require('../../inc/php/scraping_log.php'); ?>
 

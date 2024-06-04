@@ -1,4 +1,4 @@
-<?php session_start(); ?>
+<?php session_start() ?>
 <?php require('../../inc/php/function_confirmation_connexion.php'); ?>
 <?php require('../../inc/php/scraping_log.php'); ?>
 
@@ -29,17 +29,16 @@
 
         <div class="container col-sm-6 col-xl-4">
             <div class="row g-3">
-                <form action="confirmation_connexion.php" class="needs-validation" method="POST">
-                    <div class="col-12">
-                        <label for="entrer_code">Veuillez entrer votre code envoyé par mail</label>
-                        <input type="text" class="form-control fs-4 minimize-input border-dark border-2 rounded-0 rounded-top text-center py-2" id="username" placeholder="" name ="entrer_code" value="" required="">
-                        <div class="invalid-feedback">Veuillez fournir le code de vérification envoyé par mail.</div>
-                    </div>
-                    <div class="text-center fs-4">
+                <form action="" class="needs-validation" method="POST">
+                    <div class="text-center fs-4 mb-3">
                     <?php 
                         if (isset($_GET['wrong_code'])&& $_GET['wrong_code'] === 'true') {echo "Le code est faux";}
                         if (isset($_GET['email_sent']) && $_GET['email_sent'] === 'true') {echo 'Le mail de vérification a été envoyé';}
                     ?>
+                    </div>
+                    <div class="col-12">
+                        <input type="text" class="form-control fs-4 minimize-input border-dark border-2 rounded-0 rounded-top text-center py-2" id="username" placeholder="Veuillez entrer votre code envoyé par mail" name ="entrer_code" value="" required="">
+                        <div class="invalid-feedback">Veuillez fournir le code de vérification envoyé par mail.</div>
                     </div>
                     <div class="col-12 mt-1">
                         <button class="btn btn-lg w-100 py-2 fs-4 btn-warning border-dark border-2" type="submit" name ="connect">Connexion</button>

@@ -1,3 +1,9 @@
+<?php 
+if (!isset($_SESSION['user_id'])) {
+    header("Location: ../connected/home.php");
+    exit();
+}
+?>
 <?php require('../../inc/php/scraping_log.php'); ?>
 
 <!DOCTYPE html>
@@ -30,7 +36,7 @@
         </div>
         <div class="contact-form row g-5 justify-content-center mb-4">
             <div class="col-md-7 col-lg-8">
-                <form action="./confirmation_inscription.php" class="needs-validation" id="signin-form" method="post">
+                <form action="./confirmation_inscription.php" class="needs-validation" id="signin-form" method="POST">
                     <div class="row g-3">
                         <div class="col-sm-6">
                             <label for="firstName" class="form-label">Prénom</label>

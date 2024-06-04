@@ -1,3 +1,9 @@
+<?php 
+if (!isset($_SESSION['user_id'])) {
+    header("Location: ../connected/home.php");
+    exit();
+}
+?>
 <?php require('../../inc/php/scraping_log.php'); ?>
 
 <!DOCTYPE html>
