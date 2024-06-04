@@ -1,21 +1,14 @@
-<?php
-    session_start();
-    require_once('../../inc/php/log.php');
+<?php session_start(); ?> 
+<?php require('../../inc/php/scraping_log.php'); ?>
 
-    $root_path = __FILE__;
-    $parent_path = dirname(dirname($root_path));
-    $relative_path = str_replace($parent_path, '', $root_path);
-
-    server_log("Consultation de la page " . $relative_path);
-?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../inc/library/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../../inc/style/style.css">
-    <link rel="stylesheet" href="../../bootstrap/bootstrap-icons/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../../inc/library/bootstrap/bootstrap-icons/font/bootstrap-icons.min.css">
     <title>IDK</title>
 </head>
 <body id="not_connected_confirmation_inscription">
@@ -23,17 +16,17 @@
     <main>
         <div class="container-fluid d-flex justify-content-center">
             <div class="d-flex flex-column my-5 py-2 gap-5 text-center">
-                <img src="../../inc/logo.svg" alt="Logo IDK" width="200px" height="200px" class="container-fluid img-thumbnail bg-transparent border-0">
+                <img src="../../inc/img/logo.svg" alt="Logo IDK" width="200px" height="200px" class="container-fluid img-thumbnail bg-transparent border-0">
                 <h3 class="mt-5">En cours de confirmation<br>de la création du compte...</h3>
-                <?php require_once('../../inc/php/function_confirmation_inscription.php'); ?>
+                <?php require('../../inc/php/function_confirmation_inscription.php'); ?>
             </div>
         </div>
     </main>
 
     <?php require('../../inc/not_connected/footer.php'); ?>
 
-    <script src="../../bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="../../inc/script.js"></script>
+    <script src="../../inc/library/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../../inc/js/search_movie.js"></script>
     <script>
         // Redirection après 5 secondes
         setTimeout(function() {

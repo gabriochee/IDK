@@ -1,5 +1,5 @@
 <?php
-require_once('db.php');
+require('db.php');
 date_default_timezone_set('Europe/Paris');
 
 function server_log($action){
@@ -11,7 +11,7 @@ function server_log($action){
         $request->bindParam(':log_action', $action);
         $request->bindParam(':adresse_ip', $_SERVER['REMOTE_ADDR']);
         $request->execute();
-    } catch (PDOException $e){
+    } catch (PDOException $e) {
         echo $e->getMessage();
     }
 }

@@ -1,50 +1,38 @@
+<?php 
+session_start();
 
-<?php
-    session_start();
-    require_once('../../inc/php/log.php');
-
-    $root_path = __FILE__;
-    $parent_path = dirname(dirname($root_path));
-    $relative_path = str_replace($parent_path, '', $root_path);
-
-    server_log("Consultation de la page " . $relative_path);
+if(isset($_SESSION['user_id'])){
+    header("Location: ../not_connected/login.php");
+    exit();
+}
 ?>
+<?php require('../../inc/php/scraping_log.php'); ?>
 
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../inc/library/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../../inc/style/style.css">
-    <link rel="stylesheet" href="../../bootstrap/bootstrap-icons/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../../inc/library/bootstrap/bootstrap-icons/font/bootstrap-icons.min.css">
     <title>IDK</title>
 </head>
 <body id="connected_home">
-    <?php require('../../inc/connected/header.php'); ?>
     <?php require('../../inc/php/db.php'); ?>
+    <?php require('../../inc/connected/header.php'); ?>
+    <?php require('../../inc/php/affichage_data_user.php'); ?>
+    <?php require('../../inc/php/function_search_user.php'); ?>
     <main>
         <div class="container mt-5 mb-5">
             <div class="row">
                 <div class="col-md-4 border-right">
                     <div class="d-flex flex-column align-items-center text-center">
-                        <img class="mb-3" width="150px" src="../../inc/profile.svg">
-                        <span class="text-black-50">#1234</span>
-                        <span>Pseudo</span>
-                        <span>
-                            <?php
-                                $req = $bdd->prepare("SELECT pseudo FROM utilisateur WHERE id_user = :id_user;");
-                                $req->execute(
-                                    array(
-                                        "id_user" => $_SESSION['id_user']
-                                    )
-                                );
-                                $reponse = $req->fetch();
-                                echo $reponse['pseudo'];
-                            ?>
-                        </span>
-                        <span>1 amis</span>
-                        <button type="button" class="btn btn-sm btn-outline-secondary mt-3">Voir mes amis</button>
+                        <img class="mb-3" width="150px" src="../../inc/img/profile.svg">
+                        <span class="text-black-50">#<?php echo $rep_data_user1['id_user']; ?></span>
+                        <span><?php echo $rep_data_user1['pseudo']; ?></span>
+                        <span><?php echo $rep_data_user1['nom'] .' '. $rep_data_user1['prenom']; ?></span>
+                        <span><?php echo $rep_data_user2['count(*)']; ?> amis</span>
                     </div>
                 </div>
                 <div class="col-md-8 border-right">
@@ -52,41 +40,32 @@
                         <div class="row w-100">
                             <div class="col-12 border-1">
                                 <div class="col-md-12 overflow-auto menu-oeuvre-2">
-                                    <h3>Notifications :</h3>
+                                    <h3>Mes demandes envoyée :</h3> 
                                     <table class="table table-striped table-sm border border-1 border-dark mt-3">
                                         <tbody>
-                                            <tr>
-                                                <td class="table-cell" scope="row">Eric123</td>
-                                                <td class="table-cell">le 14/04/2024</td>
-                                                <td class="table-cell text-end">
-                                                    <button type="button" class="btn btn-sm btn-outline-secondary">Accepter</button>
-                                                    <button type="button" class="btn btn-sm btn-outline-secondary">Refuser</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="table-cell" scope="row">Eric123</td>
-                                                <td class="table-cell">le 14/04/2024</td>
-                                                <td class="table-cell text-end">
-                                                    <button type="button" class="btn btn-sm btn-outline-secondary">Accepter</button>
-                                                    <button type="button" class="btn btn-sm btn-outline-secondary">Refuser</button>
-                                                </td>                                        
-                                            </tr>
-                                            <tr>
-                                                <td class="table-cell" scope="row">Eric123</td>
-                                                <td class="table-cell">le 14/04/2024</td>
-                                                <td class="table-cell text-end">
-                                                    <button type="button" class="btn btn-sm btn-outline-secondary">Accepter</button>
-                                                    <button type="button" class="btn btn-sm btn-outline-secondary">Refuser</button>
-                                                </td>                                        
-                                            </tr>
-                                            <tr>
-                                                <td class="table-cell" scope="row">Eric123</td>
-                                                <td class="table-cell">le 14/04/2024</td>
-                                                <td class="table-cell text-end">
-                                                    <button type="button" class="btn btn-sm btn-outline-secondary">Accepter</button>
-                                                    <button type="button" class="btn btn-sm btn-outline-secondary">Refuser</button>
-                                                </td>                                        
-                                            </tr>
+                                            <?php // Mettre une taille max !
+                                                foreach($rep3 as $rep3) {
+                                                    echo '<tr><td class="table-cell" scope="row">' . htmlspecialchars($rep3['pseudo']). ' - ' . htmlspecialchars($rep3['nom']).' '.htmlspecialchars($rep3['prenom']).'</td>';
+                                                    echo '<td class="table-cell">le 14/04/2024</td>';
+                                                    echo '<td class="table-cell text-end"><a href="home.php?demande=cancel_req&id='.$rep3['id_user'].'" class="nav-btn btn btn-sm btn-outline-secondary" type="submit" name="envoyer_ami">Annuler</a>';
+                                                    echo '</td></tr>';
+                                                }
+                                            ?>
+                                        </tbody>
+                                    </table>
+                                    <h3>Mes demandes reçu :</h3>
+                                    <table class="table table-striped table-sm border border-1 border-dark mt-3">
+                                        <tbody>
+                                            <?php // Mettre une taille max !
+                                                foreach($rep2 as $rep2) {
+                                                    echo '<tr><td class="table-cell" scope="row">' . htmlspecialchars($rep3['pseudo']). ' - ' . htmlspecialchars($rep3['nom']).' '.htmlspecialchars($rep3['prenom']).'</td>';
+                                                    echo '<td class="table-cell">le 14/04/2024</td>';
+                                                    echo '<td class="table-cell text-end">';
+                                                    echo '<a href="home.php?demande=be_friend&id='.$rep2['id_user'].'" class="nav-btn btn btn-sm btn-outline-secondary" type="submit" name="envoyer_ami">Accepter</a></td>';
+                                                    echo '<a href="home.php?demande=cancel_req_from_receiver&id='.$rep2['id_user'].'" class="nav-btn btn btn-sm btn-outline-secondary" type="submit" name="envoyer_ami">Refuser</a>';
+                                                    echo '</td></tr>';
+                                                }
+                                            ?>
                                         </tbody>
                                     </table>
                                 </div> 
@@ -109,7 +88,7 @@
                         </div>
                         <div class="d-flex  flex-wrap justify-content-around">
                             <div class="card text-center btn-custom" style="width: 15rem;">
-                                <img src="../../inc/film.svg" style="width: 13rem; margin: auto;" class="card-img-top border border-dark mt-3" alt="...">
+                                <img src="../../inc/img/film.svg" style="width: 13rem; margin: auto;" class="card-img-top border border-dark mt-3" alt="...">
                                 <div class="card-body">
                                     <h5 class="card-title text-center">Nom oeuvre</h5>
                                     <div class="d-flex row justify-content-around">
@@ -119,7 +98,7 @@
                                 <p>Ajouté le 12/12/2023 13:12:23</p>
                             </div>
                             <div class="card text-center btn-custom" style="width: 15rem;">
-                                <img src="../../inc/film.svg" style="width: 13rem; margin: auto;" class="card-img-top border border-dark mt-3" alt="...">
+                                <img src="../../inc/img/film.svg" style="width: 13rem; margin: auto;" class="card-img-top border border-dark mt-3" alt="...">
                                 <div class="card-body">
                                     <h5 class="card-title text-center">Nom oeuvre</h5>
                                     <div class="d-flex row justify-content-around">
@@ -129,7 +108,7 @@
                                 <p>Ajouté le 12/12/2023 13:12:23</p>
                             </div>
                             <div class="card text-center btn-custom" style="width: 15rem;">
-                                <img src="../../inc/film.svg" style="width: 13rem; margin: auto;" class="card-img-top border border-dark mt-3" alt="...">
+                                <img src="../../inc/img/film.svg" style="width: 13rem; margin: auto;" class="card-img-top border border-dark mt-3" alt="...">
                                 <div class="card-body">
                                     <h5 class="card-title text-center">Nom oeuvre</h5>
                                     <div class="d-flex row justify-content-around">
@@ -139,7 +118,7 @@
                                 <p>Ajouté le 12/12/2023 13:12:23</p>
                             </div>
                             <div class="card text-center btn-custom" style="width: 15rem;">
-                                <img src="../../inc/film.svg" style="width: 13rem; margin: auto;" class="card-img-top border border-dark mt-3" alt="...">
+                                <img src="../../inc/img/film.svg" style="width: 13rem; margin: auto;" class="card-img-top border border-dark mt-3" alt="...">
                                 <div class="card-body">
                                     <h5 class="card-title text-center">Nom oeuvre</h5>
                                     <div class="d-flex row justify-content-around">
@@ -149,7 +128,7 @@
                                 <p>Ajouté le 12/12/2023 13:12:23</p>
                             </div>
                             <div class="card text-center btn-custom" style="width: 15rem;">
-                                <img src="../../inc/film.svg" style="width: 13rem; margin: auto;" class="card-img-top border border-dark mt-3" alt="...">
+                                <img src="../../inc/img/film.svg" style="width: 13rem; margin: auto;" class="card-img-top border border-dark mt-3" alt="...">
                                 <div class="card-body">
                                     <h5 class="card-title text-center">Nom oeuvre</h5>
                                     <div class="d-flex row justify-content-around">
@@ -176,7 +155,7 @@
                         </div>
                         <div class="d-flex  flex-wrap justify-content-around">
                             <div class="card text-center btn-custom" style="width: 15rem;">
-                                <img src="../../inc/film.svg" style="width: 13rem; margin: auto;" class="card-img-top border border-dark mt-3" alt="...">
+                                <img src="../../inc/img/film.svg" style="width: 13rem; margin: auto;" class="card-img-top border border-dark mt-3" alt="...">
                                 <div class="card-body">
                                     <h5 class="card-title text-center">Nom oeuvre</h5>
                                     <div class="d-flex row justify-content-around">
@@ -186,7 +165,7 @@
                                 <p>Ajouté le 12/12/2023 13:12:23</p>
                             </div>
                             <div class="card text-center btn-custom" style="width: 15rem;">
-                                <img src="../../inc/film.svg" style="width: 13rem; margin: auto;" class="card-img-top border border-dark mt-3" alt="...">
+                                <img src="../../inc/img/film.svg" style="width: 13rem; margin: auto;" class="card-img-top border border-dark mt-3" alt="...">
                                 <div class="card-body">
                                     <h5 class="card-title text-center">Nom oeuvre</h5>
                                     <div class="d-flex row justify-content-around">
@@ -196,7 +175,7 @@
                                 <p>Ajouté le 12/12/2023 13:12:23</p>
                             </div>
                             <div class="card text-center btn-custom" style="width: 15rem;">
-                                <img src="../../inc/film.svg" style="width: 13rem; margin: auto;" class="card-img-top border border-dark mt-3" alt="...">
+                                <img src="../../inc/img/film.svg" style="width: 13rem; margin: auto;" class="card-img-top border border-dark mt-3" alt="...">
                                 <div class="card-body">
                                     <h5 class="card-title text-center">Nom oeuvre</h5>
                                     <div class="d-flex row justify-content-around">
@@ -206,7 +185,7 @@
                                 <p>Ajouté le 12/12/2023 13:12:23</p>
                             </div>
                             <div class="card text-center btn-custom" style="width: 15rem;">
-                                <img src="../../inc/film.svg" style="width: 13rem; margin: auto;" class="card-img-top border border-dark mt-3" alt="...">
+                                <img src="../../inc/img/film.svg" style="width: 13rem; margin: auto;" class="card-img-top border border-dark mt-3" alt="...">
                                 <div class="card-body">
                                     <h5 class="card-title text-center">Nom oeuvre</h5>
                                     <div class="d-flex row justify-content-around">
@@ -216,7 +195,7 @@
                                 <p>Ajouté le 12/12/2023 13:12:23</p>
                             </div>
                             <div class="card text-center btn-custom" style="width: 15rem;">
-                                <img src="../../inc/film.svg" style="width: 13rem; margin: auto;" class="card-img-top border border-dark mt-3" alt="...">
+                                <img src="../../inc/img/film.svg" style="width: 13rem; margin: auto;" class="card-img-top border border-dark mt-3" alt="...">
                                 <div class="card-body">
                                     <h5 class="card-title text-center">Nom oeuvre</h5>
                                     <div class="d-flex row justify-content-around">
@@ -374,7 +353,8 @@
             </div>
         </div>
     </main>
-
-<?php require('../../inc/connected/footer.php'); ?>
+    <?php require('../../inc/connected/footer.php'); ?>
+    <script src="../../inc/js/search_movie.js"></script>
+    <script src="../../inc/library/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

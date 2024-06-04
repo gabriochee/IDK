@@ -1,36 +1,35 @@
 <?php 
-    require_once('../../inc/php/db.php');
-    require_once('../../inc/php/log.php');
+if (!isset($_SESSION['user_id'])) {
+    header("Location: ../connected/home.php");
+    exit();
+}
 
-    $root_path = __FILE__;
-    $parent_path = dirname(dirname($root_path));
-    $relative_path = str_replace($parent_path, '', $root_path);
+require('../../inc/php/db.php');
+if (isset($_GET['captcha_id']) && isset($_GET['captcha_answer'])){
+    $request = $bdd->prepare('SELECT bonne_reponse FROM reponse_captcha JOIN correspondance_captcha ON correspondance_captcha.id_reponse = reponse_captcha.id_reponse WHERE reponse_captcha.id_reponse = :id_reponse AND correspondance_captcha.id_captcha = :id_captcha;');
 
-    server_log("Consultation de la page " . $relative_path);
+    $request->bindParam(":id_captcha", $_GET['captcha_id']);
+    $request->bindParam(":id_reponse", $_GET['captcha_answer']);
 
-    if (isset($_GET['captcha_id']) && isset($_GET['captcha_answer'])){
-        $request = $bdd->prepare('SELECT bonne_reponse FROM reponse_captcha JOIN correspondance_captcha ON correspondance_captcha.id_reponse = reponse_captcha.id_reponse WHERE reponse_captcha.id_reponse = :id_reponse AND correspondance_captcha.id_captcha = :id_captcha;');
-
-        $request->bindParam(":id_captcha", $_GET['captcha_id']);
-        $request->bindParam(":id_reponse", $_GET['captcha_answer']);
-
-        $request->execute();
-        $data = $request->fetch();
-        
-        if ($data['bonne_reponse'] === 1){
-            header('HTTP/1.1 307 Temporary Redirect');
-            header('Location: confirmation_connexion.php');
-        }
+    $request->execute();
+    $data = $request->fetch();
+    
+    if ($data['bonne_reponse'] === 1){
+        header('HTTP/1.1 307 Temporary Redirect');
+        header('Location: confirmation_connexion.php');
     }
+}
 ?>
+<?php require('../../inc/php/scraping_log.php'); ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../inc/library/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../../inc/style/style.css">
-    <link rel="stylesheet" href="../../bootstrap/bootstrap-icons/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../../inc/library/bootstrap/bootstrap-icons/font/bootstrap-icons.min.css">
     <title>IDK</title>
 </head>
 <body id="not_connected_captcha_verify">
@@ -96,7 +95,6 @@
             </form>
         </div>
     </main>
-    <script src="../../bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../../inc/library/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>

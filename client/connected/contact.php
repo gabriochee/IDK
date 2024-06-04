@@ -1,26 +1,26 @@
-<?php
-    session_start();
-    require_once('../../inc/php/log.php');
+<?php 
+session_start();
 
-    $root_path = __FILE__;
-    $parent_path = dirname(dirname($root_path));
-    $relative_path = str_replace($parent_path, '', $root_path);
-
-    server_log("Consultation de la page " . $relative_path);
+if(isset($_SESSION['user_id'])) {
+    header("Location: ../not_connected/login.php");
+    exit();
+}
 ?>
+<?php require('../../inc/php/scraping_log.php'); ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../inc/library/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../../inc/style/style.css">
-    <link rel="stylesheet" href="../../bootstrap/bootstrap-icons/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../../inc/library/bootstrap/bootstrap-icons/font/bootstrap-icons.min.css">
     <title>IDK</title>
 </head>
 <body id="connected_contact">
     <?php require('../../inc/php/db.php'); ?>
-    <?php require('../../inc/not_connected/header.php'); ?>
+    <?php require('../../inc/connected/header.php'); ?>
     <main>
         <div class="container text-center m-auto">
             <div class="row">
@@ -89,7 +89,8 @@
             </div>
         </div>
     </main>
-    <?php require('../../inc/not_connected/footer.php'); ?>
-    <script src="../../bootstrap/js/bootstrap.bundle.min.js"></script>
+    <?php require('../../inc/connected/footer.php'); ?>
+    <script src="../../inc/js/search_movie.js"></script>
+    <script src="../../inc/library/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

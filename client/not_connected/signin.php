@@ -1,20 +1,19 @@
-<?php
-    require_once('../../inc/php/log.php');
-
-    $root_path = __FILE__;
-    $parent_path = dirname(dirname($root_path));
-    $relative_path = str_replace($parent_path, '', $root_path);
-
-    server_log("Consultation de la page " . $relative_path);
+<?php 
+if (!isset($_SESSION['user_id'])) {
+    header("Location: ../connected/home.php");
+    exit();
+}
 ?>
+<?php require('../../inc/php/scraping_log.php'); ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../inc/library/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../../inc/style/style.css">
-    <link rel="stylesheet" href="../../bootstrap/bootstrap-icons/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../../inc/library/bootstrap/bootstrap-icons/font/bootstrap-icons.min.css">
     <title>IDK</title>
 </head>
 <body id="not_connected_signin">
@@ -22,26 +21,22 @@
     <?php require('../../inc/not_connected/header.php'); ?>
     <main>
         <div class="container text-center m-auto">
-        <div class="text-center pt-5 fs-2">
-                    <?php 
-                        if (isset($_GET['wrong_email'])){
-                            echo "cet email a déja été utilisé ";
-                        } 
-                        if (isset($_GET['error_message'])){
-                            echo '<script>alert("' . htmlspecialchars($_GET['error_message']) . '");</script>';
-                        }
-                    ?>
-                </div>
+            <div class="text-center pt-5 fs-2">
+            <?php 
+                if (isset($_GET['wrong_email'])) {echo "cet email a déja été utilisé ";} 
+                if (isset($_GET['error_message'])) {echo '<script>alert("' . htmlspecialchars($_GET['error_message']) . '");</script>';}
+            ?>
+            </div>
             <div class="row mt-0 pt-0">
                 <div class="col-lg-6 m-auto p-4 mt-0 pt-0">
-                    <img src="../../inc/logo.svg" alt="Logo IDK" class="navbar-brand img-fluid my-5" width="150px" height="150px">
+                    <img src="../../inc/img/logo.svg" alt="Logo IDK" class="navbar-brand img-fluid my-5" width="150px" height="150px">
                     <h3 class="mt-1">S'inscrire</h3>
                 </div>
             </div>
         </div>
         <div class="contact-form row g-5 justify-content-center mb-4">
             <div class="col-md-7 col-lg-8">
-                <form action="./confirmation_inscription.php" class="needs-validation" id="signin-form" method="post">
+                <form action="./confirmation_inscription.php" class="needs-validation" id="signin-form" method="POST">
                     <div class="row g-3">
                         <div class="col-sm-6">
                             <label for="firstName" class="form-label">Prénom</label>
@@ -133,6 +128,7 @@
     </main>
     <?php require('../../inc/not_connected/footer.php'); ?>
     <script src="../../inc/js/signin.js"></script>
-    <script src="../../bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../../inc/js/search_movie.js"></script>
+    <script src="../../inc/library/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

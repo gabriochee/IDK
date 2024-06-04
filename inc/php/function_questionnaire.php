@@ -1,16 +1,5 @@
 <?php
-$serverAddress = "152.228.217.19";
-$username = "distant";
-$password = "LEG2024IDKdistant!";
-
-try {
-    $bdd = new PDO("mysql:host=$serverAddress;dbname=IMDb;port=3306", $username, $password);
-    $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    echo "Erreur : " . $e->getMessage(); 
-}
-
-global $bdd;
+require('db.php');
 
 header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
@@ -31,18 +20,16 @@ $annee = isset($data[8]) ? $data[8] : '';
 $connected = isset($data[9]) ? $data[9] : '';
 
 
-$query = "SELECT primaryTitle FROM work_basics WHERE 1=1";
+$query = "SELECT wb.primaryTitle FROM work_basics wb JOIN work_ratings wr ON wb.id_work = wr.id_work WHERE 1=1";
 $params = [];
 
 if ($avis) {
     if ($avis == 'Toujours') {
-        $query .= " id_work FROM work_ratings WHERE averageRating > 8.5";
+        $query .= " AND wr.averageRating > 8.5";
     } else if ($avis == 'De temps en temps') {
-        $query .= " id_work FROM work_ratings WHERE averageRating > 7.5";
-    } else {
-        $query .= ""; // Si ne regarde jamais les avis de regarder un film on ne filtre pas par rapport aux notes
-    }
-} // else Erreur ? gere le cas de figure ou l'user arrive à remplir le form sans repondre à ses question ? 
+        $query .= " AND wr.averageRating > 7.5";
+    } // Si ne regarde jamais les avis avant de regarder un film on ne filtre pas par rapport aux notes
+}
 
 if ($bande_son) {
     if($bande_son == "Oui !!") {

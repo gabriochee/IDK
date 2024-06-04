@@ -1,7 +1,9 @@
 <header class="bg-dark text-white p-1">
   <div class="container d-flex align-items-center justify-content-center justify-content-md-between border-bottom p-0">
     <nav class="navbar col-lg-4 col-md-3">
-      <img src="../../inc/logo.svg" alt="Logo IDK" class="navbar-brand img-fluid logo-white" width="50px" height="50px">
+      <a href="../../client/not_connected/home.php">
+        <img src="../../inc/img/logo.svg" alt="Logo IDK" class="navbar-brand img-fluid logo-white" width="50px" height="50px">
+      </a>
     </nav>
 
     <nav class="navbar navbar-expand-md navbar-dark bg-dark d-flex flex-lg-fill ms-3">
@@ -12,20 +14,22 @@
         <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
 
           <div class="offcanvas-header justify-content-start">
-            <img src="../../inc/logo.svg" alt="Logo IDK" width="50px" height="50px" class="img-fluid logo-white ms-3">
+            <a href="../../client/not_connected/home.php">
+              <img src="../../inc/img/logo.svg" alt="Logo IDK" width="50px" height="50px" class="img-fluid logo-white ms-3">
+            </a>
             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
           </div>
 
           <div class="offcanvas-body d-md-flex gap-lg-5">
             <ul class="nav justify-content-center fw-light me-lg-5 col-xl-5">
               <li>
-                <a <?php if(basename($_SERVER['PHP_SELF']) == 'home.php') echo 'class="nav-link text-decoration-underline text-white"'; ?> class="nav-link text-white" href="../../client/not_connected/home.php" class="nav-link text-white">Acceuil</a>
+                <a <?php if(basename($_SERVER['PHP_SELF']) == 'home.php') echo 'class="nav-link text-decoration-underline text-white"'; ?> class="nav-link text-white" href="../../client/not_connected/home.php">Acceuil</a>
               </li>
               <li>
-                <a <?php if(basename($_SERVER['PHP_SELF']) == 'questionnaire.php') echo 'class="nav-link text-decoration-underline text-white"'; ?> class="nav-link text-white" href="../../client/not_connected/questionnaire.php" class="nav-link text-white">Questionnaire</a>
+                <a <?php if(basename($_SERVER['PHP_SELF']) == 'questionnaire.php') echo 'class="nav-link text-decoration-underline text-white"'; ?> class="nav-link text-white" href="../../client/not_connected/questionnaire.php">Questionnaire</a>
               </li>
               <li>
-                <a <?php if(basename($_SERVER['PHP_SELF']) == 'about.php') echo 'class="nav-link text-decoration-underline text-white"'; ?> class="nav-link text-white" href="../../client/not_connected/about.php" class="nav-link text-white">A propos</a>
+                <a <?php if(basename($_SERVER['PHP_SELF']) == 'about.php') echo 'class="nav-link text-decoration-underline text-white"'; ?> class="nav-link text-white" href="../../client/not_connected/about.php">A propos</a>
               </li>
             </ul>
 
@@ -36,7 +40,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="../../client/connected/login.php">
+                <a href="../../client/not_connected/login.php">
                   <button class="nav-btn btn btn-primary btn-sm btn-warning text-white border border-light border-2 rounded-3">Connexion</button>
                 </a>
               </li>
@@ -52,6 +56,7 @@
     </nav>
   </div>
   <form class="d-flex justify-content-center col-5 m-auto mt-2 mb-2">
-    <input type="search" class="form-control bg-dark text-white form-control-dark" placeholder="Rechercher..." aria-label="Search" id="navbar_movie">
+    <input type="search" onkeydown="searchKeywordMovie()" class="form-control bg-dark text-white form-control-dark" placeholder="Rechercher..." aria-label="Search" id="navbar_movie">
   </form>
+  <div id="resultats_movie"></div>
 </header>

@@ -1,6 +1,6 @@
 <?php
-    require_once('db.php');
-    require_once('verify_signin_parameters.php');
+    require('db.php');
+    require('verify_signin_parameters.php');
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         
         $pepper = 'sZB8J0az0z';

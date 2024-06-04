@@ -1,11 +1,19 @@
+<?php 
+session_start();
+
+if(!(isset($_SESSION['role_user']) && $_SESSION['role_user'] === 'admin')) {
+    header("Location: ../client/not_connected/login.php");
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../inc/library/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../inc/style/style.css">
-    <link rel="stylesheet" href="../bootstrap/bootstrap-icons/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../inc/library/bootstrap/bootstrap-icons/font/bootstrap-icons.min.css">
     <title>IDK</title>
 </head>
 <body id="backoffice_edit_oeuvre" class="backoffice">
@@ -24,7 +32,7 @@
                     <div class="container mt-5">
                         <div class="row justify-content-center">
                             <div class="row col-12 col-lg-6" >
-                                <img src="../inc/test.jpeg" alt="affiche de l'oeuvre">
+                                <img src="../inc/img/test.jpeg" alt="affiche de l'oeuvre">
                             </div>
                             <div class="col-12 col-lg-5">
                                 <div>
@@ -283,6 +291,6 @@
             </main>
         </div>
     </div>
-    <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../inc/library/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

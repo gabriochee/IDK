@@ -1,5 +1,5 @@
 <?php
-    require_once('db.php');
+    require('db.php');
 
     use PHPMailer\PHPMailer\PHPMailer;
     use PHPMailer\PHPMailer\Exception;

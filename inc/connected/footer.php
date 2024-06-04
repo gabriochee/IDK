@@ -26,7 +26,8 @@
         </div>
         <div class="container-fluid fw-light d-flex justify-content-center justify-content-evenly align-items-center p-2 m-0 border-bottom">
             <div class="container-fluid d-flex justify-content-center gap-3 align-items-center py-3">
-                <button class="nav-btn btn btn-primary btn-sm btn-warning text-white border border-light border-2 rounded-3">Déconnexion</button>
+                <form method="POST" action="../not_connected/login.php"></form>
+                <button type="submit" name="logout" class="nav-btn btn btn-primary btn-sm btn-warning text-white border border-light border-2 rounded-3">Déconnexion</button>
             </div>
         </div>
 

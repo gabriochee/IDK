@@ -1,8 +1,15 @@
-<?php
+<?php 
 session_start();
-require('../../inc/php/function_chat_friend.php');
 
+if(isset($_SESSION['user_id'])) {
+    header("Location: ../not_connected/login.php");
+    exit();
+}
 ?>
+<<<<<<< HEAD
+=======
+<?php require('../../inc/php/function_chat_friend.php'); ?>
+>>>>>>> 0a10bdbd6c388060997a8b931818cba528cc1445
 
 <!DOCTYPE html>
 <html lang="fr">
