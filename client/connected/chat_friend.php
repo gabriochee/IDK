@@ -3,6 +3,7 @@ session_start();
 require('../../inc/php/function_chat_friend.php');
 
 ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -23,42 +24,19 @@ require('../../inc/php/function_chat_friend.php');
                     <h5 class="font-weight-bold mb-3 text-center text-lg-start">My Friend</h5>
                     <div class="container mt-5">
                         <div class="row" id="friendsList">
-                            <!-- les Cards -->
+                            <!-- Les amis ici-->
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-7 col-xl-8">
-                    <h5 class="font-weight-bold mb-3 text-center" id="friend-name">le nom de la personne</h5>
-                    <?php //echo '<h5 class="font-weight-bold mb-3 text-center ">. htmlspecialchars($rep1['pseudo']).</h5>'; ?>
+                    <h5 class="font-weight-bold mb-3 text-center" id="friend-name">Le nom de la personne</h5>
                     <ul class="list-unstyled">
-                        <li class="d-flex justify-content-between mb-4">
-                            <div class="card w-100">
-                                <div class="card-header d-flex justify-content-between p-3">
-                                    <p class="fw-bold mb-0">Lara Croft</p>
-                                    <p class="text-muted small mb-0"><i class="far fa-clock"></i> 13 mins ago</p>
-                                </div>
-                                <div class="card-body">
-                                    <p class="mb-0">
-                                        Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.
-                                    </p>
-                                </div>
+
+                        <div class="container mt-5">
+                            <div class="row" id="message_list">
+                                
                             </div>
-                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-5.webp" alt="avatar" class="rounded-circle d-flex align-self-start ms-3 shadow-1-strong" width="60">
-                        </li>
-                        <li class="d-flex justify-content-between mb-4">
-                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-6.webp" alt="avatar" class="rounded-circle d-flex align-self-start me-3 shadow-1-strong" width="60">
-                            <div class="card">
-                                <div class="card-header d-flex justify-content-between p-3">
-                                    <p class="fw-bold mb-0">Brad Pitt</p>
-                                    <p class="text-muted small mb-0"><i class="far fa-clock"></i> 10 mins ago</p>
-                                </div>
-                                <div class="card-body">
-                                    <p class="mb-0">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                    </p>
-                                </div>
-                            </div>
-                        </li>
+                        </div>
                         <form id="myMessage">
                             <li class="bg-white mb-3">
                                 <div data-mdb-input-init class="form-outline">
@@ -76,21 +54,23 @@ require('../../inc/php/function_chat_friend.php');
     <?php require('../../inc/connected/footer.php'); ?>
     <script src="../../bootstrap/js/bootstrap.bundle.min.js"></script>
     <script>
+        var currentFriendId = 0; // variable globale pour stocker l'id de l'utilisateur qu'on a cliqué et qu'on a 
+
         document.addEventListener('DOMContentLoaded', function() {
             if (typeof friendData !== 'undefined') {
                 let listFriend = document.getElementById('friendsList');
-                
+
                 friendData.forEach(function(friend) {
                     let listItem = document.createElement('div');
                     listItem.className = 'p-2 border-bottom';
                     listItem.style.backgroundColor = '#eee';
                     listItem.innerHTML = `
-                        <a id="ami" onclick="test('${friend.pseudo}, ${friend.id_user}')" name="friendDisplay" class="d-flex justify-content-between">
+                        <a id="ami" onclick="fetchFriendConv('${friend.pseudo}', ${friend.id_user})" name="friendDisplay" class="d-flex justify-content-between">
                             <div class="d-flex flex-row">
                                 <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-8.webp" alt="avatar" class="rounded-circle d-flex align-self-center me-3 shadow-1-strong" width="60">
                                 <div class="pt-1">
-                                    <p class="fw-bold mb-0">${friend.pseudo}</p>
-                                    <p class="small text-muted">${friend.prenom} ${friend.nom}</p>
+                                    <p class="fw-bold mb-0" id="ici">${friend.pseudo}</p>
+                                    <p class="small text-muted" id ="la">${friend.prenom} ${friend.nom}</p>
                                 </div>
                             </div>
                             <div class="pt-1">
@@ -106,24 +86,92 @@ require('../../inc/php/function_chat_friend.php');
             }
         });
 
-        function test(pseudo, idCurrentFriend) {
+        function fetchFriendConv(pseudo, id_user) {
             console.log("Friend clicked:", pseudo);
-            
+            console.log("id of clicked:", id_user);
             document.getElementById('friend-name').innerText = pseudo;
-            currentFriend =idCurrentFriend;
-            console.log(currentFriend);
+            currentFriendId = id_user; // Mise à jour de la variable globale à utiliser pour savoir à qui envoyer
+            //function send_id(currentFriendId);
+            send_id(currentFriendId);
         }
 
-        document.getElementById('myMessage').addEventListener('submit', function(event) {
-            event.preventDefault(); // Empêcher le rechargement de la page
-            const messageText = document.getElementById('messageText').value;
+        function send_id(currentFriendId) {
+    setInterval(() => {
+        fetch('../../inc/php/function_fetch_message.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ currentFriendId: currentFriendId })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'error') {
+                alert('Message envoyé fail!');
+            } else {
+                console.log(data);
+                document.querySelector('#message_list').innerHTML = '';
 
-            fetch('test_server.php', {
+                data.forEach(message => {
+                    const li = document.createElement('li');
+                    li.classList.add('d-flex', 'justify-content-between', 'mb-4');
+
+                    const card = document.createElement('div');
+                    card.classList.add('card', 'w-100');
+
+                    const cardHeader = document.createElement('div');
+                    cardHeader.classList.add('card-header', 'd-flex', 'justify-content-between', 'p-3');
+
+                    const senderName = document.createElement('p');
+                    senderName.classList.add('fw-bold', 'mb-0');
+                    senderName.textContent = message.sender_name;
+                    cardHeader.appendChild(senderName);
+
+                    const sendDate = document.createElement('p');
+                    sendDate.classList.add('text-muted', 'small', 'mb-0');
+                    sendDate.innerHTML = '<i class="far fa-clock"></i> ' + message.date_message;
+                    cardHeader.appendChild(sendDate);
+
+                    const cardBody = document.createElement('div');
+                    cardBody.classList.add('card-body');
+                    const messageContent = document.createElement('p');
+                    messageContent.classList.add('mb-0');
+                    messageContent.textContent = message.contenu_message;
+                    cardBody.appendChild(messageContent);
+                    card.appendChild(cardBody);
+
+                    li.appendChild(card);
+
+                    const avatar = document.createElement('img');
+                    avatar.src = message.avatar;
+                    avatar.alt = 'avatar';
+                    avatar.classList.add('rounded-circle', 'd-flex', 'align-self-start', 'ms-3', 'shadow-1-strong');
+                    avatar.width = 60;
+
+                    li.appendChild(avatar);
+
+                    document.querySelector('#message_list').appendChild(li);
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Erreur:', error);
+        });
+    }, 1000); // 5000 millisecondes = 5 secondes
+}
+
+        document.getElementById('myMessage').addEventListener('submit', function(event) {
+            event.preventDefault(); 
+            const messageText = document.getElementById('messageText').value;
+            const currentFriendId2 = currentFriendId;
+            console.log("Current friend ID:", currentFriendId2);
+
+            fetch('../../inc/php/send_message_chat.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ message: messageText })
+                body: JSON.stringify({ message: messageText, idFriend: currentFriendId2 })
             })
             .then(response => response.json())
             .then(data => {
@@ -131,6 +179,7 @@ require('../../inc/php/function_chat_friend.php');
                     alert('Message envoyé avec succès !');
                 } else {
                     alert('Erreur lors de l\'envoi du message.');
+                    console.log("ID de l'utilisateur (me):", data.me);
                 }
             })
             .catch(error => {
