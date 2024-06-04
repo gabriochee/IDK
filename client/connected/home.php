@@ -5,7 +5,6 @@ if(!isset($_SESSION['id_user'])) {
     header("Location: ../not_connected/login.php");
     exit();
 }
-
 ?>
 <?php require('../../inc/php/scraping_log.php'); ?>
 
