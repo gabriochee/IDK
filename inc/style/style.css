@@ -213,7 +213,7 @@ body, .bg-idk{
 
 /* ------------------------ ERROR -------------------------- */
 .error-background {
-  background-image: url("../inc/background_error.svg");
+  background-image: url("../inc/img/background_error.svg");
   background-repeat: round repeat;
   background-size: 300px;
 }

@@ -1,6 +1,6 @@
 <?php
 
-$data_user1 = $bdd->prepare("SELECT id_user, nom, prenom, pseudo FROM utilisateur WHERE id_user = :id_user;");
+$data_user1 = $bdd->prepare("SELECT id_user, nom, prenom, pseudo, date_inscription FROM utilisateur WHERE id_user = :id_user;");
 $data_user1->execute( array( "id_user" => $_SESSION['id_user']) );
 $rep_data_user1 = $data_user1->fetch();
 

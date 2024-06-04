@@ -23,26 +23,26 @@
           <div class="offcanvas-body d-md-flex gap-lg-5">
             <ul class="nav justify-content-center fw-light me-xl-5 col-1 col-sm-4 col-md-9 m-auto">
               <li>
-                <a <?php if(basename($_SERVER['PHP_SELF']) == 'home.php') echo 'class="nav-link text-decoration-underline text-white"'; ?> class="nav-link text-white" href="../../client/connected/home.php" class="nav-link text-white">Acceuil</a>
+                <a <?php if(basename($_SERVER['PHP_SELF']) == 'home.php') echo 'class="nav-link text-decoration-underline text-white"'; ?> class="nav-link text-white" href="../../client/connected/home.php">Acceuil</a>
               </li>
               <li>
-                <a <?php if(basename($_SERVER['PHP_SELF']) == 'questionnaire.php') echo 'class="nav-link text-decoration-underline text-white"'; ?> class="nav-link text-white" href="../../client/connected/questionnaire.php" class="nav-link text-white">Questionnaire</a>
+                <a <?php if(basename($_SERVER['PHP_SELF']) == 'questionnaire.php') echo 'class="nav-link text-decoration-underline text-white"'; ?> class="nav-link text-white" href="../../client/connected/questionnaire.php">Questionnaire</a>
               </li>
               <li>
                 <a href="#" class="nav-link text-white">Fusion</a>
               </li>
               <li>
-                <a <?php if(basename($_SERVER['PHP_SELF']) == 'my_friend_list.php') echo 'class="nav-link text-decoration-underline text-white"'; ?> class="nav-link text-white" href="../../client/connected/my_friend_list.php" class="nav-link text-white">Mes amis</a>
+                <a <?php if(basename($_SERVER['PHP_SELF']) == 'my_friend_list.php') echo 'class="nav-link text-decoration-underline text-white"'; ?> class="nav-link text-white" href="../../client/connected/my_friend_list.php">Mes amis</a>
               </li>
               <li>
-                <a href="#" class="nav-link text-white">Paramètres</a>
+                <a <?php if(basename($_SERVER['PHP_SELF']) == 'parameters.php') echo 'class="nav-link text-decoration-underline text-white"'; ?> class="nav-link text-white" href="../../client/connected/parameters.php">Paramètres</a>
               </li>
             </ul>
 
             <ul class="navbar-nav d-flex justify-content-lg-end align-items-center gap-2 flex-grow-1 m-md-0 mt-5">
               <li class="nav-item">
-                <form method="POST" action="../not_connected/login.php">
-                  <button type="submit" name="logout" class="nav-btn btn btn-primary btn-sm btn-warning text-white border border-light border-2 rounded-3">Déconnexion</button>
+                <form method="GET" action="">
+                  <button type="submit" name="logout" value="1" class="nav-btn btn btn-primary btn-sm btn-warning text-white border border-light border-2 rounded-3">Déconnexion</button>
                 </form>
               </li>
               <li class="nav-item">

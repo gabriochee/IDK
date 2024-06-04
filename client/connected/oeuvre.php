@@ -1,5 +1,11 @@
-<?php session_start(); ?>
-<?php require('../../inc/php/session.php'); ?>
+<?php 
+session_start();
+
+if(isset($_SESSION['user_id'])){
+    header("Location: ../not_connected/login.php");
+    exit();
+}
+?>
 <?php require('../../inc/php/scraping_log.php'); ?>
 
 <!DOCTYPE html>
@@ -20,7 +26,7 @@
         <div class="container mt-5">
             <div class="row justify-content-center">
                 <div class="row col-12 col-lg-6 img-fluid img-custom-1 " >
-                    <img src="../../inc/test.jpeg" alt="affiche de l'oeuvre">
+                    <img src="../../inc/img/test.jpeg" alt="affiche de l'oeuvre">
                 </div>
                 <div class="col-12 col-lg-5">
                     <div>
