@@ -31,7 +31,6 @@ if(isset($_SESSION['id_user'])) {
                         <h1 class="m-1 mb-3"><?php echo $rep1['primaryTitle']; ?></h1>
                         <p class="m-1">Durée : <?php echo $rep1['runtimeMinutes']; ?> minutes</p>
                         <p class="m-1">Date de sortie : <?php echo $rep1['startYear']; ?></p>
-                        <p class="m-1">Nationalité : <?php echo $rep2['region']; ?></p>
                         <p class="m-1">Genres : <?php foreach($rep3 as $genre){ echo $genre['genre'] . " ";} ?></p>
                         <p class="m-1">Acteurs principaux :</p>
                         <p class="m-1">Réalisateur :</p>
@@ -118,18 +117,6 @@ if(isset($_SESSION['id_user'])) {
                         <div>
                             <h2 class="m-5">Synopsis & infos</h2>
                             <p class="m-1" id="movie-synopsis"></p>
-                        </div>
-                        <br>
-                        <div>
-                            <h3 class="m-3">Distinction :</h3>
-                            <ul>
-                                <li>Récompense du blabla, le 12/02/2021</li>
-                                <li>Récompense du blabla, le 12/02/2021</li>
-                                <li>Récompense du blabla, le 12/02/2021</li>
-                                <li>Récompense du blabla, le 12/02/2021</li>
-                                <li>Récompense du blabla, le 12/02/2021</li>
-                                <li>Récompense du blabla, le 12/02/2021</li>
-                            </ul>
                         </div>
                         <br>
                         <h3 class="m-3">Critiques publiques :</h3>
