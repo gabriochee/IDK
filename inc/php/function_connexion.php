@@ -13,6 +13,7 @@ $email = $_SESSION['email'];
 
 if(isset($_POST['code'])) {
 
+
     $mail = new PHPMailer(true);
     $mail->isSMTP();
     
@@ -31,6 +32,7 @@ if(isset($_POST['code'])) {
     $verification_code = substr(number_format(time() * rand(), 0, '', ''), 0, 6);
     $mail->Subject = 'Email verification';
     $mail->Body    = '<p>Your verification code is: <b style="font-size: 30px;">' . $verification_code . '</b></p>';
+
     
     $req = $bdd->prepare("UPDATE utilisateur SET verification_code = :verification_code WHERE mail = :email;");
     $req->execute( array("email" => $email, "verification_code" => $verification_code) );

@@ -2,8 +2,8 @@
 session_start();
 
 if(!isset($_SESSION['id_user'])) {
-    header("Location: ../not_connected/login.php");
-    exit();
+  //header("Location: ../not_connected/login.php");
+  //exit();
 }
 ?>
 <?php require('../../inc/php/scraping_log.php'); ?>
@@ -212,6 +212,17 @@ if(!isset($_SESSION['id_user'])) {
                 <div class="col-md-12 overflow-auto menu-oeuvre-2">
                     <table class="table table-striped"> <!-- Rendre overflow -->
                         <tbody>
+                            <?php 
+                            try{
+                                $req = $bdd->prepare('SELECT nom, id_liste FROM listes WHERE id_user = :id_user');
+                                $req->bindParam(":id_user", $_SESSION['id_user']);
+                                $req->execute();
+
+                                $res = $req->fetchAll();
+                            } catch (PDOException $e){
+                                echo $e->getMessage();
+                            }
+                            ?>
                             <tr>
                                 <td class="table-cell" scope="row">Nom_de_la_liste</td>
                                 <td class="table-cell text-end"><button type="button" class="btn btn-sm btn-outline-secondary">En voir plus</button></td>
@@ -232,7 +243,7 @@ if(!isset($_SESSION['id_user'])) {
                     </table>
                 </div>
                 <div class="container text-center">
-                    <a href="#" class="nav-btn btn btn-primary btn-lg btn-warning text-white border border-light border-2 rounded-3 px-5 mb-3">+ créer une nouvelle liste</a>
+                    <a href="./new_list.php" class="nav-btn btn btn-primary btn-lg btn-warning text-white border border-light border-2 rounded-3 px-5 mb-3">+ créer une nouvelle liste</a>
                 </div>   
                 <hr class="featurette-divider my-2">
                 <h1 class="text-center mt-3">Nouveauté</h1>
