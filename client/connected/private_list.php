@@ -1,9 +1,9 @@
 <?php 
 session_start();
 
-if(isset($_SESSION['user_id'])) {
-    header("Location: ../not_connected/login.php");
-    exit();
+if(!isset($_SESSION['id_user'])) {
+  //header("Location: ../not_connected/login.php");
+  //exit();
 }
 ?>
 <?php require('../../inc/php/scraping_log.php'); ?>

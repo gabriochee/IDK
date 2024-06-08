@@ -1,5 +1,5 @@
 <?php session_start() ?>
-<?php require('../../inc/php/function_confirmation_connexion.php'); ?>
+<?php require('../../inc/php/function_connexion.php'); ?>
 <?php require('../../inc/php/scraping_log.php'); ?>
 
 <!DOCTYPE html>
