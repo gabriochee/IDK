@@ -30,12 +30,12 @@ CREATE TABLE contenu (
   PRIMARY KEY (id_bloc),
   id_bloc               INTEGER NOT NULL,
   page_appartenance     VARCHAR(100),
-  titre                 VARCHAR(100),
-  corps                 VARCHAR(1000),
+  titre                 VARCHAR(1000),
+  corps                 TEXT,
   date_maj              DATETIME,
-  last_titre            VARCHAR(100),
-  last_corps            VARCHAR(1000),
-  last_date_amj         DATETIME
+  last_titre            VARCHAR(1000),
+  last_corps            TEXT,
+  last_date_maj         DATETIME
 );
 
 CREATE TABLE administration_contenu (

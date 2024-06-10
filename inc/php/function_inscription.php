@@ -1,6 +1,7 @@
 <?php
 
 require('db.php');
+
 function headerWithError($errorMessage){
     header('HTTP/1.1 307 Temporary Redirect');
     header('location : signin.php?error_message=' . $errorMessage);
@@ -27,7 +28,7 @@ foreach ($requiredAttributes as $attribute => $readable) {
     }
 }
 
-if($_POST['password'] != $_POST['password-confirmation']){
+if($_POST['password'] != $_POST['password-confirmation']) {
     headerWithError("Le mot de passe et le mot de passe de confirmation ne correspondent pas.");
 }
 

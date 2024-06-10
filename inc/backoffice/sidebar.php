@@ -14,19 +14,22 @@
             <a <?php if(basename($_SERVER['PHP_SELF']) == 'edit_terms_and_conditions.php') echo 'class="nav-link active"'; ?> class="nav-link" href="../admin/edit_terms_and_conditions.php">Edit : CG</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Edit : Newsletter</a>
+                <a <?php if(basename($_SERVER['PHP_SELF']) == 'edit_newsletter.php') echo 'class="nav-link active"'; ?> class="nav-link" href="../admin/edit_newsletter.php">Edit : Newsletter</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="../admin/edit_captcha.php">Edit : Captcha</a>
+                <a <?php if(basename($_SERVER['PHP_SELF']) == 'edit_captcha.php') echo 'class="nav-link active"'; ?> class="nav-link" href="../admin/edit_captcha.php">Edit : Captcha</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Edit : Oeuvre</a>
+                <a <?php if(basename($_SERVER['PHP_SELF']) == 'edit_oeuvre.php') echo 'class="nav-link active"'; ?> class="nav-link" href="../admin/edit_oeuvre.php">Edit : Oeuvre</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Utilisateurs</a>
+                <a <?php if(basename($_SERVER['PHP_SELF']) == 'moderation_user.php') echo 'class="nav-link active"'; ?> class="nav-link" href="../admin/moderation_user.php">Utilisateurs</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Messagerie</a>
+                <a <?php if(basename($_SERVER['PHP_SELF']) == '.php') echo 'class="nav-link active"'; ?> class="nav-link" href="../admin/.php">Messagerie</a>
+            </li>
+            <li class="nav-item">
+                <a <?php if(basename($_SERVER['PHP_SELF']) == 'diary_log.php') echo 'class="nav-link active"'; ?> class="nav-link" href="../admin/diary_log.php">Log</a>
             </li>
         </ul>
     </div>
