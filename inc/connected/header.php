@@ -41,8 +41,8 @@
 
             <ul class="navbar-nav d-flex justify-content-lg-end align-items-center gap-2 flex-grow-1 m-md-0 mt-5">
               <li class="nav-item">
-                <form method="GET" action="">
-                  <button type="submit" name="logout" value="1" class="nav-btn btn btn-primary btn-sm btn-warning text-white border border-light border-2 rounded-3">Déconnexion</button>
+                <form method="" action="../not_connected/logout.php">
+                  <button type="submit" name="" class="nav-btn btn btn-primary btn-sm btn-warning text-white border border-light border-2 rounded-3">Déconnexion</button>
                 </form>
               </li>
               <li class="nav-item">

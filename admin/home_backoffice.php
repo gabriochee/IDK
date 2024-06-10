@@ -1,5 +1,6 @@
 <?php 
 session_start();
+require('../inc/php/db.php'); 
 
 if(!(isset($_SESSION['role_user']) && $_SESSION['role_user'] === 'admin')) {
     header("Location: ../client/not_connected/login.php");
@@ -17,7 +18,7 @@ if(!(isset($_SESSION['role_user']) && $_SESSION['role_user'] === 'admin')) {
     <title>IDK</title>
 </head>
 <body id="backoffice_home_backoffice" class="backoffice">
-    <?php require('../inc/php/db.php'); ?>
+    <?php require('../inc/php/affichage_data_user.php'); ?>
     <?php require('../inc/backoffice/header.php');?>
     <div class="container-fluid">
         <div class="row">
@@ -26,27 +27,14 @@ if(!(isset($_SESSION['role_user']) && $_SESSION['role_user'] === 'admin')) {
                 <div class="pt-3 pb-2 mb-4 border-bottom">
                     <h3>Administrateurs : </h3>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item d-flex align-items-center justify-content-between">
-                            Léo Belarbi #1 depuis 01/01/2024
-                            <div class="btn-group me-2">
-                                <button type="button" class="btn btn-sm btn-outline-secondary">Modifier</button>
-                                <button type="button" class="btn btn-sm btn-outline-secondary">Supprimer</button>
-                            </div>
-                        </li>
-                        <li class="list-group-item d-flex align-items-center justify-content-between">
-                            Gabriel Plaaaaaa #2 depuis 01/01/2024
-                            <div class="btn-group me-2">
-                                <button type="button" class="btn btn-sm btn-outline-secondary">Modifier</button>
-                                <button type="button" class="btn btn-sm btn-outline-secondary">Supprimer</button>
-                            </div>
-                        </li>
-                        <li class="list-group-item d-flex align-items-center justify-content-between">
-                            Eric Sang #3 depuis 01/01/2024
-                            <div class="btn-group me-2">
-                                <button type="button" class="btn btn-sm btn-outline-secondary">Modifier</button>
-                                <button type="button" class="btn btn-sm btn-outline-secondary">Supprimer</button>
-                            </div>
-                        </li>
+                    <?php 
+                        foreach($rep_data_user3 as $user) {
+                            echo '<li class="list-group-item d-flex align-items-center justify-content-between">' . $user['nom'].' '.$user['prenom'].' - '.$user['pseudo'].' #'.$user['id_user'].' depuis '.$user['date_inscription'].'</td>';
+                            echo '<div class="btn-group me-2">';
+                            echo '<button type="button" class="btn btn-sm btn-outline-secondary">Modifier</button><button type="button" class="btn btn-sm btn-outline-secondary">Supprimer</button>';
+                            echo '</div></li>';
+                        }
+                    ?>
                     </ul>
                     <div id="newAdmin" class="d-none">
                         <div class="container text-center m-auto">
@@ -57,10 +45,11 @@ if(!(isset($_SESSION['role_user']) && $_SESSION['role_user'] === 'admin')) {
                             ?>
                             </div>
                         </div>
-                        <div class="contact-form row g-5 justify-content-center mb-4">
+                        <div class="row g-5 justify-content-center mb-4">
                             <div class="col-md-7 col-lg-8">
-                                <form action="./confirmation_inscription.php" class="needs-validation" id="signin-form" method="POST">
+                                <form action="" class="needs-validation" id="" method="POST">
                                     <div class="row g-3">
+                                        <input type="hidden" name="admin_form" value="1">
                                         <div class="col-sm-6">
                                             <label for="firstName" class="form-label">Prénom</label>
                                             <input type="text" class="form-control" id="firstName" name="firstName" pattern="[a-zA-ZÀ-ÿ0-9.' -]{2,40}" required value="<?php if (isset($_POST['firstName'])) {echo $_POST['firstName'];} ?>">
@@ -135,14 +124,7 @@ if(!(isset($_SESSION['role_user']) && $_SESSION['role_user'] === 'admin')) {
                                             <label for="password-confirmation" class="form-label">Mot de passe confirmation</label>
                                             <input type="password" class="form-control" id="password-confirmation" name="password-confirmation" maxlength="100" required>
                                             <div class="invalid-feedback">Veuillez fournir un mot de passe valide.</div>
-                                        </div>
-                                        <div class="col-12">
-                                            <label for="sexe" class="form-label">Newsletter</label>
-                                            <select class="form-select" name="newsletter" required>
-                                                <option value="1" <?php if (isset($_POST['newsletter']) && $_POST['newsletter'] == "1"){ echo 'selected';} ?>>J'accepte de reçevoir la Newsletter</option>
-                                                <option value="0" <?php if (isset($_POST['newsletter']) && $_POST['newsletter'] == "0"){ echo 'selected';} ?>>Je refuse de recevoir la Newsletter</option>
-                                            </select>
-                                        </div> <!-- add role = admin ou user -->
+                                        </div><!-- add role = admin ou user -->
                                         <button class="w-100 btn btn-secondary btn-lg btn-warning border-dark border-2" id="signin-btn" type="submit" name="send">S'inscrire</button>
                                     </div>
                                 </form>
@@ -150,7 +132,7 @@ if(!(isset($_SESSION['role_user']) && $_SESSION['role_user'] === 'admin')) {
                         </div>
                     </div>
                     <div class="d-flex justify-content-center">
-                        <button class="nav-btn btn btn-primary btn-lg btn-block btn-warning text-white border border-light border-2 rounded-3 w-75 my-3" id="new_user">Ajouter un administrateur</button>
+                        <button class="nav-btn btn btn-primary btn-lg btn-block btn-warning text-white border border-light border-2 rounded-3 w-75 my-3 d-block" id="new_user">Ajouter un administrateur</button>
                     </div>
                 </div>
 
@@ -221,8 +203,10 @@ if(!(isset($_SESSION['role_user']) && $_SESSION['role_user'] === 'admin')) {
     </div>
     <script>
         const newAdmin = document.getElementById("newAdmin");
+        const btnNewAdmin =document.getElementById("new_user");
         document.getElementById("new_user").addEventListener("click", function() {
             newAdmin.classList.replace("d-none", "d-block");
+            btnNewAdmin.classList.replace("d-block", "d-none");
         });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
