@@ -1,6 +1,8 @@
 <?php 
-if(isset($_SESSION['id_user'])) {
-    header("Location: ../connected/home.php");
+session_start();
+
+if(!isset($_SESSION['id_user'])) {
+    header("Location: ../not_connected/login.php");
     exit();
 }
 ?>
@@ -16,9 +18,9 @@ if(isset($_SESSION['id_user'])) {
     <link rel="stylesheet" href="../../inc/library/bootstrap/bootstrap-icons/font/bootstrap-icons.min.css">
     <title>IDK</title>
 </head>
-<body id="not_connected_contact">
+<body id="connected_contact">
     <?php require('../../inc/php/db.php'); ?>
-    <?php require('../../inc/not_connected/header.php'); ?>
+    <?php require('../../inc/connected/header.php'); ?>
     <main>
         <div class="container text-center m-auto">
             <div class="row">
@@ -51,8 +53,13 @@ if(isset($_SESSION['id_user'])) {
                             <div class="invalid-feedback">Veuillez fournir un nom valide.</div>
                         </div>
                         <div class="col-12">
+                            <label for="pseudo" class="form-label">Pseudo</label>
+                            <input type="pseudo" class="form-control" id="pseudo" name="pseudo" pattern="[a-zA-ZÀ-ÿ0-9.' -]{2,40}" required>
+                            <div class="invalid-feedback">Veuillez fournir un pseudo existant.</div>
+                        </div>
+                        <div class="col-12">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" name="email" pattern="{,100}" required>
+                            <input type="email" class="form-control" id="email" name="email" pattern="{,100}"required>
                             <div class="invalid-feedback">Veuillez fournir un email valide.</div>
                         </div>
                         <div class="col-12">
@@ -69,13 +76,20 @@ if(isset($_SESSION['id_user'])) {
                             <textarea class="form-control" id="message" name="message" rows="15" minlength="15" maxlength="500" required></textarea>
                             <div class="invalid-feedback">Veuillez fournir un message valide.</div>
                         </div>
+                        <div class="col-12">
+                            <label for="reponse_canal" class="form-label">Canal de réponse</label>
+                            <select class="form-select" id="reponse_canal" name="reponse_canal" required>
+                                <option value="email">Mail</option>
+                                <option value="message">Messagerie</option>
+                            </select>
+                        </div>
                         <button class="w-100 btn btn-secondary btn-lg btn-warning border-dark border-2" type="submit">Envoyer</button>
                     </div>
                 </form>
             </div>
         </div>
     </main>
-    <?php require('../../inc/not_connected/footer.php'); ?>
+    <?php require('../../inc/connected/footer.php'); ?>
     <script src="../../inc/js/search_movie.js"></script>
     <script src="../../inc/library/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
