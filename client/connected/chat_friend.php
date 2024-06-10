@@ -29,9 +29,7 @@ session_start();
             max-height: 400px; /* Définissez une hauteur maximale en fonction de vos besoins */
             overflow-y: scroll;
         }
-
     </style>
-    
 </head>
 <body>
     <?php require('../../inc/connected/header.php'); ?>
@@ -52,6 +50,7 @@ session_start();
                     <h5 class="font-weight-bold mb-3 text-center" id="friend-name">Le nom de la personne</h5>
                     <div class="message-container">
                         <ul class="list-unstyled">
+
                             <div class="container mt-5">
                                 <div class="row" id="message_list">
                                 </div>
@@ -118,13 +117,14 @@ session_start();
             //function send_id(currentFriendId);
             if (intervalId) {
                 clearInterval(intervalId);
-                }
-                send_id(currentFriendId);
             }
+            send_id(currentFriendId);
+        }
 
         function send_id(currentFriendId) {
             intervalId = setInterval(() => {
                 const me = <?php echo $_SESSION['id_user']; ?>;
+                console.log("iciiiiiiiiiiiiiiiiiiiiii",me);
                 fetch('../../inc/php/function_fetch_message.php', {
                     method: 'POST',
                     headers: {
@@ -136,7 +136,7 @@ session_start();
                     .then(data => {
                         if (data.status === 'error') {
                             console.log(data);
-                            alert('Erreur, le message n\'as pas été envoyer');
+                            alert('je comprend pas ');
                     } else {
                         console.log(data);
                         document.querySelector('#message_list').innerHTML = '';
@@ -219,7 +219,7 @@ session_start();
                     }
                 })
                 .catch(error => {
-                    console.error('Erreur :', error);
+                    console.error('t nul:', error);
                 });
             }, 1000); // 7000 millisecondes = 7 secondes
         }
