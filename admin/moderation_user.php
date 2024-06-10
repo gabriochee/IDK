@@ -1,10 +1,10 @@
 <?php 
 session_start();
 
-if(!(isset($_SESSION['role_user']) && $_SESSION['role_user'] === 'admin')) {
+/*if(!(isset($_SESSION['role_user']) && $_SESSION['role_user'] === 'admin')) {
     header("Location: ../client/not_connected/login.php");
     exit();
-}
+}*/
 ?>
 <!DOCTYPE html>
 <html lang="fr">
