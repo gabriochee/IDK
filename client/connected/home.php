@@ -1,12 +1,12 @@
 <?php 
 session_start();
 
-if(isset($_SESSION['user_id'])){
+/*if(isset($_SESSION['user_id'])){
     header("Location: ../not_connected/login.php");
     exit();
-}
+}*/
 ?>
-<?php require('../../inc/php/scraping_log.php'); ?>
+<?php //require('../../inc/php/scraping_log.php'); ?>
 
 <!DOCTYPE html>
 <html lang="fr">
