@@ -31,11 +31,11 @@
             <div class="row g-3">
                 <form action="login.php" class="needs-validation" method="POST">
                     <div class="col-12">
-                        <input type="text" class="form-control fs-4 minimize-input border-dark border-2 rounded-0 rounded-top text-center py-2" id="username" placeholder="Addresse email/pseudo" name ="email" value="" required="">
+                        <input type="text" class="form-control p-2" id="username" placeholder="Addresse email/pseudo" name ="email" value="" required="">
                         <div class="invalid-feedback">Veuillez fournir un pseudo ou email valide.</div>
                     </div>
                     <div class="col-12 mt-1">
-                        <input type="password" class="form-control fs-4 minimize-input border-dark border-2 rounded-0 rounded-bottom text-center py-2" name="password" id="password" placeholder="Mot de passe" value="" required="">
+                        <input type="password" class="form-control p-2" name="password" id="password" placeholder="Mot de passe" value="" required="">
                         <div class="invalid-feedback">Veuillez fournir un mot de passe valide.</div>
                     </div>
                     <div class="text-center fs-4">
@@ -45,21 +45,21 @@
                             $req3->execute( array("id_ban" => $_SESSION['id_user']) );
                             $ban_info = $req3->fetch();
                         }
-                        if(isset($_GET['wrong_email'])) {echo "L'email ou le mot de passe ou les deux sont erronés";}
-                        if(isset($_GET['wrong_mdp'])) {echo "L'email ou le mot de passe ou les deux sont erronés";}
-                        if(isset($_GET['ban_def'])) {echo "Ton compte a été ban_def pour le motif suivant: " . $ban_info['raison'];}
-                        if(isset($_GET['ban'])) {echo "Ton compte a été ban jusqu'au: " .$ban_info['date_deban'] ." pour la raison suivante: ". $ban_info['raison'];}
+                        if(isset($_GET['wrong_email'])) {echo "<div class='alert alert-danger' role='alert'>L'email ou le mot de passe ou les deux sont erronés</div>";}
+                        if(isset($_GET['wrong_mdp'])) {echo "<div class='alert alert-danger' role='alert'>L'email ou le mot de passe ou les deux sont erronés</div>";}
+                        if(isset($_GET['ban_def'])) {echo "<div class='alert alert-danger' role='alert'>Ton compte a été ban_def pour le motif suivant: " . $ban_info['raison'] . "</div>";}
+                        if(isset($_GET['ban'])) {echo "<div class='alert alert-danger' role='alert'>Ton compte a été ban jusqu'au: " .$ban_info['date_deban'] ." pour la raison suivante: ". $ban_info['raison'] . "</div>";}
                     ?>
                     </div>
-                    <div class="col-12 mt-2">
-                        <button class="btn btn-lg w-100 py-2 fs-4 btn-warning border-dark border-2" type="submit" name="connecter">Connexion</button>
+                    <div class="col-12 mt-3">
+                        <button class="w-100 btn btn-secondary btn-lg btn-warning border-dark border-2" type="submit" name="connecter">Connexion</button>
                     </div>
                 </form>
                 <div class="col-12">
-                    <button class="btn btn-lg w-100 py-2 mt-3 fs-4 btn-warning border-dark border-2" type="submit" onclick="window.location='signin.php'">S'inscrire</button>
+                    <button class="w-100 btn btn-secondary btn-lg btn-warning border-dark border-2" type="submit" onclick="window.location='signin.php'">S'inscrire</button>
                 </div>
                 <div class="col-12 mt-1">
-                    <button class="btn btn-lg w-100 py-2 fs-4 btn-warning border-dark border-2" type="submit">Mot de passe oublié</button>
+                    <button class="w-100 btn btn-secondary btn-lg btn-warning border-dark border-2" type="submit">Mot de passe oublié</button>
                 </div>
             </div>
         </div>

@@ -2,7 +2,7 @@
 if(isset($_SESSION['id_user'])) {
     header("Location: ../connected/home.php");
     exit();
-}
+}*/
 ?>
 <?php require_once('../../inc/php/scraping_log.php'); ?>
 
@@ -23,8 +23,8 @@ if(isset($_SESSION['id_user'])) {
         <div class="container text-center m-auto">
             <div class="text-center pt-5 fs-2">
             <?php 
-                if (isset($_GET['wrong_email'])) {echo "cet email a déja été utilisé ";} 
-                if (isset($_GET['error_message'])) {echo '<script>alert("' . htmlspecialchars($_GET['error_message']) . '");</script>';}
+                if(isset($_GET['wrong_email'])) {echo "<div class='alert alert-danger' role='alert'>Cet email a déja été utilisé</div>";} 
+                if(isset($_GET['error_message'])) {echo '<div class="alert alert-danger" role="alert">Alert("' . htmlspecialchars($_GET['error_message']) . '")</div>;';}
             ?>
             </div>
             <div class="row mt-0 pt-0">

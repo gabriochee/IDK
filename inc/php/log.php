@@ -2,7 +2,7 @@
 require_once('db.php');
 date_default_timezone_set('Europe/Paris');
 
-function server_log($action){
+function server_log($action) {
     global $bdd;
 
     try {

@@ -27,7 +27,7 @@ foreach ($requiredAttributes as $attribute => $readable) {
     }
 }
 
-if($_POST['password'] != $_POST['password-confirmation']){
+if($_POST['password'] != $_POST['password-confirmation']) {
     headerWithError("Le mot de passe et le mot de passe de confirmation ne correspondent pas.");
 }
 

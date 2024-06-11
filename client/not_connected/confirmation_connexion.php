@@ -32,21 +32,21 @@
                 <form action="" class="needs-validation" method="POST">
                     <div class="text-center fs-4 mb-3">
                     <?php 
-                        if (isset($_GET['wrong_code'])&& $_GET['wrong_code'] === 'true') {echo "Le code est faux";}
-                        if (isset($_GET['email_sent']) && $_GET['email_sent'] === 'true') {echo 'Le mail de vérification a été envoyé';}
+                        if (isset($_GET['wrong_code'])&& $_GET['wrong_code'] === 'true') {echo "<div class='alert alert-danger' role='alert'>Le code est faux</div>";}
+                        if (isset($_GET['email_sent']) && $_GET['email_sent'] === 'true') {echo "<div class='alert alert-success' role='alert'>Le mail de vérification a été envoyé</div>";}
                     ?>
                     </div>
                     <div class="col-12">
-                        <input type="text" class="form-control fs-4 minimize-input border-dark border-2 rounded-0 rounded-top text-center py-2" id="username" placeholder="Veuillez entrer votre code envoyé par mail" name ="entrer_code" value="" required="">
+                        <input type="text" class="form-control p-2" id="username" placeholder="Veuillez entrer votre code envoyé par mail" name ="entrer_code" value="" required="">
                         <div class="invalid-feedback">Veuillez fournir le code de vérification envoyé par mail.</div>
                     </div>
-                    <div class="col-12 mt-1">
-                        <button class="btn btn-lg w-100 py-2 fs-4 btn-warning border-dark border-2" type="submit" name ="connect">Connexion</button>
+                    <div class="col-12 mt-3">
+                        <button class="w-100 btn btn-secondary btn-lg btn-warning border-dark border-2" type="submit" name ="connect">Connexion</button>
                     </div>
                 </form>
                 <form action="confirmation_connexion.php" method="POST">
                     <div class="col-12">
-                        <button class="btn btn-lg w-100 py-2 fs-4 btn-warning border-dark border-2" type="buton" name ="code">Envoyer le code par mail</button>
+                        <button class="w-100 btn btn-secondary btn-lg btn-warning border-dark border-2" type="buton" name ="code">Envoyer le code par mail</button>
                     </div>
                 </form>
             </div>
