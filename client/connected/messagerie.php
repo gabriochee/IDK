@@ -17,7 +17,7 @@
     <title>IDK</title>
 </head>
 <body id="not_connected_contact">
-    <?php require('../../inc/php/function_messagerie'); ?>
+    <?php require('../../inc/php/function_messagerie.php'); ?>
     <?php require('../../inc/not_connected/header.php'); ?>
     <main>
         <div class="container text-center m-auto">

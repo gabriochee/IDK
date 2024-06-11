@@ -4,7 +4,7 @@ if(isset($_SESSION['id_user'])) {
     exit();
 }
 ?>
-<?php require('../../inc/php/scraping_log.php'); ?>
+<?php require_once('../../inc/php/scraping_log.php'); ?>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -17,8 +17,8 @@ if(isset($_SESSION['id_user'])) {
     <title>IDK</title>
 </head>
 <body id="not_connected_public_list" class="no-x-overflow">
-    <?php require('../../inc/php/db.php'); ?>
-    <?php require('../../inc/not_connected/header.php'); ?>
+    <?php require_once('../../inc/php/db.php'); ?>
+    <?php require_once('../../inc/not_connected/header.php'); ?>
     <main>
         <div class="container text-center m-auto">
             <div class="row">
@@ -49,11 +49,11 @@ if(isset($_SESSION['id_user'])) {
         <!-- besoin de changer la taille verticale de cette div, si vous trouvez comment faire dites moi svp. -->
         <div class="container m-0 mt-5 p-0 w-75 list-height m-auto border border-3 border-dark rounded-3 overflow-auto no-overflow-x" style="background-color: #CFDBD5;">
             <div class="d-lg-flex row gx-2 gy-3 px-5 py-4 row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-1">
-                <?php require('../../inc/components/card.php'); ?>
-                <?php require('../../inc/components/card.php'); ?>
-                <?php require('../../inc/components/card.php'); ?>
-                <?php require('../../inc/components/card.php'); ?>
-                <?php require('../../inc/components/card.php'); ?>
+                <?php require_once('../../inc/components/card.php'); ?>
+                <?php require_once('../../inc/components/card.php'); ?>
+                <?php require_once('../../inc/components/card.php'); ?>
+                <?php require_once('../../inc/components/card.php'); ?>
+                <?php require_once('../../inc/components/card.php'); ?>
             </div>
         </div>
 
@@ -62,7 +62,7 @@ if(isset($_SESSION['id_user'])) {
         </div>
 
     </main>
-    <?php require('../../inc/not_connected/footer.php'); ?>
+    <?php require_once('../../inc/not_connected/footer.php'); ?>
     <script src="../../inc/js/search_movie.js"></script>
     <script src="../../inc/library/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>

@@ -17,7 +17,7 @@ session_start();
     <title>IDK</title>
 </head>
 <body id="backoffice_edit_newsletter" class="backoffice">
-    <?php require('../inc/backoffice/header.php'); ?>
+    <?php require_once('../inc/backoffice/header.php'); ?>
     <div class="container-fluid">
         <div class="row">
             <?php require('../inc/backoffice/sidebar.php'); ?>

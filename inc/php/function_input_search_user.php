@@ -1,10 +1,10 @@
 <?php 
 
-require('../../inc/php/function_search_user.php');
+require_once('../../inc/php/function_search_user.php');
 
 if (isset($_GET['keyword_user'])) {
     $keyword_user = $_GET['keyword_user'];
-    require("db.php");
+    require_once("db.php");
 
     $smtp_user = $bdd->prepare("SELECT id_user, nom, prenom, pseudo FROM utilisateur WHERE pseudo LIKE :keyword_user");
     $smtp_user->execute(array(":keyword_user" => '%' . $keyword_user . '%'));
