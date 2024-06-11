@@ -1,6 +1,6 @@
 <?php 
 session_start();
-require('../inc/php/db.php'); 
+require_once('../inc/php/db.php'); 
 
 if(!(isset($_SESSION['role_user']) && $_SESSION['role_user'] === 'admin')) {
     header("Location: ../client/not_connected/login.php");
@@ -18,8 +18,8 @@ if(!(isset($_SESSION['role_user']) && $_SESSION['role_user'] === 'admin')) {
     <title>IDK</title>
 </head>
 <body id="backoffice_home_backoffice" class="backoffice">
-    <?php require('../inc/php/affichage_data_user.php'); ?>
-    <?php require('../inc/backoffice/header.php');?>
+    <?php require_once('../inc/php/affichage_data_user.php'); ?>
+    <?php require_once('../inc/backoffice/header.php');?>
     <div class="container-fluid">
         <div class="row">
             <?php require_once('../inc/backoffice/sidebar.php');?>

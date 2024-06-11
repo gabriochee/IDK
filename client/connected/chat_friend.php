@@ -34,8 +34,8 @@ if (!isset($_SESSION['user_id'])) {
     </style>
 </head>
 <body>
-    <?php require('../../inc/connected/header.php'); ?>
-    <?php require('../../inc/php/function_chat_friend.php'); ?>
+    <?php require_once('../../inc/connected/header.php'); ?>
+    <?php require_once('../../inc/php/function_chat_friend.php'); ?>
     <div class="col-lg-6 m-auto p-4">
         <h3 class="text-center mt-4">Messagerie</h3>
     </div>
@@ -66,7 +66,7 @@ if (!isset($_SESSION['user_id'])) {
             </div>
         </div>
     </section>
-    <?php require('../../inc/connected/footer.php'); ?>
+    <?php require_once('../../inc/connected/footer.php'); ?>
     <script src="../../inc/library/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script>
         let intervalId = null; 

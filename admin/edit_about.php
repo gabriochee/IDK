@@ -1,7 +1,7 @@
 <?php 
 session_start();
 
-require('../inc/php/db.php'); 
+require_once('../inc/php/db.php'); 
 
 if (!(isset($_SESSION['role_user']) && $_SESSION['role_user'] === 'admin')) {
     header("Location: ../client/not_connected/login.php");
