@@ -17,11 +17,11 @@ if(!(isset($_SESSION['role_user']) && $_SESSION['role_user'] === 'admin')) {
     <title>IDK</title>
 </head>
 <body id="backoffice_edit_oeuvre" class="backoffice">
-    <?php require('../inc/php/db.php'); ?>
-    <?php require('../inc/backoffice/header.php');?>
+    <?php require_once('../inc/php/db.php'); ?>
+    <?php require_once('../inc/backoffice/header.php');?>
     <div class="container-fluid">
         <div class="row">
-            <?php require('../inc/backoffice/sidebar.php');?>
+            <?php require_once('../inc/backoffice/sidebar.php');?>
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
 
                 <input class="form-control form-control-white w-100 my-3" type="text" placeholder="Recherche" aria-label="Search">

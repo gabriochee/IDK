@@ -6,7 +6,7 @@ if(!isset($_SESSION['id_user'])) {
     exit();
 }
 ?>
-<?php require('../../inc/php/scraping_log.php'); ?>
+<?php require_once('../../inc/php/scraping_log.php'); ?>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -19,10 +19,10 @@ if(!isset($_SESSION['id_user'])) {
     <title>IDK</title>
 </head>
 <body id="connected_my_friend_list">
-    <?php require('../../inc/connected/header.php'); ?>
-    <?php require('../../inc/php/db.php'); ?>
-    <?php require('../../inc/php/affichage_data_user.php'); ?>
-    <?php require('../../inc/php/function_search_user.php'); ?>
+    <?php require_once('../../inc/connected/header.php'); ?>
+    <?php require_once('../../inc/php/db.php'); ?>
+    <?php require_once('../../inc/php/affichage_data_user.php'); ?>
+    <?php require_once('../../inc/php/function_search_user.php'); ?>
     <main>
         <div class="container mt-5 mb-5">
             <div class="row">
@@ -100,7 +100,7 @@ if(!isset($_SESSION['id_user'])) {
             </div>
         </div>
     </main>
-    <?php require('../../inc/connected/footer.php'); ?>
+    <?php require_once('../../inc/connected/footer.php'); ?>
     <script src="../../inc/js/search_user.js"></script>
     <script src="../../inc/js/search_movie.js"></script>
     <script src="../../inc/library/bootstrap/js/bootstrap.bundle.min.js"></script>

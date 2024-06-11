@@ -17,11 +17,11 @@ session_start();
     <title>IDK</title>
 </head>
 <body id="backoffice_moderation_user" class="backoffice">
-    <?php require('../inc/php/db.php'); ?>
-    <?php require('../inc/backoffice/header.php'); ?>
+    <?php require_once('../inc/php/db.php'); ?>
+    <?php require_once('../inc/backoffice/header.php'); ?>
     <div class="container-fluid">
         <div class="row">
-            <?php require('../inc/backoffice/sidebar.php'); ?>
+            <?php require_once('../inc/backoffice/sidebar.php'); ?>
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
                 <div class="table-responsive mt-4">
                     <h3 class="mb-3">Utilisateurs : </h3>

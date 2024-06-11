@@ -4,7 +4,7 @@ if(isset($_SESSION['id_user'])) {
     exit();
 }*/
 ?>
-<?php require('../../inc/php/scraping_log.php'); ?>
+<?php require_once('../../inc/php/scraping_log.php'); ?>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -17,8 +17,8 @@ if(isset($_SESSION['id_user'])) {
     <title>IDK</title>
 </head>
 <body id="not_connected_signin">
-    <?php require('../../inc/php/db.php'); ?>
-    <?php require('../../inc/not_connected/header.php'); ?>
+    <?php require_once('../../inc/php/db.php'); ?>
+    <?php require_once('../../inc/not_connected/header.php'); ?>
     <main>
         <div class="container text-center m-auto">
             <div class="text-center pt-5 fs-2">
@@ -127,7 +127,7 @@ if(isset($_SESSION['id_user'])) {
             </div>
         </div>
     </main>
-    <?php require('../../inc/not_connected/footer.php'); ?>
+    <?php require_once('../../inc/not_connected/footer.php'); ?>
     <script src="../../inc/js/signin.js"></script>
     <script src="../../inc/js/search_movie.js"></script>
     <script src="../../inc/library/bootstrap/js/bootstrap.bundle.min.js"></script>

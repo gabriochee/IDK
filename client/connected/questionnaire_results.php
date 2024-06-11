@@ -6,7 +6,7 @@ if(!isset($_SESSION['id_user'])) {
     exit();
 }
 ?>
-<?php require('../../inc/php/scraping_log.php'); ?>
+<?php require_once('../../inc/php/scraping_log.php'); ?>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -19,8 +19,8 @@ if(!isset($_SESSION['id_user'])) {
     <title>IDK</title>
 </head>
 <body id="connected_questionnaire_results" class="overflox-y-hidden">
-    <?php require('../../inc/php/db.php'); ?>
-    <?php require('../../inc/connected/header.php'); ?>
+    <?php require_once('../../inc/php/db.php'); ?>
+    <?php require_once('../../inc/connected/header.php'); ?>
     <main>
         <div class="container text-center m-auto">
             <div class="row">
@@ -37,11 +37,11 @@ if(!isset($_SESSION['id_user'])) {
         </div>
 
         <div class="d-lg-flex row row-cols-lg-6 row-cols-2 row-cols-md-3 gap-3 justify-content-center mt-5 pt-5">
-            <?php require('../../inc/components/card.php'); ?>
-            <?php require('../../inc/components/card.php'); ?>
-            <?php require('../../inc/components/card.php'); ?>
-            <?php require('../../inc/components/card.php'); ?>
-            <?php require('../../inc/components/card.php'); ?>
+            <?php require_once('../../inc/components/card.php'); ?>
+            <?php require_once('../../inc/components/card.php'); ?>
+            <?php require_once('../../inc/components/card.php'); ?>
+            <?php require_once('../../inc/components/card.php'); ?>
+            <?php require_once('../../inc/components/card.php'); ?>
         </div>
 
         <div class="container-fluid d-flex flex-column text-center">
@@ -67,7 +67,7 @@ if(!isset($_SESSION['id_user'])) {
         </div>
 
     </main>
-    <?php require('../../inc/connected/footer.php'); ?>
+    <?php require_once('../../inc/connected/footer.php'); ?>
     <script src="../../inc/js/search_movie.js"></script>
     <script src="../../inc/library/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>

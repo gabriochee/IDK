@@ -6,7 +6,7 @@ if(!isset($_SESSION['id_user'])) {
     exit();
 }
 ?>
-<?php require('../../inc/php/scraping_log.php'); ?>
+<?php require_once('../../inc/php/scraping_log.php'); ?>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -19,25 +19,24 @@ if(!isset($_SESSION['id_user'])) {
     <title>IDK</title>
 </head>
 <body id="oeuvre">
-    <?php require('../../inc/php/db.php'); ?>
-    <?php require('../../inc/php/function_oeuvre.php'); ?>    
-    <?php require('../../inc/connected/header.php'); ?>  
+    <?php require_once('../../inc/php/db.php'); ?>
+    <?php require_once('../../inc/php/function_oeuvre.php'); ?>    
+    <?php require_once('../../inc/connected/header.php'); ?>  
     <main>
         <div class="container mt-5">
             <div class="row justify-content-center">
                 <div class="row col-12 col-lg-6 img-fluid img-custom-1 " >
-                    <img src="../../inc/img/test.jpeg" alt="affiche de l'oeuvre">
+                    <img src="../../inc/img/test.jpeg" id="movie-poster" alt="affiche de l'oeuvre">
                 </div>
                 <div class="col-12 col-lg-5">
                     <div>
-                        <h1 class="m-1 mb-3"><?php echo $rep1['primaryTitle']; ?></h1>
-                        <p class="m-1">Durée : <?php echo $rep1['runtimeMinutes']; ?> minutes</p>
+                        <h1 class="m-1 mb-3" id="movie-title"><?php echo $rep1['primaryTitle']; ?></h1>
+                        <p class="m-1" id="movie-year">Durée : <?php echo $rep1['runtimeMinutes']; ?> minutes</p>
                         <p class="m-1">Date de sortie : <?php echo $rep1['startYear']; ?></p>
-                        <p class="m-1">Nationalité : <?php echo $rep2['region']; ?></p>
-                        <p class="m-1">Genres : <?php foreach($rep3 as $genre){ echo $genre['genre'] . " ";} ?></p>
-                        <p class="m-1">Acteurs principaux :</p>
-                        <p class="m-1">Réalisateur :</p>
-                        <p class="m-1">Producteur :</p>  
+                        <p class="m-1">Genres : <?php foreach($rep3 as $genre){ echo $genre['genre'] . ((end($rep3) != $genre) ? ", " : "");} ?></p>
+                        <p class="m-1">Acteurs principaux : <?php foreach($rep5 as $acteur){ echo $acteur["name"] . ((end($rep5) != $acteur) ? ", " : "");}?></p>
+                        <p class="m-1">Réalisateur : <?php foreach($rep6 as $realisateur){ echo $realisateur["name"] . ((end($rep6) != $realisateur) ? ", " : "");}?></p>
+                        <p class="m-1">Producteur : <?php foreach($rep7 as $producteur){ echo $producteur["name"] . ((end($rep7) != $producteur) ? ", " : "");}?></p>  
                     </div>
                     <div class ="container mt-4">
                         <div class="d-flex justify-content-center mt-2">
@@ -119,22 +118,7 @@ if(!isset($_SESSION['id_user'])) {
                     <div>
                         <div>
                             <h2 class="m-5">Synopsis & infos</h2>
-                            <p class="m-1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, perferendis. Numquam corrupti inventore, laborum odio nam aliquid. Reprehenderit doloribus beatae accusantium. Eum ullam blanditiis architecto. Tempora, esse. Porro aut suscipit accusantium. Nihil, temporibus quam quidem iste unde expedita repudiandae assumenda quaerat, voluptatibus ducimus modi laudantium! At, provident aspernatur? Quas, unde. Amet suscipit alias temporibus mollitia praesentium dolorum veritatis magnam illo, molestias ratione a nobis minus. Nihil ab inventore ratione, dolor ullam non exercitationem consequatur blanditiis a, eaque repellendus tenetur fuga quis, ea recusandae? Unde sunt neque dolore quasi voluptates assumenda nihil, ducimus vitae numquam consequuntur vero! Quos cupiditate sequi molestias?</p>
-                            <br>
-                            <p class="m-1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis neque quisquam eos tempore, debitis reprehenderit aut in voluptate delectus porro? Vero, molestiae. Laudantium ex magnam dignissimos dolor excepturi modi quia maiores est doloremque. Necessitatibus enim fuga aperiam esse eligendi error assumenda illo explicabo commodi. Fugit ut expedita enim saepe est dolorum molestiae minima, dignissimos nemo quas! Dignissimos dolore explicabo labore repellat corporis nesciunt assumenda optio dolorem nihil quam obcaecati, corrupti iste nemo modi pariatur ducimus? Animi aliquam reiciendis dignissimos nulla et officia alias fugiat! Commodi aliquam odio nesciunt. Esse ducimus mollitia sint velit blanditiis harum perspiciatis fugiat odio quod officiis.</p>
-                            <br>
-                        </div>
-                        <br>
-                        <div>
-                            <h3 class="m-3">Distinction :</h3>
-                            <ul>
-                                <li>Récompense du blabla, le 12/02/2021</li>
-                                <li>Récompense du blabla, le 12/02/2021</li>
-                                <li>Récompense du blabla, le 12/02/2021</li>
-                                <li>Récompense du blabla, le 12/02/2021</li>
-                                <li>Récompense du blabla, le 12/02/2021</li>
-                                <li>Récompense du blabla, le 12/02/2021</li>
-                            </ul>
+                            <p id="movie-synopsis"></p>
                         </div>
                         <br>
                         <h3 class="m-3">Critiques publiques :</h3>
@@ -297,7 +281,7 @@ if(!isset($_SESSION['id_user'])) {
             </div>
         </div>
                     
-    <?php require('../../inc/connected/footer.php'); ?>          
+    <?php require_once('../../inc/connected/footer.php'); ?>          
     <script src="../../inc/js/oeuvre.js"></script>
     <script src="../../inc/js/search_movie.js"></script>
     <script src="../../inc/library/bootstrap/js/bootstrap.bundle.min.js"></script>

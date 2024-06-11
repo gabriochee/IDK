@@ -1,5 +1,5 @@
 <?php session_start() ?>
-<?php require('../../inc/php/scraping_log.php'); ?>
+<?php require_once('../../inc/php/scraping_log.php'); ?>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -12,7 +12,7 @@
     <title>IDK</title>
 </head>
 <body id="not_connected_login">
-    <?php require('../../inc/php/function_login.php');?>
+    <?php require_once('../../inc/php/function_login.php');?>
     <header class="container w-100 d-flex justify-content-end mt-5 h-100">
         <button class="nav-link btn">
             <i class="bi bi-moon-stars fs-3" height="100" width="100"></i>

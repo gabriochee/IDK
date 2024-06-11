@@ -1,7 +1,6 @@
 <?php
 
-require('db.php');
-
+require_once('db.php');
 function headerWithError($errorMessage){
     header('HTTP/1.1 307 Temporary Redirect');
     header('location : signin.php?error_message=' . $errorMessage);

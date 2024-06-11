@@ -1,12 +1,12 @@
 <?php
 session_start();
 
-if (isset($_SESSION['user_id'])) {
-    header("Location: ../not_connected/login.php");
-    exit();
+if (!isset($_SESSION['id_user'])) {
+  header("Location: ../not_connected/login.php");
+  exit();
 }
 ?>
-<?php require('../../inc/php/scraping_log.php'); ?>
+<?php require_once('../../inc/php/scraping_log.php'); ?>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -21,8 +21,8 @@ if (isset($_SESSION['user_id'])) {
 </head>
 
 <body id="connected_contact">
-    <?php require('../../inc/php/db.php'); ?>
-    <?php require('../../inc/connected/header.php'); ?>
+    <?php require_once('../../inc/php/db.php'); ?>
+    <?php require_once('../../inc/connected/header.php'); ?>
     <main>
         <div class="container text-center m-auto">
             <div class="row">
@@ -32,19 +32,22 @@ if (isset($_SESSION['user_id'])) {
                 </div>
             </div>
         </div>
-        <div class="contact-form row g-5 justify-content-center mb-4 mx-0">
-            <div class="col-sm-6">
-                <h5 class="text-center">Nom de votre liste</h5>
-                <input type="text" class="form-control" id="listName" name="listName" required>
-            </div>
+        <form action="../../inc/php/create_list.php" method="post">
+            <div class="contact-form row g-5 justify-content-center mb-4 mx-0">
+                <div class="col-sm-6">
+                    <h5 class="text-center">Nom de votre liste</h5>
+                    <input type="text" class="form-control" id="listName" name="listName" required>
+                </div>
 
-            <div class="col-12">
-                <h5 class="text-center">Description</h5>
-                <textarea class="form-control" id="description" name="description" rows="5" minlength="15" maxlength="300" required></textarea>
+                <div class="col-12">
+                    <h5 class="text-center">Description</h5>
+                    <textarea class="form-control" id="description" name="description" rows="5" maxlength="300"></textarea>
+                </div>
+                <button class="w-25 btn btn-secondary btn-lg btn-warning border-dark border-2" type="submit">Envoyer</button>
             </div>
-        </div>
+        </form>
     </main>
-    <?php require('../../inc/connected/footer.php'); ?>
+    <?php require_once('../../inc/connected/footer.php'); ?>
     <script src="../../inc/js/search_movie.js"></script>
     <script src="../../inc/library/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
