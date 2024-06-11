@@ -5,7 +5,7 @@ session_start();
     exit();
 }*/
 ?>
-<?php require('../../inc/php/scraping_log.php'); ?>
+<?php require_once('../../inc/php/scraping_log.php'); ?>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -18,8 +18,8 @@ session_start();
     <title>IDK</title>
 </head>
 <body id="not_connected_contact">
-    <?php require('../../inc/php/function_messagerie_co.php'); ?>
-    <?php require('../../inc/connected/header.php'); ?>
+    <?php require_once('../../inc/php/function_messagerie.php'); ?>
+    <?php require_once('../../inc/not_connected/header.php'); ?>
     <main>
         <div class="container text-center m-auto">
             <div class="row">
@@ -48,7 +48,7 @@ session_start();
             </div>
         </div>
     </main>
-    <?php require('../../inc/not_connected/footer.php'); ?>
+    <?php require_once('../../inc/not_connected/footer.php'); ?>
     <script src="../../inc/js/search_movie.js"></script>
     <script src="../../inc/library/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>

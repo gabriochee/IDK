@@ -1,7 +1,7 @@
 <?php
 // Informations de connexion à la base de données
     session_start();
-    require('db.php');
+    require_once('db.php');
     
     try {
         
