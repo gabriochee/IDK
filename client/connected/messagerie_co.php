@@ -1,4 +1,5 @@
 <?php 
+session_start();
 /*if (!isset($_SESSION['user_id'])) {
     header("Location: ../connected/home.php");
     exit();
@@ -17,8 +18,8 @@
     <title>IDK</title>
 </head>
 <body id="not_connected_contact">
-    <?php require('../../inc/php/function_messagerie.php'); ?>
-    <?php require('../../inc/not_connected/header.php'); ?>
+    <?php require('../../inc/php/function_messagerie_co.php'); ?>
+    <?php require('../../inc/connected/header.php'); ?>
     <main>
         <div class="container text-center m-auto">
             <div class="row">
