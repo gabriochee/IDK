@@ -1,6 +1,6 @@
 <?php
 // Informations de connexion à la base de données
-require('../../inc/php/db.php');
+require_once('../../inc/php/db.php');
 
 try {
     // Connexion à la base de données

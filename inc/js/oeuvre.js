@@ -7,6 +7,8 @@ const zero = document.getElementById("commentaire-zero");
 
 const moviePoster = document.getElementById("movie-poster");
 const movieSynposis = document.getElementById("movie-synopsis");
+const movieTitle = document.getElementById("movie-title").innerText;
+const movieYear = document.getElementById("movie-year").innerText;
 
 document.getElementById("note-cinq").addEventListener("click", function() {
         cinq.style.display = "block";

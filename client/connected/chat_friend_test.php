@@ -6,7 +6,7 @@ if(!isset($_SESSION['id_user'])) {
     exit();
 }
 ?>
-<?php require('../../inc/php/function_chat_friend.php'); ?>
+<?php require_once('../../inc/php/function_chat_friend.php'); ?>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -19,7 +19,7 @@ if(!isset($_SESSION['id_user'])) {
     <title>IDK</title>
 </head>
 <body>
-    <?php require('../../inc/connected/header.php'); ?>
+    <?php require_once('../../inc/connected/header.php'); ?>
     <h1 class="text-center my-5">Chat with your Friend</h1>
     <section style="background-color: #E8EDDF;">
         <div class="container py-5">
@@ -61,7 +61,7 @@ if(!isset($_SESSION['id_user'])) {
             </div>
         </div>
     </section>
-    <?php require('../../inc/connected/footer.php'); ?>
+    <?php require_once('../../inc/connected/footer.php'); ?>
     <script src="../../bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="../../inc/js/chat_friend.js"></script>
 

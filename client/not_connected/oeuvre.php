@@ -4,7 +4,7 @@ if(isset($_SESSION['id_user'])) {
     exit();
 }
 ?>
-<?php require('../../inc/php/scraping_log.php'); ?>
+<?php require_once('../../inc/php/scraping_log.php'); ?>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -17,9 +17,9 @@ if(isset($_SESSION['id_user'])) {
     <title>IDK</title>
 </head>
 <body id="oeuvre">
-    <?php require('../../inc/php/db.php'); ?>
-    <?php require('../../inc/php/function_oeuvre.php'); ?>    
-    <?php require('../../inc/not_connected/header.php'); ?>  
+    <?php require_once('../../inc/php/db.php'); ?>
+    <?php require_once('../../inc/php/function_oeuvre.php'); ?>    
+    <?php require_once('../../inc/not_connected/header.php'); ?>  
     <main>
         <div class="container mt-5">
             <div class="row justify-content-center">
@@ -28,13 +28,13 @@ if(isset($_SESSION['id_user'])) {
                 </div>
                 <div class="col-12 col-lg-5">
                     <div>
-                        <h1 class="m-1 mb-3"><?php echo $rep1['primaryTitle']; ?></h1>
+                        <h1 class="m-1 mb-3" id="movie-title"><?php echo $rep1['primaryTitle']; ?></h1>
                         <p class="m-1">Durée : <?php echo $rep1['runtimeMinutes']; ?> minutes</p>
-                        <p class="m-1">Date de sortie : <?php echo $rep1['startYear']; ?></p>
-                        <p class="m-1">Genres : <?php foreach($rep3 as $genre){ echo $genre['genre'] . " ";} ?></p>
-                        <p class="m-1">Acteurs principaux :</p>
-                        <p class="m-1">Réalisateur :</p>
-                        <p class="m-1">Producteur :</p>  
+                        <p class="m-1" id="movie-year">Date de sortie : <?php echo $rep1['startYear']; ?></p>
+                        <p class="m-1">Genres : <?php foreach($rep3 as $genre){ echo $genre['genre'] . ((end($rep3) != $genre) ? ", " : "");} ?></p>
+                        <p class="m-1">Acteurs principaux : <?php foreach($rep5 as $acteur){ echo $acteur["name"] . ((end($rep5) != $acteur) ? ", " : "");}?></p>
+                        <p class="m-1">Réalisateur : <?php foreach($rep6 as $realisateur){ echo $realisateur["name"] . ((end($rep6) != $realisateur) ? ", " : "");}?></p>
+                        <p class="m-1">Producteur : <?php foreach($rep7 as $producteur){ echo $producteur["name"] . ((end($rep7) != $producteur) ? ", " : "");}?></p>  
                     </div>
                     <div class ="container mt-4">
                         <div class="d-flex justify-content-center mt-2">
@@ -279,7 +279,7 @@ if(isset($_SESSION['id_user'])) {
             </div>
         </div>
                     
-    <?php require('../../inc/not_connected/footer.php'); ?>
+    <?php require_once('../../inc/not_connected/footer.php'); ?>
     <script type="text/javascript">
         const movieTitle = "<?php echo $rep1['primaryTitle']; ?>";
         const movieYear = <?php echo $rep1['startYear']; ?>;

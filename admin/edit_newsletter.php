@@ -17,11 +17,11 @@ if(!(isset($_SESSION['role_user']) && $_SESSION['role_user'] === 'admin')) {
     <title>IDK</title>
 </head>
 <body id="backoffice_edit_newsletter" class="backoffice">
-    <?php require('../inc/backoffice/header.php'); ?>
+    <?php require_once('../inc/backoffice/header.php'); ?>
     <div class="container-fluid">
         <div class="row">
-            <?php require('../inc/backoffice/sidebar.php'); ?>
-            <?php require('../inc/php/function_edit_newsletter.php') ?>
+            <?php require_once('../inc/backoffice/sidebar.php'); ?>
+            <?php require_once('../inc/php/function_edit_newsletter.php') ?>
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
                 <div class="table-responsive mt-4"><!-- ajouter un overflow -->
                     <form action="edit_newsletter.php" method="POST">

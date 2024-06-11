@@ -1,6 +1,6 @@
 <?php
 
-require('log.php');
+require_once('log.php');
 
 $root_path = __FILE__;
 $parent_path = dirname(dirname($root_path));

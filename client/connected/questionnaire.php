@@ -6,7 +6,7 @@ if(!isset($_SESSION['id_user'])) {
     exit();
 }
 ?>
-<?php require('../../inc/php/scraping_log.php'); ?>
+<?php require_once('../../inc/php/scraping_log.php'); ?>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -19,8 +19,8 @@ if(!isset($_SESSION['id_user'])) {
     <title>IDK</title>
 </head>
 <body id="connected_questionnaire">
-    <?php require('../../inc/php/db.php'); ?>
-    <?php require('../../inc/connected/header.php'); ?>
+    <?php require_once('../../inc/php/db.php'); ?>
+    <?php require_once('../../inc/connected/header.php'); ?>
     <main>
         <div class="container text-center m-auto">
             <div class="row">
@@ -61,7 +61,7 @@ if(!isset($_SESSION['id_user'])) {
 
     <h6 class="ms-md-5">Question 1 : <span class="fw-bold">Réponse 1</span> > Question 2 : <span class="fw-bold">Réponse 1 & Réponse 2</span> > Question 3 : <span class="fw-bold">Réponse 1</span></h6>
 
-    <?php require('../../inc/connected/footer.php'); ?>
+    <?php require_once('../../inc/connected/footer.php'); ?>
     <script src="../../inc/js/search_movie.js"></script>
     <script src="../../inc/library/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
