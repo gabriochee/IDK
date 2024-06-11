@@ -15,11 +15,9 @@ body, .bg-idk{
   overflow-x: hidden !important;
 }
 
-.requete-valid {
-  background-color: #19861ea8;
-  color: #fff;
-  height: 50px;
-} 
+.alert {
+  font-size: 15px;
+}
 
 @media (min-width: 576px) {
   .fs-sm-1 {

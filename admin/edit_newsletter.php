@@ -25,8 +25,13 @@ session_start();
             
             
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-                <div class="mt-4">
-                    <h1>Historique de Newsletter</h1>
+                <div class="container border border-black rounded-2 border-2 mt-3">
+                    <div class="card my-4 rounded-3 shadow-sm">
+                        <div class="card-header text-center py-3">
+                            <h1 class="my-0 fw-normal">Newsletter</h1>
+                        </div>
+                    </div>
+                    <h3>Historique : </h3>
                     <div class="table-responsive">
                         <table class="table table-bordered table-hover">
                             <thead class="table-light text-center">
