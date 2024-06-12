@@ -1,4 +1,14 @@
 <?php
+// SCRAPPING 
+require_once('log.php');
+
+$root_path = __FILE__;
+$parent_path = dirname(dirname($root_path));
+$relative_path = str_replace($parent_path, '', $root_path);
+
+server_log("Consultation de la page " . $relative_path);
+
+// ACCES CO NO-CO ADMIN 
 require_once(__DIR__ . '/db.php'); 
 
 $url_demandee = $_SERVER['REQUEST_URI'];

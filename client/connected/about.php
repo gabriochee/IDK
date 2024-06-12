@@ -1,8 +1,9 @@
 <?php 
 session_start();
 
+require_once('../../inc/php/scraping_log.php'); 
 
-<?php require_once('../../inc/php/scraping_log.php'); ?>
+?>
 
 <!DOCTYPE html>
 <html lang="fr">

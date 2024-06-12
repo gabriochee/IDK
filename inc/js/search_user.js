@@ -2,11 +2,14 @@ const searchKeywordUser = async () => {
     const resultatsUser = document.querySelector("#resultats_user");
     resultatsUser.innerHTML = "";
     let keywordUser = document.querySelector("#navbar_user").value;
-    if(keywordUser.length > 3) {
+    if (keywordUser.length > 3) {
         try {
             const req = await fetch(`../../inc/php/function_input_search_user.php?keyword_user=${encodeURIComponent(keywordUser)}`);
             const json = await req.json();
-            if (json.length > 0) {
+            if (json.error) {
+                console.error('Erreur:', json.error);
+                resultatsUser.innerHTML = '<div class="text-center text-danger">Une erreur s\'est produite. Veuillez réessayer plus tard.</div>';
+            } else if (json.length > 0) {
                 json.forEach((post) => {
                     let buttonHtml = '';
                     if (post.is_friend) {

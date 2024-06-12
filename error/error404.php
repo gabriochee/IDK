@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="../style/style.css">
     <title>IDK</title>
 </head>
-<?php require_once('../php/access.php'); ?>
 <body class="container-fluid min-vh-100 error-background d-flex flex-column text-center align-items-center">
     <main class="container-fluid d-flex no-wrap flex-column">
         <div class="m-auto d-flex justify-content-between col-10">
