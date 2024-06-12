@@ -61,15 +61,13 @@ session_start();
                                     $prep = $bdd->prepare($sql);
                                     $prep->bindValue(":id_user", intval($_POST['ban-id']));
                                     $prep->bindValue(":definitif", (isset($_POST['definitif']) ? 1 : 0));
-                                    $prep->bindValue(":dateban", date("Y-m-d H-m-s"));
+                                    $prep->bindValue(":dateban", date("Y-m-d H-i-s"));
 
                                     $interval = new DateInterval('P' . $_POST['ban-time-year'] . 'Y' . $_POST['ban-time-month'] . 'M' . $_POST['ban-time-day'] . 'DT' . $_POST['ban-time-hour'] . 'H' . $_POST['ban-time-minute'] . 'M' . $_POST['ban-time-second'] . 'S');
 
-                                    echo $interval->format("%y %m %d %h %i %s");
-
                                     $date_deban = (new DateTime('now'))->add($interval);
 
-                                    $prep->bindValue(":datedeban", $date_deban->format("Y-m-d H-m-s"));
+                                    $prep->bindValue(":datedeban", $date_deban->format("Y-m-d H-i-s"));
                                     $prep->bindParam(":raison", $_POST['raison']);
 
                                     try {
@@ -95,7 +93,7 @@ session_start();
                                 }
                                                                                                                                                                                                         try {
                                 $queryResponse = $bdd->query("SELECT utilisateur.id_user, CONCAT(prenom, ' ', nom) AS prenom_nom, pseudo, sexe, date_inscription, mail, date_naissance
-                                FROM utilisateur LEFT JOIN ban ON ban.id_user = utilisateur.id_user WHERE supprime = 0 AND (ban.definitif = 0 OR ban.definitif IS NULL) AND (ban.date_deban < NOW() OR ban.date_deban IS NULL);");
+                                FROM utilisateur LEFT JOIN ban ON ban.id_user = utilisateur.id_user WHERE supprime = 0 AND (ban.definitif = 0 OR ban.definitif IS NULL) AND (ban.date_deban < NOW() OR ban.date_deban IS NULL) GROUP BY utilisateur.id_user;");
                                 } catch (PDOException $e){
                                     echo $e->getMessage();
                                 }
