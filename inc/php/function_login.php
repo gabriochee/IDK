@@ -8,50 +8,51 @@ if(isset($_POST['connecter'])) {
     $pepper = 'sZB8J0az0z';
 
     if($email != "" && $password != "") {
-
-        $req = $bdd->prepare("SELECT id_user, nom, prenom, pseudo, mail, mdp, role_user FROM utilisateur WHERE mail = :email;");
-        $req->execute( array("email" => $email) );
-        $reponse = $req->fetch();
+        //recup info de l'user qui veut se connecter
+        $req1 = $bdd->prepare("SELECT id_user, nom, prenom, pseudo, mail, mdp, role_user FROM utilisateur WHERE mail = :email;");
+        $req1->execute( array("email" => $email) );
+        $reponse = $req1->fetch();
 
 
         if($reponse) {
-            
             if(password_verify($password.$pepper, $reponse['mdp'])) {
-                $req2 = $bdd->prepare("SELECT definitif, id_ban, date_ban, probleme, date_deban FROM ban WHERE id_ban = :id_ban;");
-                $req2->execute( array("id_ban" => $reponse['id_user']));
-                $ban_ou_pas=$req2->fetch();
-
-                $date_today = date('Y-m-d H:i:s');
-                $_SESSION['start'] = $date_today;
-                $_SESSION['id_user'] = $reponse['id_user'];
-                $_SESSION['nom'] = $reponse['nom'];
-                $_SESSION['prenom'] = $reponse['prenom'];
-                $_SESSION['pseudo'] = $reponse['pseudo'];
-                $_SESSION['email'] = $email;
-                $_SESSION['role_user'] = $reponse['role_user'];
-
-                if($ban_ou_pas['probleme'] == 1) {
-
-                    if($date_today >= $ban_ou_pas['date_deban']) {
-                        $req4 = $bdd->prepare("UPDATE ban SET probleme = :probleme WHERE id_ban = :id_ban;");
-                        $req4->execute( array("probleme" => 0, "id_ban" => $_SESSION['id_user']) );
-                    }
-
-                    $req5 = $bdd->prepare("SELECT probleme FROM ban WHERE id_ban = :id_ban;");
-                    $req5->execute( array("id_ban" => $reponse['id_user']) );
-                    $maj_probleme=$req5->fetch();
-                    
-                    if($maj_probleme['probleme'] == 0) {
-                        header('Location: confirmation_connexion.php');
-                    } else if($ban_ou_pas['definitif'] == 1) {       
-                        header('Location: login.php?ban_def');
-                    } else if($ban_ou_pas['definitif'] == 0) {
-                        header('Location: login.php?ban');
-                    } else {
-                        echo 'Rien';
-                    }
+                // Préparer la deuxième requête sans la virgule superflue
+                $req2 = $bdd->prepare("SELECT supprime FROM utilisateur WHERE id_user = :id_user");
+                $req2->bindValue(':id_user', $reponse['id_user'], PDO::PARAM_INT);
+                $req2->execute();
+                $supp_or_not = $req2->fetch(PDO::FETCH_ASSOC);
+                
+                if($supp_or_not && $supp_or_not['supprime'] == 1) {
+                    header('Location: login.php?supprime=true');
                 } else {
-                    header('Location: confirmation_connexion.php');
+                    $date_now = date('Y-m-d H:i:s');
+
+                    $req2 = $bdd->prepare("SELECT date_ban, date_deban, definitif, raison  FROM ban WHERE id_user = :id_user");
+                    $req2->bindValue(':id_user', $reponse['id_user'], PDO::PARAM_INT);
+                    $req2->execute();
+                    $ban_or_not = $req2->fetch(PDO::FETCH_ASSOC);
+                    if($ban_or_not && $ban_or_not['definitif'] == 1){
+
+                        //urlencode pour être sur que tous les caractères spéciaux soient pris en compte
+                        $raison = urlencode($ban_or_not['raison']);
+
+                        header("Location: login.php?ban_def=true&raison=$raison");
+                    }else if($ban_or_not && $ban_or_not['definitif'] == 0 && $ban_or_not['date_deban'] > $date_now ){
+
+                        $raison = urlencode($ban_or_not['raison']);
+                        $date_deban = urlencode($ban_or_not['date_deban']);
+
+                        header("Location: login.php?ban_not_def=true&raison=$raison&date_deban=$date_deban");
+                    }
+                    else{
+                        $_SESSION['id_user'] = $reponse['id_user'];
+                        $_SESSION['nom'] = $reponse['nom'];
+                        $_SESSION['prenom'] = $reponse['prenom'];
+                        $_SESSION['pseudo'] = $reponse['pseudo'];
+                        $_SESSION['email'] = $email;
+                        $_SESSION['role_user'] = $reponse['role_user'];
+                        header('Location: confirmation_connexion.php');
+                    }
                 }
             } else {
                 header('Location: login.php?wrong_mdp=true');
@@ -59,8 +60,7 @@ if(isset($_POST['connecter'])) {
         } else { 
             header('Location: login.php?wrong_email=true');
         }
-
-        
     }
 }
+
 ?>

@@ -40,16 +40,13 @@
                     </div>
                     <div class="text-center fs-4">
                     <?php
-                        if(isset($_SESSION['id_user'])) {
-                            $req3 = $bdd->prepare("SELECT raison, date_ban, date_deban FROM ban WHERE id_ban = :id_ban;");
-                            $req3->execute( array("id_ban" => $_SESSION['id_user']) );
-                            $ban_info = $req3->fetch();
-                        }
                         if(isset($_GET['wrong_email'])) {echo "<div class='alert alert-danger' role='alert'>L'email ou le mot de passe ou les deux sont erronés</div>";}
                         if(isset($_GET['wrong_mdp'])) {echo "<div class='alert alert-danger' role='alert'>L'email ou le mot de passe ou les deux sont erronés</div>";}
-                        if(isset($_GET['ban_def'])) {echo "<div class='alert alert-danger' role='alert'>Ton compte a été ban_def pour le motif suivant: " . $ban_info['raison'] . "</div>";}
-                        if(isset($_GET['ban'])) {echo "<div class='alert alert-danger' role='alert'>Ton compte a été ban jusqu'au: " .$ban_info['date_deban'] ." pour la raison suivante: ". $ban_info['raison'] . "</div>";}
-                    ?>
+                        if(isset($_GET['supprime'])) {echo "<div class='alert alert-danger' role='alert'>Ton compte a été supprimé</div>";}
+                        if (isset($_GET['ban_def'])) { echo "<div class='alert alert-danger' role='alert'>Vous êtes banni définitivement Raison : " . htmlspecialchars(urldecode($_GET['raison'])) . "</div>"; }
+                        if (isset($_GET['ban_not_def'])) {echo "<div class='alert alert-danger' role='alert'>Vous êtes banni temporairement. Raison : " . htmlspecialchars(urldecode($_GET['raison'])) . ". Date de débannissement : " . htmlspecialchars(urldecode($_GET['date_deban'])) . "</div>";
+                        }
+                        ?>
                     </div>
                     <div class="col-12 mt-3">
                         <button class="w-100 btn btn-secondary btn-lg btn-warning border-dark border-2" type="submit" name="connecter">Connexion</button>

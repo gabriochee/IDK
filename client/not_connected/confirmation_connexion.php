@@ -32,9 +32,29 @@
                 <form action="" class="needs-validation" method="POST">
                     <div class="text-center fs-4 mb-3">
                     <?php 
-                        if (isset($_GET['wrong_code'])&& $_GET['wrong_code'] === 'true') {echo "<div class='alert alert-danger' role='alert'>Le code est faux</div>";}
-                        if (isset($_GET['email_sent']) && $_GET['email_sent'] === 'true') {echo "<div class='alert alert-success' role='alert'>Le mail de vérification a été envoyé</div>";}
+                        if (isset($_GET['wrong_code'])) {
+                            echo "<div class='alert alert-danger' role='alert'>Le code est faux</div>";
+                        }
+                        if (isset($_GET['email_sent'])) {
+                            echo "<div class='alert alert-success' role='alert'>Le mail de vérification a été envoyé</div>";
+                        }
+                        if (isset($_GET['mail_error'])) {
+                            echo "<div class='alert alert-danger' role='alert'>Erreur lors de l'envoi du mail : " . htmlspecialchars(urldecode($_GET['error'])) . "</div>";
+                        }
+                        if (isset($_GET['update_failed'])) {
+                            echo "<div class='alert alert-danger' role='alert'>Échec de la mise à jour du code de vérification</div>";
+                        }
+                        if (isset($_GET['db_error'])) {
+                            echo "<div class='alert alert-danger' role='alert'>Erreur de base de données : " . htmlspecialchars(urldecode($_GET['error'])) . "</div>";
+                        }
+                        if (isset($_GET['no_user'])) {
+                            echo "<div class='alert alert-danger' role='alert'>Utilisateur non trouvé</div>";
+                        }
+                        if (isset($_GET['wrong_role'])) {
+                            echo "<div class='alert alert-danger' role='alert'>role faux contacter un administrateur avec contact</div>";
+                        }
                     ?>
+
                     </div>
                     <div class="col-12">
                         <input type="text" class="form-control p-2" id="username" placeholder="Veuillez entrer votre code envoyé par mail" name ="entrer_code" value="" required="">

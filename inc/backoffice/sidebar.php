@@ -26,7 +26,7 @@
                 <a <?php if(basename($_SERVER['PHP_SELF']) == 'moderation_user.php') echo 'class="nav-link active"'; ?> class="nav-link" href="../admin/moderation_user.php">Utilisateurs</a>
             </li>
             <li class="nav-item">
-                <a <?php if(basename($_SERVER['PHP_SELF']) == '.php') echo 'class="nav-link active"'; ?> class="nav-link" href="../admin/messagerie.php">Messagerie</a>
+                <a <?php if(basename($_SERVER['PHP_SELF']) == '.php') echo 'class="nav-link active"'; ?> class="nav-link" href="../admin/messagerie_adm.php">Messagerie</a>
             </li>
             <li class="nav-item">
                 <a <?php if(basename($_SERVER['PHP_SELF']) == 'diary_log.php') echo 'class="nav-link active"'; ?> class="nav-link" href="../admin/diary_log.php">Log</a>
