@@ -59,9 +59,7 @@ if (isset($_POST['code'])) {
 }
 
 if (isset($_POST['connect'])) {
-if (isset($_POST['connect'])) {
     $connect = $_POST['entrer_code'];
-    if ($connect != "") {
     if ($connect != "") {
         $email = $_SESSION['email'];
         $req = $bdd->prepare("SELECT mail, verification_code, role_user FROM utilisateur WHERE mail = :email;");
