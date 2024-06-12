@@ -9,6 +9,7 @@
         <div class="nav-item text-nowrap">
             <form method="" action="../../inc/php/logout.php">
                 <a class="nav-link px-3">Déconnexion</a>
+            </form>
         </div>
     </div>
 </header>
