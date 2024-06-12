@@ -1,11 +1,4 @@
-<?php 
-session_start();
-
-if(!(isset($_SESSION['role_user']) && $_SESSION['role_user'] === 'admin')) {
-    header("Location: ../../not_connected/login.php");
-    exit();
-}
-?>
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -18,18 +11,19 @@ if(!(isset($_SESSION['role_user']) && $_SESSION['role_user'] === 'admin')) {
 </head>
 <body id="backoffice_diary_log" class="backoffice">
     <?php require_once('../inc/php/db.php'); ?>
-    <?php require_once('../inc/backoffice/header.php');?>
+    <?php require_once('../inc/components/backoffice/header.php'); ?>
     <div class="container-fluid">
         <div class="row">
-            <?php require_once('../inc/backoffice/sidebar.php');?>
+            <?php require_once('../inc/components/backoffice/sidebar.php'); ?>
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-                <div class="table-responsive mt-4"><!-- ajouter un overflow -->
+                <div class="table-responsive mt-4">
+                    <!-- ajouter un overflow -->
                     <table class="table table-striped table-sm border border-2 border-dark">
                         <tbody>
                             <tr>
                                 <td>13/04/2024 15:25:03</td>
                                 <td>127.254.10.0 255.255.255.240</td>
-                                <td>email/pseudo saisie</td>
+                                <td>email/pseudo saisi</td>
                                 <td>#123 (id)</td>
                                 <td>SUCCED</td>
                                 <td></td>
@@ -37,15 +31,15 @@ if(!(isset($_SESSION['role_user']) && $_SESSION['role_user'] === 'admin')) {
                             <tr>
                                 <td>13/04/2024 15:25:03</td>
                                 <td>127.254.10.0 255.255.255.240</td>
-                                <td>email/pseudo saisie</td>
+                                <td>email/pseudo saisi</td>
                                 <td></td>
                                 <td>FAILED</td>
-                                <td>Pseudo innexistant</td>
+                                <td>Pseudo inexistant</td>
                             </tr>
                             <tr>
                                 <td>13/04/2024 15:25:03</td>
                                 <td>127.254.10.0 255.255.255.240</td>
-                                <td>email/pseudo saisie</td>
+                                <td>email/pseudo saisi</td>
                                 <td>#133 (id)</td>
                                 <td>FAILED</td>
                                 <td>Erreur mot de passe</td>
@@ -53,7 +47,7 @@ if(!(isset($_SESSION['role_user']) && $_SESSION['role_user'] === 'admin')) {
                             <tr>
                                 <td>13/04/2024 15:25:03</td>
                                 <td>127.254.10.0 255.255.255.240</td>
-                                <td>email/pseudo saisie</td>
+                                <td>email/pseudo saisi</td>
                                 <td>#423 (id)</td>
                                 <td>FAILED</td>
                                 <td>Erreur captcha</td>
@@ -61,7 +55,7 @@ if(!(isset($_SESSION['role_user']) && $_SESSION['role_user'] === 'admin')) {
                             <tr>
                                 <td>13/04/2024 15:25:03</td>
                                 <td>127.254.10.0 255.255.255.240</td>
-                                <td>email/pseudo saisie</td>
+                                <td>email/pseudo saisi</td>
                                 <td>#123 (id)</td>
                                 <td>SUCCED</td>
                                 <td></td>
@@ -69,15 +63,15 @@ if(!(isset($_SESSION['role_user']) && $_SESSION['role_user'] === 'admin')) {
                             <tr>
                                 <td>13/04/2024 15:25:03</td>
                                 <td>127.254.10.0 255.255.255.240</td>
-                                <td>email/pseudo saisie</td>
+                                <td>email/pseudo saisi</td>
                                 <td></td>
                                 <td>FAILED</td>
-                                <td>Pseudo innexistant</td>
+                                <td>Pseudo inexistant</td>
                             </tr>
                             <tr>
                                 <td>13/04/2024 15:25:03</td>
                                 <td>127.254.10.0 255.255.255.240</td>
-                                <td>email/pseudo saisie</td>
+                                <td>email/pseudo saisi</td>
                                 <td>#133 (id)</td>
                                 <td>FAILED</td>
                                 <td>Erreur mot de passe</td>
@@ -85,7 +79,7 @@ if(!(isset($_SESSION['role_user']) && $_SESSION['role_user'] === 'admin')) {
                             <tr>
                                 <td>13/04/2024 15:25:03</td>
                                 <td>127.254.10.0 255.255.255.240</td>
-                                <td>email/pseudo saisie</td>
+                                <td>email/pseudo saisi</td>
                                 <td>#423 (id)</td>
                                 <td>FAILED</td>
                                 <td>Erreur captcha</td>
@@ -93,7 +87,7 @@ if(!(isset($_SESSION['role_user']) && $_SESSION['role_user'] === 'admin')) {
                             <tr>
                                 <td>13/04/2024 15:25:03</td>
                                 <td>127.254.10.0 255.255.255.240</td>
-                                <td>email/pseudo saisie</td>
+                                <td>email/pseudo saisi</td>
                                 <td>#123 (id)</td>
                                 <td>SUCCED</td>
                                 <td></td>
@@ -101,15 +95,15 @@ if(!(isset($_SESSION['role_user']) && $_SESSION['role_user'] === 'admin')) {
                             <tr>
                                 <td>13/04/2024 15:25:03</td>
                                 <td>127.254.10.0 255.255.255.240</td>
-                                <td>email/pseudo saisie</td>
+                                <td>email/pseudo saisi</td>
                                 <td></td>
                                 <td>FAILED</td>
-                                <td>Pseudo innexistant</td>
+                                <td>Pseudo inexistant</td>
                             </tr>
                             <tr>
                                 <td>13/04/2024 15:25:03</td>
                                 <td>127.254.10.0 255.255.255.240</td>
-                                <td>email/pseudo saisie</td>
+                                <td>email/pseudo saisi</td>
                                 <td>#133 (id)</td>
                                 <td>FAILED</td>
                                 <td>Erreur mot de passe</td>
@@ -117,7 +111,7 @@ if(!(isset($_SESSION['role_user']) && $_SESSION['role_user'] === 'admin')) {
                             <tr>
                                 <td>13/04/2024 15:25:03</td>
                                 <td>127.254.10.0 255.255.255.240</td>
-                                <td>email/pseudo saisie</td>
+                                <td>email/pseudo saisi</td>
                                 <td>#423 (id)</td>
                                 <td>FAILED</td>
                                 <td>Erreur captcha</td>

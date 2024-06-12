@@ -1,8 +1,4 @@
-<?php 
-session_start();
-
-
-?>
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -15,10 +11,10 @@ session_start();
 </head>
 <body id="backoffice_edit_captcha">
     <?php require_once('../inc/php/db.php'); ?>
-    <?php require_once('../inc/backoffice/header.php'); ?>
+    <?php require_once('../inc/components/backoffice/header.php'); ?>
     <div class="container-fluid">
         <div class="row">
-            <?php require_once('../inc/backoffice/sidebar.php'); ?>
+            <?php require_once('../inc/components/backoffice/sidebar.php'); ?>
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
                 <div class="table-responsive mt-4" id="captcha-table">
                     <h3>Captcha</h3>
@@ -30,7 +26,6 @@ session_start();
                         <input type="text" class="form-control fs-5 border-dark border-2 rounded-3" id="question" name="question" maxlength="150" required>
                         <div class="invalid-feedback">Veuillez fournir une question valide.</div>
                     </div>
-
                     <div class="container px-0" id="answers">
                         <div id="answer">
                             <div class="container d-flex align-items-center justify-content-between px-0 mt-3">
@@ -39,15 +34,12 @@ session_start();
                                     <input name="good-answer" type="radio" class="form-check-input bigger-radio border-dark border-1 align-items-center my-0 ms-3" required value="good-answer">
                                     <label class="form-check-label fs-5 mx-2" for="good-answer">Bonne réponse</label>
                                 </div>
-
                                 <button type="button" class="delete-btn nav-btn btn btn-primary btn-sm btn-danger text-white border border-light border-2 rounded-3 px-3" onclick="deleteAnswer(this)">Supprimer</button>
                             </div>
-
                             <input type="text" class="form-control fs-5 border-dark border-2 rounded-3" id="answer1" name="answer1" maxlength="150" required>
                             <div class="invalid-feedback">Veuillez fournir une réponse valide.</div>
                         </div>
                     </div>
-
                     <button type="button" id="add-answer" class="nav-btn btn btn-primary btn-sm btn-warning text-white border border-light border-2 rounded-3 fs-1 mt-5 px-3">+</button>
                     <button type="button" id="submit-captacha" class="nav-btn btn btn-primary btn-sm btn-success text-white border border-light border-2 rounded-3 fs-4 mt-5 py-3" onclick="createCaptcha(this)">Enregistrer</button>
                 </div>
@@ -58,12 +50,7 @@ session_start();
     try {
         require_once('../inc/php/db.php');
 
-        $data = $bdd->query('SELECT captcha.question, captcha.id_captcha, reponse_captcha.contenu, reponse_captcha.bonne_reponse, reponse_captcha.id_reponse
-                                         FROM reponse_captcha
-                                         JOIN correspondance_captcha
-                                         ON correspondance_captcha.id_reponse = reponse_captcha.id_reponse
-                                         JOIN captcha
-                                         ON correspondance_captcha.id_captcha = captcha.id_captcha;');
+        $data = $bdd->query('SELECT captcha.question, captcha.id_captcha, reponse_captcha.contenu, reponse_captcha.bonne_reponse, reponse_captcha.id_reponse FROM reponse_captcha JOIN correspondance_captcha ON correspondance_captcha.id_reponse = reponse_captcha.id_reponse JOIN captcha ON correspondance_captcha.id_captcha = captcha.id_captcha;');
 
         $fetchedData = $data->fetchAll();
         $json = json_encode($fetchedData);

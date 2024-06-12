@@ -15,7 +15,7 @@
 </head>
 <body id="not_connected_about">
     <?php require_once('../../inc/php/db.php'); ?>
-    <?php require_once('../../inc/not_connected/header.php'); ?>
+    <?php require_once('../../inc/components/not_connected/header.php'); ?>
     <main>
         <div class="container text-center m-auto">
             <div class="row">
@@ -50,7 +50,7 @@
             <p>Chez IDK, nous croyons que chaque film et série mérite d'être découvert. Notre mission est de vous aider à trouver ces pépites cinématographiques qui enrichiront votre vie et stimuleront votre imagination.<br>Merci de faire partie de notre communauté et de nous permettre de vous accompagner dans votre voyage cinématographique.</p>
         </div>
     </main>
-    <?php require_once('../../inc/not_connected/footer.php'); ?>
+    <?php require_once('../../inc/components/not_connected/footer.php'); ?>
     <script src="../../inc/js/search_movie.js"></script>
     <script src="../../inc/library/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>

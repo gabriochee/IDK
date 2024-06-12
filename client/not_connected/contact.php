@@ -19,7 +19,7 @@ if(isset($_SESSION['id_user'])) {
 <body id="not_connected_contact">
 
     <?php require_once('../../inc/php/db.php'); ?>
-    <?php require_once('../../inc/not_connected/header.php'); ?>
+    <?php require_once('../../inc/components/not_connected/header.php'); ?>
     <?php require_once('../../inc/php/function_messagerie_not_co.php'); ?>
     
     <main>
@@ -78,7 +78,7 @@ if(isset($_SESSION['id_user'])) {
             </div>
         </div>
     </main>
-    <?php require_once('../../inc/not_connected/footer.php'); ?>
+    <?php require_once('../../inc/components/not_connected/footer.php'); ?>
     <script src="../../inc/js/search_movie.js"></script>
     <script src="../../inc/library/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>

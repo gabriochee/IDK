@@ -16,7 +16,7 @@
 <body id="oeuvre">
     <?php require_once('../../inc/php/db.php'); ?>
     <?php require_once('../../inc/php/function_oeuvre.php'); ?>    
-    <?php require_once('../../inc/not_connected/header.php'); ?>  
+    <?php require_once('../../inc/components/not_connected/header.php'); ?>  
     <main>
         <div class="container mt-5">
             <div class="row justify-content-center">
@@ -276,7 +276,7 @@
             </div>
         </div>
                     
-    <?php require_once('../../inc/not_connected/footer.php'); ?>
+    <?php require_once('../../inc/components/not_connected/footer.php'); ?>
     <script type="text/javascript">
         const movieTitle = "<?php echo $rep1['primaryTitle']; ?>";
         const movieYear = <?php echo $rep1['startYear']; ?>;

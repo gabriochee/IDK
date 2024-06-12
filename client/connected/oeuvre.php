@@ -18,7 +18,7 @@ session_start();
 <body id="oeuvre">
     <?php require_once('../../inc/php/db.php'); ?>
     <?php require_once('../../inc/php/function_oeuvre.php'); ?>    
-    <?php require_once('../../inc/connected/header.php'); ?>  
+    <?php require_once('../../inc/components/connected/header.php'); ?>  
     <main>
         <div class="container mt-5">
             <div class="row justify-content-center">
@@ -278,7 +278,7 @@ session_start();
             </div>
         </div>
                     
-    <?php require_once('../../inc/connected/footer.php'); ?>          
+    <?php require_once('../../inc/components/connected/footer.php'); ?>          
     <script src="../../inc/js/oeuvre.js"></script>
     <script src="../../inc/js/search_movie.js"></script>
     <script src="../../inc/library/bootstrap/js/bootstrap.bundle.min.js"></script>

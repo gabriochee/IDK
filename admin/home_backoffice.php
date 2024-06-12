@@ -16,10 +16,10 @@ require_once('../inc/php/db.php');
 </head>
 <body id="backoffice_home_backoffice" class="backoffice">
     <?php require_once('../inc/php/affichage_data_user.php'); ?>
-    <?php require_once('../inc/backoffice/header.php');?>
+    <?php require_once('../inc/components/backoffice/header.php');?>
     <div class="container-fluid">
         <div class="row">
-            <?php require_once('../inc/backoffice/sidebar.php');?>
+            <?php require_once('../inc/components/backoffice/sidebar.php');?>
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
                 <div class="pt-3 pb-2 mb-4 border-bottom">
                     <h3>Administrateurs : </h3>

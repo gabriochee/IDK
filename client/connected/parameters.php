@@ -17,7 +17,7 @@ session_start();
 </head>
 <body id="connected_parameters">
     <?php require_once('../../inc/php/db.php'); ?>
-    <?php require_once('../../inc/connected/header.php'); ?>
+    <?php require_once('../../inc/components/connected/header.php'); ?>
     <?php require_once('../../inc/php/affichage_data_user.php'); ?>
     <main>
         <div class="container-fluid d-flex justify-content-center gap-5 my-5 py-2">
@@ -117,7 +117,7 @@ session_start();
             </div>
         </div>
     </main>
-    <?php require_once('../../inc/connected/footer.php'); ?>
+    <?php require_once('../../inc/components/connected/footer.php'); ?>
     <script src="../../inc/js/search_movie.js"></script>
     <script src="../../inc/library/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>

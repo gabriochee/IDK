@@ -16,7 +16,7 @@ session_start();
     <title>IDK</title>
 </head>
 <body id="connected_my_friend_list">
-    <?php require_once('../../inc/connected/header.php'); ?>
+    <?php require_once('../../inc/components/connected/header.php'); ?>
     <?php require_once('../../inc/php/db.php'); ?>
     <?php require_once('../../inc/php/affichage_data_user.php'); ?>
     <?php require_once('../../inc/php/function_search_user.php'); ?>
@@ -98,7 +98,7 @@ session_start();
             </div>
         </div>
     </main>
-    <?php require_once('../../inc/connected/footer.php'); ?>
+    <?php require_once('../../inc/components/connected/footer.php'); ?>
     <script src="../../inc/js/search_user.js"></script>
     <script src="../../inc/js/search_movie.js"></script>
     <script src="../../inc/library/bootstrap/js/bootstrap.bundle.min.js"></script>

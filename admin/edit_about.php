@@ -1,9 +1,6 @@
 <?php 
 session_start();
-
 require_once('../inc/php/db.php'); 
-
-
 
 $url_demandee = $_SERVER['REQUEST_URI'];
 $segments_url = explode('/', $url_demandee);
@@ -22,6 +19,7 @@ switch ($nom_page) {
     default:
         die("Page non trouvée");
 }
+
 // Traitement du formulaire POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     foreach ($_POST as $key => $value) {
@@ -38,7 +36,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $ancien_contenu = $stmt->fetch(PDO::FETCH_ASSOC);
 
             // Mise à jour du contenu 
-            // if $post !== $ancien_contenu ne pas update
             $stmt = $bdd->prepare("UPDATE contenu 
                 SET titre = :titre, corps = :corps, date_maj = :date_maj, last_titre = :last_titre, last_corps = :last_corps, last_date_maj = :last_date_maj 
                 WHERE id_bloc = :id_bloc");
@@ -69,10 +66,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 if (!isset($_GET['action']) || $_GET['action'] == 'display') {
     $stmt = $bdd->prepare("SELECT id_bloc, page_appartenance, titre, corps, date_maj, last_titre, last_corps , last_date_maj FROM contenu WHERE page_appartenance = :nom_page");
     $stmt->execute(['nom_page' => $nom_page]); 
-
     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -86,12 +81,11 @@ if (!isset($_GET['action']) || $_GET['action'] == 'display') {
 </head>
 <body id="backoffice_edit_about" class="backoffice">
     <?php require_once('../inc/php/db.php'); ?>
-    <?php require_once('../inc/backoffice/header.php');?>
+    <?php require_once('../inc/components/backoffice/header.php'); ?>
     <div class="container-fluid">
         <div class="row">
-            <?php require_once('../inc/backoffice/sidebar.php');?>
+            <?php require_once('../inc/components/backoffice/sidebar.php'); ?>
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-
                 <div class="container border border-black rounded-2 border-2 mt-3">
                     <h1 class="text-center mt-4">Page : <?php echo htmlspecialchars($nom_page); ?></h1>
                     <p class="text-end">Date de modifications : <?php echo $results['date_maj']; ?></p>
@@ -153,18 +147,3 @@ if (!isset($_GET['action']) || $_GET['action'] == 'display') {
     <script src="../inc/library/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

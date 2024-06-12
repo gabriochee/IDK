@@ -41,7 +41,7 @@ if (isset($_GET['id_liste'])) {
 
 <body id="connected_private_list" class="no-x-overflow">
     <?php require_once('../../inc/php/db.php'); ?>
-    <?php require_once('../../inc/connected/header.php'); ?>
+    <?php require_once('../../inc/components/connected/header.php'); ?>
     <main>
         <div class="container text-center m-auto">
             <div class="row">
@@ -151,7 +151,7 @@ if (isset($_GET['id_liste'])) {
             </ul>
         </div>
     </main>
-    <?php require_once('../../inc/connected/footer.php'); ?>
+    <?php require_once('../../inc/components/connected/footer.php'); ?>
     <?php if ($isOwner) {
         echo '<script src="../../inc/js/delete_list_movie.js"></script>';
     } ?>
