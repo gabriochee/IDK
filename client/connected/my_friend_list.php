@@ -88,6 +88,7 @@ session_start();
                                 <span><?php echo $rep4['nom'] .' '. $rep4['prenom']; ?></span>
                                 <span>1 amis</span>
                                 <button type="button" class="btn btn-sm btn-outline-secondary mt-3" onclick="window.location='chat_friend.php'">Contacter</button>
+                                <button type="button" class="btn btn-sm btn-outline-secondary mt-1" onclick="">Voir les listes</button>
                                 <?php echo '<a href="my_friend_list.php?demande=supp_friend&id='.$rep4['id_user'].'" class="nav-btn btn btn-sm btn-outline-secondary mt-1" type="submit" name="envoyer_ami">Supprimer</a>'; ?>
                             </div>
                         </div>

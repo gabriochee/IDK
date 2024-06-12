@@ -57,13 +57,15 @@ session_start();
                                 if (isset($_POST['show'])) {
                                     $userInformations = ($bdd->query("SELECT id_user, nom, prenom, pseudo, sexe, date_inscription, mail, telephone, date_naissance FROM utilisateur WHERE id_user = {$_POST['show']};"))->fetchAll();
                                 } elseif (isset($_POST['ban-id'])) {
-                                    $sql = "INSERT INTO ban(id_ban, definitif, date_ban, date_deban, raison) VALUES (:banid, :definitif, :dateban, :datedeban, :raison)";
+                                    $sql = "INSERT INTO ban(definitif, date_ban, date_deban, raison, id_user) VALUES (:definitif, :dateban, :datedeban, :raison, :id_user)";
                                     $prep = $bdd->prepare($sql);
-                                    $prep->bindValue(":banid", intval($_POST['ban-id']));
+                                    $prep->bindValue(":id_user", intval($_POST['ban-id']));
                                     $prep->bindValue(":definitif", (isset($_POST['definitif']) ? 1 : 0));
                                     $prep->bindValue(":dateban", date("Y-m-d H-m-s"));
 
                                     $interval = new DateInterval('P' . $_POST['ban-time-year'] . 'Y' . $_POST['ban-time-month'] . 'M' . $_POST['ban-time-day'] . 'DT' . $_POST['ban-time-hour'] . 'H' . $_POST['ban-time-minute'] . 'M' . $_POST['ban-time-second'] . 'S');
+
+                                    echo $interval->format("%y %m %d %h %i %s");
 
                                     $date_deban = (new DateTime('now'))->add($interval);
 
@@ -85,12 +87,15 @@ session_start();
                                     } catch (PDOException $e){
                                         echo $e->getMessage();
                                     }
+                                } else if (isset($_POST['unban-id'])){
+                                    $req = $bdd->prepare("UPDATE ban SET date_deban = NOW()-1, definitif = FALSE WHERE id_user = :id_user;");
+                                    $req->bindParam(":id_user", $_POST['unban-id']);
+
+                                    $req->execute();
                                 }
-
                                                                                                                                                                                                         try {
-
-                                                                                                                                                                                                    $queryResponse = $bdd->query("SELECT id_user, CONCAT(prenom, ' ', nom) AS prenom_nom, pseudo, sexe, date_inscription, mail, date_naissance
-                                FROM utilisateur WHERE supprime = 0 AND NOT EXISTS(SELECT id_ban FROM ban WHERE ban.id_ban = utilisateur.id_user);");
+                                $queryResponse = $bdd->query("SELECT utilisateur.id_user, CONCAT(prenom, ' ', nom) AS prenom_nom, pseudo, sexe, date_inscription, mail, date_naissance
+                                FROM utilisateur LEFT JOIN ban ON ban.id_user = utilisateur.id_user WHERE supprime = 0 AND (ban.definitif = 0 OR ban.definitif IS NULL) AND (ban.date_deban < NOW() OR ban.date_deban IS NULL);");
                                 } catch (PDOException $e){
                                     echo $e->getMessage();
                                 }
@@ -168,8 +173,81 @@ session_start();
                             </tbody>
                         </table>
                     </div>
+
+                    <h3 class="mb-3 mt-3">Utilisateurs bannis: </h3>
+                    <div class="overflow-auto menu-oeuvre-2">
+                        <table class="table table-striped table-sm border border-3 border-dark" id="users-table">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th class="table-cell" scope="col">#id</th>
+                                    <th class="table-cell" scope="col">Prenom Nom</th>
+                                    <th class="table-cell" scope="col">Pseudo</th>
+                                    <th class="table-cell" scope="col">Email</th>
+                                    <th class="table-cell" scope="col">Date ban</th>
+                                    <th class="table-cell" scope="col">Raison</th>
+                                    <th class="table-cell" scope="col">Date deban</th>
+                                    <th class="table-cell" scope="col">Définitif</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $userInformations = false;
+
+                                if (isset($_POST['show'])) {
+                                    $userInformations = ($bdd->query("SELECT id_user, nom, prenom, pseudo, sexe, date_inscription, mail, telephone, date_naissance FROM utilisateur WHERE id_user = {$_POST['show']};"))->fetchAll();
+                                }
+                                                                                                                                                                                                        try {
+                                $queryResponse = $bdd->query("SELECT utilisateur.id_user, CONCAT(utilisateur.prenom, ' ', utilisateur.nom) AS prenom_nom, utilisateur.pseudo, utilisateur.mail, ban.date_ban, ban.raison, ban.date_deban, ban.definitif FROM ban JOIN utilisateur ON ban.id_user = utilisateur.id_user AND (ban.definitif = 1 OR ban.date_deban > NOW());");
+                                } catch (PDOException $e){
+                                    echo $e->getMessage();
+                                }
+
+                                $result = $queryResponse->fetchAll();
+                                $idUser;
+
+                                foreach ($result as $row) {
+                                    echo '<tr>';
+                                    foreach ($row as $key => $info) {
+                                        if (gettype($key) === 'string') {
+                                            if ($key == 'id_user') {
+                                                $idUser = $info;
+                                                $info = '#' . $info;
+                                            }
+                                            echo '<td class="table-cell">' . $info . '</td>';
+                                        }
+                                    }
+                                    echo '<form action="moderation_user.php" method="post">';
+                                    echo '<td class="table-cell"><button type="submit" class="btn btn-sm btn-outline-secondary" name=show value=' . $idUser . '>En voir plus</button></td>';
+                                    echo '<td class="table-cell"><button type="button" class="btn btn-sm btn-success unban-menu-btn" data-bs-toggle="modal" data-bs-target="#unbanModal" value=' . $idUser . '>Débannir</button></td>';
+                                    echo '<td class="table-cell"><button type="button" class="btn btn-sm btn-danger delete-menu-btn" data-bs-toggle="modal" data-bs-target="#deleteModal" name=delete value=' . $idUser . '>Supprimer</button></td>';
+                                    echo '</form>';
+                                    echo '</tr>';
+                                }
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 <hr class="featurette-divider my-2 <?php if (!isset($_POST['show'])) {echo 'visually-hidden';} ?>">
+                <div class="modal fade" id="unbanModal" tabindex="-1">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5">Voulez vous débannir cet utilisateur ?</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="moderation_user.php" method="post" class="d-flex justify-content-between">
+                                    <button type="submit" id="unban-btn" class="btn btn-success" name="unban-id" value="">Débannir</button>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="modal fade" id="deleteModal" tabindex="-1">
                     <div class="modal-dialog">
                         <div class="modal-content">
