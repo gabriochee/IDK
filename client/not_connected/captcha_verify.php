@@ -1,8 +1,12 @@
 <?php 
+<<<<<<< HEAD
 if (isset($_SESSION['id_user'])) {
     header("Location: ../connected/home.php");
     exit();
 }
+=======
+
+>>>>>>> 30266fd930b486c98602591e4af8697e653b7b41
 
 require_once('../../inc/php/db.php');
 

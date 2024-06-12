@@ -1,8 +1,5 @@
 <?php 
-if(isset($_SESSION['id_user'])) {
-    header("Location: ../connected/home.php");
-    exit();
-}
+
 ?>
 <?php require_once('../../inc/php/scraping_log.php'); ?>
 

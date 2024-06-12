@@ -3,10 +3,7 @@ session_start();
 
 require_once('../inc/php/db.php'); 
 
-if (!(isset($_SESSION['role_user']) && $_SESSION['role_user'] === 'admin')) {
-    header("Location: ../client/not_connected/login.php");
-    exit();
-}
+
 
 $url_demandee = $_SERVER['REQUEST_URI'];
 $segments_url = explode('/', $url_demandee);

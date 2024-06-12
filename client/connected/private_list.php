@@ -3,10 +3,7 @@ require_once('../../inc/php/db.php');
 
 session_start();
 
-if (!isset($_SESSION['id_user'])) {
-    header("Location: ../not_connected/login.php");
-    exit();
-}
+
 
 if (isset($_GET['id_liste'])) {
     $req = $bdd->prepare("SELECT date_creation, details, statut, id_user, nom FROM listes WHERE id_liste = :id_liste;");

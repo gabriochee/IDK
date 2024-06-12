@@ -13,6 +13,7 @@ if(isset($_POST['connecter'])) {
         $req->execute( array("email" => $email) );
         $reponse = $req->fetch();
 
+
         if($reponse) {
             
             if(password_verify($password.$pepper, $reponse['mdp'])) {
@@ -58,6 +59,8 @@ if(isset($_POST['connecter'])) {
         } else { 
             header('Location: login.php?wrong_email=true');
         }
+
+        
     }
 }
 ?>

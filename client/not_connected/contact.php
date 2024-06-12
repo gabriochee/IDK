@@ -17,8 +17,11 @@ if(isset($_SESSION['id_user'])) {
     <title>IDK</title>
 </head>
 <body id="not_connected_contact">
+
     <?php require_once('../../inc/php/db.php'); ?>
     <?php require_once('../../inc/not_connected/header.php'); ?>
+    <?php require_once('../../inc/php/function_messagerie_not_co.php'); ?>
+    
     <main>
         <div class="container text-center m-auto">
             <div class="row">
@@ -62,14 +65,14 @@ if(isset($_SESSION['id_user'])) {
                         </div>
                         <div class="col-12">
                             <label for="theme" class="form-label">Objet de la demande <span class="text-muted">(Optionel)</span></label>
-                            <input type="text" class="form-control" id="theme" name="theme" pattern="[a-zA-ZÀ-ÿ0-9._,;:?!/*€$&@#()' -]{2,40}">
+                            <input type="text" class="form-control" id="theme" name="titre" pattern="[a-zA-ZÀ-ÿ0-9._,;:?!/*€$&@#()' -]{2,40}">
                         </div>
                         <div class="col-12">
                             <label for="message" class="form-label">Votre message</label>
                             <textarea class="form-control" id="message" name="message" rows="15" minlength="15" maxlength="500" required></textarea>
                             <div class="invalid-feedback">Veuillez fournir un message valide.</div>
                         </div>
-                        <button class="w-100 btn btn-secondary btn-lg btn-warning border-dark border-2" type="submit">Envoyer</button>
+                        <button class="w-100 btn btn-secondary btn-lg btn-warning border-dark border-2" type="submit_not_connected" name="submit_not_connected">Envoyer</button>
                     </div>
                 </form>
             </div>
