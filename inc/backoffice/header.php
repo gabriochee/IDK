@@ -7,7 +7,8 @@
     </button>
     <div class="navbar-nav">
         <div class="nav-item text-nowrap">
-            <a class="nav-link px-3" href="#">Déconnexion</a>
+            <form method="" action="../../inc/php/logout.php">
+                <a class="nav-link px-3">Déconnexion</a>
         </div>
     </div>
 </header>

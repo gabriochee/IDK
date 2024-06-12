@@ -1,6 +1,6 @@
 <?php
-    require_once('db.php');
-
+    require('db.php');
+    
     use PHPMailer\PHPMailer\PHPMailer;
     use PHPMailer\PHPMailer\Exception;
 
@@ -58,7 +58,15 @@
         $req5->execute();
     }
     
-
+    /*UPDATE administration_contenu
+SET last_titre = 'test2'
+WHERE id_maj = (
+    SELECT MAX(id_maj)
+    FROM administration_contenu
+    WHERE id_bloc = 137
+)
+AND id_bloc = 137;
+*/
 
 
     // Envoyer l'historique de la newsletter

@@ -48,16 +48,19 @@ if(isset($_POST['code'])) {
     }
 }
 
-if(isset($_POST['connect'])) {
+if (isset($_POST['connect'])) {
     $connect = $_POST['entrer_code'];
-    if($connect != "") {
+    if ($connect != "") {
         $email = $_SESSION['email'];
         $req = $bdd->prepare("SELECT mail, verification_code FROM utilisateur WHERE mail = :email;");
         $req->execute( array("email" => $email) );
         $reponse = $req->fetch();
-        if($reponse) {
+        if ($reponse) {
             $verification_code = $reponse['verification_code'];
-            if($connect == $verification_code) {
+            if ($connect == $verification_code) {
+                if ($_SESSION['role_user'] == 'admin') {
+                    header('Location: ../../admin/home_backoffice.php');         
+                }
                 header('Location: ../connected/home.php');
             } else {
                 header('Location: confirmation_connexion.php?wrong_code=true');

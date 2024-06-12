@@ -1,11 +1,12 @@
 <?php 
-if(isset($_SESSION['id_user'])) {
+if (isset($_SESSION['id_user'])) {
     header("Location: ../connected/home.php");
     exit();
 }
 
 require_once('../../inc/php/db.php');
-if (isset($_GET['captcha_id']) && isset($_GET['captcha_answer'])){
+
+if (isset($_GET['captcha_id']) && isset($_GET['captcha_answer'])) {
     $request = $bdd->prepare('SELECT bonne_reponse FROM reponse_captcha JOIN correspondance_captcha ON correspondance_captcha.id_reponse = reponse_captcha.id_reponse WHERE reponse_captcha.id_reponse = :id_reponse AND correspondance_captcha.id_captcha = :id_captcha;');
 
     $request->bindParam(":id_captcha", $_GET['captcha_id']);
@@ -13,13 +14,14 @@ if (isset($_GET['captcha_id']) && isset($_GET['captcha_answer'])){
 
     $request->execute();
     $data = $request->fetch();
-    
-    if ($data['bonne_reponse'] === 1){
+
+    if ($data['bonne_reponse'] === 1) {
         header('HTTP/1.1 307 Temporary Redirect');
         header('Location: confirmation_connexion.php');
     }
 }
 ?>
+
 <?php require_once('../../inc/php/scraping_log.php'); ?>
 
 <!DOCTYPE html>
@@ -56,13 +58,10 @@ if (isset($_GET['captcha_id']) && isset($_GET['captcha_answer'])){
                     <h2>
                         <?php
                         $request = $bdd->query('SELECT id_captcha FROM captcha;');
-
                         $result = $request->fetchAll();
-
                         $random_id = $result[rand(0, count($result) - 1)][0];
 
                         $request = $bdd->query('SELECT question FROM captcha WHERE id_captcha = ' . $random_id . ';');
-
                         $result = $request->fetch();
 
                         echo $result['question'];
@@ -75,7 +74,6 @@ if (isset($_GET['captcha_id']) && isset($_GET['captcha_answer'])){
                     $request = $bdd->query('SELECT reponse_captcha.contenu, reponse_captcha.id_reponse FROM reponse_captcha JOIN correspondance_captcha ON correspondance_captcha.id_reponse = reponse_captcha.id_reponse WHERE correspondance_captcha.id_captcha = ' . $random_id . ';');
 
                     $result = $request->fetchAll();
-
                     $i = 0;
 
                     foreach ($result as $key => $value) {
@@ -83,7 +81,6 @@ if (isset($_GET['captcha_id']) && isset($_GET['captcha_answer'])){
                         echo '<label class="nav-btn btn btn-sm btn-warning border border-dark border-2 rounded-3 fs-sm-5 px-3" for="option' . $i . '">' . $value['contenu'] . '</label>';
                         $i++;
                     }
-
                     ?>
                 </div>
 
