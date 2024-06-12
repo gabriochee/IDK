@@ -17,8 +17,11 @@ if(isset($_SESSION['id_user'])) {
     <title>IDK</title>
 </head>
 <body id="not_connected_contact">
+
     <?php require_once('../../inc/php/db.php'); ?>
     <?php require_once('../../inc/not_connected/header.php'); ?>
+    <?php require_once('../../inc/php/function_messagerie_not_co.php'); ?>
+    
     <main>
         <div class="container text-center m-auto">
             <div class="row">

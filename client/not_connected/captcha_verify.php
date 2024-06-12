@@ -1,8 +1,5 @@
 <?php 
-if(isset($_SESSION['id_user'])) {
-    header("Location: ../connected/home.php");
-    exit();
-}
+
 
 require_once('../../inc/php/db.php');
 if (isset($_GET['captcha_id']) && isset($_GET['captcha_answer'])){

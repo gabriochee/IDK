@@ -1,9 +1,6 @@
 <?php 
 session_start();
-/*if (!isset($_SESSION['user_id'])) {
-    header("Location: ../connected/home.php");
-    exit();
-}*/
+
 ?>
 <?php require_once('../../inc/php/scraping_log.php'); ?>
 
@@ -18,7 +15,7 @@ session_start();
     <title>IDK</title>
 </head>
 <body id="not_connected_contact">
-    <?php require_once('../../inc/php/function_messagerie.php'); ?>
+    <?php require_once('../../inc/php/function_messagerie_co.php'); ?>
     <?php require_once('../../inc/not_connected/header.php'); ?>
     <main>
         <div class="container text-center m-auto">
@@ -31,7 +28,7 @@ session_start();
         </div>
         <div class="contact-form row g-5 justify-content-center mb-4">
             <div class="col-md-7 col-lg-8">
-                <form  method="POST" action="messagerie.php" >
+                <form  method="POST" action="messagerie_co.php" >
                     <div class="row g-3 justify-content-center">
                         <div class="col-10">
                             <label for="theme" class="form-label">Objet de la demande <span class="text-muted">(Optionel)</span></label>

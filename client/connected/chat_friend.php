@@ -1,10 +1,7 @@
 <?php 
 session_start();
 
-if (!isset($_SESSION['user_id'])) {
-    header("Location: ../not_connected/login.php");
-    exit();
-}*/
+
 ?>
 
 <!DOCTYPE html>
