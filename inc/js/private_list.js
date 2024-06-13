@@ -63,9 +63,9 @@ async function setCardsContent() {
 }
 
 listStatusRadios.forEach((elem) => {
-  elem.addEventListener('change', () => {
-    fetch('http://localhost:3000/inc/php/change_list_status.php?' + new URLSearchParams({"id-liste" : id_liste, "list-status" : elem.value.toString()}));
+  elem.addEventListener('change', function () {
+    fetch("http://localhost:3000/inc/php/change_list_status.php?" + new URLSearchParams({"id_liste" : id_liste, "list_status" : elem.value.toString()})).then(data => data.text()).then(text => console.log(text));
   })
 })
 
-setCardsContent();
+//setCardsContent();
