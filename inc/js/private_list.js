@@ -1,4 +1,5 @@
 const movieCards = document.querySelectorAll(".movie-card");
+const listStatusRadios = document.querySelectorAll("input[name=list-status]");
 
 const options = {
   method: 'GET',
@@ -60,5 +61,11 @@ async function setCardsContent() {
       .catch(onError);
   }
 }
+
+listStatusRadios.forEach((elem) => {
+  elem.addEventListener('change', () => {
+    fetch('http://localhost:3000/inc/php/change_list_status.php?' + new URLSearchParams({"id-liste" : id_liste, "list-status" : elem.value.toString()}));
+  })
+})
 
 setCardsContent();

@@ -3,8 +3,6 @@ require_once('../../inc/php/db.php');
 
 session_start();
 
-
-
 if (isset($_GET['id_liste'])) {
     $req = $bdd->prepare("SELECT date_creation, details, statut, id_user, nom FROM listes WHERE id_liste = :id_liste;");
     $req->bindParam(":id_liste", $_GET['id_liste']);
@@ -138,18 +136,28 @@ if (isset($_GET['id_liste'])) {
                 </div>
             </div>
         </div>';
-        }
-        ?>
+            }
+            ?>
+            <div class="container d-flex justify-content-center mb-5">
+                <input type="radio" class="btn-check" name="list-status" id="private-list" value="privee" autocomplete="off">
+                <label class="btn" for="private-list">Privée</label>
 
-        <div class="container-fluid col-10 fs-5 border border-2 border-dark overflow-auto max-height" style="background-color : #CFDBD5;">
-            <ul>
-                <?php
-                for ($i = 1; $i <= 11; $i++) {
-                    echo "<li class='py-2'> Ami $i - <a href='#' class='link-dark link-underline-opacity-0 link-underline-opacity-100-hover'>Ajouter</a></li>";
-                }
-                ?>
-            </ul>
-        </div>
+                <input type="radio" class="btn-check" name="list-status" id="only-friends-list" value="amis seulement" autocomplete="off">
+                <label class="btn" for="only-friends-list">Amis seulement</label>
+
+                <input type="radio" class="btn-check" name="list-status" id="public-list" value="publique" autocomplete="off">
+                <label class="btn" for="public-list">Publique</label>
+            </div>
+
+            <div class="container-fluid col-10 fs-5 border border-2 border-dark overflow-auto max-height" style="background-color : #CFDBD5;">
+                <ul>
+                    <?php
+                    for ($i = 1; $i <= 11; $i++) {
+                        echo "<li class='py-2'> Ami $i - <a href='#' class='link-dark link-underline-opacity-0 link-underline-opacity-100-hover'>Ajouter</a></li>";
+                    }
+                    ?>
+                </ul>
+            </div>
     </main>
     <?php require_once('../../inc/components/connected/footer.php'); ?>
     <?php if ($isOwner) {
