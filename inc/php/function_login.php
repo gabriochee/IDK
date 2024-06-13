@@ -27,7 +27,7 @@ if(isset($_POST['connecter'])) {
                 } else {
                     $date_now = date('Y-m-d H:i:s');
 
-                    $req2 = $bdd->prepare("SELECT date_ban, date_deban, definitif, raison  FROM ban WHERE id_user = :id_user");
+                    $req2 = $bdd->prepare("SELECT date_ban, date_deban, definitif, raison FROM ban WHERE id_user = :id_user ORDER BY id_ban DESC LIMIT 1");
                     $req2->bindValue(':id_user', $reponse['id_user'], PDO::PARAM_INT);
                     $req2->execute();
                     $ban_or_not = $req2->fetch(PDO::FETCH_ASSOC);
