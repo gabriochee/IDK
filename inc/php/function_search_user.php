@@ -116,7 +116,7 @@
         
     }
     //regarder s'il y a une demande d'ami en attente
-    function check_friend_request_status($my_user_id, $other_user_id, $bdd) {
+    function check_friend_request_status_from_me($my_user_id, $other_user_id, $bdd) {
         try {
             $check_status_friend = "SELECT COUNT(*) FROM demande_ami WHERE envoyeur = :me AND receveur = :other";
             $stmt = $bdd->prepare($check_status_friend);
@@ -128,6 +128,21 @@
             die($e->getMessage());
         }
     }
+
+    function check_friend_request_status_from_other($my_user_id, $other_user_id, $bdd) {
+        try {
+            $check_status_friend = "SELECT COUNT(*) FROM demande_ami WHERE envoyeur = :other AND receveur = :me";
+            $stmt = $bdd->prepare($check_status_friend);
+            $stmt->bindParam(':me', $my_user_id);
+            $stmt->bindParam(':other', $other_user_id);
+            $stmt->execute();
+            return $stmt->fetchColumn() > 0;
+        } catch (PDOException $e) {
+            die($e->getMessage());
+        }
+    }
+    //
+
     //annuler la demande d'ami en attente
     function cancel_request($my_user_id, $other_user_id, $bdd){
         try{

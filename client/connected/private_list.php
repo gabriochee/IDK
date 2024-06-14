@@ -3,8 +3,6 @@ require_once('../../inc/php/db.php');
 
 session_start();
 
-
-
 if (isset($_GET['id_liste'])) {
     $req = $bdd->prepare("SELECT date_creation, details, statut, id_user, nom FROM listes WHERE id_liste = :id_liste;");
     $req->bindParam(":id_liste", $_GET['id_liste']);
@@ -13,9 +11,11 @@ if (isset($_GET['id_liste'])) {
     $res = $req->fetchAll();
     $nomListe = $res[0]['nom'];
     $isOwner = $res[0]['id_user'] == $_SESSION['id_user'];
+    $statut = $res[0]['statut'];
+    $details = $res[0]['details'];
 
     $req = $bdd->prepare("SELECT pseudo FROM utilisateur WHERE id_user = :id_user;");
-    $req->bindParam(":id_user", $_SESSION['id_user']);
+    $req->bindParam(":id_user", $res[0]['id_user']);
     $req->execute();
 
     $res = $req->fetchAll();
@@ -71,6 +71,12 @@ if (isset($_GET['id_liste'])) {
                 inscrit depuis jj/mm/aaaa</h4>
         </div>
 
+
+        <div class="container">
+            <hr>
+            <h4 class="text-center"><?php echo $details; ?></h4>
+        </div>
+
         <!-- besoin de changer la taille verticale de cette div, si vous trouvez comment faire dites moi svp. -->
         <div class="container m-0 mt-5 p-0 w-75 list-height m-auto border border-3 border-dark rounded-3 overflow-auto no-overflow-x" style="background-color: #CFDBD5;">
             <div class="d-lg-flex row gx-2 gy-3 px-5 py-4 row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-1">
@@ -85,7 +91,7 @@ if (isset($_GET['id_liste'])) {
                         $filmName = $res['primaryTitle'];
                         $filmId = $res['id_work'];
                         $filmYear = $res['startYear'];
-                        require_once('../../inc/components/card.php');
+                        require('../../inc/components/card.php');
                     }
                 }
                 ?>
@@ -93,7 +99,8 @@ if (isset($_GET['id_liste'])) {
         </div>
 
         <div class="container-fluid text-center my-5">
-            <div>
+            <div <?php if (!$isOwner) { echo 'class="mb-3"';}?> >
+                <?php if ($isOwner) { ?>
                 <button class="btn btn-primary btn-sm btn-warning border border-dark border-2 rounded-3 fs-4 col-md-3" data-bs-toggle="modal" data-bs-target="#addMovieModal">Ajouter un film</button>
 
                 <div class="modal fade" id="addMovieModal" tabindex="-1" aria-hidden="true">
@@ -113,12 +120,13 @@ if (isset($_GET['id_liste'])) {
                         </div>
                     </div>
                 </div>
+                <?php } ?>
+
                 <a href="#" class="btn btn-primary btn-sm btn-warning border border-dark border-2 rounded-3 fs-4 col-md-3">Partager !</a>
             </div>
 
-            <?php if ($isOwner) {
-                echo
-                '<button class="btn btn-primary btn-sm btn-danger border border-dark border-2 rounded-3 fs-4 col-md-3 mt-5" data-bs-toggle="modal" data-bs-target="#deleteListModal">Supprimer la liste</button>
+            <?php if ($isOwner) { ?>
+                <button class="btn btn-primary btn-sm btn-danger border border-dark border-2 rounded-3 fs-4 col-md-3 mt-5" data-bs-toggle="modal" data-bs-target="#deleteListModal">Supprimer la liste</button>
 
             <div class="modal fade" id="deleteListModal" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog">
@@ -137,19 +145,31 @@ if (isset($_GET['id_liste'])) {
                     </div>
                 </div>
             </div>
-        </div>';
-        }
-        ?>
-
-        <div class="container-fluid col-10 fs-5 border border-2 border-dark overflow-auto max-height" style="background-color : #CFDBD5;">
-            <ul>
-                <?php
-                for ($i = 1; $i <= 11; $i++) {
-                    echo "<li class='py-2'> Ami $i - <a href='#' class='link-dark link-underline-opacity-0 link-underline-opacity-100-hover'>Ajouter</a></li>";
-                }
-                ?>
-            </ul>
         </div>
+            <?php }?>
+
+            <?php if ($isOwner) {?>
+            <div class="container d-flex justify-content-center mb-5">
+                <input type="radio" class="btn-check" name="list-status" id="private-list" value="privee" autocomplete="off" <?php if ($statut == 'privee'){echo 'checked';} ?> >
+                <label class="btn" for="private-list">privée</label>
+
+                <input type="radio" class="btn-check" name="list-status" id="only-friends-list" value="amis seulement" autocomplete="off" <?php if ($statut == 'amis seulement'){echo 'checked';} ?> >
+                <label class="btn" for="only-friends-list">amis seulement</label>
+
+                <input type="radio" class="btn-check" name="list-status" id="public-list" value="publique" autocomplete="off" <?php if ($statut == 'publique'){echo 'checked';} ?> >
+                <label class="btn" for="public-list">publique</label>
+            </div>
+            <?php }?>
+
+            <div class="container-fluid col-10 fs-5 border border-2 border-dark overflow-auto max-height" style="background-color : #CFDBD5;">
+                <ul>
+                    <?php
+                    for ($i = 1; $i <= 11; $i++) {
+                        echo "<li class='py-2'> Ami $i - <a href='#' class='link-dark link-underline-opacity-0 link-underline-opacity-100-hover'>Ajouter</a></li>";
+                    }
+                    ?>
+                </ul>
+            </div>
     </main>
     <?php require_once('../../inc/components/connected/footer.php'); ?>
     <?php if ($isOwner) {

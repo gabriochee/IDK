@@ -12,10 +12,19 @@
 <body id="backoffice_moderation_user" class="backoffice">
     <?php require_once('../inc/php/db.php'); ?>
     <?php require_once('../inc/components/backoffice/header.php'); ?>
+    <?php require_once('../inc/library/fpdf/function_fpdf_admin.php'); ?>
     <div class="container-fluid">
         <div class="row">
             <?php require_once('../inc/components/backoffice/sidebar.php'); ?>
+            
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <form action="moderation_user.php" method="POST">
+                <div class="form-group">
+                    <label for="userId">exporter pdf saisir l'id de l'utilisateur:</label>
+                    <input type="number" class="form-control" id="userId" name="userId" required>
+                </div>
+                <button type="submit" class="btn btn-primary mt-3">Créer PDF</button>
+            </form>
                 <div class="table-responsive mt-4">
                     <h3 class="mb-3">Utilisateurs : </h3>
                     <?php
@@ -82,7 +91,7 @@
                                         echo $e->getMessage();
                                     }
                                 } else if (isset($_POST['unban-id'])){
-                                    $req = $bdd->prepare("UPDATE ban SET date_deban = NOW()-1, definitif = FALSE WHERE id_user = :id_user;");
+                                    $req = $bdd->prepare("UPDATE ban SET date_deban = NOW(), definitif = FALSE WHERE id_user = :id_user ORDER BY id_ban DESC LIMIT 1;");
                                     $req->bindParam(":id_user", $_POST['unban-id']);
 
                                     $req->execute();

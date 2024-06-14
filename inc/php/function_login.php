@@ -9,9 +9,11 @@ if(isset($_POST['connecter'])) {
 
     if($email != "" && $password != "") {
         //recup info de l'user qui veut se connecter
-        $req1 = $bdd->prepare("SELECT id_user, nom, prenom, pseudo, mail, mdp, role_user FROM utilisateur WHERE mail = :email;");
-        $req1->execute( array("email" => $email) );
-        $reponse = $req1->fetch();
+        $req1 = $bdd->prepare("SELECT id_user, nom, prenom, pseudo, mail, mdp, role_user FROM utilisateur WHERE mail = :email");
+        $req1->bindParam(':email', $email, PDO::PARAM_STR);
+        $req1->execute();
+        $reponse = $req1->fetch(PDO::FETCH_ASSOC);
+
 
 
         if($reponse) {
@@ -27,7 +29,7 @@ if(isset($_POST['connecter'])) {
                 } else {
                     $date_now = date('Y-m-d H:i:s');
 
-                    $req2 = $bdd->prepare("SELECT date_ban, date_deban, definitif, raison  FROM ban WHERE id_user = :id_user");
+                    $req2 = $bdd->prepare("SELECT date_ban, date_deban, definitif, raison FROM ban WHERE id_user = :id_user ORDER BY id_ban DESC LIMIT 1");
                     $req2->bindValue(':id_user', $reponse['id_user'], PDO::PARAM_INT);
                     $req2->execute();
                     $ban_or_not = $req2->fetch(PDO::FETCH_ASSOC);

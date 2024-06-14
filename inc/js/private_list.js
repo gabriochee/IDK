@@ -1,4 +1,5 @@
 const movieCards = document.querySelectorAll(".movie-card");
+const listStatusRadios = document.querySelectorAll("input[name=list-status]");
 
 const options = {
   method: 'GET',
@@ -29,7 +30,7 @@ const addMovieToList = async (btn) => {
 }
 
 function onError(error){
-    console.error(error);
+  console.error(error);
 }
 
 function onResponse(response, card){
@@ -60,5 +61,11 @@ async function setCardsContent() {
       .catch(onError);
   }
 }
+
+listStatusRadios.forEach((elem) => {
+  elem.addEventListener('change', function () {
+    fetch("http://localhost:3000/inc/php/update_list_status.php?" + new URLSearchParams({id_liste : id_liste, list_status : elem.value})).then(data => data.text()).then(text => console.log(text)).catch(error => console.error(error));
+  })
+})
 
 setCardsContent();
