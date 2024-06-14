@@ -30,7 +30,7 @@ const addMovieToList = async (btn) => {
 }
 
 function onError(error){
-    console.error(error);
+  console.error(error);
 }
 
 function onResponse(response, card){

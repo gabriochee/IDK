@@ -11,6 +11,7 @@ if (isset($_GET['id_liste'])) {
     $res = $req->fetchAll();
     $nomListe = $res[0]['nom'];
     $isOwner = $res[0]['id_user'] == $_SESSION['id_user'];
+    $statut = $res[0]['statut'];
 
     $req = $bdd->prepare("SELECT pseudo FROM utilisateur WHERE id_user = :id_user;");
     $req->bindParam(":id_user", $_SESSION['id_user']);
@@ -139,13 +140,13 @@ if (isset($_GET['id_liste'])) {
             }
             ?>
             <div class="container d-flex justify-content-center mb-5">
-                <input type="radio" class="btn-check" name="list-status" id="private-list" value="privee" autocomplete="off">
+                <input type="radio" class="btn-check" name="list-status" id="private-list" value="privee" autocomplete="off" <?php if ($statut == 'privee'){echo 'checked';} ?> >
                 <label class="btn" for="private-list">Privée</label>
 
-                <input type="radio" class="btn-check" name="list-status" id="only-friends-list" value="amis seulement" autocomplete="off">
+                <input type="radio" class="btn-check" name="list-status" id="only-friends-list" value="amis seulement" autocomplete="off" <?php if ($statut == 'amis seulement'){echo 'checked';} ?> >
                 <label class="btn" for="only-friends-list">Amis seulement</label>
 
-                <input type="radio" class="btn-check" name="list-status" id="public-list" value="publique" autocomplete="off">
+                <input type="radio" class="btn-check" name="list-status" id="public-list" value="publique" autocomplete="off" <?php if ($statut == 'publique'){echo 'checked';} ?> >
                 <label class="btn" for="public-list">Publique</label>
             </div>
 
