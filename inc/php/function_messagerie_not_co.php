@@ -19,10 +19,12 @@
         $req1->bindParam(':telephone', $telephone);
 
         $req1->execute();
+        echo "<div class='alert alert-success text-center' role='alert'>Votre message a bien été envoyé, vous recevrez un retour d'ici 24h.</div>";
     }
     $req3 = $bdd->prepare("SELECT id , mail, date_message, titre, messages FROM demande_admin where statut = 0");
     $req3->execute();  
     $recup_messages_not_co = $req3->fetchAll(PDO::FETCH_ASSOC);
 
+    
 
 ?>

@@ -33,7 +33,7 @@ if(isset($_SESSION['id_user'])) {
         </div>
         <div class="contact-form row g-5 justify-content-center mb-4">
             <div class="col-md-7 col-lg-8">
-                <form  method="post" id="form-contact">
+                <form method="POST" id="form-contact">
                     <div class="row g-3">
                         <div class="col-12">
                             <label for="sexe" class="form-label">Sexe</label>
@@ -59,7 +59,7 @@ if(isset($_SESSION['id_user'])) {
                             <div class="invalid-feedback">Veuillez fournir un email valide.</div>
                         </div>
                         <div class="col-12">
-                            <label for="number" class="form-label">Numéro de portable <span class="text-muted">(Optionel)</span></label>
+                            <label for="number" class="form-label">Numéro de portable</span></label>
                             <input type="text" class="form-control" id="number" name="number" pattern="[0-9]{10}">
                             <div class="invalid-feedback">Veuillez fournir un numéro de téléphone valide.</div>
                         </div>
