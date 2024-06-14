@@ -83,7 +83,7 @@ if (isset($_GET['id_liste'])) {
                         $filmName = $res['primaryTitle'];
                         $filmId = $res['id_work'];
                         $filmYear = $res['startYear'];
-                        require_once('../../inc/components/card.php');
+                        require('../../inc/components/card.php');
                     }
                 }
                 ?>
