@@ -59,6 +59,7 @@ if (isset($_POST['code'])) {
 }
 
 if (isset($_POST['connect'])) {
+    
     $connect = $_POST['entrer_code'];
     if ($connect != "") {
         $email = $_SESSION['email'];
@@ -72,6 +73,10 @@ if (isset($_POST['connect'])) {
             if ($connect == $verification_code) {
                 $role = $reponse['role_user'];
                 if($role == 'utilisateur'){
+                    $req8 = $bdd->prepare("UPDATE utilisateur SET derniere_connexion = NOW() WHERE mail = :email");
+                    $email = $_SESSION['email'];
+                    $req8->bindValue(':email', $email, PDO::PARAM_STR);
+                    $req8->execute();
                     header('Location: ../connected/home.php');
                 }
                 else if($role == 'admin'){

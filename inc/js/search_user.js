@@ -16,7 +16,10 @@ const searchKeywordUser = async () => {
                         buttonHtml = '<button class="nav-btn btn btn-sm btn-outline-secondary" disabled>Déjà amis</button>';
                     } else if (post.request_sent) {
                         buttonHtml = '<button class="nav-btn btn btn-sm btn-outline-secondary" disabled>Demande envoyée</button>';
-                    } else {
+                    } else if(post.request_received){
+                        buttonHtml = '<button class="nav-btn btn btn-sm btn-outline-secondary" disabled>vas voir tes demandes là</button>';
+                    }
+                    else {
                         buttonHtml = `<a href="my_friend_list.php?demande=attente_demande_ami&id=${post.id_user}" class="nav-btn btn btn-sm btn-outline-secondary" type="submit" name="envoyer_ami">Ajouter en amis</a>`;
                     }
 
