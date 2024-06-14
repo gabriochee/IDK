@@ -9,9 +9,11 @@ if(isset($_POST['connecter'])) {
 
     if($email != "" && $password != "") {
         //recup info de l'user qui veut se connecter
-        $req1 = $bdd->prepare("SELECT id_user, nom, prenom, pseudo, mail, mdp, role_user FROM utilisateur WHERE mail = :email;");
-        $req1->execute( array("email" => $email) );
-        $reponse = $req1->fetch();
+        $req1 = $bdd->prepare("SELECT id_user, nom, prenom, pseudo, mail, mdp, role_user FROM utilisateur WHERE mail = :email");
+        $req1->bindParam(':email', $email, PDO::PARAM_STR);
+        $req1->execute();
+        $reponse = $req1->fetch(PDO::FETCH_ASSOC);
+
 
 
         if($reponse) {

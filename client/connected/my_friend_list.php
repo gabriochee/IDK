@@ -54,13 +54,25 @@ session_start();
                                     <table class="table table-striped table-sm border border-1 border-dark mt-3">
                                         <tbody>
                                             <?php // Mettre une taille max !
-                                                foreach($rep2 as $rep2) {
-                                                    echo '<tr><td class="table-cell" scope="row">' . htmlspecialchars($rep3['pseudo']). ' - ' . htmlspecialchars($rep3['nom']).' '.htmlspecialchars($rep3['prenom']).'</td>';
+                                                foreach($rep2 as $rep) {
+                                                    echo '<tr>';
+                                                    echo '<td class="table-cell" scope="row">' . htmlspecialchars($rep['pseudo']). ' - ' . htmlspecialchars($rep['nom']).' '.htmlspecialchars($rep['prenom']) . '</td>';
                                                     echo '<td class="table-cell">le 14/04/2024</td>';
                                                     echo '<td class="table-cell text-end">';
-                                                    echo '<a href="my_friend_list.php?demande=be_friend&id='.$rep2['id_user'].'" class="nav-btn btn btn-sm btn-outline-secondary" type="submit" name="envoyer_ami">Accepter</a></td>';
-                                                    echo '<a href="my_friend_list.php?demande=cancel_req_from_receiver&id='.$rep2['id_user'].'" class="nav-btn btn btn-sm btn-outline-secondary" type="submit" name="envoyer_ami">Refuser</a>';
-                                                    echo '</td></tr>';
+                                                    // Formulaire pour accepter l'ami
+                                                    echo '<form action="my_friend_list.php" method="get" style="display:inline;">';
+                                                    echo '<input type="hidden" name="demande" value="be_friend">';
+                                                    echo '<input type="hidden" name="id" value="' . $rep['id_user'] . '">';
+                                                    echo '<button type="submit" class="nav-btn btn btn-sm btn-outline-secondary" name="envoyer_ami">Accepter</button>';
+                                                    echo '</form> ';
+                                                    // Formulaire pour refuser l'ami
+                                                    echo '<form action="my_friend_list.php" method="get" style="display:inline;">';
+                                                    echo '<input type="hidden" name="demande" value="cancel_req_from_receiver">';
+                                                    echo '<input type="hidden" name="id" value="' . $rep['id_user'] . '">';
+                                                    echo '<button type="submit" class="nav-btn btn btn-sm btn-outline-secondary" name="envoyer_ami">Refuser</button>';
+                                                    echo '</form>';
+                                                    echo '</td>';
+                                                    echo '</tr>';
                                                 }
                                             ?>
                                         </tbody>
