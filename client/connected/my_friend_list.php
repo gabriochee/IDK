@@ -98,33 +98,35 @@ session_start();
                                 <div class="d-flex flex-column align-items-center text-center">
                                     <img class="mb-3" width="150px" src="../../inc/img/profile.svg">
                                     <span class="text-black-50">#<?php echo $rep4['id_user']; ?></span>
-                                    <span><?php echo $rep4['pseudo']; ?></span>
+                                    <span class="username"><?php echo $rep4['pseudo']; ?></span>
                                     <span><?php echo $rep4['nom'] . ' ' . $rep4['prenom']; ?></span>
                                     <span>1 amis</span>
                                     <button type="button" class="btn btn-sm btn-outline-secondary mt-3" onclick="window.location='chat_friend.php'">Contacter</button>
-                                    <button type="button" class="btn btn-sm btn-outline-secondary mt-1" onclick="" data-bs-toggle="modal" data-bs-target="#listsModal">Voir les listes</button>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary mt-1" onclick="showFriendLists(this)" value=<?php echo $rep4['id_user'] ?> data-bs-toggle="modal" data-bs-target="#listsModal">Voir les listes</button>
 
-                                    <div class="modal fade" id="listsModal" tabindex="-1" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h1 class="modal-title fs-5">Listes de <?php echo $rep4['pseudo']; ?></h1>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <div class="d-flex flex-column align-items-start" id="results-movie"></div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
 
                                     <?php echo '<a href="my_friend_list.php?demande=supp_friend&id=' . $rep4['id_user'] . '" class="nav-btn btn btn-sm btn-outline-secondary mt-1" type="submit" name="envoyer_ami">Supprimer</a>'; ?>
                                 </div>
                             </div>
                         <?php } ?>
+
+                        <div class="modal fade" id="listsModal" tabindex="-1" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5"></h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="d-flex flex-column" id="lists-results"></div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -133,6 +135,7 @@ session_start();
     <?php require_once('../../inc/components/connected/footer.php'); ?>
     <script src="../../inc/js/search_user.js"></script>
     <script src="../../inc/js/search_movie.js"></script>
+    <script src="../../inc/js/friend_lists.js"></script>
     <script src="../../inc/library/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 

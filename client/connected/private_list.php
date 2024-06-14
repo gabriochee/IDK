@@ -14,7 +14,7 @@ if (isset($_GET['id_liste'])) {
     $statut = $res[0]['statut'];
 
     $req = $bdd->prepare("SELECT pseudo FROM utilisateur WHERE id_user = :id_user;");
-    $req->bindParam(":id_user", $_SESSION['id_user']);
+    $req->bindParam(":id_user", $res[0]['id_user']);
     $req->execute();
 
     $res = $req->fetchAll();
@@ -115,9 +115,8 @@ if (isset($_GET['id_liste'])) {
                 <a href="#" class="btn btn-primary btn-sm btn-warning border border-dark border-2 rounded-3 fs-4 col-md-3">Partager !</a>
             </div>
 
-            <?php if ($isOwner) {
-                echo
-                '<button class="btn btn-primary btn-sm btn-danger border border-dark border-2 rounded-3 fs-4 col-md-3 mt-5" data-bs-toggle="modal" data-bs-target="#deleteListModal">Supprimer la liste</button>
+            <?php if ($isOwner) { ?>
+                <button class="btn btn-primary btn-sm btn-danger border border-dark border-2 rounded-3 fs-4 col-md-3 mt-5" data-bs-toggle="modal" data-bs-target="#deleteListModal">Supprimer la liste</button>
 
             <div class="modal fade" id="deleteListModal" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog">
@@ -136,9 +135,10 @@ if (isset($_GET['id_liste'])) {
                     </div>
                 </div>
             </div>
-        </div>';
-            }
-            ?>
+        </div>
+            <?php }?>
+
+            <?php if ($isOwner) {?>
             <div class="container d-flex justify-content-center mb-5">
                 <input type="radio" class="btn-check" name="list-status" id="private-list" value="privee" autocomplete="off" <?php if ($statut == 'privee'){echo 'checked';} ?> >
                 <label class="btn" for="private-list">privée</label>
@@ -149,6 +149,7 @@ if (isset($_GET['id_liste'])) {
                 <input type="radio" class="btn-check" name="list-status" id="public-list" value="publique" autocomplete="off" <?php if ($statut == 'publique'){echo 'checked';} ?> >
                 <label class="btn" for="public-list">publique</label>
             </div>
+            <?php }?>
 
             <div class="container-fluid col-10 fs-5 border border-2 border-dark overflow-auto max-height" style="background-color : #CFDBD5;">
                 <ul>
