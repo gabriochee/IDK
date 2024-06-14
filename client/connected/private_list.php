@@ -12,6 +12,7 @@ if (isset($_GET['id_liste'])) {
     $nomListe = $res[0]['nom'];
     $isOwner = $res[0]['id_user'] == $_SESSION['id_user'];
     $statut = $res[0]['statut'];
+    $details = $res[0]['details'];
 
     $req = $bdd->prepare("SELECT pseudo FROM utilisateur WHERE id_user = :id_user;");
     $req->bindParam(":id_user", $res[0]['id_user']);
@@ -70,6 +71,12 @@ if (isset($_GET['id_liste'])) {
                 inscrit depuis jj/mm/aaaa</h4>
         </div>
 
+
+        <div class="container">
+            <hr>
+            <h4 class="text-center"><?php echo $details; ?></h4>
+        </div>
+
         <!-- besoin de changer la taille verticale de cette div, si vous trouvez comment faire dites moi svp. -->
         <div class="container m-0 mt-5 p-0 w-75 list-height m-auto border border-3 border-dark rounded-3 overflow-auto no-overflow-x" style="background-color: #CFDBD5;">
             <div class="d-lg-flex row gx-2 gy-3 px-5 py-4 row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-1">
@@ -92,7 +99,8 @@ if (isset($_GET['id_liste'])) {
         </div>
 
         <div class="container-fluid text-center my-5">
-            <div>
+            <div <?php if (!$isOwner) { echo 'class="mb-3"';}?> >
+                <?php if ($isOwner) { ?>
                 <button class="btn btn-primary btn-sm btn-warning border border-dark border-2 rounded-3 fs-4 col-md-3" data-bs-toggle="modal" data-bs-target="#addMovieModal">Ajouter un film</button>
 
                 <div class="modal fade" id="addMovieModal" tabindex="-1" aria-hidden="true">
@@ -112,6 +120,8 @@ if (isset($_GET['id_liste'])) {
                         </div>
                     </div>
                 </div>
+                <?php } ?>
+
                 <a href="#" class="btn btn-primary btn-sm btn-warning border border-dark border-2 rounded-3 fs-4 col-md-3">Partager !</a>
             </div>
 
