@@ -141,13 +141,13 @@ if (isset($_GET['id_liste'])) {
             ?>
             <div class="container d-flex justify-content-center mb-5">
                 <input type="radio" class="btn-check" name="list-status" id="private-list" value="privee" autocomplete="off" <?php if ($statut == 'privee'){echo 'checked';} ?> >
-                <label class="btn" for="private-list">Privée</label>
+                <label class="btn" for="private-list">privée</label>
 
                 <input type="radio" class="btn-check" name="list-status" id="only-friends-list" value="amis seulement" autocomplete="off" <?php if ($statut == 'amis seulement'){echo 'checked';} ?> >
-                <label class="btn" for="only-friends-list">Amis seulement</label>
+                <label class="btn" for="only-friends-list">amis seulement</label>
 
                 <input type="radio" class="btn-check" name="list-status" id="public-list" value="publique" autocomplete="off" <?php if ($statut == 'publique'){echo 'checked';} ?> >
-                <label class="btn" for="public-list">Publique</label>
+                <label class="btn" for="public-list">publique</label>
             </div>
 
             <div class="container-fluid col-10 fs-5 border border-2 border-dark overflow-auto max-height" style="background-color : #CFDBD5;">

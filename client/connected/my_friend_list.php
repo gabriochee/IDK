@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 
 
@@ -7,6 +7,7 @@ session_start();
 
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,6 +16,7 @@ session_start();
     <link rel="stylesheet" href="../../inc/library/bootstrap/bootstrap-icons/font/bootstrap-icons.min.css">
     <title>IDK</title>
 </head>
+
 <body id="connected_my_friend_list">
     <?php require_once('../../inc/components/connected/header.php'); ?>
     <?php require_once('../../inc/php/db.php'); ?>
@@ -28,7 +30,7 @@ session_start();
                         <img class="mb-3" width="150px" src="../../inc/img/profile.svg">
                         <span class="text-black-50">#<?php echo $rep_data_user1['id_user']; ?></span>
                         <span><?php echo $rep_data_user1['pseudo']; ?></span>
-                        <span><?php echo $rep_data_user1['nom'] .' '. $rep_data_user1['prenom']; ?></span>
+                        <span><?php echo $rep_data_user1['nom'] . ' ' . $rep_data_user1['prenom']; ?></span>
                         <span><?php echo $rep_data_user2['count(*)']; ?> amis</span>
                     </div>
                 </div>
@@ -37,16 +39,16 @@ session_start();
                         <div class="row w-100">
                             <div class="col-12 border-1">
                                 <div class="col-md-12 overflow-auto menu-oeuvre-2">
-                                    <h3>Mes demandes envoyée :</h3> 
+                                    <h3>Mes demandes envoyée :</h3>
                                     <table class="table table-striped table-sm border border-1 border-dark mt-3">
                                         <tbody>
                                             <?php // Mettre une taille max !
-                                                foreach($rep3 as $rep3) {
-                                                    echo '<tr><td class="table-cell" scope="row">' . htmlspecialchars($rep3['pseudo']). ' - ' . htmlspecialchars($rep3['nom']).' '.htmlspecialchars($rep3['prenom']).'</td>';
-                                                    echo '<td class="table-cell">le 14/04/2024</td>';
-                                                    echo '<td class="table-cell text-end"><a href="my_friend_list.php?demande=cancel_req&id='.$rep3['id_user'].'" class="nav-btn btn btn-sm btn-outline-secondary" type="submit" name="envoyer_ami">Annuler</a></td>';
-                                                    echo '</td></tr>';
-                                                }
+                                            foreach ($rep3 as $rep3) {
+                                                echo '<tr><td class="table-cell" scope="row">' . htmlspecialchars($rep3['pseudo']) . ' - ' . htmlspecialchars($rep3['nom']) . ' ' . htmlspecialchars($rep3['prenom']) . '</td>';
+                                                echo '<td class="table-cell">le 14/04/2024</td>';
+                                                echo '<td class="table-cell text-end"><a href="my_friend_list.php?demande=cancel_req&id=' . $rep3['id_user'] . '" class="nav-btn btn btn-sm btn-outline-secondary" type="submit" name="envoyer_ami">Annuler</a></td>';
+                                                echo '</td></tr>';
+                                            }
                                             ?>
                                         </tbody>
                                     </table>
@@ -54,36 +56,36 @@ session_start();
                                     <table class="table table-striped table-sm border border-1 border-dark mt-3">
                                         <tbody>
                                             <?php // Mettre une taille max !
-                                                foreach($rep2 as $rep) {
-                                                    echo '<tr>';
-                                                    echo '<td class="table-cell" scope="row">' . htmlspecialchars($rep['pseudo']). ' - ' . htmlspecialchars($rep['nom']).' '.htmlspecialchars($rep['prenom']) . '</td>';
-                                                    echo '<td class="table-cell">le 14/04/2024</td>';
-                                                    echo '<td class="table-cell text-end">';
-                                                    // Formulaire pour accepter l'ami
-                                                    echo '<form action="my_friend_list.php" method="get" style="display:inline;">';
-                                                    echo '<input type="hidden" name="demande" value="be_friend">';
-                                                    echo '<input type="hidden" name="id" value="' . $rep['id_user'] . '">';
-                                                    echo '<button type="submit" class="nav-btn btn btn-sm btn-outline-secondary" name="envoyer_ami">Accepter</button>';
-                                                    echo '</form> ';
-                                                    // Formulaire pour refuser l'ami
-                                                    echo '<form action="my_friend_list.php" method="get" style="display:inline;">';
-                                                    echo '<input type="hidden" name="demande" value="cancel_req_from_receiver">';
-                                                    echo '<input type="hidden" name="id" value="' . $rep['id_user'] . '">';
-                                                    echo '<button type="submit" class="nav-btn btn btn-sm btn-outline-secondary" name="envoyer_ami">Refuser</button>';
-                                                    echo '</form>';
-                                                    echo '</td>';
-                                                    echo '</tr>';
-                                                }
+                                            foreach ($rep2 as $rep) {
+                                                echo '<tr>';
+                                                echo '<td class="table-cell" scope="row">' . htmlspecialchars($rep['pseudo']) . ' - ' . htmlspecialchars($rep['nom']) . ' ' . htmlspecialchars($rep['prenom']) . '</td>';
+                                                echo '<td class="table-cell">le 14/04/2024</td>';
+                                                echo '<td class="table-cell text-end">';
+                                                // Formulaire pour accepter l'ami
+                                                echo '<form action="my_friend_list.php" method="get" style="display:inline;">';
+                                                echo '<input type="hidden" name="demande" value="be_friend">';
+                                                echo '<input type="hidden" name="id" value="' . $rep['id_user'] . '">';
+                                                echo '<button type="submit" class="nav-btn btn btn-sm btn-outline-secondary" name="envoyer_ami">Accepter</button>';
+                                                echo '</form> ';
+                                                // Formulaire pour refuser l'ami
+                                                echo '<form action="my_friend_list.php" method="get" style="display:inline;">';
+                                                echo '<input type="hidden" name="demande" value="cancel_req_from_receiver">';
+                                                echo '<input type="hidden" name="id" value="' . $rep['id_user'] . '">';
+                                                echo '<button type="submit" class="nav-btn btn btn-sm btn-outline-secondary" name="envoyer_ami">Refuser</button>';
+                                                echo '</form>';
+                                                echo '</td>';
+                                                echo '</tr>';
+                                            }
                                             ?>
                                         </tbody>
                                     </table>
-                                </div> 
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <hr class="featurette-divider my-4">
-                
+
                 <h3 class="text-center mb-3">Rechercher un utilisateurs : </h3>
                 <input type="search" onkeydown="searchKeywordUser()" class="form-control border border-2 border-dark mb-4" placeholder="Rechercher..." aria-label="Search" id="navbar_user">
                 <div id="resultats_user" class="mb-3"></div>
@@ -91,20 +93,38 @@ session_start();
                 <h3 class="text-center">Mes amis : </h3>
                 <div class="container text-center m-auto">
                     <div class="row row-cols-sm-3 row-cols-md-4">
-                    <?php foreach($rep4 as $rep4) { ?>
-                        <div class="col-3 col-md-3">
-                            <div class="d-flex flex-column align-items-center text-center">
-                                <img class="mb-3" width="150px" src="../../inc/img/profile.svg">
-                                <span class="text-black-50">#<?php echo $rep4['id_user']; ?></span>
-                                <span><?php echo $rep4['pseudo']; ?></span>
-                                <span><?php echo $rep4['nom'] .' '. $rep4['prenom']; ?></span>
-                                <span>1 amis</span>
-                                <button type="button" class="btn btn-sm btn-outline-secondary mt-3" onclick="window.location='chat_friend.php'">Contacter</button>
-                                <button type="button" class="btn btn-sm btn-outline-secondary mt-1" onclick="">Voir les listes</button>
-                                <?php echo '<a href="my_friend_list.php?demande=supp_friend&id='.$rep4['id_user'].'" class="nav-btn btn btn-sm btn-outline-secondary mt-1" type="submit" name="envoyer_ami">Supprimer</a>'; ?>
+                        <?php foreach ($rep4 as $rep4) { ?>
+                            <div class="col-3 col-md-3">
+                                <div class="d-flex flex-column align-items-center text-center">
+                                    <img class="mb-3" width="150px" src="../../inc/img/profile.svg">
+                                    <span class="text-black-50">#<?php echo $rep4['id_user']; ?></span>
+                                    <span><?php echo $rep4['pseudo']; ?></span>
+                                    <span><?php echo $rep4['nom'] . ' ' . $rep4['prenom']; ?></span>
+                                    <span>1 amis</span>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary mt-3" onclick="window.location='chat_friend.php'">Contacter</button>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary mt-1" onclick="" data-bs-toggle="modal" data-bs-target="#listsModal">Voir les listes</button>
+
+                                    <div class="modal fade" id="listsModal" tabindex="-1" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5">Listes de <?php echo $rep4['pseudo']; ?></h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="d-flex flex-column align-items-start" id="results-movie"></div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <?php echo '<a href="my_friend_list.php?demande=supp_friend&id=' . $rep4['id_user'] . '" class="nav-btn btn btn-sm btn-outline-secondary mt-1" type="submit" name="envoyer_ami">Supprimer</a>'; ?>
+                                </div>
                             </div>
-                        </div>
-                    <?php } ?>
+                        <?php } ?>
                     </div>
                 </div>
             </div>
@@ -115,4 +135,5 @@ session_start();
     <script src="../../inc/js/search_movie.js"></script>
     <script src="../../inc/library/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

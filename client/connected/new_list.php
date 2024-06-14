@@ -33,14 +33,26 @@ session_start();
             <div class="contact-form row g-5 justify-content-center mb-4 mx-0">
                 <div class="col-sm-6">
                     <h5 class="text-center">Nom de votre liste</h5>
-                    <input type="text" class="form-control" id="listName" name="listName" required>
+                    <input type="text" class="form-control" id="list-name" name="list-name" required>
                 </div>
 
                 <div class="col-12">
                     <h5 class="text-center">Description</h5>
                     <textarea class="form-control" id="description" name="description" rows="5" maxlength="300"></textarea>
                 </div>
-                <button class="w-25 btn btn-secondary btn-lg btn-warning border-dark border-2" type="submit">Envoyer</button>
+
+                <div class="container d-flex justify-content-center mt-3">
+                    <input type="radio" class="btn-check" name="list-status" id="private-list" value="privee" autocomplete="off" checked>
+                    <label class="btn" for="private-list">privée</label>
+
+                    <input type="radio" class="btn-check" name="list-status" id="only-friends-list" value="amis seulement" autocomplete="off">
+                    <label class="btn" for="only-friends-list">amis seulement</label>
+
+                    <input type="radio" class="btn-check" name="list-status" id="public-list" value="publique" autocomplete="off">
+                    <label class="btn" for="public-list">publique</label>
+                </div>
+
+                <button class="w-25 btn btn-secondary btn-lg btn-warning border-dark border-2 mt-3" type="submit">Envoyer</button>
             </div>
         </form>
     </main>
