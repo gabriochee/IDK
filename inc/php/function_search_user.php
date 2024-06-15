@@ -27,7 +27,7 @@
     $rep3 = $req3->fetchAll();
     
     //on veut afficher nos amis
-    $req4 = $bdd->prepare("SELECT pseudo, nom, prenom, id_user FROM utilisateur INNER JOIN ami ON (utilisateur.id_user = ami.id_user_1 AND ami.id_user_2 = :me) OR (utilisateur.id_user = ami.id_user_2 AND ami.id_user_1 = :me) WHERE utilisateur.id_user != :me");
+    $req4 = $bdd->prepare("SELECT pseudo, nom, prenom, id_user,photo_utilisateur FROM utilisateur INNER JOIN ami ON (utilisateur.id_user = ami.id_user_1 AND ami.id_user_2 = :me) OR (utilisateur.id_user = ami.id_user_2 AND ami.id_user_1 = :me) WHERE utilisateur.id_user != :me");
     $req4->execute(
         array(
             "me"=>$_SESSION['id_user']

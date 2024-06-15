@@ -23,6 +23,7 @@
         if($req1->execute()) {
             if(move_uploaded_file($tempname, $folder)) {
                 echo "<h2>Upload réussi</h2>";
+                header('Location: parameters.php');
             } else {
                 echo "<h2>Upload échoué</h2>";
             }
