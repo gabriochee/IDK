@@ -1,6 +1,22 @@
 <?php
 require_once('db.php');
 
+if (isset($_POST['captcha_id']) && isset($_POST['captcha_answer'])) {
+
+    $request = $bdd->prepare('SELECT bonne_reponse FROM reponse_captcha JOIN correspondance_captcha ON correspondance_captcha.id_reponse = reponse_captcha.id_reponse WHERE reponse_captcha.id_reponse = :id_reponse AND correspondance_captcha.id_captcha = :id_captcha;');
+
+    $request->bindParam(":id_captcha", $_POST['captcha_id']);
+    $request->bindParam(":id_reponse", $_POST['captcha_answer']);
+
+    $request->execute();
+    $data = $request->fetch();
+
+    if (!$data['bonne_reponse']) {
+        header('Location: login.php?wrong_captcha=true');
+        exit();
+    }
+}
+
 if(isset($_POST['connecter'])) {
 
     $email = $_POST['email'];
@@ -45,8 +61,7 @@ if(isset($_POST['connecter'])) {
                         $date_deban = urlencode($ban_or_not['date_deban']);
 
                         header("Location: login.php?ban_not_def=true&raison=$raison&date_deban=$date_deban");
-                    }
-                    else{
+                    }else{
                         $_SESSION['id_user'] = $reponse['id_user'];
                         $_SESSION['nom'] = $reponse['nom'];
                         $_SESSION['prenom'] = $reponse['prenom'];

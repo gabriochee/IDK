@@ -115,8 +115,7 @@ function changeGoodAnswer(element){
 }
 
 function deleteCaptcha(element){
-  fetch("http://localhost:3000/inc/php/delete_captcha.php?" + new URLSearchParams({deleteCaptchaId : element.value}))
-  .then(data => data.text()).then(data => console.log(data));
+  fetch("http://localhost:3000/inc/php/delete_captcha.php?" + new URLSearchParams({deleteCaptchaId : element.value}));
 
   element.parentNode.parentNode.parentNode.previousSibling.remove();
   element.parentNode.parentNode.parentNode.remove();
@@ -175,7 +174,6 @@ function createCaptcha(element){
     body : JSON.stringify({question : question, answers : answers})
   }).then(data => data.text()).then(data => {
     data = data.replace(/collapse0/g, "collapse".concat(i.toString()));
-    console.log(data);
     captchaTable.insertAdjacentHTML('beforeend', data);
   });
 
@@ -303,8 +301,6 @@ return div;
 }
 
 let captchaArray = {};
-
-console.log(captchaData)
 
 if (Array.isArray(captchaData) && captchaData.length) {
   let currentCaptcha = captchaData[0]['id_captcha'];
