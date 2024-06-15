@@ -43,6 +43,7 @@
             if ($_GET['demande'] === 'attente_demande_ami') {
                 try {
                     envoyer_demande($_SESSION['id_user'], $_GET['id'], $bdd);
+                    header('Location: my_friend_list.php');
                 } catch (PDOException $e) {
                     die($e->getMessage());
                 }
