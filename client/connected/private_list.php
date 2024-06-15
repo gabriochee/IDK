@@ -12,6 +12,7 @@ if (isset($_GET['id_liste'])) {
     $nomListe = $res[0]['nom'];
     $isOwner = $res[0]['id_user'] == $_SESSION['id_user'];
     $statut = $res[0]['statut'];
+    $details = $res[0]['details'];
 
     $req = $bdd->prepare("SELECT pseudo FROM utilisateur WHERE id_user = :id_user;");
     $req->bindParam(":id_user", $res[0]['id_user']);
@@ -70,6 +71,12 @@ if (isset($_GET['id_liste'])) {
                 inscrit depuis jj/mm/aaaa</h4>
         </div>
 
+
+        <div class="container">
+            <hr>
+            <h4 class="text-center"><?php echo $details; ?></h4>
+        </div>
+
         <!-- besoin de changer la taille verticale de cette div, si vous trouvez comment faire dites moi svp. -->
         <div class="container m-0 mt-5 p-0 w-75 list-height m-auto border border-3 border-dark rounded-3 overflow-auto no-overflow-x" style="background-color: #CFDBD5;">
             <div class="d-lg-flex row gx-2 gy-3 px-5 py-4 row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-1">
@@ -92,31 +99,60 @@ if (isset($_GET['id_liste'])) {
         </div>
 
         <div class="container-fluid text-center my-5">
-            <div>
-                <button class="btn btn-primary btn-sm btn-warning border border-dark border-2 rounded-3 fs-4 col-md-3" data-bs-toggle="modal" data-bs-target="#addMovieModal">Ajouter un film</button>
+            <div <?php if (!$isOwner) {
+                        echo 'class="mb-3"';
+                    } ?>>
+                <?php if ($isOwner) { ?>
+                    <button class="btn btn-primary btn-sm btn-warning border border-dark border-2 rounded-3 fs-4 col-md-3" data-bs-toggle="modal" data-bs-target="#addMovieModal">Ajouter un film</button>
 
-                <div class="modal fade" id="addMovieModal" tabindex="-1" aria-hidden="true">
+                    <div class="modal fade" id="addMovieModal" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5">Ajouter un film</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <input type="search" class="form-control" id="search-movie-input" onkeydown="searchKeywordMovieList()">
+                                    <div class="d-flex flex-column align-items-start" id="results-movie"></div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <?php } ?>
+
+                <button class="btn btn-primary btn-sm btn-warning border border-dark border-2 rounded-3 fs-4 col-md-3" data-bs-toggle="modal" data-bs-target="#shareListModal">Partager !</button>
+
+                <div class="modal fade" id="shareListModal" tabindex="-1" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h1 class="modal-title fs-5">Ajouter un film</h1>
+                                <h1 class="modal-title fs-5">Partager cette liste</h1>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-                            <div class="modal-body">
-                                <input type="search" class="form-control" id="search-movie-input" onkeydown="searchKeywordMovieList()">
-                                <div class="d-flex flex-column align-items-start" id="results-movie"></div>
+                            <div class="modal-body d-flex flex-column justify-content-start">
+                                <label for="share-comment" class="form-label text-start">Votre message</label>
+                                <textarea class="form-control" id="share-comment" name="share-comment"></textarea>
+                                <hr>
+                                <label for="search-friend-input" class="form-label text-start">Rechercher un ami</label>
+                                <input type="search" class="form-control mb-2" id="search-friend-input" onkeydown="searchFriend()">
+                                <div class="container d-flex flex-column form-check" id="friends-result-container">
+
+                                </div>
                             </div>
-                            <div class="modal-footer">
+                            <div class="modal-footer d-flex justify-content-between">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <a href="#" class="btn btn-primary btn-sm btn-warning border border-dark border-2 rounded-3 fs-4 col-md-3">Partager !</a>
             </div>
 
-            <?php if ($isOwner) { ?>
-                <button class="btn btn-primary btn-sm btn-danger border border-dark border-2 rounded-3 fs-4 col-md-3 mt-5" data-bs-toggle="modal" data-bs-target="#deleteListModal">Supprimer la liste</button>
+        <?php if ($isOwner) { ?>
+            <button class="btn btn-primary btn-sm btn-danger border border-dark border-2 rounded-3 fs-4 col-md-3 mt-5" data-bs-toggle="modal" data-bs-target="#deleteListModal">Supprimer la liste</button>
 
             <div class="modal fade" id="deleteListModal" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog">
@@ -135,31 +171,37 @@ if (isset($_GET['id_liste'])) {
                     </div>
                 </div>
             </div>
-        </div>
-            <?php }?>
+            </div>
+        <?php } ?>
 
-            <?php if ($isOwner) {?>
+        <?php if ($isOwner) { ?>
             <div class="container d-flex justify-content-center mb-5">
-                <input type="radio" class="btn-check" name="list-status" id="private-list" value="privee" autocomplete="off" <?php if ($statut == 'privee'){echo 'checked';} ?> >
+                <input type="radio" class="btn-check" name="list-status" id="private-list" value="privee" autocomplete="off" <?php if ($statut == 'privee') {
+                                                                                                                                    echo 'checked';
+                                                                                                                                } ?>>
                 <label class="btn" for="private-list">privée</label>
 
-                <input type="radio" class="btn-check" name="list-status" id="only-friends-list" value="amis seulement" autocomplete="off" <?php if ($statut == 'amis seulement'){echo 'checked';} ?> >
+                <input type="radio" class="btn-check" name="list-status" id="only-friends-list" value="amis seulement" autocomplete="off" <?php if ($statut == 'amis seulement') {
+                                                                                                                                                echo 'checked';
+                                                                                                                                            } ?>>
                 <label class="btn" for="only-friends-list">amis seulement</label>
 
-                <input type="radio" class="btn-check" name="list-status" id="public-list" value="publique" autocomplete="off" <?php if ($statut == 'publique'){echo 'checked';} ?> >
+                <input type="radio" class="btn-check" name="list-status" id="public-list" value="publique" autocomplete="off" <?php if ($statut == 'publique') {
+                                                                                                                                    echo 'checked';
+                                                                                                                                } ?>>
                 <label class="btn" for="public-list">publique</label>
             </div>
-            <?php }?>
+        <?php } ?>
 
-            <div class="container-fluid col-10 fs-5 border border-2 border-dark overflow-auto max-height" style="background-color : #CFDBD5;">
-                <ul>
-                    <?php
-                    for ($i = 1; $i <= 11; $i++) {
-                        echo "<li class='py-2'> Ami $i - <a href='#' class='link-dark link-underline-opacity-0 link-underline-opacity-100-hover'>Ajouter</a></li>";
-                    }
-                    ?>
-                </ul>
-            </div>
+        <div class="container-fluid col-10 fs-5 border border-2 border-dark overflow-auto max-height" style="background-color : #CFDBD5;">
+            <ul>
+                <?php
+                for ($i = 1; $i <= 11; $i++) {
+                    echo "<li class='py-2'> Ami $i - <a href='#' class='link-dark link-underline-opacity-0 link-underline-opacity-100-hover'>Ajouter</a></li>";
+                }
+                ?>
+            </ul>
+        </div>
     </main>
     <?php require_once('../../inc/components/connected/footer.php'); ?>
     <?php if ($isOwner) {

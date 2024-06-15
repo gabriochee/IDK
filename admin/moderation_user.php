@@ -97,10 +97,10 @@
 
                                     $req->execute();
                                 }
+                                
                                 try {
-                                $queryResponse = $bdd->query("SELECT utilisateur.id_user, CONCAT(prenom, ' ', nom) AS prenom_nom, pseudo, sexe, date_inscription, mail, date_naissance
-                                FROM utilisateur LEFT JOIN ban ON ban.id_user = utilisateur.id_user WHERE supprime = 0 AND (ban.definitif = 0 OR ban.definitif IS NULL) AND (ban.date_deban < NOW() OR ban.date_deban IS NULL) GROUP BY utilisateur.id_user;");
-                                } catch (PDOException $e){
+                                    $queryResponse = $bdd->query("SELECT utilisateur.id_user, CONCAT(prenom, ' ', nom) AS prenom_nom, pseudo, sexe, date_inscription, mail, date_naissance FROM utilisateur LEFT JOIN ban ON ban.id_user = utilisateur.id_user WHERE supprime = 0 AND (ban.definitif = 0 OR ban.definitif IS NULL) AND (ban.date_deban < NOW() OR ban.date_deban IS NULL) GROUP BY utilisateur.id_user;");
+                                } catch (PDOException $e) {
                                     echo $e->getMessage();
                                 }
 

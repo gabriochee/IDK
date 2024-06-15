@@ -45,6 +45,6 @@
         </div>
     </div>
     <div class="container-fluid bg-black text-center">
-        <p class="tiny-text p-3 mb-0">© Copyright : idk.com</p>
+        <p class="tiny-text p-3 mb-0">© Copyright : idk2watch.freeddns.org</p>
     </div>
 </footer>

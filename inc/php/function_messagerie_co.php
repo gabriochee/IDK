@@ -17,8 +17,9 @@
             $req2->bindParam(':titre', $titre);
             $req2->bindParam(':messages', $message);
             $req2->execute();
+            echo "<div class='alert alert-success text-center' role='alert'>Votre message a bien été envoyé, vous recevrez un retour d'ici 24h.</div>";
         } else {
-            echo "Erreur : Impossible de récupérer l'email de l'utilisateur.";
+            echo "<div class='alert alert-danger text-center' role='alert'>Erreur : Impossible de récupérer l'email de l'utilisateur.</div>";
         }
     }
     $req3 = $bdd->prepare("SELECT id, id_user, mail, date_message, titre, messages FROM demande_admin where statut = 1");
