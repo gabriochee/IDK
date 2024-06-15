@@ -56,8 +56,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     try {
-        $sql = "INSERT INTO utilisateur(role_user, nom, prenom, date_naissance, sexe, pseudo, mail, mdp, date_inscription, photo_utilisateur, statut_newsletter, verification_code, telephone, supprime) VALUES ('utilisateur', :lastname, :firstname, :birthdate, :gender, :username, :mail, :hash, :today, 'N/A', :abonne, NULL, :phone ,0)";
+        $photo_utilisateur = "profile.svg";
+        $sql = "INSERT INTO utilisateur(role_user, nom, prenom, date_naissance, sexe, pseudo, mail, mdp, date_inscription, statut_newsletter, verification_code, telephone, supprime, photo_utilisateur) VALUES ('utilisateur', :lastname, :firstname, :birthdate, :gender, :username, :mail, :hash, :today, :abonne, NULL, :phone ,0, :photo_utilisateur)";
         $stmt = $bdd->prepare($sql);
+        $stmt->bindParam(':photo_utilisateur', $photo_utilisateur);
         $stmt->bindParam(':lastname', $_POST['lastName']);
         $stmt->bindParam(':firstname', $_POST['firstName']);
         $stmt->bindParam(':username', $_POST['username']);
