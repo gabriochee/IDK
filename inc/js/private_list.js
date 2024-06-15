@@ -24,6 +24,48 @@ const searchKeywordMovieList = async () => {
     }
 }
 
+const searchFriend = async () => {
+  const friendsResultsContainer = document.querySelector("#friends-result-container");
+  friendsResultsContainer.innerHTML = "";
+
+  let friendKeyword = document.getElementById("search-friend-input").value;
+  const req = await fetch(`../../inc/php/search_friend.php?` + new URLSearchParams({friend_keyword : friendKeyword}), {credentials : "same-origin"});
+  const res = await req.json();
+
+  for (const user of res){
+    friendsResultsContainer.innerHTML += `<div class="d-flex justify-content-between"><p>${user.pseudo}</p><button type="button" class="btn btn-warning" onclick="sendListToFriend(this, ${user.id_user})">Envoyer</button></div>`;
+  }
+}
+
+const sendListToFriend = async (elem, idFriend) => {
+  let message = elem.parentNode.parentNode.parentNode.querySelector('textarea').value;
+  let req = await fetch('../../inc/php/send_message_chat.php', {
+  method: "post",
+  credentials : "same-origin",
+  headers: {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json'
+  },
+  body : JSON.stringify({
+    message : message,
+    idFriend : idFriend
+  })
+})
+
+  req = await fetch('../../inc/php/send_message_chat.php', {
+  method: "post",
+  credentials : "same-origin",
+  headers: {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json'
+  },
+  body : JSON.stringify({
+    message : "http://localhost:3000/client/connected/private_list.php?id_liste=" + id_liste,
+    idFriend : idFriend
+  })
+})
+}
+
 const addMovieToList = async (btn) => {
     const id_work = btn.value;
     await fetch(`../../inc/php/add_to_list.php?id_work=${id_work}&id_liste=${id_liste}`);

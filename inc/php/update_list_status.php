@@ -3,7 +3,7 @@ require_once('db.php');
 
 $authValues = ["privee", "amis seulement", "publique"];
 
-if (isset($_GET['list_status']) && isset($_GET['id_liste'])){
+if (isset($_GET['list_status']) && isset($_GET['id_liste']) && in_array($_GET['list_status'], $authValues)){
     $statut = $_GET['list_status'];
     $idListe = $_GET['id_liste'];
 
