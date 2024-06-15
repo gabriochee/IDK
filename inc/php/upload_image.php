@@ -4,9 +4,6 @@
     if(isset($_POST['submit_img']) && isset($_FILES['image'])) {
         $id_user = $_SESSION['id_user'];
         
-
-
-
         $file_name = $_FILES['image']['name'];
         $tempname = $_FILES['image']['tmp_name'];
         
