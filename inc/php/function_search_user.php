@@ -92,7 +92,7 @@
     //devenir vraiment ami
     function being_friend($my_user_id, $other_user_id, $bdd){
         try{
-            $devenir_ami="INSERT INTO ami(id_user_1, id_user_2) VALUES (:me, :other)";
+            $devenir_ami="INSERT INTO ami(id_user_1, id_user_2, date_amitie) VALUES (:me, :other, NOW())";
             $stmt = $bdd->prepare($devenir_ami);
             $stmt->bindParam(':me', $my_user_id);
             $stmt->bindParam(':other', $other_user_id);

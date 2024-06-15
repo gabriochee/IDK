@@ -23,7 +23,13 @@ session_start();
     <?php require_once('../../inc/library/fpdf/function_fpdf_co.php'); ?>
     
     <main>
+        
         <div class="container-fluid d-flex justify-content-center gap-5 my-5 py-2">
+            <div>
+                <form method = "POST" enctype= "multipart/form-data">
+
+                </form>
+            </div>
             <img src="../../inc/img/profile.svg" alt="" width="150px">
             <div class="d-flex flex-column mt-3">
                 <h4 class="mb-3"><?php echo $rep_data_user1['pseudo'] .' (#'. $rep_data_user1['id_user'] .') - '. $rep_data_user1['nom'] .' '. $rep_data_user1['prenom']; ?></h4>
