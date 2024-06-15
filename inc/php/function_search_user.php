@@ -50,7 +50,7 @@
             if($_GET['demande'] === 'cancel_req'){
                 try{
                     cancel_request($_SESSION['id_user'], $_GET['id'], $bdd);
-                    // header('Location: my_requested_friend.php');
+                    header('Location: my_friend_list.php');
                 }catch(PDOException $e){
                     die($e->getMessage());
                 }
@@ -58,7 +58,7 @@
             if($_GET['demande'] === 'cancel_req_from_receiver'){
                 try{
                     cancel_request($_GET['id'],$_SESSION['id_user'], $bdd);
-                    // header('Location: my_friend_req.php');
+                    header('Location: my_friend_list.php');
                 }catch(PDOException $e){
                     die($e->getMessage());
                 }
@@ -68,7 +68,7 @@
                     being_friend($_SESSION['id_user'],$_GET['id'], $bdd);
                     cancel_request( $_GET['id'],$_SESSION['id_user'], $bdd);
                     cancel_request($_SESSION['id_user'], $_GET['id'], $bdd);
-                    // header('Location: my_friend_req.php');
+                    header('Location: my_friend_list.php');
                 }
                 catch(PDOException $e){
                     die($e->getMessage());
@@ -77,7 +77,7 @@
             if($_GET['demande'] === 'supp_friend'){
                 try{
                     supp_friend($_SESSION['id_user'],$_GET['id'], $bdd);
-                    // header('Location: my_friend_list.php');
+                    header('Location: my_friend_list.php');
                 }
                 catch(PDOException $e){
                     die($e->getMessage());

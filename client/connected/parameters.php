@@ -27,7 +27,7 @@ session_start();
         <div class="container-fluid d-flex justify-content-center gap-5 my-5 py-2">
             <div>
                 <form method = "POST" enctype= "multipart/form-data">
-
+                    
                 </form>
             </div>
             <img src="../../inc/img/profile.svg" alt="" width="150px">
