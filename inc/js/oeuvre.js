@@ -1,4 +1,3 @@
-console.log("slt");
 
 
 const star1 = document.getElementById("rate-1");

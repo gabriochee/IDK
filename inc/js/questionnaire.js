@@ -127,7 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <h2 class="text-center">Vos recommandations :</h2>
                 <h3 class="text-center">Veuillez patientez que les resultats se chargent</h3>
             `;                
-        fetch('http://localhost:8888/IDK/inc/php/function_questionnaire.php', {
+        fetch('../../inc/php/function_questionnaire.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(answers),
