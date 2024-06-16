@@ -124,8 +124,8 @@ document.addEventListener('DOMContentLoaded', () => {
     function displayResults() {
         console.log(JSON.stringify(answers));
         app.innerHTML = `
-                <h2>Vos recommandations :</h2>
-                <h3>Veuillez patientez que les resultats se chargent</h3>
+                <h2 class="text-center">Vos recommandations :</h2>
+                <h3 class="text-center">Veuillez patientez que les resultats se chargent</h3>
             `;                
         fetch('http://localhost:8888/IDK/inc/php/function_questionnaire.php', {
             method: 'POST',
@@ -136,9 +136,9 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(data => {
             console.log("Data received from server:", data); // Ajoutez cette ligne pour voir les données reçues
             app.innerHTML = `
-                <h2>Vos recommandations :</h2>
+                <h2 class="text-center">Vos recommandations :</h2>
                 <ul>
-                    ${data.movies.map(movie => `<li>${movie.id_work}</li>`).join('')}
+                    ${data.movies.map(movie => `<li><a href="oeuvre.php?mv=${movie.id_work}" class="text-decoration-none">${movie.primaryTitle}</a></li>`).join('')}
                 </ul>
             `;
         })

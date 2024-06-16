@@ -9,8 +9,8 @@
     <link rel="stylesheet" href="../../inc/library/bootstrap/bootstrap-icons/font/bootstrap-icons.min.css">
     <title>IDK</title>
 </head>
-<body id="not_connected_questionnaire">
-    <?php require_once('../../inc/components/not_connected/header.php'); ?>
+<body id="connected_questionnaire">
+    <?php require_once('../../inc/components/connected/header.php'); ?>
     <main>
         <div class="container text-center m-auto">
             <div class="row">
@@ -22,7 +22,7 @@
         </div>
         <div id="question_reponses"></div>
     </main>
-    <?php require_once('../../inc/components/not_connected/footer.php'); ?>
+    <?php require_once('../../inc/components/connected/footer.php'); ?>
     <script src="../../inc/js/questionnaire.js"></script>
     <script src="../../inc/js/search_movie.js"></script>
     <script src="../../inc/library/bootstrap/js/bootstrap.bundle.min.js"></script>

@@ -11,9 +11,6 @@
                 <a <?php if(basename($_SERVER['PHP_SELF']) == 'home_backoffice.php') echo 'class="nav-link active"'; ?> class="nav-link" aria-current="page" href="../admin/home_backoffice.php">Acceuil backoffice</a>
             </li>
             <li class="nav-item">
-                <a <?php if(basename($_SERVER['PHP_SELF']) == 'edit_home.php') echo 'class="nav-link active"'; ?> class="nav-link" href="../admin/edit_home.php">Edit : Acceuil</a>
-            </li>
-            <li class="nav-item">
                 <a <?php if(basename($_SERVER['PHP_SELF']) == 'edit_about.php') echo 'class="nav-link active"'; ?> class="nav-link" href="../admin/edit_about.php">Edit : À propos</a>
             </li>
             <li class="nav-item">
@@ -26,13 +23,10 @@
                 <a <?php if(basename($_SERVER['PHP_SELF']) == 'edit_captcha.php') echo 'class="nav-link active"'; ?> class="nav-link" href="../admin/edit_captcha.php">Edit : Captcha</a>
             </li>
             <li class="nav-item">
-                <a <?php if(basename($_SERVER['PHP_SELF']) == 'edit_oeuvre.php') echo 'class="nav-link active"'; ?> class="nav-link" href="../admin/edit_oeuvre.php">Edit : Oeuvre</a>
-            </li>
-            <li class="nav-item">
                 <a <?php if(basename($_SERVER['PHP_SELF']) == 'moderation_user.php') echo 'class="nav-link active"'; ?> class="nav-link" href="../admin/moderation_user.php">Utilisateurs</a>
             </li>
             <li class="nav-item">
-                <a <?php if(basename($_SERVER['PHP_SELF']) == '.php') echo 'class="nav-link active"'; ?> class="nav-link" href="../admin/messagerie_adm.php">Messagerie</a>
+                <a <?php if(basename($_SERVER['PHP_SELF']) == 'messagerie_adm.php') echo 'class="nav-link active"'; ?> class="nav-link" href="../admin/messagerie_adm.php">Messagerie</a>
             </li>
             <li class="nav-item">
                 <a <?php if(basename($_SERVER['PHP_SELF']) == 'diary_log.php') echo 'class="nav-link active"'; ?> class="nav-link" href="../admin/diary_log.php">Log</a>

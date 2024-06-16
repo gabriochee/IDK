@@ -29,9 +29,6 @@
                 <a <?php if(basename($_SERVER['PHP_SELF']) == 'questionnaire.php') echo 'class="nav-link text-decoration-underline text-white"'; ?> class="nav-link text-white" href="../../client/connected/questionnaire.php">Questionnaire</a>
               </li>
               <li>
-                <a href="#" class="nav-link text-white">Fusion</a>
-              </li>
-              <li>
                 <a <?php if(basename($_SERVER['PHP_SELF']) == 'my_friend_list.php') echo 'class="nav-link text-decoration-underline text-white"'; ?> class="nav-link text-white" href="../../client/connected/my_friend_list.php">Mes amis</a>
               </li>
               <li>
@@ -45,12 +42,12 @@
                   <button type="submit" name="" class="nav-btn btn btn-primary btn-sm btn-warning text-white border border-light border-2 rounded-3">Déconnexion</button>
                 </form>
               </li>
-              <?php if ($_SESSION['role_user'] == 'admin') { echo '
-                <li class="nav-item">
-                  <form method="" action="../../admin/home_backoffice.php">
-                    <button type="submit" name="" class="nav-btn btn btn-primary btn-sm btn-warning text-white border border-light border-2 rounded-3">Backoffice</button>
-                  </form>
-                </li>';}?>
+              <?php 
+                if (isset($_SESSION['role_user']) &&  $_SESSION['role_user'] == 'admin') { 
+                  echo '<li class="nav-item"><form method="" action="../../admin/home_backoffice.php"><button type="submit" name="" class="nav-btn btn btn-primary btn-sm btn-warning text-white border border-light border-2 rounded-3">Backoffice</button></form></li>';
+                  echo '<li class="nav-item"><form method="" action="../../client/not_connected/home.php"><button type="submit" name="" class="nav-btn btn btn-primary btn-sm btn-warning text-white border border-light border-2 rounded-3">Acceuil non connecté</button></form></li>';
+                }
+              ?>
               <li class="nav-item">
                 <button class="nav-link btn">
                   <i class="bi bi-moon-stars"></i>

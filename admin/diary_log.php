@@ -1,4 +1,5 @@
 <?php require_once('../inc/php/access.php'); ?>
+<?php require_once('../inc/php/display_diary_log.php'); ?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -10,7 +11,6 @@
     <title>IDK</title>
 </head>
 <body id="backoffice_diary_log" class="backoffice">
-    <?php require_once('../inc/php/db.php'); ?>
     <?php require_once('../inc/components/backoffice/header.php'); ?>
     <div class="container-fluid">
         <div class="row">
@@ -20,102 +20,14 @@
                     <!-- ajouter un overflow -->
                     <table class="table table-striped table-sm border border-2 border-dark">
                         <tbody>
-                            <tr>
-                                <td>13/04/2024 15:25:03</td>
-                                <td>127.254.10.0 255.255.255.240</td>
-                                <td>email/pseudo saisi</td>
-                                <td>#123 (id)</td>
-                                <td>SUCCED</td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>13/04/2024 15:25:03</td>
-                                <td>127.254.10.0 255.255.255.240</td>
-                                <td>email/pseudo saisi</td>
-                                <td></td>
-                                <td>FAILED</td>
-                                <td>Pseudo inexistant</td>
-                            </tr>
-                            <tr>
-                                <td>13/04/2024 15:25:03</td>
-                                <td>127.254.10.0 255.255.255.240</td>
-                                <td>email/pseudo saisi</td>
-                                <td>#133 (id)</td>
-                                <td>FAILED</td>
-                                <td>Erreur mot de passe</td>
-                            </tr>
-                            <tr>
-                                <td>13/04/2024 15:25:03</td>
-                                <td>127.254.10.0 255.255.255.240</td>
-                                <td>email/pseudo saisi</td>
-                                <td>#423 (id)</td>
-                                <td>FAILED</td>
-                                <td>Erreur captcha</td>
-                            </tr>
-                            <tr>
-                                <td>13/04/2024 15:25:03</td>
-                                <td>127.254.10.0 255.255.255.240</td>
-                                <td>email/pseudo saisi</td>
-                                <td>#123 (id)</td>
-                                <td>SUCCED</td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>13/04/2024 15:25:03</td>
-                                <td>127.254.10.0 255.255.255.240</td>
-                                <td>email/pseudo saisi</td>
-                                <td></td>
-                                <td>FAILED</td>
-                                <td>Pseudo inexistant</td>
-                            </tr>
-                            <tr>
-                                <td>13/04/2024 15:25:03</td>
-                                <td>127.254.10.0 255.255.255.240</td>
-                                <td>email/pseudo saisi</td>
-                                <td>#133 (id)</td>
-                                <td>FAILED</td>
-                                <td>Erreur mot de passe</td>
-                            </tr>
-                            <tr>
-                                <td>13/04/2024 15:25:03</td>
-                                <td>127.254.10.0 255.255.255.240</td>
-                                <td>email/pseudo saisi</td>
-                                <td>#423 (id)</td>
-                                <td>FAILED</td>
-                                <td>Erreur captcha</td>
-                            </tr>
-                            <tr>
-                                <td>13/04/2024 15:25:03</td>
-                                <td>127.254.10.0 255.255.255.240</td>
-                                <td>email/pseudo saisi</td>
-                                <td>#123 (id)</td>
-                                <td>SUCCED</td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>13/04/2024 15:25:03</td>
-                                <td>127.254.10.0 255.255.255.240</td>
-                                <td>email/pseudo saisi</td>
-                                <td></td>
-                                <td>FAILED</td>
-                                <td>Pseudo inexistant</td>
-                            </tr>
-                            <tr>
-                                <td>13/04/2024 15:25:03</td>
-                                <td>127.254.10.0 255.255.255.240</td>
-                                <td>email/pseudo saisi</td>
-                                <td>#133 (id)</td>
-                                <td>FAILED</td>
-                                <td>Erreur mot de passe</td>
-                            </tr>
-                            <tr>
-                                <td>13/04/2024 15:25:03</td>
-                                <td>127.254.10.0 255.255.255.240</td>
-                                <td>email/pseudo saisi</td>
-                                <td>#423 (id)</td>
-                                <td>FAILED</td>
-                                <td>Erreur captcha</td>
-                            </tr>
+                        <?php 
+                            foreach($res as $display) { 
+                                echo '<tr><td>' . $display['id_log'] . '</td>';
+                                echo '<td>' . $display['date_log'] . '</td>';
+                                echo '<td>' . $display['log_action'] . '</td>';
+                                echo '<td>' . $display['adresse_ip'] . '</td></tr>';
+                            };
+                        ?>
                         </tbody>
                     </table>
                 </div>

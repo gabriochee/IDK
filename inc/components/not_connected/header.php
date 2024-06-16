@@ -50,12 +50,13 @@
                   <button class="nav-btn btn btn-primary btn-sm btn-warning text-white border border-light border-2 rounded-3">Connexion</button>
                 </a>
               </li>
-              <?php if ($_SESSION['role_user'] == 'admin') { echo '
-                <li class="nav-item">
-                  <form method="" action="../../admin/home_backoffice.php">
-                    <button type="submit" name="" class="nav-btn btn btn-primary btn-sm btn-warning text-white border border-light border-2 rounded-3">Backoffice</button>
-                  </form>
-                </li>';}?>
+              <?php 
+                if (isset($_SESSION['role_user']) &&  $_SESSION['role_user'] == 'admin') { 
+                  echo '<li class="nav-item"><form method="" action="../../admin/home_backoffice.php"><button type="submit" name="" class="nav-btn btn btn-primary btn-sm btn-warning text-white border border-light border-2 rounded-3">Backoffice</button></form></li>';
+                  echo '<li class="nav-item"><form method="" action="../../inc/php/logout.php"><button type="submit" name="" class="nav-btn btn btn-primary btn-sm btn-warning text-white border border-light border-2 rounded-3">Déconexion</button></form></li>';
+                  echo '<li class="nav-item"><form method="" action="../../client/connected/home.php"><button type="submit" name="" class="nav-btn btn btn-primary btn-sm btn-warning text-white border border-light border-2 rounded-3">Acceuil connecté</button></form></li>';
+                }
+              ?>
               <li class="nav-item">
                 <button class="nav-link btn">
                   <i class="bi bi-moon-stars"></i>

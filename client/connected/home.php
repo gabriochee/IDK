@@ -70,62 +70,11 @@
                             <p class="fs-6">Liste par défaut : A voir</p>
                             <div class="col-md-12 mb-3">
                                 <label class="labels">Commentaire :</label>
+                                <span>VIDE</span>
                                 <div class="d-none">
                                     <input type="text" class="form-control" value="">
                                     <button class="nav-btn btn btn-warning text-white border border-light border-2 rounded-3 w-100 my-1">Enregistrer</button>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="d-flex  flex-wrap justify-content-around">
-                            <div class="card text-center btn-custom" style="width: 15rem;">
-                                <img src="../../inc/img/film.svg" style="width: 13rem; margin: auto;" class="card-img-top border border-dark mt-3" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title text-center">Nom oeuvre</h5>
-                                    <div class="d-flex row justify-content-around">
-                                        <button type="button" class="btn btn-primary btn-warning text-white border border-light border-2">Retirer de la liste</button>
-                                    </div>
-                                </div>
-                                <p>Ajouté le 12/12/2023 13:12:23</p>
-                            </div>
-                            <div class="card text-center btn-custom" style="width: 15rem;">
-                                <img src="../../inc/img/film.svg" style="width: 13rem; margin: auto;" class="card-img-top border border-dark mt-3" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title text-center">Nom oeuvre</h5>
-                                    <div class="d-flex row justify-content-around">
-                                        <button type="button" class="btn btn-primary btn-warning text-white border border-light border-2">Retirer de la liste</button>
-                                    </div>
-                                </div>
-                                <p>Ajouté le 12/12/2023 13:12:23</p>
-                            </div>
-                            <div class="card text-center btn-custom" style="width: 15rem;">
-                                <img src="../../inc/img/film.svg" style="width: 13rem; margin: auto;" class="card-img-top border border-dark mt-3" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title text-center">Nom oeuvre</h5>
-                                    <div class="d-flex row justify-content-around">
-                                        <button type="button" class="btn btn-primary btn-warning text-white border border-light border-2">Retirer de la liste</button>
-                                    </div>
-                                </div>
-                                <p>Ajouté le 12/12/2023 13:12:23</p>
-                            </div>
-                            <div class="card text-center btn-custom" style="width: 15rem;">
-                                <img src="../../inc/img/film.svg" style="width: 13rem; margin: auto;" class="card-img-top border border-dark mt-3" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title text-center">Nom oeuvre</h5>
-                                    <div class="d-flex row justify-content-around">
-                                        <button type="button" class="btn btn-primary btn-warning text-white border border-light border-2">Retirer de la liste</button>
-                                    </div>
-                                </div>
-                                <p>Ajouté le 12/12/2023 13:12:23</p>
-                            </div>
-                            <div class="card text-center btn-custom" style="width: 15rem;">
-                                <img src="../../inc/img/film.svg" style="width: 13rem; margin: auto;" class="card-img-top border border-dark mt-3" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title text-center">Nom oeuvre</h5>
-                                    <div class="d-flex row justify-content-around">
-                                        <button type="button" class="btn btn-primary btn-warning text-white border border-light border-2">Retirer de la liste</button>
-                                    </div>
-                                </div>
-                                <p>Ajouté le 12/12/2023 13:12:23</p>
                             </div>
                         </div>
                         <div class="d-flex  flex-row-reverse bd-highlight">
@@ -137,62 +86,11 @@
                             <p class="fs-6">Liste par défaut : Deja vu</p>
                             <div class="col-md-12 mb-3">
                                 <label class="labels">Commentaire :</label>
+                                <span>VIDE</span>
                                 <div class="d-none">
                                     <input type="text" class="form-control" value="">
                                     <button class="nav-btn btn btn-warning text-white border border-light border-2 rounded-3 w-100 my-1">Enregistrer</button>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="d-flex  flex-wrap justify-content-around">
-                            <div class="card text-center btn-custom" style="width: 15rem;">
-                                <img src="../../inc/img/film.svg" style="width: 13rem; margin: auto;" class="card-img-top border border-dark mt-3" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title text-center">Nom oeuvre</h5>
-                                    <div class="d-flex row justify-content-around">
-                                        <button type="button" class="btn btn-primary btn-warning text-white border border-light border-2">Retirer de la liste</button>
-                                    </div>
-                                </div>
-                                <p>Ajouté le 12/12/2023 13:12:23</p>
-                            </div>
-                            <div class="card text-center btn-custom" style="width: 15rem;">
-                                <img src="../../inc/img/film.svg" style="width: 13rem; margin: auto;" class="card-img-top border border-dark mt-3" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title text-center">Nom oeuvre</h5>
-                                    <div class="d-flex row justify-content-around">
-                                        <button type="button" class="btn btn-primary btn-warning text-white border border-light border-2">Retirer de la liste</button>
-                                    </div>
-                                </div>
-                                <p>Ajouté le 12/12/2023 13:12:23</p>
-                            </div>
-                            <div class="card text-center btn-custom" style="width: 15rem;">
-                                <img src="../../inc/img/film.svg" style="width: 13rem; margin: auto;" class="card-img-top border border-dark mt-3" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title text-center">Nom oeuvre</h5>
-                                    <div class="d-flex row justify-content-around">
-                                        <button type="button" class="btn btn-primary btn-warning text-white border border-light border-2">Retirer de la liste</button>
-                                    </div>
-                                </div>
-                                <p>Ajouté le 12/12/2023 13:12:23</p>
-                            </div>
-                            <div class="card text-center btn-custom" style="width: 15rem;">
-                                <img src="../../inc/img/film.svg" style="width: 13rem; margin: auto;" class="card-img-top border border-dark mt-3" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title text-center">Nom oeuvre</h5>
-                                    <div class="d-flex row justify-content-around">
-                                        <button type="button" class="btn btn-primary btn-warning text-white border border-light border-2">Retirer de la liste</button>
-                                    </div>
-                                </div>
-                                <p>Ajouté le 12/12/2023 13:12:23</p>
-                            </div>
-                            <div class="card text-center btn-custom" style="width: 15rem;">
-                                <img src="../../inc/img/film.svg" style="width: 13rem; margin: auto;" class="card-img-top border border-dark mt-3" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title text-center">Nom oeuvre</h5>
-                                    <div class="d-flex row justify-content-around">
-                                        <button type="button" class="btn btn-primary btn-warning text-white border border-light border-2">Retirer de la liste</button>
-                                    </div>
-                                </div>
-                                <p>Ajouté le 12/12/2023 13:12:23</p>
                             </div>
                         </div>
                         <div class="d-flex  flex-row-reverse bd-highlight">
