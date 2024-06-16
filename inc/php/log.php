@@ -1,5 +1,4 @@
 <?php
-require_once('db.php');
 function server_log($action) {
     global $bdd;
 
@@ -14,8 +13,6 @@ function server_log($action) {
     }
 }
 
-$root_path = __FILE__;
-$parent_path = dirname(dirname($root_path));
-$relative_path = str_replace($parent_path, '', $root_path);
-
-server_log("Consultation de la page " . $relative_path);
+if ($_SERVER['REMOTE_ADDR'] !== '::1') {
+    server_log("Consultation de la page " . $_SERVER['SCRIPT_NAME']);
+}

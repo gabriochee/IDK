@@ -95,7 +95,7 @@ async function setCardsContent() {
 
 listStatusRadios.forEach((elem) => {
   elem.addEventListener('change', function () {
-    fetch("http://localhost:3000/inc/php/update_list_status.php?" + new URLSearchParams({id_liste : id_liste, list_status : elem.value})).then(data => data.text()).then(text => console.log(text)).catch(error => console.error(error));
+    fetch("../inc/php/update_list_status.php?" + new URLSearchParams({id_liste : id_liste, list_status : elem.value})).then(data => data.text()).then(text => console.log(text)).catch(error => console.error(error));
   })
 })
 

@@ -19,6 +19,27 @@ if(isset($_GET['mv'])) {
     $rep3 = $req3->fetchAll(); 
     $req4 = $bdd->query("SELECT averageRating, numVotes FROM work_ratings WHERE id_work = {$_GET['mv']}");
     $rep4 = $req4->fetch(); 
+    $req8 = null;
+    $rep8 = null;
+
+    $myRating;
+    $myPartie_decimale;
+    $myPartie_entiere;
+
+    if (isset($_SESSION['id_user'])){
+        $req8 = $bdd->prepare('SELECT note FROM avis WHERE id_user = :id_user AND id_work = :id_work;');
+        $req8->bindParam(":id_user", $_SESSION['id_user']);
+        $req8->bindParam(":id_work", $_GET['mv']);
+        $req8->execute();
+        $rep8 = $req8->fetch();
+
+        if ($rep8){
+            $myRating = $rep8["note"] / 2;
+            $myPartie_decimale = fmod($myRating, 1);
+            $myPartie_entiere = intval($myRating);
+        }
+    }
+
     $averageRating = $rep4["averageRating"] / 2;
     $partie_decimale = fmod($averageRating, 1);
     $partie_entiere = intval($averageRating);
