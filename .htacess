@@ -1,2 +1,3 @@
 // Retirer les extension de fichier .php puis modifier tout le code en conséquence (sauf les requires)
 // Interdire l'accès HTTP au répertoire /inc
+// erreur 404

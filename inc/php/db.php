@@ -1,5 +1,4 @@
 <?php
-
 date_default_timezone_set("Europe/Paris");
 
 $serverAddress = "152.228.217.19";
