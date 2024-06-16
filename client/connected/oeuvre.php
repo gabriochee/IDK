@@ -208,7 +208,7 @@
                     <div id="commentaire-quatre" class="row justify-content-center" style="display: none;">
                         <div class="col-12 border border-2 border-top-0 border-dark color-custom-2">
                             <div class="overflow-auto menu-oeuvre-2" id="comments-quatre">
-                                <p>salut4</p>
+                                
                             </div>
                         </div>
                     </div>
@@ -332,6 +332,19 @@
                 });
             });
 
+
+
+
+
+
+
+
+
+
+
+
+
+
             const cinq = document.getElementById("commentaire-cinq");
             const quatre = document.getElementById("commentaire-quatre");
             const trois = document.getElementById("commentaire-trois");
@@ -353,6 +366,7 @@
                 for (const key in sections) {
                     sections[key].style.display = "none";
                 }
+
                 sections[note].style.display = "block";
                 if (intervalId) {
                     clearInterval(intervalId);
@@ -361,23 +375,23 @@
             }
 
             document.getElementById("note-cinq").addEventListener("click", function() {
-                alert("5");
+                alert("10");
                 handleNoteClick(5);
             });
             document.getElementById("note-quatre").addEventListener("click", function() {
-                alert("4");
+                alert("8");
                 handleNoteClick(4);
             });
             document.getElementById("note-trois").addEventListener("click", function() {
-                alert("3");
+                alert("6");
                 handleNoteClick(3);
             });
             document.getElementById("note-deux").addEventListener("click", function() {
-                alert("2");
+                alert("4");
                 handleNoteClick(2);
             });
             document.getElementById("note-un").addEventListener("click", function() {
-                alert("1");
+                alert("2");
                 handleNoteClick(1);
             });
             document.getElementById("note-zero").addEventListener("click", function() {
@@ -387,105 +401,51 @@
 
             function showCommentByNote(note) {
                 var note = note;
+                console.log(note);
                 var currentUrl2 = window.location.href;
                 var urlParams2 = new URLSearchParams(window.location.search);
                 var idMovie2 = urlParams2.get('mv');
-                console.log(idMovie2);
+                fetch('../../inc/php/function_comment_by_note.php', {
+                    method: 'POST',
+                    credentials: 'same-origin',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        idMovie2:idMovie2,
+                        note:note
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'error') {
+                        console.error(data.message);
+                    } else {
+                        console.log(data);
+                        const commentsContainer = document.getElementById(`comments-quatre`); 
+                        console.log(commentsContainer);
 
-                intervalId = setInterval(() => {
 
-                    const me = <?php echo $_SESSION['id_user']; ?>;
+                        data.reviews.forEach(review => {
+                        // Create a new paragraph element for each review
+                        const paragraph = document.createElement('p');
+                        
+                        // Construct the content of the paragraph
+                        paragraph.textContent = `${review.date_avis} - ${review.pseudo} -${review.critique} `;
+                        
+                        // Append the paragraph to the comments container
+                        commentsContainer.appendChild(paragraph);
+                    });
 
-                    fetch('../../inc/php/function_comment_by_note.php', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({
-                                idMovie2: idMovie2,
-                                me: me,
-                                note: note
-                            })
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.status === 'error') {
-                                // 
-                            } else {
-                                document.querySelector('#message_list').innerHTML = '';
-                                data.forEach(message => {
-                                    const li = document.createElement('li');
-                                    li.classList.add('d-flex', 'mb-4');
-                                    const isSender = message.id_user_1 == <?php echo $_SESSION['id_user']; ?>;
 
-                                    if (isSender) {
-                                        li.classList.add('justify-content-end');
-                                    } else {
-                                        li.classList.add('justify-content-start');
-                                    }
-
-                                    const card = document.createElement('div');
-                                    card.classList.add('card');
-
-                                    if (isSender) {
-                                        card.classList.add('text-end', 'text-success');
-                                    } else {
-                                        card.classList.add('text-start', 'text-danger');
-                                    }
-
-                                    const cardHeader = document.createElement('div');
-                                    cardHeader.classList.add('card-header', 'd-flex', 'justify-content-between', 'p-3');
-
-                                    const cardBody = document.createElement('div');
-                                    cardBody.classList.add('card-body');
-
-                                    const messageUser = document.createElement('p');
-                                    messageUser.textContent = isSender ? 'me' : message.pseudo_other;
-                                    messageUser.classList.add('pseudo_size');
-
-                                    const messageContent = document.createElement('p');
-                                    messageContent.classList.add('mb-0');
-                                    messageContent.textContent = message.contenu_message;
-
-                                    const messageDate = document.createElement('p');
-                                    messageDate.textContent = message.date_messsage;
-                                    messageDate.classList.add('date_size');
-
-                                    cardBody.appendChild(messageUser);
-                                    cardBody.appendChild(messageContent);
-                                    cardBody.appendChild(messageDate);
-
-                                    card.appendChild(cardBody);
-                                    li.appendChild(card);
-
-                                    document.querySelector('#message_list').appendChild(li);
-                                });
-                            }
-                        })
-                        .catch(error => {
-                            // 
-                        });
-                }, 1000);
-            }
-
-            function getWorkIdFromUrl() {
-                const urlParams = new URLSearchParams(window.location.search);
-                return urlParams.get('work_id');
-            }
-
-            function displayComments(note, comments) {
-                const commentsContainer = document.getElementById(`comments-${note}`);
-                commentsContainer.innerHTML = ''; // Clear existing comments
-
-                comments.forEach(comment => {
-                    const commentElement = document.createElement('div');
-                    commentElement.innerHTML = `
-                    <p class="m-0 fw-bold fs-5">&#x2022; ${comment.user}, inscrit depuis ${comment.joined}, ${comment.followers} abonnées, ${comment.public_reviews} critiques publiques, ${comment.public_lists} listes publiques, publié le ${comment.date} : ${note}/5</p>
-                    <p class="mb-0">${comment.text}</p>
-                `;
-                    commentsContainer.appendChild(commentElement);
+                        // Display the comments section for the selected note
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching reviews:', error);
                 });
             }
+
         </script>
         <script src="../../inc/library/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
