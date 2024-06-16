@@ -1,5 +1,3 @@
-console.log("slt");
-
 const cinq = document.getElementById("commentaire-cinq");
 const quatre = document.getElementById("commentaire-quatre");
 const trois = document.getElementById("commentaire-trois");
@@ -14,6 +12,7 @@ const star4 = document.getElementById("rate-4");
 const star5 = document.getElementById("rate-5");
 
 const stars = [star1, star2, star3, star4, star5];
+let note = 0;
 
 const moviePoster = document.getElementById("movie-poster");
 const movieSynposis = document.getElementById("movie-synopsis");
@@ -84,32 +83,56 @@ const options = {
   }
 };
 
-stars.forEach(star => {
-  star.addEventListener("click", function (clickEvent) {
-    
-    for (let i = 0; i < stars.indexOf(star); i++){
-      stars[i].classList.remove("bi-star-half");
-      stars[i].classList.remove("bi-star");
-      stars[i].classList.add("bi-star-fill");
-    }
+if (star1 != undefined){
+  stars.forEach((star) => {
+    star.addEventListener("click", async function (clickEvent) {
+      var urlParams = new URLSearchParams(window.location.search);
+      var idMovie = urlParams.get('mv');
+      note = 0;
+      for (let i = 0; i < stars.indexOf(star); i++) {
+        stars[i].classList.remove("bi-star-half");
+        stars[i].classList.remove("bi-star");
+        stars[i].classList.add("bi-star-fill");
+        note++;
+      }
 
-    for (let i = 4; i > stars.indexOf(star); i--){
-      stars[i].classList.remove("bi-star-half");
-      stars[i].classList.remove("bi-star-fill");
-      stars[i].classList.add("bi-star");
-    }
+      for (let i = 4; i > stars.indexOf(star); i--) {
+        stars[i].classList.remove("bi-star-half");
+        stars[i].classList.remove("bi-star-fill");
+        stars[i].classList.add("bi-star");
+      }
 
-    if (clickEvent.offsetX > 25) {
-      star.classList.remove("bi-star");
-      star.classList.remove("bi-star-half");
-      star.classList.add("bi-star-fill");
-    } else {
-      star.classList.remove("bi-star");
-      star.classList.remove("bi-star-fill");
-      star.classList.add("bi-star-half");
-    }
+      if (clickEvent.offsetX > 25) {
+        star.classList.remove("bi-star");
+        star.classList.remove("bi-star-half");
+        star.classList.add("bi-star-fill");
+        note++;
+      } else {
+        star.classList.remove("bi-star");
+        star.classList.remove("bi-star-fill");
+        star.classList.add("bi-star-half");
+        note += .5;
+      }
+
+      fetch("../../inc/php/send_comment_and_note.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          note : note * 2,
+          statut: "privee",
+          idMovie: idMovie,
+        }),
+      })
+        .then((response) => response.json())
+        .catch((error) => {
+          alert("Erreur lors u message : " + error.message);
+        });
+
+    });
   });
-})
+}
 
 
 function onError(error){
