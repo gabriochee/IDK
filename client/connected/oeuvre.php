@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 
 
@@ -7,6 +7,7 @@ session_start();
 
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,14 +16,15 @@ session_start();
     <link rel="stylesheet" href="../../inc/library/bootstrap/bootstrap-icons/font/bootstrap-icons.min.css">
     <title>IDK</title>
 </head>
+
 <body id="oeuvre">
     <?php require_once('../../inc/php/db.php'); ?>
-    <?php require_once('../../inc/php/function_oeuvre.php'); ?>    
-    <?php require_once('../../inc/components/connected/header.php'); ?>  
+    <?php require_once('../../inc/php/function_oeuvre.php'); ?>
+    <?php require_once('../../inc/components/connected/header.php'); ?>
     <main>
         <div class="container mt-5">
             <div class="row justify-content-center">
-                <div class="row col-12 col-lg-6 img-fluid img-custom-1 " >
+                <div class="row col-12 col-lg-6 img-fluid img-custom-1 ">
                     <img src="../../inc/img/test.jpeg" id="movie-poster" alt="affiche de l'oeuvre">
                 </div>
                 <div class="col-12 col-lg-5">
@@ -30,19 +32,27 @@ session_start();
                         <h1 class="m-1 mb-3" id="movie-title"><?php echo $rep1['primaryTitle']; ?></h1>
                         <p class="m-1" id="movie-year">Durée : <?php echo $rep1['runtimeMinutes']; ?> minutes</p>
                         <p class="m-1">Date de sortie : <?php echo $rep1['startYear']; ?></p>
-                        <p class="m-1">Genres : <?php foreach($rep3 as $genre){ echo $genre['genre'] . ((end($rep3) != $genre) ? ", " : "");} ?></p>
-                        <p class="m-1">Acteurs principaux : <?php foreach($rep5 as $acteur){ echo $acteur["name"] . ((end($rep5) != $acteur) ? ", " : "");}?></p>
-                        <p class="m-1">Réalisateur : <?php foreach($rep6 as $realisateur){ echo $realisateur["name"] . ((end($rep6) != $realisateur) ? ", " : "");}?></p>
-                        <p class="m-1">Producteur : <?php foreach($rep7 as $producteur){ echo $producteur["name"] . ((end($rep7) != $producteur) ? ", " : "");}?></p>  
+                        <p class="m-1">Genres : <?php foreach ($rep3 as $genre) {
+                                                    echo $genre['genre'] . ((end($rep3) != $genre) ? ", " : "");
+                                                } ?></p>
+                        <p class="m-1">Acteurs principaux : <?php foreach ($rep5 as $acteur) {
+                                                                echo $acteur["name"] . ((end($rep5) != $acteur) ? ", " : "");
+                                                            } ?></p>
+                        <p class="m-1">Réalisateur : <?php foreach ($rep6 as $realisateur) {
+                                                            echo $realisateur["name"] . ((end($rep6) != $realisateur) ? ", " : "");
+                                                        } ?></p>
+                        <p class="m-1">Producteur : <?php foreach ($rep7 as $producteur) {
+                                                        echo $producteur["name"] . ((end($rep7) != $producteur) ? ", " : "");
+                                                    } ?></p>
                     </div>
-                    <div class ="container mt-4">
+                    <div class="container mt-4">
                         <div class="d-flex justify-content-center mt-2">
                             <div class="card col-1 mx-1 p-3 color-custom-1" style="width: 170px;">
                                 <div class="card-body d-flex flex-column justify-content-start align-items-center p-0">
                                     <p class="m-0 fw-bold fs-5">Public</p>
                                     <p class="m-0 note-count fs-5 mt-2"><?php echo $averageRating; ?></p>
                                     <div class="d-flex justify-content-center my-2">
-                                        <?php 
+                                        <?php
                                         for ($i = 1; $i < $averageRating; $i++) {
                                             echo '<i class="bi bi-star-fill"></i>';
                                         }
@@ -86,12 +96,12 @@ session_start();
                                 </div>
                             </div>
                         </div>
-                    </div>        
+                    </div>
                 </div>
             </div>
             <div class="container mt-3">
                 <div id="connected" class="row justify-content-center">
-                    <div class="col-3 d-flex justify-content-center align-items-center border border-2 border-end-0 border-dark color-custom-1 menu-oeuvre">
+                    <div class="col-3 d-flex justify-content-center align-items-center border border-2 border-end-0 border-dark color-custom-1 menu-oeuvre" data-bs-toggle="modal" data-bs-target="#rateModal">
                         <p class="text fw-bold m-0">NOTER :</p>
                         <i class="bi bi-star ms-4"></i>
                         <i class="bi bi-star"></i>
@@ -99,6 +109,28 @@ session_start();
                         <i class="bi bi-star"></i>
                         <i class="bi bi-star"></i>
                     </div>
+
+                    <div class="modal fade" id="rateModal" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5">Noter cette oeuvre</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+                                </div>
+                                <div class="modal-body d-flex justify-content-center gap-4">
+                                    <i class="bi bi-star h1" id="rate-1"></i>
+                                    <i class="bi bi-star h1" id="rate-2"></i>
+                                    <i class="bi bi-star h1" id="rate-3"></i>
+                                    <i class="bi bi-star h1" id="rate-4"></i>
+                                    <i class="bi bi-star h1" id="rate-5"></i>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="col-3 d-flex justify-content-center align-items-center border border-2 border-end-0 border-dark color-custom-1 menu-oeuvre">
                         <p class="m-0">Rédiger/Modifier ma critique</p>
                         <i class="bi bi-chat-left-dots ms-3"></i>
@@ -182,7 +214,7 @@ session_start();
                                     <p class="mb-0">This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>
                                 </div>
                             </div>
-                        </div>           
+                        </div>
                     </div>
                     <div id="commentaire-quatre" class="row justify-content-center">
                         <div class="col-12 border border-2 border-top-0 border-dark color-custom-2">
@@ -200,7 +232,7 @@ session_start();
                                     <p class="mb-0">This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>
                                 </div>
                             </div>
-                        </div>           
+                        </div>
                     </div>
                     <div id="commentaire-trois" class="row justify-content-center">
                         <div class="col-12 border border-2 border-top-0 border-dark color-custom-2">
@@ -218,7 +250,7 @@ session_start();
                                     <p class="mb-0">This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>
                                 </div>
                             </div>
-                        </div>           
+                        </div>
                     </div>
                     <div id="commentaire-deux" class="row justify-content-center">
                         <div class="col-12 border border-2 border-top-0 border-dark color-custom-2">
@@ -236,7 +268,7 @@ session_start();
                                     <p class="mb-0">This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>
                                 </div>
                             </div>
-                        </div>           
+                        </div>
                     </div>
                     <div id="commentaire-un" class="row justify-content-center">
                         <div class="col-12 border border-2 border-top-0 border-dark color-custom-2">
@@ -254,7 +286,7 @@ session_start();
                                     <p class="mb-0">This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>
                                 </div>
                             </div>
-                        </div>           
+                        </div>
                     </div>
                     <div id="commentaire-zero" class="row justify-content-center">
                         <div class="col-12 border border-2 border-top-0 border-dark color-custom-2">
@@ -272,15 +304,16 @@ session_start();
                                     <p class="mb-0">This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>
                                 </div>
                             </div>
-                        </div>           
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-                    
-    <?php require_once('../../inc/components/connected/footer.php'); ?>          
-    <script src="../../inc/js/oeuvre.js"></script>
-    <script src="../../inc/js/search_movie.js"></script>
-    <script src="../../inc/library/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+        <?php require_once('../../inc/components/connected/footer.php'); ?>
+        <script src="../../inc/js/oeuvre.js"></script>
+        <script src="../../inc/js/search_movie.js"></script>
+        <script src="../../inc/library/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
