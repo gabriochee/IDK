@@ -6,8 +6,7 @@
         
         $data = json_decode(file_get_contents('php://input'), true);
 
-        if (isset($data['currentFriendId'])) {
-            $idFriend = $data['currentFriendId'];
+        if (isset($data['note'])) {
             $idMe = $data['me'];
             $stmt = $bdd->prepare("SELECT
                 messages.date_messsage,
