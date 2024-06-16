@@ -1,8 +1,4 @@
-<?php 
-
-?>
-<?php require_once('../../inc/php/scraping_log.php'); ?>
-
+<?php require_once('../../inc/php/access.php'); ?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -31,7 +27,7 @@
                 </div>
             </div>
         </div>
-        <div class="contact-form row g-5 justify-content-center mb-4">
+        <div class=" row g-5 justify-content-center mb-4">
             <div class="col-md-7 col-lg-8">
                 <form action="./confirmation_inscription.php" class="needs-validation" id="signin-form" method="POST">
                     <div class="row g-3">

@@ -1,6 +1,4 @@
-<?php session_start() ?>
-<?php require_once('../../inc/php/scraping_log.php'); ?>
-
+<?php require_once('../../inc/php/access.php'); ?>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -41,24 +39,12 @@
                         <div class="invalid-feedback">Veuillez fournir un mot de passe valide.</div>
                     </div>
                     <div class="text-center fs-4">
-                        <?php
-                        if (isset($_GET['wrong_email'])) {
-                            echo "<div class='alert alert-danger' role='alert'>L'email ou le mot de passe ou les deux sont erronés</div>";
-                        }
-                        if (isset($_GET['wrong_mdp'])) {
-                            echo "<div class='alert alert-danger' role='alert'>L'email ou le mot de passe ou les deux sont erronés</div>";
-                        }
-                        if (isset($_GET['supprime'])) {
-                            echo "<div class='alert alert-danger' role='alert'>Votre compte a été supprimé</div>";
-                        }
-                        if (isset($_GET['ban_def'])) {
-                            echo "<div class='alert alert-danger' role='alert'>Vous êtes banni définitivement Raison : " . htmlspecialchars(urldecode($_GET['raison'])) . "</div>";
-                        }
-                        if (isset($_GET['ban_not_def'])) {
-                            echo "<div class='alert alert-danger' role='alert'>Vous êtes banni temporairement. Raison : " . htmlspecialchars(urldecode($_GET['raison'])) . ". Date de débannissement : " . htmlspecialchars(urldecode($_GET['date_deban'])) . "</div>";
-                        }
-                        if (isset($_GET['wrong_captcha'])){
-                            echo "<div class='alert alert-danger' role='alert'>Le captcha est invalide.</div>";
+                    <?php
+                        if (isset($_GET['wrong_email'])) {echo "<div class='alert alert-danger' role='alert'>L'email ou le mot de passe ou les deux sont erronés</div>";}
+                        if (isset($_GET['wrong_mdp'])) {echo "<div class='alert alert-danger' role='alert'>L'email ou le mot de passe ou les deux sont erronés</div>";}
+                        if (isset($_GET['supprime'])) {echo "<div class='alert alert-danger' role='alert'>Ton compte a été supprimé</div>";}
+                        if (isset($_GET['ban_def'])) { echo "<div class='alert alert-danger' role='alert'>Vous êtes banni définitivement Raison : " . htmlspecialchars(urldecode($_GET['raison'])) . "</div>"; }
+                        if (isset($_GET['ban_not_def'])) {echo "<div class='alert alert-danger' role='alert'>Vous êtes banni temporairement. Raison : " . htmlspecialchars(urldecode($_GET['raison'])) . ". Date de débannissement : " . htmlspecialchars(urldecode($_GET['date_deban'])) . "</div>";
                         }
                         ?>
                     </div>

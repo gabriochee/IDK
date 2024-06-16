@@ -21,7 +21,7 @@
           </div>
 
           <div class="offcanvas-body d-md-flex gap-lg-5">
-            <ul class="nav justify-content-center fw-light me-xl-5 col-1 col-sm-4 col-md-9 m-auto">
+            <ul class="nav justify-content-center fw-light me-xl-3 col-1 col-sm-4 col-md-9 m-auto">
               <li>
                 <a <?php if(basename($_SERVER['PHP_SELF']) == 'home.php') echo 'class="nav-link text-decoration-underline text-white"'; ?> class="nav-link text-white" href="../../client/connected/home.php">Acceuil</a>
               </li>
@@ -45,6 +45,12 @@
                   <button type="submit" name="" class="nav-btn btn btn-primary btn-sm btn-warning text-white border border-light border-2 rounded-3">Déconnexion</button>
                 </form>
               </li>
+              <?php if ($_SESSION['role_user'] == 'admin') { echo '
+                <li class="nav-item">
+                  <form method="" action="../../admin/home_backoffice.php">
+                    <button type="submit" name="" class="nav-btn btn btn-primary btn-sm btn-warning text-white border border-light border-2 rounded-3">Backoffice</button>
+                  </form>
+                </li>';}?>
               <li class="nav-item">
                 <button class="nav-link btn">
                   <i class="bi bi-moon-stars"></i>

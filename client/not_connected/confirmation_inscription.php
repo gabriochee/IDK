@@ -1,6 +1,5 @@
-<?php session_start(); ?>     
+<?php require_once('../../inc/php/access.php'); ?>
 <?php require_once('../../inc/php/function_inscription.php'); ?>
-<?php require_once('../../inc/php/scraping_log.php'); ?>
 
 <!DOCTYPE html>
 <html lang="fr">
