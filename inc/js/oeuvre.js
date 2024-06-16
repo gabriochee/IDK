@@ -1,3 +1,5 @@
+console.log("slt");
+
 const cinq = document.getElementById("commentaire-cinq");
 const quatre = document.getElementById("commentaire-quatre");
 const trois = document.getElementById("commentaire-trois");
@@ -84,6 +86,7 @@ const options = {
 
 stars.forEach(star => {
   star.addEventListener("click", function (clickEvent) {
+    
     for (let i = 0; i < stars.indexOf(star); i++){
       stars[i].classList.remove("bi-star-half");
       stars[i].classList.remove("bi-star");
@@ -108,17 +111,6 @@ stars.forEach(star => {
   });
 })
 
-star1.onclick = function(e){
-  if (e.offsetX > 25){
-    star1.classList.remove('bi-star');
-    star1.classList.remove('bi-star-half');
-    star1.classList.add('bi-star-fill');
-  } else {
-    star1.classList.remove('bi-star');
-    star1.classList.remove('bi-star-fill');
-    star1.classList.add('bi-star-half');
-  }
-}
 
 function onError(error){
     console.error(error);

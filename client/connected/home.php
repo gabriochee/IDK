@@ -55,7 +55,7 @@ session_start();
                                         <tbody>
                                             <?php // Mettre une taille max !
                                                 foreach($rep2 as $rep2) {
-                                                    echo '<tr><td class="table-cell" scope="row">' . htmlspecialchars($rep3['pseudo']). ' - ' . htmlspecialchars($rep3['nom']).' '.htmlspecialchars($rep3['prenom']).'</td>';
+                                                    echo '<tr><td class="table-cell" scope="row">' . htmlspecialchars($rep2['pseudo']). ' - ' . htmlspecialchars($rep2['nom']).' '.htmlspecialchars($rep2['prenom']).'</td>';
                                                     echo '<td class="table-cell">le 14/04/2024</td>';
                                                     echo '<td class="table-cell text-end">';
                                                     echo '<a href="home.php?demande=be_friend&id='.$rep2['id_user'].'" class="nav-btn btn btn-sm btn-outline-secondary" type="submit" name="envoyer_ami">Accepter</a></td>';

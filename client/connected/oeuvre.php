@@ -344,104 +344,7 @@ session_start();
                     </form>
                     
                     
-                    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var privee = document.getElementById("private-comment");
-        var ami = document.getElementById("only-friends-comment");
-        var publique = document.getElementById("public-comment");
-
-        var buttons = [
-            document.getElementById("bouton0"),
-            document.getElementById("bouton1"),
-            document.getElementById("bouton2"),
-            document.getElementById("bouton3"),
-            document.getElementById("bouton4"),
-            document.getElementById("bouton5")
-        ];
-
-        var selectedNote = -1; // stocker la note sélectionnée -1 = aucune sélection
-        var selectedStatut = privee.value; // par défaut la valeur sélectionnée est 'privee'
-
-        // Recup note
-        buttons.forEach(function(button, index) {
-            button.addEventListener("click", function(event) {
-                event.preventDefault();
-                selectNote(index);
-            });
-        });
-
-        function selectNote(note) {
-            selectedNote = note;
-            updateSelectedStyle(note);
-        }
-
-        // Recup statut
-        privee.addEventListener("change", function(event) {
-            selectStatut(privee);
-        });
-
-        ami.addEventListener("change", function(event) {
-            selectStatut(ami);
-        });
-
-        publique.addEventListener("change", function(event) {
-            selectStatut(publique);
-        });
-
-        function selectStatut(statutElement) {
-            selectedStatut = statutElement.value;
-        }
-
-        function updateSelectedStyle(note) {
-            buttons.forEach(function(button) {
-                button.style.opacity = "0.5";
-            });
-
-            if (note >= 0 && note < buttons.length) {
-                buttons[note].style.opacity = "1";
-            }
-        }
-
-        document.getElementById("myComment").addEventListener("submit", function(event) {
-            event.preventDefault();
-
-            var currentUrl = window.location.href;
-            var urlParams = new URLSearchParams(window.location.search);
-            var idMovie = urlParams.get('mv');
-
-            var commentText = document.getElementById('commentText').value;
-
-            fetch('../../inc/php/send_comment.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    comment: commentText,
-                    note: selectedNote,
-                    statut: selectedStatut,
-                    idMovie: idMovie
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.status === 'success') {
-                    // Vider
-                    document.getElementById('commentText').value = "";
-                    alert("Message envoyé avec succès !");
-                    // Remettre en pas de note
-                    selectedNote = -1;
-                    updateSelectedStyle(selectedNote);
-                } else {
-                    alert("Er du message : " + data.error);
-                }
-            })
-            .catch(error => {
-                alert("Erreur lors u message : " + error.message);
-            });
-        });
-    });
-</script>
+                    
 
                 </div>
             </div>
@@ -450,6 +353,104 @@ session_start();
         <?php require_once('../../inc/components/connected/footer.php'); ?>
         <script src="../../inc/js/oeuvre.js"></script>
         <script src="../../inc/js/search_movie.js"></script>
+        <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            var privee = document.getElementById("private-comment");
+                            var ami = document.getElementById("only-friends-comment");
+                            var publique = document.getElementById("public-comment");
+
+                            var buttons = [
+                                document.getElementById("bouton0"),
+                                document.getElementById("bouton1"),
+                                document.getElementById("bouton2"),
+                                document.getElementById("bouton3"),
+                                document.getElementById("bouton4"),
+                                document.getElementById("bouton5")
+                            ];
+
+                            var selectedNote = -1; // stocker la note sélectionnée -1 = aucune sélection
+                            var selectedStatut = privee.value; // par défaut la valeur sélectionnée est 'privee'
+
+                            // Recup note
+                            buttons.forEach(function(button, index) {
+                                button.addEventListener("click", function(event) {
+                                    event.preventDefault();
+                                    selectNote(index);
+                                });
+                            });
+
+                            function selectNote(note) {
+                                selectedNote = note;
+                                updateSelectedStyle(note);
+                            }
+
+                            // Recup statut
+                            privee.addEventListener("change", function(event) {
+                                selectStatut(privee);
+                            });
+
+                            ami.addEventListener("change", function(event) {
+                                selectStatut(ami);
+                            });
+
+                            publique.addEventListener("change", function(event) {
+                                selectStatut(publique);
+                            });
+
+                            function selectStatut(statutElement) {
+                                selectedStatut = statutElement.value;
+                            }
+
+                            function updateSelectedStyle(note) {
+                                buttons.forEach(function(button) {
+                                    button.style.opacity = "0.5";
+                                });
+
+                                if (note >= 0 && note < buttons.length) {
+                                    buttons[note].style.opacity = "1";
+                                }
+                            }
+
+                            document.getElementById("myComment").addEventListener("submit", function(event) {
+                                event.preventDefault();
+
+                                var currentUrl = window.location.href;
+                                var urlParams = new URLSearchParams(window.location.search);
+                                var idMovie = urlParams.get('mv');
+
+                                var commentText = document.getElementById('commentText').value;
+
+                                fetch('../../inc/php/send_comment.php', {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    },
+                                    body: JSON.stringify({
+                                        comment: commentText,
+                                        note: selectedNote,
+                                        statut: selectedStatut,
+                                        idMovie: idMovie
+                                    })
+                                })
+                                .then(response => response.json())
+                                .then(data => {
+                                    if (data.status === 'success') {
+                                        // Vider
+                                        document.getElementById('commentText').value = "";
+                                        alert("Message envoyé avec succès !");
+                                        // Remettre en pas de note
+                                        selectedNote = -1;
+                                        updateSelectedStyle(selectedNote);
+                                    } else {
+                                        alert("Er du message : " + data.error);
+                                    }
+                                })
+                                .catch(error => {
+                                    alert("Erreur lors u message : " + error.message);
+                                });
+                            });
+                        });
+                    </script>
         <script src="../../inc/library/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 
