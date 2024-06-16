@@ -1,4 +1,4 @@
-<?php session_start(); ?>
+<?php require_once('../inc/php/access.php'); ?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -10,22 +10,25 @@
     <title>IDK</title>
 </head>
 <body id="backoffice_edit_captcha">
-    <?php require_once('../inc/php/db.php'); ?>
-    <?php require_once('../inc/components/backoffice/header.php'); ?>
+    <?php 
+    require_once('../inc/components/backoffice/header.php'); ?>
     <div class="container-fluid">
         <div class="row">
             <?php require_once('../inc/components/backoffice/sidebar.php'); ?>
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
                 <div class="table-responsive mt-4" id="captcha-table">
-                    <h3>Captcha</h3>
+                    <h3>Maintenance Captcha</h3>
                 </div>
-                <div class="container-fluid px-0">
-                    <h3>Ajouter des captchas</h3>
-                    <div class="container px-0">
-                        <label for="question" class="form-label fs-3 m-0 mt-3">Question</label>
-                        <input type="text" class="form-control fs-5 border-dark border-2 rounded-3" id="question" name="question" maxlength="150" required>
+                <hr>
+                <div class="container-fluid px-0 mt-4">
+                    <h3 class="text-center"><span class=" w-100 badge text-bg-light fw-light">Ajouter un captcha</span></h3>
+                    <div class="input-group my-3">
+                        <span class="input-group-text w-25">Question</span>
+                        <input type="text" class="form-control" id="question" name="question" maxlength="150" required>
                         <div class="invalid-feedback">Veuillez fournir une question valide.</div>
                     </div>
+
+
                     <div class="container px-0" id="answers">
                         <div id="answer">
                             <div class="container d-flex align-items-center justify-content-between px-0 mt-3">
@@ -47,17 +50,14 @@
         </div>
     </div>
     <?php
-    try {
-        require_once('../inc/php/db.php');
-
-        $data = $bdd->query('SELECT captcha.question, captcha.id_captcha, reponse_captcha.contenu, reponse_captcha.bonne_reponse, reponse_captcha.id_reponse FROM reponse_captcha JOIN correspondance_captcha ON correspondance_captcha.id_reponse = reponse_captcha.id_reponse JOIN captcha ON correspondance_captcha.id_captcha = captcha.id_captcha;');
-
-        $fetchedData = $data->fetchAll();
-        $json = json_encode($fetchedData);
-        echo "<script>let captchaData = $json;</script>";
-    } catch (PDOException $e) {
-        echo "Erreur : " . $e->getMessage();
-    }
+        try {
+            $data = $bdd->query('SELECT captcha.question, captcha.id_captcha, reponse_captcha.contenu, reponse_captcha.bonne_reponse, reponse_captcha.id_reponse FROM reponse_captcha JOIN correspondance_captcha ON correspondance_captcha.id_reponse = reponse_captcha.id_reponse JOIN captcha ON correspondance_captcha.id_captcha = captcha.id_captcha;');
+            $fetchedData = $data->fetchAll();
+            $json = json_encode($fetchedData);
+            echo "<script>let captchaData = $json;</script>";
+        } catch (PDOException $e) {
+            handle_error($e->getMessage());
+        }
     ?>
     <script src="../inc/js/edit_captcha.js"></script>
     <script src="../inc/library/bootstrap/js/bootstrap.bundle.min.js"></script>

@@ -1,9 +1,4 @@
-<?php 
-session_start();
-require_once('../inc/php/db.php'); 
-
-
-?>
+<?php require_once('../inc/php/access.php'); ?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>

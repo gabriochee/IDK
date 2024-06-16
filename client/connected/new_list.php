@@ -1,10 +1,4 @@
-<?php
-session_start();
-
-
-?>
-<?php require_once('../../inc/php/scraping_log.php'); ?>
-
+<?php require_once('../../inc/php/access.php'); ?>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -29,32 +23,35 @@ session_start();
                 </div>
             </div>
         </div>
-        <form action="../../inc/php/create_list.php" method="post">
-            <div class="contact-form row g-5 justify-content-center mb-4 mx-0">
-                <div class="col-sm-6">
-                    <h5 class="text-center">Nom de votre liste</h5>
-                    <input type="text" class="form-control" id="list-name" name="list-name" required>
-                </div>
+        <div class="list-form row g-5 justify-content-center mb-4">
+            <div class="col-md-7 col-lg-8">
+                <form action="../../inc/php/create_list.php" method="POST">
+                    <div class="row g-5 justify-content-center mb-4 mx-0">
+                        <div class="col-12 input-group">
+                            <span class="input-group-text">Nom de votre liste</span>
+                            <input type="text" class="form-control" id="list-name" name="list-name" required>
+                        </div>
+                        <div class="col-12 mt-2">
+                            <textarea class="form-control" id="description" name="description" rows="5" maxlength="300" placeholder="Ajoutez une description !"></textarea>
+                        </div>
 
-                <div class="col-12">
-                    <h5 class="text-center">Description</h5>
-                    <textarea class="form-control" id="description" name="description" rows="5" maxlength="300"></textarea>
-                </div>
+                        <div class="from-check container d-flex justify-content-center mt-3">
+                            <input class="form-check-input ms-2" type="radio" name="list-status" id="private-list" value="privee" autocomplete="off" checked>
+                            <label class="form-check-label ms-1" for="private-list">Privée</label>
 
-                <div class="container d-flex justify-content-center mt-3">
-                    <input type="radio" class="btn-check" name="list-status" id="private-list" value="privee" autocomplete="off" checked>
-                    <label class="btn" for="private-list">privée</label>
+                            <input class="form-check-input ms-2" type="radio" name="list-status" id="only-friends-list" value="amis seulement" autocomplete="off">
+                            <label class="form-check-label ms-1" for="only-friends-list">Amis seulement</label>
 
-                    <input type="radio" class="btn-check" name="list-status" id="only-friends-list" value="amis seulement" autocomplete="off">
-                    <label class="btn" for="only-friends-list">amis seulement</label>
-
-                    <input type="radio" class="btn-check" name="list-status" id="public-list" value="publique" autocomplete="off">
-                    <label class="btn" for="public-list">publique</label>
-                </div>
-
-                <button class="w-25 btn btn-secondary btn-lg btn-warning border-dark border-2 mt-3" type="submit">Envoyer</button>
+                            <input class="form-check-input ms-2" type="radio" name="list-status" id="public-list" value="publique" autocomplete="off">
+                            <label class="form-check-label ms-1" for="public-list">Publique</label>
+                        </div>
+                        <div class="col-12 mt-2">
+                            <button class="w-100 btn btn-secondary btn-lg btn-warning border-dark border-2 mt-3" type="submit">Envoyer</button>
+                        </div>
+                    </div>
+                </form>
             </div>
-        </form>
+        </div>
     </main>
     <?php require_once('../../inc/components/connected/footer.php'); ?>
     <script src="../../inc/js/search_movie.js"></script>

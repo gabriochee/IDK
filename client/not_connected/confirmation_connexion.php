@@ -1,7 +1,5 @@
-<?php session_start() ?>
+<?php require_once('../../inc/php/access.php'); ?>
 <?php require_once('../../inc/php/function_connexion.php'); ?>
-<?php require_once('../../inc/php/scraping_log.php'); ?>
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -26,7 +24,7 @@
                 </div>
             </div>
         </div>
-
+        
         <div class="container col-sm-6 col-xl-4">
             <div class="row g-3">
                 <form action="" class="needs-validation" method="POST">
@@ -61,12 +59,12 @@
                         <div class="invalid-feedback">Veuillez fournir le code de vérification envoyé par mail.</div>
                     </div>
                     <div class="col-12 mt-3">
-                        <button class="w-100 btn btn-secondary btn-lg btn-warning border-dark border-2" type="submit" name ="connect">Connexion</button>
+                        <button class="w-100 btn btn-secondary btn-lg btn-warning border-dark border-2" type="submit" name="connect">Connexion</button>
                     </div>
                 </form>
                 <form action="confirmation_connexion.php" method="POST">
                     <div class="col-12">
-                        <button class="w-100 btn btn-secondary btn-lg btn-warning border-dark border-2" type="buton" name ="code">Envoyer le code par mail</button>
+                        <button class="w-100 btn btn-secondary btn-lg btn-warning border-dark border-2" type="buton" name="code">Envoyer le code par mail</button>
                     </div>
                 </form>
             </div>

@@ -1,7 +1,4 @@
-<?php 
-
-?>
-<?php require('../../inc/php/scraping_log.php'); ?>
+<?php require('../../inc/php/access.php'); ?>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -121,6 +118,7 @@
                     <button class="nav-btn btn btn-primary btn-lg btn-warning text-white border border-light border-2 rounded-3">En voir plus</button>
                 </div>
             </div>
+            <button class="w-75 nav-btn btn btn-primary btn-lg btn-warning text-white border border-light border-2 rounded-3 m-auto mt-4 d-flex justify-content-center">Voir plus de listes</button>
         </div>
 
         <div class="container marketing">

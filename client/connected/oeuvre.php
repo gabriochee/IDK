@@ -1,10 +1,4 @@
-<?php 
-session_start();
-
-
-?>
-<?php require_once('../../inc/php/scraping_log.php'); ?>
-
+<?php require_once('../../inc/php/access.php'); ?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -40,16 +34,17 @@ session_start();
                             <div class="card col-1 mx-1 p-3 color-custom-1" style="width: 170px;">
                                 <div class="card-body d-flex flex-column justify-content-start align-items-center p-0">
                                     <p class="m-0 fw-bold fs-5">Public</p>
-                                    <p class="m-0 note-count fs-5 mt-2"><?php echo $averageRating; ?></p>
+                                    <p class="m-0 note-count fs-5 mt-2"><?php echo $averageRating; ?>/5</p>
                                     <div class="d-flex justify-content-center my-2">
                                         <?php 
-                                        for ($i = 1; $i < $averageRating; $i++) {
+                                        $a = $partie_decimale > 0 ? '1' : '0';
+                                        for ($i = $a; $i < $averageRating; $i++) {
                                             echo '<i class="bi bi-star-fill"></i>';
                                         }
                                         if ($partie_decimale > 0) {
                                             echo '<i class="bi bi-star-half"></i>';
                                         }
-                                        for ($i = 1; $i < (5 - $averageRating); $i++) {
+                                        for ($i = $a; $i < (5 - $averageRating); $i++) {
                                             echo '<i class="bi bi-star"></i>';
                                         }
                                         ?>

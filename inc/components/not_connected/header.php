@@ -29,7 +29,13 @@
                 <a <?php if(basename($_SERVER['PHP_SELF']) == 'questionnaire.php') echo 'class="nav-link text-decoration-underline text-white"'; ?> class="nav-link text-white" href="../../client/not_connected/questionnaire.php">Questionnaire</a>
               </li>
               <li>
+                <a <?php if(basename($_SERVER['PHP_SELF']) == 'public_list.php') echo 'class="nav-link text-decoration-underline text-white"'; ?> class="nav-link text-white" href="../../client/not_connected/public_list.php">Listes publiques</a>
+              </li>
+              <li>
                 <a <?php if(basename($_SERVER['PHP_SELF']) == 'about.php') echo 'class="nav-link text-decoration-underline text-white"'; ?> class="nav-link text-white" href="../../client/not_connected/about.php">A propos</a>
+              </li>
+              <li>
+                <a <?php if(basename($_SERVER['PHP_SELF']) == 'contact.php') echo 'class="nav-link text-decoration-underline text-white"'; ?> class="nav-link text-white" href="../../client/not_connected/contact.php">Contact</a>
               </li>
             </ul>
 

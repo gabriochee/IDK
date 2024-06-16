@@ -78,7 +78,7 @@ function modifyCaptcha(element){
 
   question[element.value] = element.parentNode.parentNode.parentNode.previousSibling.querySelector('.form-control').value;
 
-  fetch("http://localhost:3000/inc/php/edit_captcha.php", {
+  fetch("http://localhost:8888/IDK/inc/php/edit_captcha.php", {
     method : "POST",
     header: {"Content-type": "application/json; charset=UTF-8"},
     body : JSON.stringify({question : question, answers : answers})
@@ -115,7 +115,7 @@ function changeGoodAnswer(element){
 }
 
 function deleteCaptcha(element){
-  fetch("http://localhost:3000/inc/php/delete_captcha.php?" + new URLSearchParams({deleteCaptchaId : element.value}))
+  fetch("http://localhost:8888/IDK/inc/php/delete_captcha.php?" + new URLSearchParams({deleteCaptchaId : element.value}))
   .then(data => data.text()).then(data => console.log(data));
 
   element.parentNode.parentNode.parentNode.previousSibling.remove();
@@ -169,7 +169,7 @@ function createCaptcha(element){
 
   i++;
 
-  fetch("http://localhost:3000/inc/php/create_captcha.php", {
+  fetch("http://localhost:8888/IDK/inc/php/create_captcha.php", {
     method : "POST",
     header: {"Content-type": "application/json; charset=UTF-8"},
     body : JSON.stringify({question : question, answers : answers})

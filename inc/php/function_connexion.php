@@ -9,8 +9,7 @@ require '../../inc/library/PHPMailer/src/Exception.php';
 require '../../inc/library/PHPMailer/src/PHPMailer.php';
 require '../../inc/library/PHPMailer/src/SMTP.php';
 
-
-$email = $_SESSION['email'];
+$email = isset($_SESSION['email']) ? $_SESSION['email'] : handle_error('Entrer sur la page confirmation_connexion sans avoir suivi le chemin classique via la page login');
 
 if (isset($_POST['code'])) {
     $mail = new PHPMailer(true);
@@ -63,7 +62,7 @@ if (isset($_POST['connect'])) {
     $connect = $_POST['entrer_code'];
     if ($connect != "") {
         $email = $_SESSION['email'];
-        $req = $bdd->prepare("SELECT mail, verification_code, role_user FROM utilisateur WHERE mail = :email;");
+        $req = $bdd->prepare("SELECT id_user, nom, prenom, pseudo, mail, verification_code, role_user FROM utilisateur WHERE mail = :email;");
         $req->bindValue(':email', $email, PDO::PARAM_STR);
         $req->execute();
         $reponse = $req->fetch();
@@ -78,13 +77,17 @@ if (isset($_POST['connect'])) {
                     $req8->bindValue(':email', $email, PDO::PARAM_STR);
                     $req8->execute();
                     header('Location: ../connected/home.php');
-                }
-                else if($role == 'admin'){
+                } else if ($role == 'admin') {
                     header('Location: ../../admin/home_backoffice.php');
-                }else{
+                } else {
                     header('Location: confirmation_connexion.php?wrong_role=true');
                 }
-                
+                $_SESSION['id_user'] = $reponse['id_user'];
+                $_SESSION['nom'] = $reponse['nom'];
+                $_SESSION['prenom'] = $reponse['prenom'];
+                $_SESSION['pseudo'] = $reponse['pseudo'];
+                $_SESSION['connected'] = 'connected';
+                $_SESSION['role_user'] = $reponse['role_user'];
                 exit;
             } else {
                 header('Location: confirmation_connexion.php?wrong_code=true');

@@ -1,9 +1,4 @@
-<?php 
-session_start();
-
-?>
-<?php require_once('../../inc/php/scraping_log.php'); ?>
-
+<?php require_once('../../inc/php/access.php'); ?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -26,7 +21,7 @@ session_start();
                 </div>
             </div>
         </div>
-        <div class="contact-form row g-5 justify-content-center mb-4">
+        <div class=" row g-5 justify-content-center mb-4">
             <div class="col-md-7 col-lg-8">
                 <form  method="post" id="form-contact">
                     <div class="row g-3">

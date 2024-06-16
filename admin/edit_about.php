@@ -1,20 +1,15 @@
 <?php 
-session_start();
-require_once('../inc/php/db.php'); 
+require_once('../inc/php/access.php');
 
-$url_demandee = $_SERVER['REQUEST_URI'];
-$segments_url = explode('/', $url_demandee);
-$nom_page = end($segments_url);
-
-switch ($nom_page) {
-    case "edit_home.php":
-        $nom_page = "Accueil";
+switch ($file_location) {
+    case "edit_home":
+        $file_location = "Accueil";
         break;
-    case "edit_about.php":
-        $nom_page = "A propos";
+    case "edit_about":
+        $file_location = "A propos";
         break;
-    case "edit_terms_and_conditions.php":
-        $nom_page = "Conditions général";
+    case "edit_terms_and_conditions":
+        $file_location = "Conditions général";
         break;
     default:
         die("Page non trouvée");
@@ -36,9 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $ancien_contenu = $stmt->fetch(PDO::FETCH_ASSOC);
 
             // Mise à jour du contenu 
-            $stmt = $bdd->prepare("UPDATE contenu 
-                SET titre = :titre, corps = :corps, date_maj = :date_maj, last_titre = :last_titre, last_corps = :last_corps, last_date_maj = :last_date_maj 
-                WHERE id_bloc = :id_bloc");
+            $stmt = $bdd->prepare("UPDATE contenu SET titre = :titre, corps = :corps, date_maj = :date_maj, last_titre = :last_titre, last_corps = :last_corps, last_date_maj = :last_date_maj WHERE id_bloc = :id_bloc");
             $stmt->execute([
                 'titre' => $titre,
                 'corps' => $corps,
@@ -50,8 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ]);
 
             // Enregistrement dans la table administration_contenu
-            $stmt = $bdd->prepare("INSERT INTO administration_contenu (id_user, id_bloc, date_maj) 
-                VALUES (:id_user, :id_bloc, :date_maj)");
+            $stmt = $bdd->prepare("INSERT INTO administration_contenu (id_user, id_bloc, date_maj) VALUES (:id_user, :id_bloc, :date_maj)");
             $stmt->execute([
                 'id_user' => $id_user,
                 'id_bloc' => $id_bloc,
@@ -64,8 +56,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 if (!isset($_GET['action']) || $_GET['action'] == 'display') {
-    $stmt = $bdd->prepare("SELECT id_bloc, page_appartenance, titre, corps, date_maj, last_titre, last_corps , last_date_maj FROM contenu WHERE page_appartenance = :nom_page");
-    $stmt->execute(['nom_page' => $nom_page]); 
+    $stmt = $bdd->prepare("SELECT id_bloc, page_appartenance, titre, corps, date_maj, last_titre, last_corps , last_date_maj FROM contenu WHERE page_appartenance = :file_location");
+    $stmt->execute(['file_location' => $file_location]); 
     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 ?>
@@ -87,7 +79,7 @@ if (!isset($_GET['action']) || $_GET['action'] == 'display') {
             <?php require_once('../inc/components/backoffice/sidebar.php'); ?>
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
                 <div class="container border border-black rounded-2 border-2 mt-3">
-                    <h1 class="text-center mt-4">Page : <?php echo htmlspecialchars($nom_page); ?></h1>
+                    <h1 class="text-center mt-4">Page : <?php echo htmlspecialchars($file_location); ?></h1>
                     <p class="text-end">Date de modifications : <?php echo $results['date_maj']; ?></p>
                     <hr class="featurette-divider my-2">
                     
