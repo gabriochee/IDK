@@ -28,7 +28,7 @@ if(isset($_GET['mv'])) {
     $rep7 = getMovieCrew('producer');
 
 } else {
-    header("location: home.php"); 
+    //header("location: home.php"); 
     exit(); 
 }
 ?>

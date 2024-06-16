@@ -1,14 +1,13 @@
 <?php
-// Informations de connexion à la base de données
     session_start();
     require_once('db.php');
     
     try {
 
+        echo "<script>console.log('mv: ');</script>";
 
         $data = json_decode(file_get_contents('php://input'), true);
 
-        //  le champ "message"
         if (isset($data['message'])) {
             $message = $data['message'];
             $idFriend = $data['idFriend'];

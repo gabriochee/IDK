@@ -174,12 +174,10 @@ session_start();
                         <div class="col-12 border border-2 border-top-0 border-dark color-custom-2">
                             <div class="overflow-auto menu-oeuvre-2">
                                 <div>
-                                    <p class="m-0 fw-bold fs-5">&#x2022; Eric123, inscrit depuis 14/04/2024, 123 abonnées, 123 critiques publiques, 12 listes publiques, publié le 14/04/2024 : 5/5</p>
-                                    <p class="mb-0">This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>
+                                    
                                 </div>
                                 <div>
-                                    <p class="m-0 fw-bold fs-5">&#x2022; Eric123, inscrit depuis 14/04/2024, 123 abonnées, 123 critiques publiques, 12 listes publiques, publié le 14/04/2024 : 5/5</p>
-                                    <p class="mb-0">This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>
+                                    
                                 </div>
                             </div>
                         </div>           
@@ -188,12 +186,10 @@ session_start();
                         <div class="col-12 border border-2 border-top-0 border-dark color-custom-2">
                             <div class="overflow-auto menu-oeuvre-2">
                                 <div>
-                                    <p class="m-0 fw-bold fs-5">&#x2022; Eric123, inscrit depuis 14/04/2024, 123 abonnées, 123 critiques publiques, 12 listes publiques, publié le 14/04/2024 : 4/5</p>
-                                    <p class="mb-0">This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>
+                                    
                                 </div>
                                 <div>
-                                    <p class="m-0 fw-bold fs-5">&#x2022; Eric123, inscrit depuis 14/04/2024, 123 abonnées, 123 critiques publiques, 12 listes publiques, publié le 14/04/2024 : 4/5</p>
-                                    <p class="mb-0">This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>
+                                    
                                 </div>
                                 <div>
                                     <p class="m-0 fw-bold fs-5">&#x2022; Eric123, inscrit depuis 14/04/2024, 123 abonnées, 123 critiques publiques, 12 listes publiques, publié le 14/04/2024 : 4/5</p>
@@ -206,8 +202,7 @@ session_start();
                         <div class="col-12 border border-2 border-top-0 border-dark color-custom-2">
                             <div class="overflow-auto menu-oeuvre-2">
                                 <div>
-                                    <p class="m-0 fw-bold fs-5">&#x2022; Eric123, inscrit depuis 14/04/2024, 123 abonnées, 123 critiques publiques, 12 listes publiques, publié le 14/04/2024 : 3/5</p>
-                                    <p class="mb-0">This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>
+                                    
                                 </div>
                                 <div>
                                     <p class="m-0 fw-bold fs-5">&#x2022; Eric123, inscrit depuis 14/04/2024, 123 abonnées, 123 critiques publiques, 12 listes publiques, publié le 14/04/2024 : 3/5</p>
@@ -224,8 +219,7 @@ session_start();
                         <div class="col-12 border border-2 border-top-0 border-dark color-custom-2">
                             <div class="overflow-auto menu-oeuvre-2">
                                 <div>
-                                    <p class="m-0 fw-bold fs-5">&#x2022; Eric123, inscrit depuis 14/04/2024, 123 abonnées, 123 critiques publiques, 12 listes publiques, publié le 14/04/2024 : 2/5</p>
-                                    <p class="mb-0">This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>
+                                    
                                 </div>
                                 <div>
                                     <p class="m-0 fw-bold fs-5">&#x2022; Eric123, inscrit depuis 14/04/2024, 123 abonnées, 123 critiques publiques, 12 listes publiques, publié le 14/04/2024 : 2/5</p>
@@ -274,6 +268,149 @@ session_start();
                             </div>
                         </div>           
                     </div>
+
+                    <form id="myComment">
+                        <div data-mdb-input-init class="form-outline my-3">
+                            <textarea class="form-control" id="commentText" rows="4" name="commentText"></textarea>
+                            <label for="selection">Mets une note:</label>
+
+                            <button class="star-button p-0" id="bouton0">
+                                <i class="bi bi-star-fill py-0 my-0"></i>
+                                <p class="py-0 my-0">0</p>
+                            </button>
+                            <button class="star-button" id="bouton1">
+                                <i class="bi bi-star-fill py-0 my-0"></i>
+                                <p class="py-0 my-0">1</p>
+                            </button>
+                            <button class="star-button" id="bouton2">
+                                <i class="bi bi-star-fill py-0 my-0"></i>
+                                <p class="py-0 my-0">2</p>
+                            </button>
+                            <button class="star-button" id="bouton3">
+                                <i class="bi bi-star-fill py-0 my-0"></i>
+                                <p class="py-0 my-0">3</p>
+                            </button>
+                            <button class="star-button" id="bouton4">
+                                <i class="bi bi-star-fill py-0 my-0"></i>
+                                <p class="py-0 my-0">4</p>
+                            </button>
+                            <button class="star-button" id="bouton5">
+                                <i class="bi bi-star-fill py-0 my-0"></i>
+                                <p class="py-0 my-0">5</p>
+                            </button>
+
+                            <input type="radio" class="btn-check" name="list-status" id="private-comment" value="privee" autocomplete="off" checked>
+                            <label class="btn" for="private-comment">privée</label>
+
+                            <input type="radio" class="btn-check" name="list-status" id="only-friends-comment" value="amis seulement" autocomplete="off">
+                            <label class="btn" for="only-friends-comment">amis seulement</label>
+
+                            <input type="radio" class="btn-check" name="list-status" id="public-comment" value="publique" autocomplete="off">
+                            <label class="btn" for="public-comment">publique</label>
+                        </div>
+                        <button class="w-100 btn btn-secondary btn-warning border-dark mt-2" type="submit" data-mdb-button-init data-mdb-ripple-init name="send_comment">Envoyer</button>
+                    </form>
+                    
+                    
+                    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var privee = document.getElementById("private-comment");
+        var ami = document.getElementById("only-friends-comment");
+        var publique = document.getElementById("public-comment");
+
+        var buttons = [
+            document.getElementById("bouton0"),
+            document.getElementById("bouton1"),
+            document.getElementById("bouton2"),
+            document.getElementById("bouton3"),
+            document.getElementById("bouton4"),
+            document.getElementById("bouton5")
+        ];
+
+        var selectedNote = -1; // stocker la note sélectionnée -1 = aucune sélection
+        var selectedStatut = privee.value; // par défaut la valeur sélectionnée est 'privee'
+
+        // Recup note
+        buttons.forEach(function(button, index) {
+            button.addEventListener("click", function(event) {
+                event.preventDefault();
+                selectNote(index);
+            });
+        });
+
+        function selectNote(note) {
+            selectedNote = note;
+            updateSelectedStyle(note);
+        }
+
+        // Recup statut
+        privee.addEventListener("change", function(event) {
+            selectStatut(privee);
+        });
+
+        ami.addEventListener("change", function(event) {
+            selectStatut(ami);
+        });
+
+        publique.addEventListener("change", function(event) {
+            selectStatut(publique);
+        });
+
+        function selectStatut(statutElement) {
+            selectedStatut = statutElement.value;
+        }
+
+        function updateSelectedStyle(note) {
+            buttons.forEach(function(button) {
+                button.style.opacity = "0.5";
+            });
+
+            if (note >= 0 && note < buttons.length) {
+                buttons[note].style.opacity = "1";
+            }
+        }
+
+        document.getElementById("myComment").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            var currentUrl = window.location.href;
+            var urlParams = new URLSearchParams(window.location.search);
+            var idMovie = urlParams.get('mv');
+
+            var commentText = document.getElementById('commentText').value;
+
+            fetch('../../inc/php/send_comment.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    comment: commentText,
+                    note: selectedNote,
+                    statut: selectedStatut,
+                    idMovie: idMovie
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    // Vider
+                    document.getElementById('commentText').value = "";
+                    alert("Message envoyé avec succès !");
+                    // Remettre en pas de note
+                    selectedNote = -1;
+                    updateSelectedStyle(selectedNote);
+                } else {
+                    alert("Er du message : " + data.error);
+                }
+            })
+            .catch(error => {
+                alert("Erreur lors u message : " + error.message);
+            });
+        });
+    });
+</script>
+
                 </div>
             </div>
         </div>
