@@ -69,6 +69,7 @@ if (!isset($_GET['action']) || $_GET['action'] == 'display') {
     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 ?>
+<?php require_once('../inc/php/scraping_log.php'); ?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>

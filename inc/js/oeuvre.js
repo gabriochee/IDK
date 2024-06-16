@@ -108,18 +108,6 @@ stars.forEach(star => {
   });
 })
 
-star1.onclick = function(e){
-  if (e.offsetX > 25){
-    star1.classList.remove('bi-star');
-    star1.classList.remove('bi-star-half');
-    star1.classList.add('bi-star-fill');
-  } else {
-    star1.classList.remove('bi-star');
-    star1.classList.remove('bi-star-fill');
-    star1.classList.add('bi-star-half');
-  }
-}
-
 function onError(error){
     console.error(error);
 }

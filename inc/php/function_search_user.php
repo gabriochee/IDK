@@ -1,5 +1,6 @@
 <?php
     require_once("db.php");
+    require_once("log.php");
     
     
 
@@ -98,6 +99,7 @@
             $stmt->bindParam(':me', $my_user_id);
             $stmt->bindParam(':other', $other_user_id);
             $stmt->execute();
+            server_log($my_user_id . " est devenu ami avec " . $other_user_id);
         }catch(PDOException $e){
             die($e->getMessage());
         }
@@ -110,6 +112,7 @@
             $stmt->bindParam(':me', $my_user_id);
             $stmt->bindParam(':other', $other_user_id);
             $stmt->execute();
+            server_log($my_user_id . " a demandé en ami " . $other_user_id);
         }
         catch (PDOException $e) {
             die($e->getMessage());
@@ -151,6 +154,7 @@
             $cancel_request->bindParam(':me', $my_user_id);
             $cancel_request->bindParam(':other', $other_user_id);
             $cancel_request->execute();
+            server_log($my_user_id . " a décliné la demande d'ami de " . $other_user_id);
         }catch(PDOException $e){
             die($e->getMessage());
         }
@@ -174,6 +178,7 @@
             $supp_friend->bindParam(':me', $my_user_id);
             $supp_friend->bindParam(':other', $other_user_id);
             $supp_friend->execute();
+            server_log($my_user_id . " a supprimé l'utilisateur suivant de ses amis : " . $other_user_id);
         }
         catch(PDOException $e){
             die($e->getMessage());
