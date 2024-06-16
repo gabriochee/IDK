@@ -56,8 +56,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     try {
-        $sql = "INSERT INTO utilisateur(role_user, nom, prenom, date_naissance, sexe, pseudo, mail, mdp, date_inscription, photo_utilisateur, statut_newsletter, verification_code, telephone, supprime) VALUES ('utilisateur', :lastname, :firstname, :birthdate, :gender, :username, :mail, :hash, :today, 'N/A', :abonne, NULL, :phone ,0)";
+        $photo_utilisateur = "profile.svg";
+        $sql = "INSERT INTO utilisateur(role_user, nom, prenom, date_naissance, sexe, pseudo, mail, mdp, date_inscription, statut_newsletter, verification_code, telephone, supprime, photo_utilisateur) VALUES ('utilisateur', :lastname, :firstname, :birthdate, :gender, :username, :mail, :hash, :today, :abonne, NULL, :phone ,0, :photo_utilisateur)";
         $stmt = $bdd->prepare($sql);
+        $stmt->bindParam(':photo_utilisateur', $photo_utilisateur);
         $stmt->bindParam(':lastname', $_POST['lastName']);
         $stmt->bindParam(':firstname', $_POST['firstName']);
         $stmt->bindParam(':username', $_POST['username']);
@@ -76,6 +78,43 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $reponse = $req->fetch();
         $_SESSION['email'] = $reponse['mail'];
         $_SESSION['id_user'] = $reponse['id_user'];
+        //a voir
+        $req5 = $bdd->prepare('INSERT INTO listes(date_creation, details, statut, id_user, nom) VALUES (:date_creation, :details, :list_status, :id_user, :nom);');
+        $nom_a_voir ="a voir";
+        $description_a_voir = "La liste de films que j'ai envi de voir";
+        $status_a_voir ="defaut";
+        
+        $req5->bindParam(":nom", $nom_a_voir);
+        $req5->bindParam(":details", $description_a_voir);
+        $req5->bindParam(":list_status", $status_a_voir);
+        $req5->bindValue(":date_creation", date('Y-m-d H:i:s'));
+        $req5->bindParam(":id_user", $_SESSION['id_user']);
+        $req5->execute();
+        //deja vu
+        $req5 = $bdd->prepare('INSERT INTO listes(date_creation, details, statut, id_user, nom) VALUES (:date_creation, :details, :list_status, :id_user, :nom);');
+        $nom_vu ="deja vu";
+        $description_vu = "La liste de films que j'ai déja vu";
+        $status_vu ="defaut";
+        
+        $req5->bindParam(":nom", $nom_vu);
+        $req5->bindParam(":details", $description_vu);
+        $req5->bindParam(":list_status", $status_vu);
+        $req5->bindValue(":date_creation", date('Y-m-d H:i:s'));
+        $req5->bindParam(":id_user", $_SESSION['id_user']);
+        $req5->execute();
+        //recommandation
+        $req5 = $bdd->prepare('INSERT INTO listes(date_creation, details, statut, id_user, nom) VALUES (:date_creation, :details, :list_status, :id_user, :nom);');
+        $nom_reco ="recommandation";
+        $description_reco = "La liste de films recommandation";
+        $status_reco ="defaut";
+        
+        $req5->bindParam(":nom", $nom_reco);
+        $req5->bindParam(":details", $description_reco);
+        $req5->bindParam(":list_status", $status_reco);
+        $req5->bindValue(":date_creation", date('Y-m-d H:i:s'));
+        $req5->bindParam(":id_user", $_SESSION['id_user']);
+        $req5->execute();
+
     } catch (PDOException $e) {
         echo $e->getMessage();
         //header('Location: signin.php?wrong_email=true');

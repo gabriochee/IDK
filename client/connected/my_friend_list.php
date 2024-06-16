@@ -21,7 +21,7 @@
             <div class="row">
                 <div class="col-md-4 border-right">
                     <div class="d-flex flex-column align-items-center text-center">
-                        <img class="mb-3" width="150px" src="../../inc/img/profile.svg">
+                        <img src="../../inc/img/user_img/<?php echo htmlspecialchars($rep_data_user1['photo_utilisateur']); ?>" alt="Photo de l'utilisateur" width="150px">
                         <span class="text-black-50">#<?php echo $rep_data_user1['id_user']; ?></span>
                         <span><?php echo $rep_data_user1['pseudo']; ?></span>
                         <span><?php echo $rep_data_user1['nom'] . ' ' . $rep_data_user1['prenom']; ?></span>
@@ -90,7 +90,7 @@
                         <?php foreach ($rep4 as $rep4) { ?>
                             <div class="col-3 col-md-3">
                                 <div class="d-flex flex-column align-items-center text-center">
-                                    <img class="mb-3" width="150px" src="../../inc/img/profile.svg">
+                                    <img src="../../inc/img/user_img/<?php echo htmlspecialchars($rep4['photo_utilisateur']); ?>" alt="Photo de l'utilisateur" width="150px">
                                     <span class="text-black-50">#<?php echo $rep4['id_user']; ?></span>
                                     <span class="username"><?php echo $rep4['pseudo']; ?></span>
                                     <span><?php echo $rep4['nom'] . ' ' . $rep4['prenom']; ?></span>

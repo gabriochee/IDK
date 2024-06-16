@@ -18,7 +18,7 @@
             <div class="row">
                 <div class="col-md-4 border-right">
                     <div class="d-flex flex-column align-items-center text-center">
-                        <img class="mb-3" width="150px" src="../../inc/img/profile.svg">
+                        <img src="../../inc/img/user_img/<?php echo htmlspecialchars($rep_data_user1['photo_utilisateur']); ?>" alt="Photo de l'utilisateur" width="150px">
                         <span class="text-black-50">#<?php echo $rep_data_user1['id_user']; ?></span>
                         <span><?php echo $rep_data_user1['pseudo']; ?></span>
                         <span><?php echo $rep_data_user1['nom'] .' '. $rep_data_user1['prenom']; ?></span>
@@ -48,7 +48,7 @@
                                         <tbody>
                                             <?php // Mettre une taille max !
                                                 foreach($rep2 as $rep2) {
-                                                    echo '<tr><td class="table-cell" scope="row">' . htmlspecialchars($rep3['pseudo']). ' - ' . htmlspecialchars($rep3['nom']).' '.htmlspecialchars($rep3['prenom']).'</td>';
+                                                    echo '<tr><td class="table-cell" scope="row">' . htmlspecialchars($rep2['pseudo']). ' - ' . htmlspecialchars($rep2['nom']).' '.htmlspecialchars($rep2['prenom']).'</td>';
                                                     echo '<td class="table-cell">le 14/04/2024</td>';
                                                     echo '<td class="table-cell text-end">';
                                                     echo '<a href="home.php?demande=be_friend&id='.$rep2['id_user'].'" class="nav-btn btn btn-sm btn-outline-secondary" type="submit" name="envoyer_ami">Accepter</a></td>';

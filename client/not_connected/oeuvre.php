@@ -274,10 +274,6 @@
         </div>
                     
     <?php require_once('../../inc/components/not_connected/footer.php'); ?>
-    <script type="text/javascript">
-        const movieTitle = "<?php echo $rep1['primaryTitle']; ?>";
-        const movieYear = <?php echo $rep1['startYear']; ?>;
-    </script>
     <script src="../../inc/js/oeuvre.js"></script>
     <script src="../../inc/js/search_movie.js"></script>
     <script src="../../inc/library/bootstrap/js/bootstrap.bundle.min.js"></script>

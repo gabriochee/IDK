@@ -1,5 +1,6 @@
 <?php
     require_once("db.php");
+    require_once("log.php");
     
     
 
@@ -27,7 +28,7 @@
     $rep3 = $req3->fetchAll();
     
     //on veut afficher nos amis
-    $req4 = $bdd->prepare("SELECT pseudo, nom, prenom, id_user FROM utilisateur INNER JOIN ami ON (utilisateur.id_user = ami.id_user_1 AND ami.id_user_2 = :me) OR (utilisateur.id_user = ami.id_user_2 AND ami.id_user_1 = :me) WHERE utilisateur.id_user != :me");
+    $req4 = $bdd->prepare("SELECT pseudo, nom, prenom, id_user,photo_utilisateur FROM utilisateur INNER JOIN ami ON (utilisateur.id_user = ami.id_user_1 AND ami.id_user_2 = :me) OR (utilisateur.id_user = ami.id_user_2 AND ami.id_user_1 = :me) WHERE utilisateur.id_user != :me");
     $req4->execute(
         array(
             "me"=>$_SESSION['id_user']
@@ -43,6 +44,7 @@
             if ($_GET['demande'] === 'attente_demande_ami') {
                 try {
                     envoyer_demande($_SESSION['id_user'], $_GET['id'], $bdd);
+                    header('Location: my_friend_list.php');
                 } catch (PDOException $e) {
                     die($e->getMessage());
                 }
@@ -50,7 +52,7 @@
             if($_GET['demande'] === 'cancel_req'){
                 try{
                     cancel_request($_SESSION['id_user'], $_GET['id'], $bdd);
-                    // header('Location: my_requested_friend.php');
+                    header('Location: my_friend_list.php');
                 }catch(PDOException $e){
                     die($e->getMessage());
                 }
@@ -58,7 +60,7 @@
             if($_GET['demande'] === 'cancel_req_from_receiver'){
                 try{
                     cancel_request($_GET['id'],$_SESSION['id_user'], $bdd);
-                    // header('Location: my_friend_req.php');
+                    header('Location: my_friend_list.php');
                 }catch(PDOException $e){
                     die($e->getMessage());
                 }
@@ -68,7 +70,7 @@
                     being_friend($_SESSION['id_user'],$_GET['id'], $bdd);
                     cancel_request( $_GET['id'],$_SESSION['id_user'], $bdd);
                     cancel_request($_SESSION['id_user'], $_GET['id'], $bdd);
-                    // header('Location: my_friend_req.php');
+                    header('Location: my_friend_list.php');
                 }
                 catch(PDOException $e){
                     die($e->getMessage());
@@ -77,7 +79,7 @@
             if($_GET['demande'] === 'supp_friend'){
                 try{
                     supp_friend($_SESSION['id_user'],$_GET['id'], $bdd);
-                    // header('Location: my_friend_list.php');
+                    header('Location: my_friend_list.php');
                 }
                 catch(PDOException $e){
                     die($e->getMessage());
@@ -92,11 +94,12 @@
     //devenir vraiment ami
     function being_friend($my_user_id, $other_user_id, $bdd){
         try{
-            $devenir_ami="INSERT INTO ami(id_user_1, id_user_2) VALUES (:me, :other)";
+            $devenir_ami="INSERT INTO ami(id_user_1, id_user_2, date_amitie) VALUES (:me, :other, NOW())";
             $stmt = $bdd->prepare($devenir_ami);
             $stmt->bindParam(':me', $my_user_id);
             $stmt->bindParam(':other', $other_user_id);
             $stmt->execute();
+            server_log($my_user_id . " est devenu ami avec " . $other_user_id);
         }catch(PDOException $e){
             die($e->getMessage());
         }
@@ -109,6 +112,7 @@
             $stmt->bindParam(':me', $my_user_id);
             $stmt->bindParam(':other', $other_user_id);
             $stmt->execute();
+            server_log($my_user_id . " a demandé en ami " . $other_user_id);
         }
         catch (PDOException $e) {
             die($e->getMessage());
@@ -150,6 +154,7 @@
             $cancel_request->bindParam(':me', $my_user_id);
             $cancel_request->bindParam(':other', $other_user_id);
             $cancel_request->execute();
+            server_log($my_user_id . " a décliné la demande d'ami de " . $other_user_id);
         }catch(PDOException $e){
             die($e->getMessage());
         }
@@ -173,6 +178,7 @@
             $supp_friend->bindParam(':me', $my_user_id);
             $supp_friend->bindParam(':other', $other_user_id);
             $supp_friend->execute();
+            server_log($my_user_id . " a supprimé l'utilisateur suivant de ses amis : " . $other_user_id);
         }
         catch(PDOException $e){
             die($e->getMessage());

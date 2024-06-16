@@ -15,10 +15,18 @@
     <?php require_once('../../inc/components/connected/header.php'); ?>
     <?php require_once('../../inc/php/affichage_data_user.php'); ?>
     <?php require_once('../../inc/library/fpdf/function_fpdf_co.php'); ?>
+    <?php require_once('../../inc/php/upload_image.php');?>
     
     <main>
+        
         <div class="container-fluid d-flex justify-content-center gap-5 my-5 py-2">
-            <img src="../../inc/img/profile.svg" alt="" width="150px">
+            <div>
+                <form method = "POST" enctype= "multipart/form-data" action ="parameters.php">
+                    <input type="file" name="image"/>
+                    <button type="submit" name ="submit_img">Modifier photo profil</button>
+                </form>
+            </div>
+            <img src="../../inc/img/user_img/<?php echo htmlspecialchars($rep_data_user1['photo_utilisateur']); ?>" alt="Photo de l'utilisateur" width="150px">
             <div class="d-flex flex-column mt-3">
                 <h4 class="mb-3"><?php echo $rep_data_user1['pseudo'] .' (#'. $rep_data_user1['id_user'] .') - '. $rep_data_user1['nom'] .' '. $rep_data_user1['prenom']; ?></h4>
                 <p>Inscrit depuis : <?php echo $rep_data_user1['date_inscription']; ?></p>
