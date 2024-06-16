@@ -46,6 +46,9 @@
                         if (isset($_GET['ban_def'])) { echo "<div class='alert alert-danger' role='alert'>Vous êtes banni définitivement Raison : " . htmlspecialchars(urldecode($_GET['raison'])) . "</div>"; }
                         if (isset($_GET['ban_not_def'])) {echo "<div class='alert alert-danger' role='alert'>Vous êtes banni temporairement. Raison : " . htmlspecialchars(urldecode($_GET['raison'])) . ". Date de débannissement : " . htmlspecialchars(urldecode($_GET['date_deban'])) . "</div>";
                         }
+                        if (isset($_GET['wrong_captcha'])) {
+                            echo "<div class='alert alert-danger' role='alert'>Le captcha est invalide.</div>";
+                        }
                         ?>
                     </div>
                     <h5 class="mt-3 text-center">Répondez à cette question afin de prouver que vous n'êtes pas un robot.</h5>

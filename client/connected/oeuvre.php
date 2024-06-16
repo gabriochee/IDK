@@ -79,13 +79,26 @@
                             <div class="card col-1 mx-1 p-3 color-custom-1" style="width: 170px;">
                                 <div class="card-body d-flex flex-column justify-content-start align-items-center p-0">
                                     <p class="m-0 fw-bold fs-5">Ma note</p>
-                                    <p class="m-0 note-count fs-5 mt-2">--</p>
+                                    <p class="m-0 note-count fs-5 mt-2"><?php if ($rep8) {echo $myRating;} else {echo '--'; } ?></p>
                                     <div class="d-flex justify-content-center my-2">
-                                        <i class="bi bi-star"></i>
-                                        <i class="bi bi-star"></i>
-                                        <i class="bi bi-star"></i>
-                                        <i class="bi bi-star"></i>
-                                        <i class="bi bi-star"></i>
+                                        <?php
+                                        if ($rep8){
+                                            $a = $myPartie_decimale > 0 ? '1' : '0';
+                                            for ($i = $a; $i < $myRating; $i++) {
+                                                echo '<i class="bi bi-star-fill"></i>';
+                                            }
+                                            if ($myPartie_decimale > 0) {
+                                                echo '<i class="bi bi-star-half"></i>';
+                                            }
+                                            for ($i = $a; $i < (5 - $myRating); $i++) {
+                                                echo '<i class="bi bi-star"></i>';
+                                            }
+                                        } else {
+                                            for ($i = 0; $i < 5; $i++) {
+                                                echo '<i class="bi bi-star"></i>';
+                                            }
+                                        }
+                                        ?>
                                     </div>
                                     <p class="mb-0"> </p>
                                 </div>
