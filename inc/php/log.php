@@ -1,6 +1,5 @@
 <?php
 require_once('db.php');
-
 function server_log($action) {
     global $bdd;
 
@@ -11,6 +10,12 @@ function server_log($action) {
         $request->bindParam(':adresse_ip', $_SERVER['REMOTE_ADDR']);
         $request->execute();
     } catch (PDOException $e) {
-        echo $e->getMessage();
+        handle_error("Erreur : " . $e->getMessage());
     }
 }
+
+$root_path = __FILE__;
+$parent_path = dirname(dirname($root_path));
+$relative_path = str_replace($parent_path, '', $root_path);
+
+server_log("Consultation de la page " . $relative_path);

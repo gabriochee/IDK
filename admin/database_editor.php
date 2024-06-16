@@ -1,4 +1,3 @@
-<?php require_once('../inc/php/scraping_log.php'); ?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>

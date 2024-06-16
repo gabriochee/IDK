@@ -1,10 +1,4 @@
-<?php
-session_start();
-
-
-?>
-<?php require_once('../../inc/php/scraping_log.php'); ?>
-
+<?php require_once('../../inc/php/access.php'); ?>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -50,16 +44,17 @@ session_start();
                             <div class="card col-1 mx-1 p-3 color-custom-1" style="width: 170px;">
                                 <div class="card-body d-flex flex-column justify-content-start align-items-center p-0">
                                     <p class="m-0 fw-bold fs-5">Public</p>
-                                    <p class="m-0 note-count fs-5 mt-2"><?php echo $averageRating; ?></p>
+                                    <p class="m-0 note-count fs-5 mt-2"><?php echo $averageRating; ?>/5</p>
                                     <div class="d-flex justify-content-center my-2">
-                                        <?php
-                                        for ($i = 1; $i < $averageRating; $i++) {
+                                        <?php 
+                                        $a = $partie_decimale > 0 ? '1' : '0';
+                                        for ($i = $a; $i < $averageRating; $i++) {
                                             echo '<i class="bi bi-star-fill"></i>';
                                         }
                                         if ($partie_decimale > 0) {
                                             echo '<i class="bi bi-star-half"></i>';
                                         }
-                                        for ($i = 1; $i < (5 - $averageRating); $i++) {
+                                        for ($i = $a; $i < (5 - $averageRating); $i++) {
                                             echo '<i class="bi bi-star"></i>';
                                         }
                                         ?>
@@ -202,101 +197,46 @@ session_start();
                             <i class="bi bi-star"></i>
                         </div>
                     </div>
-                    <div id="commentaire-cinq" class="row justify-content-center">
+
+                    <div id="commentaire-cinq" class="row justify-content-center" style="display: none;">
                         <div class="col-12 border border-2 border-top-0 border-dark color-custom-2">
-                            <div class="overflow-auto menu-oeuvre-2">
-                                <div>
-
-                                </div>
-                                <div>
-
-                                </div>
+                            <div class="overflow-auto menu-oeuvre-2" id="comments-cinq">
+                                <p>salut5</p>
                             </div>
                         </div>
                     </div>
-                    <div id="commentaire-quatre" class="row justify-content-center">
+                    <div id="commentaire-quatre" class="row justify-content-center" style="display: none;">
                         <div class="col-12 border border-2 border-top-0 border-dark color-custom-2">
-                            <div class="overflow-auto menu-oeuvre-2">
-                                <div>
-
-                                </div>
-                                <div>
-
-                                </div>
-                                <div>
-                                    <p class="m-0 fw-bold fs-5">&#x2022; Eric123, inscrit depuis 14/04/2024, 123 abonnées, 123 critiques publiques, 12 listes publiques, publié le 14/04/2024 : 4/5</p>
-                                    <p class="mb-0">This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>
-                                </div>
+                            <div class="overflow-auto menu-oeuvre-2" id="comments-quatre">
+                                <p>salut4</p>
                             </div>
                         </div>
                     </div>
-                    <div id="commentaire-trois" class="row justify-content-center">
+                    <div id="commentaire-trois" class="row justify-content-center" style="display: none;">
                         <div class="col-12 border border-2 border-top-0 border-dark color-custom-2">
-                            <div class="overflow-auto menu-oeuvre-2">
-                                <div>
-
-                                </div>
-                                <div>
-                                    <p class="m-0 fw-bold fs-5">&#x2022; Eric123, inscrit depuis 14/04/2024, 123 abonnées, 123 critiques publiques, 12 listes publiques, publié le 14/04/2024 : 3/5</p>
-                                    <p class="mb-0">This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>
-                                </div>
-                                <div>
-                                    <p class="m-0 fw-bold fs-5">&#x2022; Eric123, inscrit depuis 14/04/2024, 123 abonnées, 123 critiques publiques, 12 listes publiques, publié le 14/04/2024 : 3/5</p>
-                                    <p class="mb-0">This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>
-                                </div>
+                            <div class="overflow-auto menu-oeuvre-2" id="comments-trois">
+                                <p>salut3</p>
                             </div>
                         </div>
                     </div>
-                    <div id="commentaire-deux" class="row justify-content-center">
+                    <div id="commentaire-deux" class="row justify-content-center" style="display: none;">
                         <div class="col-12 border border-2 border-top-0 border-dark color-custom-2">
-                            <div class="overflow-auto menu-oeuvre-2">
-                                <div>
-
-                                </div>
-                                <div>
-                                    <p class="m-0 fw-bold fs-5">&#x2022; Eric123, inscrit depuis 14/04/2024, 123 abonnées, 123 critiques publiques, 12 listes publiques, publié le 14/04/2024 : 2/5</p>
-                                    <p class="mb-0">This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>
-                                </div>
-                                <div>
-                                    <p class="m-0 fw-bold fs-5">&#x2022; Eric123, inscrit depuis 14/04/2024, 123 abonnées, 123 critiques publiques, 12 listes publiques, publié le 14/04/2024 : 2/5</p>
-                                    <p class="mb-0">This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>
-                                </div>
+                            <div class="overflow-auto menu-oeuvre-2" id="comments-deux">
+                                <p>salut2</p>
                             </div>
                         </div>
                     </div>
-                    <div id="commentaire-un" class="row justify-content-center">
+                    <div id="commentaire-un" class="row justify-content-center" style="display: none;">
                         <div class="col-12 border border-2 border-top-0 border-dark color-custom-2">
-                            <div class="overflow-auto menu-oeuvre-2">
-                                <div>
-                                    <p class="m-0 fw-bold fs-5">&#x2022; Eric123, inscrit depuis 14/04/2024, 123 abonnées, 123 critiques publiques, 12 listes publiques, publié le 14/04/2024 : 1/5</p>
-                                    <p class="mb-0">This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>
-                                </div>
-                                <div>
-                                    <p class="m-0 fw-bold fs-5">&#x2022; Eric123, inscrit depuis 14/04/2024, 123 abonnées, 123 critiques publiques, 12 listes publiques, publié le 14/04/2024 : 1/5</p>
-                                    <p class="mb-0">This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>
-                                </div>
-                                <div>
-                                    <p class="m-0 fw-bold fs-5">&#x2022; Eric123, inscrit depuis 14/04/2024, 123 abonnées, 123 critiques publiques, 12 listes publiques, publié le 14/04/2024 : 1/5</p>
-                                    <p class="mb-0">This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>
-                                </div>
+                            <div class="overflow-auto menu-oeuvre-2" id="comments-un">
+                                <p>salut1</p>
                             </div>
                         </div>
                     </div>
-                    <div id="commentaire-zero" class="row justify-content-center">
+                    <div id="commentaire-zero" class="row justify-content-center" style="display: none;">
                         <div class="col-12 border border-2 border-top-0 border-dark color-custom-2">
-                            <div class="overflow-auto menu-oeuvre-2">
-                                <div>
-                                    <p class="m-0 fw-bold fs-5">&#x2022; Eric123, inscrit depuis 14/04/2024, 123 abonnées, 123 critiques publiques, 12 listes publiques, publié le 14/04/2024 : 0/5</p>
-                                    <p class="mb-0">This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>
-                                </div>
-                                <div>
-                                    <p class="m-0 fw-bold fs-5">&#x2022; Eric123, inscrit depuis 14/04/2024, 123 abonnées, 123 critiques publiques, 12 listes publiques, publié le 14/04/2024 : 0/5</p>
-                                    <p class="mb-0">This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>
-                                </div>
-                                <div>
-                                    <p class="m-0 fw-bold fs-5">&#x2022; Eric123, inscrit depuis 14/04/2024, 123 abonnées, 123 critiques publiques, 12 listes publiques, publié le 14/04/2024 : 0/5</p>
-                                    <p class="mb-0">This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>
-                                </div>
+                            <div class="overflow-auto menu-oeuvre-2" id="comments-zero">
+                                <p>salut 0</p>
                             </div>
                         </div>
                     </div>
@@ -333,9 +273,17 @@ session_start();
                 var privee = document.getElementById("private-comment");
                 var ami = document.getElementById("only-friends-comment");
                 var publique = document.getElementById("public-comment");
+            document.addEventListener('DOMContentLoaded', function() {
+                var privee = document.getElementById("private-comment");
+                var ami = document.getElementById("only-friends-comment");
+                var publique = document.getElementById("public-comment");
 
                 var selectedStatut = privee.value; // par défaut la valeur sélectionnée est 'privee'
 
+                // Recup statut
+                privee.addEventListener("change", function(event) {
+                    selectStatut(privee);
+                });
                 // Recup statut
                 privee.addEventListener("change", function(event) {
                     selectStatut(privee);
@@ -345,6 +293,9 @@ session_start();
                     selectStatut(ami);
                 });
 
+                publique.addEventListener("change", function(event) {
+                    selectStatut(publique);
+                });
                 publique.addEventListener("change", function(event) {
                     selectStatut(publique);
                 });
@@ -358,7 +309,11 @@ session_start();
                     var currentUrl = window.location.href;
                     var urlParams = new URLSearchParams(window.location.search);
                     var idMovie = urlParams.get('mv');
+                    var currentUrl = window.location.href;
+                    var urlParams = new URLSearchParams(window.location.search);
+                    var idMovie = urlParams.get('mv');
 
+                    var commentText = document.getElementById('commentText').value;
                     var commentText = document.getElementById('commentText').value;
 
                     fetch('../../inc/php/send_comment_and_note.php', {

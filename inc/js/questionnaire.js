@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="container text-center col-lg-6 my-md-5 py-2">
                 <h3>${question.question}</h3>
             </div>
-            ${question.options.map(option => `<div class="options container col-4 text-center py-1 py-md-1"><button class="option col nav-btn btn btn-primary btn-sm btn-warning border border-dark border-2 rounded-3 fs-sm-5 px-3 w-100">${option}</button></div>`).join('')}
+            ${question.options.map(option => `<div class="options container col-4 text-center py-1 py-md-1"><button class="option col nav-btn btn btn-primary btn-sm btn-warning border border-dark border-2 rounded-3 fs-sm-5 px-3 w-50">${option}</button></div>`).join('')}
         `;
 
         document.querySelectorAll('.option').forEach(button => {
@@ -74,19 +74,16 @@ document.addEventListener('DOMContentLoaded', () => {
         // Envoyer les réponses au backend pour obtenir les recommandations de films
         fetch('function_questionnaire.php', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
+            headers: {'Content-Type': 'application/json, charset=UTF-8'},
             body: JSON.stringify(answers),
         })
         .then(response => response.json())
         .then(data => {
-            app.innerHTML = `
-                <h2>Vos recommandations :</h2>
+            app.innerHTML = 
+                `<h2>Vos recommandations :</h2>
                 <ul>
                     ${data.movies.map(movie => `<li>${movie.title}</li>`).join('')}
-                </ul>
-            `;
+                </ul>`;
         });
     }
 

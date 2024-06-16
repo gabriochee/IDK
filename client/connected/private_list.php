@@ -1,7 +1,5 @@
 <?php
-require_once('../../inc/php/db.php');
-
-session_start();
+require_once('../../inc/php/access.php');
 
 if (isset($_GET['id_liste'])) {
     $req = $bdd->prepare("SELECT date_creation, details, statut, id_user, nom FROM listes WHERE id_liste = :id_liste;");
@@ -10,22 +8,30 @@ if (isset($_GET['id_liste'])) {
 
     $res = $req->fetchAll();
     $nomListe = $res[0]['nom'];
+    $dateCreation = $res[0]['date_creation'];
     $isOwner = $res[0]['id_user'] == $_SESSION['id_user'];
     $statut = $res[0]['statut'];
     $details = $res[0]['details'];
 
-    $req = $bdd->prepare("SELECT pseudo FROM utilisateur WHERE id_user = :id_user;");
+    $req = $bdd->prepare("SELECT pseudo, date_inscription FROM utilisateur WHERE id_user = :id_user;");
     $req->bindParam(":id_user", $res[0]['id_user']);
     $req->execute();
 
     $res = $req->fetchAll();
     $pseudoProprietaire = $res[0]['pseudo'];
+    $dateInscription = $res[0]['date_inscription'];
+
+    $req = $bdd->prepare("SELECT MAX(date_ajout) FROM element_liste WHERE id_liste = :id_liste;");
+    $req->bindParam(":id_liste", $_GET['id_liste']);
+    $req->execute();
+
+    $req->execute();
+    $dateMaj = isset($res[0]['date_ajout']) ? $res[0]['date_ajout'] : 'error';
 } else {
     header("Location: ../connected/home.php");
     exit();
 }
 ?>
-<?php require_once('../../inc/php/scraping_log.php'); ?>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -47,46 +53,34 @@ if (isset($_GET['id_liste'])) {
             <div class="row">
                 <div class="col-lg-6 m-auto p-4">
                     <img src="../../inc/img/logo.svg" alt="Logo IDK" class="navbar-brand img-fluid my-5" width="150px" height="150px">
+                    <h3 class="mt-1"><?php echo $nomListe; ?></h3>
                 </div>
             </div>
         </div>
-        <div class="container-fluid d-flex flex-column text-center">
-            <h3 class="mt-5 mx-auto col-6"><?php echo $nomListe; ?></h3>
-            <p class="fs-6 m-0">Crée le : 12/12/2023 13:12:23</p>
-            <p class="fs-6 m-0">Dèrnière maj le : 12/12/2023 13:12:23</p>
+        <div class="container col-10 mb-5">
+            
+            <div class="container-fluid d-flex flex-column">
+                <p class="fs-6 m-0">Crée le : <?php echo $dateCreation; ?></p>
+                <p class="fs-6 m-0">Dernière mise à jour le : <?php echo $dateMaj; ?></p>
+                <p class="fs-6 m-0">Auteur : <?php echo $pseudoProprietaire; ?></p>
 
-        </div>
-
-        <div class="container mt-sm-0 mt-5">
-            <h5>De <a href="#" class="link-dark link-underline-opacity-0 link-underline-opacity-100-hover"><?php echo $pseudoProprietaire; ?></a>
-                <br>
-                <br>
-                123 abonnées
-                <br>
-                123 critiques publiques
-                <br>
-                12 listes publiques
-                <br>
-                <br>
-                inscrit depuis jj/mm/aaaa</h4>
-        </div>
-
-
-        <div class="container">
-            <hr>
-            <h4 class="text-center"><?php echo $details; ?></h4>
-        </div>
+                <p class="fs-6 m-0">123 abonnées</p>
+                <p class="fs-6 m-0">123 critiques publiques</p>
+                <p class="fs-6 m-0">12 listes publiques</p>
+                <p class="fs-6 m-0">Inscrit le : <?php echo $dateInscription; ?></p>
+                <hr>
+                <p class="fs-6 m-0">Description : <b><?php echo $details; ?></b></p>
+                <hr>
+            </div>
 
         <!-- besoin de changer la taille verticale de cette div, si vous trouvez comment faire dites moi svp. -->
         <div class="container m-0 mt-5 p-0 w-75 list-height m-auto border border-3 border-dark rounded-3 overflow-auto no-overflow-x" style="background-color: #CFDBD5;">
-            <div class="d-lg-flex row gx-2 gy-3 px-5 py-4 row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-1">
-                <?php
+            <div class="d-lg-flex row gx-2 gy-3 px-5 py-3 row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-1">
+            <?php
                 if (isset($_GET['id_liste'])) {
                     $req = $bdd->prepare("SELECT element_liste.id_work, work_basics.primaryTitle, work_basics.startYear FROM element_liste JOIN work_basics ON element_liste.id_work = work_basics.id_work WHERE id_liste = " . $_GET['id_liste'] . ";");
                     $req->execute();
-
                     $res;
-
                     while (($res = $req->fetch()) != null) {
                         $filmName = $res['primaryTitle'];
                         $filmId = $res['id_work'];
@@ -94,7 +88,7 @@ if (isset($_GET['id_liste'])) {
                         require('../../inc/components/card.php');
                     }
                 }
-                ?>
+            ?>
             </div>
         </div>
 

@@ -1,10 +1,4 @@
-<?php 
-if(isset($_SESSION['id_user'])) {
-    header("Location: ../connected/home.php");
-    exit();
-}
-?>
-<?php require_once('../../inc/php/scraping_log.php'); ?>
+<?php require_once('../../inc/php/access.php'); ?>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -31,7 +25,7 @@ if(isset($_SESSION['id_user'])) {
                 </div>
             </div>
         </div>
-        <div class="contact-form row g-5 justify-content-center mb-4">
+        <div class=" row g-5 justify-content-center mb-4">
             <div class="col-md-7 col-lg-8">
                 <form method="POST" id="form-contact">
                     <div class="row g-3">
