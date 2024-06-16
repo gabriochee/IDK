@@ -2,7 +2,13 @@
     <div class="position-sticky pt-3">
         <ul class="nav flex-column mt-5">
             <li class="nav-item">
-                <a <?php if(basename($_SERVER['PHP_SELF']) == 'home_backoffice.php') echo 'class="nav-link active"'; ?> class="nav-link" aria-current="page" href="../admin/home_backoffice.php">Home</a>
+                <a class="nav-link" aria-current="page" href="../client/not_connected/home.php">Acceuil non connecté</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="../client/connected/home.php">Acceuil connecté</a>
+            </li>
+            <li class="nav-item">
+                <a <?php if(basename($_SERVER['PHP_SELF']) == 'home_backoffice.php') echo 'class="nav-link active"'; ?> class="nav-link" aria-current="page" href="../admin/home_backoffice.php">Acceuil backoffice</a>
             </li>
             <li class="nav-item">
                 <a <?php if(basename($_SERVER['PHP_SELF']) == 'edit_home.php') echo 'class="nav-link active"'; ?> class="nav-link" href="../admin/edit_home.php">Edit : Acceuil</a>

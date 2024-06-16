@@ -21,7 +21,7 @@ if (in_array("client", $segments_location)) {
         } 
     }
     if (in_array("not_connected", $segments_location)) {
-        if (isset($_SESSION['connected'])) {
+        if (isset($_SESSION['connected']) && $_SESSION['role_user'] !== 'admin') {
             header("Location: /IDK/client/connected/home.php");
             exit();
         } 

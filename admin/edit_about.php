@@ -1,67 +1,5 @@
-<?php 
-require_once('../inc/php/access.php');
-
-switch ($file_location) {
-    case "edit_home":
-        $file_location = "Accueil";
-        break;
-    case "edit_about":
-        $file_location = "A propos";
-        break;
-    case "edit_terms_and_conditions":
-        $file_location = "Conditions général";
-        break;
-    default:
-        die("Page non trouvée");
-}
-
-// Traitement du formulaire POST
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    foreach ($_POST as $key => $value) {
-        if (strpos($key, 'titre-bloc') === 0) {
-            $id_bloc = str_replace('titre-bloc', '', $key);
-            $titre = $_POST['titre-bloc' . $id_bloc];
-            $corps = $_POST['texte-bloc' . $id_bloc];
-            $date_maj = date('Y-m-d H:i:s');
-            $id_user = $_SESSION['id_user'];  // Supposons que l'ID de l'utilisateur est stocké dans la session
-
-            // Récupérer les anciens titres et corps
-            $stmt = $bdd->prepare("SELECT titre, corps, date_maj FROM contenu WHERE id_bloc = :id_bloc");
-            $stmt->execute(['id_bloc' => $id_bloc]); 
-            $ancien_contenu = $stmt->fetch(PDO::FETCH_ASSOC);
-
-            // Mise à jour du contenu 
-            $stmt = $bdd->prepare("UPDATE contenu SET titre = :titre, corps = :corps, date_maj = :date_maj, last_titre = :last_titre, last_corps = :last_corps, last_date_maj = :last_date_maj WHERE id_bloc = :id_bloc");
-            $stmt->execute([
-                'titre' => $titre,
-                'corps' => $corps,
-                'date_maj' => $date_maj,
-                'last_titre' => $ancien_contenu['titre'],
-                'last_corps' => $ancien_contenu['corps'],
-                'last_date_maj' => $ancien_contenu['date_maj'],
-                'id_bloc' => $id_bloc
-            ]);
-
-            // Enregistrement dans la table administration_contenu
-            $stmt = $bdd->prepare("INSERT INTO administration_contenu (id_user, id_bloc, date_maj) VALUES (:id_user, :id_bloc, :date_maj)");
-            $stmt->execute([
-                'id_user' => $id_user,
-                'id_bloc' => $id_bloc,
-                'date_maj' => $date_maj
-            ]);
-        }
-    }
-    header("Location: " . $_SERVER['REQUEST_URI']);
-    exit();
-}
-
-if (!isset($_GET['action']) || $_GET['action'] == 'display') {
-    $stmt = $bdd->prepare("SELECT id_bloc, page_appartenance, titre, corps, date_maj, last_titre, last_corps , last_date_maj FROM contenu WHERE page_appartenance = :file_location");
-    $stmt->execute(['file_location' => $file_location]); 
-    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
-?>
-<?php require_once('../inc/php/scraping_log.php'); ?>
+<?php require_once('../inc/php/access.php'); ?>
+<?php require_once('../inc/php/edit_contenu_public.php'); ?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -73,7 +11,6 @@ if (!isset($_GET['action']) || $_GET['action'] == 'display') {
     <title>IDK</title>
 </head>
 <body id="backoffice_edit_about" class="backoffice">
-    <?php require_once('../inc/php/db.php'); ?>
     <?php require_once('../inc/components/backoffice/header.php'); ?>
     <div class="container-fluid">
         <div class="row">
@@ -81,7 +18,8 @@ if (!isset($_GET['action']) || $_GET['action'] == 'display') {
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
                 <div class="container border border-black rounded-2 border-2 mt-3">
                     <h1 class="text-center mt-4">Page : <?php echo htmlspecialchars($file_location); ?></h1>
-                    <p class="text-end">Date de modifications : <?php echo $results['date_maj']; ?></p>
+                    <p class="text-end mb-0">Auteur des modifications : <?php echo htmlspecialchars($user['prenom'] . ' ' . $user['nom']); ?></p>
+                    <p class="text-end mt-0">Date de modifications : <?php echo htmlspecialchars($last_modif); ?></p>
                     <hr class="featurette-divider my-2">
                     
                     <div class="container col-9 my-5">

@@ -46,14 +46,9 @@
                                     <p class="m-0 fw-bold fs-5">Public</p>
                                     <p class="m-0 note-count fs-5 mt-2"><?php echo $averageRating; ?>/5</p>
                                     <div class="d-flex justify-content-center my-2">
-<<<<<<< HEAD
                                         <?php 
                                         $a = $partie_decimale > 0 ? '1' : '0';
                                         for ($i = $a; $i < $averageRating; $i++) {
-=======
-                                        <?php
-                                        for ($i = 1; $i < $averageRating; $i++) {
->>>>>>> d7af768f91d26c98e404c01bf5e335036e47c33a
                                             echo '<i class="bi bi-star-fill"></i>';
                                         }
                                         if ($partie_decimale > 0) {
