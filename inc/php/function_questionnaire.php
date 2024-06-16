@@ -1,131 +1,152 @@
 <?php
 require_once('db.php');
 
-header('Access-Control-Allow-Origin: *');
-header('Content-Type: application/json');
-header('Access-Control-Allow-Methods: POST');
-header('Access-Control-Allow-Headers: Content-Type');
-
 $data = json_decode(file_get_contents('php://input'), true);
 
 $avis = isset($data[0]) ? $data[0] : '';
 $bande_son = isset($data[1]) ? $data[1] : '';
 $effet_speciaux = isset($data[2]) ? $data[2] : '';
-$categorie = isset($data[3]) ? $data[3] : '';
-$casting = isset($data[4]) ? $data[4] : '';
-$duree = isset($data[5]) ? $data[5] : '';
-$provenance = isset($data[6]) ? $data[6] : '';
-$genre = isset($data[7]) ? $data[7] : '';
-$annee = isset($data[8]) ? $data[8] : '';
-$connected = isset($data[9]) ? $data[9] : '';
+$casting = isset($data[3]) ? $data[3] : '';
+$duree = isset($data[4]) ? $data[4] : '';
+$provenance = isset($data[5]) ? $data[5] : '';
+$genres = isset($data[6]) ? $data[6] : [];
+$annee = isset($data[7]) ? $data[7] : '';
 
+$asie = ['AF', 'AM', 'AZ', 'BH', 'BD', 'BT', 'BN', 'KH', 'CN', 'GE', 'IN', 'ID', 'IR', 'IQ', 'IL', 'JP', 'JO', 'KZ', 'KW', 'KG', 'LA', 'LB', 'MY', 'MV', 'MN', 'MM', 'NP', 'KP', 'KR', 'OM', 'PK', 'PS', 'PH', 'QA', 'SA', 'SG', 'LK', 'SY', 'TW', 'TJ', 'TH', 'TL', 'TR', 'TM', 'AE', 'UZ', 'VN', 'YE'];
 
-$query = "SELECT wb.primaryTitle FROM work_basics wb JOIN work_ratings wr ON wb.id_work = wr.id_work WHERE 1=1";
-$params = [];
+$afrique = ['DZ', 'AO', 'BJ', 'BW', 'BF', 'BI', 'CM', 'CV', 'CF', 'TD', 'KM', 'CG', 'CD', 'CI', 'DJ', 'EG', 'GQ', 'ER', 'ET', 'GA', 'GM', 'GH', 'GN', 'GW', 'KE', 'LS', 'LR', 'LY', 'MG', 'MW', 'ML', 'MR', 'MU', 'YT', 'MA', 'MZ', 'NA', 'NE', 'NG', 'RE', 'RW', 'ST', 'SN', 'SC', 'SL', 'SO', 'ZA', 'SS', 'SD', 'SZ', 'TZ', 'TG', 'TN', 'UG', 'EH', 'ZM', 'ZW'];
+
+$europe = ['AL', 'AD', 'AM', 'AT', 'AZ', 'BY', 'BE', 'BA', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR', 'GE', 'DE', 'GR', 'HU', 'IS', 'IE', 'IT', 'KZ', 'XK', 'LV', 'LI', 'LT', 'LU', 'MT', 'MD', 'MC', 'ME', 'NL', 'MK', 'NO', 'PL', 'PT', 'RO', 'RU', 'SM', 'RS', 'SK', 'SI', 'ES', 'SE', 'CH', 'TR', 'UA', 'GB', 'VA'];
+
+$amerique = ['AS', 'AI', 'AG', 'AR', 'AW', 'BS', 'BB', 'BZ', 'BM', 'BO', 'BR', 'VG', 'CL', 'CO', 'CR', 'CU', 'DM', 'DO', 'EC', 'SV', 'FK', 'GF', 'GL', 'GD', 'GP', 'GT', 'GY', 'HT', 'HN', 'JM', 'MQ', 'MX', 'MS', 'AN', 'NI', 'PA', 'PY', 'PE', 'PR', 'BL', 'KN', 'LC', 'MF', 'PM', 'VC', 'SR', 'TT', 'TC', 'VI', 'UY', 'VE'];
+
+$country = [
+    'Etats-Unis' => 'US', // Correction de l'orthographe de 'Etats-Unis'
+    'Inde' => 'IN',
+    'Chine' => 'CN',
+    'Japon' => 'JP',
+    'Angleterre' => 'GB',
+    'Allemagne' => 'DE',
+    'France' => 'FR',
+    'Corée du Sud' => 'KR',
+    'Brésil' => 'BR', // Correction de l'orthographe de 'Brésil'
+    'Nigéria' => 'NG',
+    'Italie' => 'IT'
+];
+
+$annee_actuel = date("Y");
+
+$query = "SELECT wb.id_work FROM work_basics wb JOIN work_ratings wr ON wb.id_work = wr.id_work JOIN work_akas wa ON wb.id_work = wa.id_work JOIN work_genres wg ON wb.id_work = wg.id_work JOIN work_principals wp ON wb.id_work = wp.id_work JOIN name_basics nb ON wp.id_person = nb.id_person JOIN name_professions np ON wp.id_person = np.id_person WHERE 1=1";
 
 if ($avis) {
     if ($avis == 'Toujours') {
         $query .= " AND wr.averageRating > 8.5";
     } else if ($avis == 'De temps en temps') {
         $query .= " AND wr.averageRating > 7.5";
-    } // Si ne regarde jamais les avis avant de regarder un film on ne filtre pas par rapport aux notes
+    }
+    // Si ne regarde jamais les avis avant de regarder un film on ne filtre pas par rapport aux notes
 }
 
 if ($bande_son) {
-    if($bande_son == "Oui !!") {
-
+    if ($bande_son == "Oui !!") {
+        // Filtrer les films ayant une composition musicale significative
+        $query .= " AND wp.category = 'composer' AND nb.id_person IN (SELECT id_person FROM name_professions WHERE profession = 'composer')";
     }
-} // mettre plus a la fin ?
+    // Si l'utilisateur ne s'attarde pas à la bande sonore, aucun filtre n'est appliqué
+}
 
 if ($effet_speciaux) {
-    if($effet_speciaux == "Tendance") {
-
-    } else if ($effet_speciaux == "Nouveauté") {
-
-    } else if ($effet_speciaux == "Recommandation de l\'entourage") {
-
-    } else {
-
+    if ($effet_speciaux == "Oui !!") {
+        // Filtre pour les films avec des effets spéciaux
+        $query .= " AND np.profession = 'visual_effects'"; 
     }
+    // Si l'utilisateur ne s'attarde pas aux effet spéciaux, aucun filtre n'est appliqué
 }
 
 if ($casting) {
-    if ($casting == 'Toujours') {
-        
-    } else if ($casting == 'De temps en temps') {
-        
+    if ($casting == "Toujours") {
+        // Filtre pour les films avec un casting important
+        $query .= " AND wb.id_work IN (SELECT id_work FROM work_principals WHERE category IN ('actor', 'actress') AND id_person IN (SELECT id_person FROM name_knownForTitles GROUP BY id_person HAVING COUNT(*) > 10))";
+    } else if ($casting == "De temps en temps") {
+        // Filtre pour les films avec un casting moins important
+        $query .= " AND wb.id_work IN (SELECT id_work FROM work_principals WHERE category IN ('actor', 'actress') AND id_person IN (SELECT id_person FROM name_knownForTitles GROUP BY id_person HAVING COUNT(*) <= 10))";
+    }
+    // Si l'utilisateur ne s'attarde pas aux effet spéciaux, aucun filtre n'est appliqué
+}
+
+if ($duree) {
+    if ($duree == "Moins d'une heure") {
+        $query .= " AND wb.runtimeMinutes < 59";
+    } else if ($duree == "Entre 1h et 1h30") {
+        $query .= " AND wb.runtimeMinutes BETWEEN 60 AND 89";
+    } else if ($duree == "Entre 1h30 et 2h") {
+        $query .= " AND wb.runtimeMinutes BETWEEN 90 AND 119";
     } else {
-        // Si ne regarde jamais les avis de regarder un film on ne filtre pas par rapport aux notes
+        $query .= " AND wb.runtimeMinutes > 120";
     }
 }
 
-
-
-
-if ($genre) {
-    $query .= " AND genre = :genre";
-    $params[':genre'] = $genre;
-}
-
-// Filtrer par période (récent ou ancien)
-if ($period) {
-    if ($period == 'Récents') {
-        $query .= " AND year >= 2000";
-    } elseif ($period == 'Anciens') {
-        $query .= " AND year < 2000";
+if ($provenance) {
+    switch ($provenance) {
+        case "Asie":
+            $query .= " AND wa.region IN ('" . implode("','", $asie) . "')";
+            break;
+        case "Afrique":
+            $query .= " AND wa.region IN ('" . implode("','", $afrique) . "')";
+            break;
+        case "Amérique":
+            $query .= " AND wa.region IN ('" . implode("','", $amerique) . "')";
+            break;
+        case "Europe":
+            $query .= " AND wa.region IN ('" . implode("','", $europe) . "')";
+            break;
+        default:
+            if (isset($country[$provenance])) {
+                $query .= " AND wa.region = '" . $country[$provenance] . "'";
+            }
+            break;
     }
 }
 
-$stmt = $bdd->prepare($query);
-$stmt->execute($params);
-$movies = $stmt->fetchAll(PDO::FETCH_ASSOC);
+if ($genres) {
+    $query .= " AND ( wg.genre = '" . $genres[0] . "'";
+    foreach ($genres as $genre) {
+        $query .= " OR wg.genre = '" . $genre . "'";
+    }
+    $query .= ")";
+}
 
-// Retourner les résultats filtrés en JSON
-echo json_encode(['movies' => $movies]);
+if ($annee) {
+    if ($annee == "Avant 1980") {
+        $query .= " AND wb.startYear < 1979";
+    } else if ($annee == "1980-1990") {
+        $query .= " AND wb.startYear BETWEEN 1980 AND 1989";
+    } else if ($annee == "1990-2000") {
+        $query .= " AND wb.startYear BETWEEN 1990 AND 1999";
+    } else if ($annee == "2000-2010"){
+        $query .= " AND wb.startYear BETWEEN 2000 AND 2009";
+    } else if ($annee == "2010-2020") {
+        $query .= " AND wb.startYear BETWEEN 2010 AND 2019";
+    } else if ($annee == "Après 2020") {
+        $query .= " AND wb.startYear > 2020";
+    } else if ($annee == "Cette année"){
+        $query .= " AND wb.startYear = :annee_actuel";
+    }
+}
+
+$query .= " ORDER BY RAND() LIMIT 5;";
+
+try {
+    $stmt = $bdd->prepare($query);
+    if ($annee == "Cette année") {
+        $stmt->execute(['annee_actuel' => $annee_actuel]);
+    } else {
+        $stmt->execute();
+    }
+    $movies = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    // Retourner les résultats filtrés en JSON
+    echo json_encode(['movies' => $movies, 'requête' => $query]);
+} catch (PDOException $e) {
+    echo json_encode(['Erreur de requête :' => $e->getMessage(), 'CHEF LA REQUET' => $query]);
+}
 ?>
-
-            question: 'Regardez vous les avis avant de visionner une oeuvre ?',
-            options: ['Toujours', 'De temps en temps', 'Jamais']
-        
-        {
-            question: 'La composition musical est elle importante pour vous ?',
-            options: ['Oui !!', 'Non, je n\'y fais pas attention']
-        },
-        {
-            question: 'Accorder-vous de l\'importance au effet-spéciaux d\'une oeuvre ?',
-            options: ['Oui !!', 'Non, je n\'y fais pas attention']
-        },
-        {
-            question: 'Lorsque vous recherchez une oeuvre à visionner vers qu\'elle catégorie vous orientez vous ?',
-            options: ['Tendance', 'Nouveauté', 'Recommandation de l\'entourage', 'Aucun, au hasard'] 
-            
-        },
-        {
-            question: 'Accorder-vous de l\'importance au casting d\'une oeuvre ?',
-            options: ['Toujours', 'De temps en temps', 'Jamais']
-        },
-        {
-            question: 'Qu\'elle serais la durée souhaitez ?', 
-            options: ['Moins d\'une heure', 'Entre 1h et 1h30', 'Entre 1h30 et 2h', 'Plus de 2h']
-            Facilement traitable :
-        },
-        {
-            question: 'De qu\'elle pays d\'origine préféreriez-vous ? (3 maximum)',
-            options: ['Etats-Unies', 'Inde', 'Chine', 'Japon', 'Angleterre', 'Allemagne', 'France', 'Corée du Sud', 'Bresil', 'Nigéria', 'Italie', 'Asie', 'Afrique', 'Amérique', 'Europe', 'Je ne sais pas']
-            Facilement traitable :
-        },
-        {
-            question: 'Qu\'elle genre vous attire ? (3 maximum)',
-            options: ['Musical', 'Action', 'Romance', 'Talk-Show', 'Western', 'Sport', 'Drama', 'Sci-Fi', 'Animation', 'Documentary', 'Thriller', 'Film-Noir', 'Music', 'Comedy', 'Horror', 'Family', 'Reality-TV', 'Crime', 'Adventure', 'Game-Show', 'Biography', 'Mistery', 'History', 'News', 'Fantasy', 'War']
-            Facilement traitable :
-        },
-        {
-            question: 'De quelle année ?',
-            options: ['Avant 1980', '1980-1990', '1990-2000', '2000-2010', '2010-2020', 'Après 2020', 'Cette année']
-            Facilement traitable :
-        },
-        {
-            question: 'Voulez vous prendre en comptes les film de votre liste à voir ?',
-            options: ['Oui !!', 'Non']
-        }
-    ];
