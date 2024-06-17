@@ -18,9 +18,9 @@
                     <img src="../../inc/img/logo.svg" alt="Logo IDK" class="navbar-brand img-fluid my-5" width="150px" height="150px">
                     <h3 class="mt-1">Questionnaire</h3>
                 </div>
+                <div id="question_reponses"></div>
             </div>
         </div>
-        <div id="question_reponses"></div>
     </main>
     <?php require_once('../../inc/components/not_connected/footer.php'); ?>
     <script src="../../inc/js/questionnaire.js"></script>

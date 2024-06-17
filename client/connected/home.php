@@ -65,56 +65,24 @@
                 </div>
                 <hr class="featurette-divider my-4">
                 <h3 class="text-center">Listes : </h3>
-                <div class="container">
-                        <div class="d-flex flex-column">
-                            <p class="fs-6">Liste par défaut : A voir</p>
-                            <div class="col-md-12 mb-3">
-                                <label class="labels">Commentaire :</label>
-                                <span>VIDE</span>
-                                <div class="d-none">
-                                    <input type="text" class="form-control" value="">
-                                    <button class="nav-btn btn btn-warning text-white border border-light border-2 rounded-3 w-100 my-1">Enregistrer</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="d-flex  flex-row-reverse bd-highlight">
-                            <button type="button" href="#" class="m-3 btn btn-warning text-white border border-light border-2 small-text">En voir plus</button>
-                        </div>
-                </div>
-                <div class="container">
-                        <div class="d-flex flex-column">
-                            <p class="fs-6">Liste par défaut : Deja vu</p>
-                            <div class="col-md-12 mb-3">
-                                <label class="labels">Commentaire :</label>
-                                <span>VIDE</span>
-                                <div class="d-none">
-                                    <input type="text" class="form-control" value="">
-                                    <button class="nav-btn btn btn-warning text-white border border-light border-2 rounded-3 w-100 my-1">Enregistrer</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="d-flex  flex-row-reverse bd-highlight">
-                            <button type="button" href="#" class="m-3 btn btn-warning text-white border border-light border-2 small-text">En voir plus</button>
-                        </div>
-                </div>
                 <div class="col-md-12 overflow-auto menu-oeuvre-2">
                     <table class="table table-striped"> <!-- Rendre overflow -->
                         <tbody>
                             <?php 
-                            try{
-                                $req = $bdd->prepare('SELECT nom, id_liste FROM listes WHERE id_user = :id_user');
+                            try {
+                                $req = $bdd->prepare('SELECT nom, id_liste FROM listes WHERE id_user = :id_user AND statut != "invisible"');
                                 $req->bindParam(":id_user", $_SESSION['id_user']);
                                 $req->execute();
 
                                 $res = $req->fetchAll();
 
-                                foreach($res as $liste){
+                                foreach ($res as $liste) {
                                     echo '<tr>
                                                 <td class="table-cell" scope="row">' . $liste['nom'] . '</td>
                                                 <td class="table-cell text-end"><a href="private_list.php?id_liste=' . $liste['id_liste'] . '" class="btn btn-sm btn-outline-secondary">En voir plus</a></td>
                                         </tr>';
                                 }
-                            } catch (PDOException $e){
+                            } catch (PDOException $e) {
                                 echo $e->getMessage();
                             }
                             ?>

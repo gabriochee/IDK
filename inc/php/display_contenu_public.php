@@ -15,5 +15,5 @@ switch ($file_location) {
 
 $stmt = $bdd->prepare("SELECT id_bloc, page_appartenance, titre, corps FROM contenu WHERE page_appartenance = :file_location");
 $stmt->execute(['file_location' => $file_location]); 
-$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$results = $stmt->fetchAll();
 ?>

@@ -4,7 +4,6 @@ function server_log($action) {
 
     try {
         $request = $bdd->prepare('INSERT INTO logs(date_log, log_action, adresse_ip) VALUES (:date_log, :log_action, :adresse_ip);');
-        if ($_SESSION['connected'] = 'connected')
         $request->bindValue(':date_log', date("Y-m-d H:i:s"));
         $request->bindParam(':log_action', $action);
         $request->bindParam(':adresse_ip', $_SERVER['REMOTE_ADDR']);

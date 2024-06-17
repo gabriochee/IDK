@@ -29,7 +29,13 @@
                 <a <?php if(basename($_SERVER['PHP_SELF']) == 'questionnaire.php') echo 'class="nav-link text-decoration-underline text-white"'; ?> class="nav-link text-white" href="../../client/connected/questionnaire.php">Questionnaire</a>
               </li>
               <li>
+                <a <?php if(basename($_SERVER['PHP_SELF']) == 'public_list.php') echo 'class="nav-link text-decoration-underline text-white"'; ?> class="nav-link text-white" href="../../client/connected/public_list.php">Listes publiques</a>
+              </li>
+              <li>
                 <a <?php if(basename($_SERVER['PHP_SELF']) == 'my_friend_list.php') echo 'class="nav-link text-decoration-underline text-white"'; ?> class="nav-link text-white" href="../../client/connected/my_friend_list.php">Mes amis</a>
+              </li>
+              <li>
+                <a <?php if(basename($_SERVER['PHP_SELF']) == 'chat_friend.php') echo 'class="nav-link text-decoration-underline text-white"'; ?> class="nav-link text-white" href="../../client/connected/chat_friend.php">Ma messagerie</a>
               </li>
               <li>
                 <a <?php if(basename($_SERVER['PHP_SELF']) == 'parameters.php') echo 'class="nav-link text-decoration-underline text-white"'; ?> class="nav-link text-white" href="../../client/connected/parameters.php">Paramètres</a>
@@ -39,15 +45,9 @@
             <ul class="navbar-nav d-flex justify-content-lg-end align-items-center gap-2 flex-grow-1 m-md-0 mt-5">
               <li class="nav-item">
                 <form method="" action="../../inc/php/logout.php">
-                  <button type="submit" name="" class="nav-btn btn btn-primary btn-sm btn-warning text-white border border-light border-2 rounded-3">Déconnexion</button>
+                  <button type="submit" name="" class="nav-btn btn btn-sm btn-warning text-white border border-light border-2 rounded-3">Déconnexion</button>
                 </form>
               </li>
-              <?php 
-                if (isset($_SESSION['role_user']) &&  $_SESSION['role_user'] == 'admin') { 
-                  echo '<li class="nav-item"><form method="" action="../../admin/home_backoffice.php"><button type="submit" name="" class="nav-btn btn btn-primary btn-sm btn-warning text-white border border-light border-2 rounded-3">Backoffice</button></form></li>';
-                  echo '<li class="nav-item"><form method="" action="../../client/not_connected/home.php"><button type="submit" name="" class="nav-btn btn btn-primary btn-sm btn-warning text-white border border-light border-2 rounded-3">Acceuil non connecté</button></form></li>';
-                }
-              ?>
               <li class="nav-item">
                 <button class="nav-link btn">
                   <i class="bi bi-moon-stars"></i>
@@ -59,8 +59,14 @@
       </div>
     </nav>
   </div>
+  <?php 
+    if (isset($_SESSION['role_user']) &&  $_SESSION['role_user'] == 'admin') { 
+      echo '<form method="" action="../../admin/home_backoffice.php"><button type="submit" name="" class="nav-btn btn w-25 btn-info border border-light border-2 rounded-3 d-flex m-auto mt-3 justify-content-center">Backoffice</button></form>';
+      echo '<form method="" action="../../client/not_connected/home.php"><button type="submit" name="" class="nav-btn btn w-25 btn-info border border-light border-2 rounded-3 d-flex m-auto mt-2 justify-content-center">Acceuil non connecté</button></form>';
+    }
+  ?>
   <form class="d-flex justify-content-center col-5 m-auto mt-2 mb-2">
-    <input type="search" onkeydown="searchKeywordMovie()" class="form-control bg-dark text-white form-control-dark" placeholder="Rechercher..." aria-label="Search" id="navbar_movie">
+    <input type="search" onkeydown="searchKeywordMovie()" class="form-control bg-dark text-white form-control-dark" placeholder="Rechercher une oeuvre !" aria-label="Search" id="navbar_movie">
   </form>
   <div id="resultats_movie"></div>
 </header>
