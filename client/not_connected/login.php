@@ -15,7 +15,10 @@
     <?php require_once('../../inc/php/function_login.php'); ?>
     <header class="container w-100 d-flex justify-content-end mt-5 h-100">
         <button class="nav-link btn">
-            <i class="bi bi-moon-stars fs-3" height="100" width="100"></i>
+            <i class="bi bi-moon-stars fs-3 mx-3" height="100" width="100"></i>
+        </button>
+        <button class="nav-link btn" onclick="window.location='home.php'">
+            <i class="bi bi-arrow-return-left fs-3" height="100" width="100"></i>
         </button>
     </header>
     <main>
@@ -51,7 +54,7 @@
                         }
                         ?>
                     </div>
-                    <h5 class="mt-3 text-center">Répondez à cette question afin de prouver que vous n'êtes pas un robot.</h5>
+                    <div class="alert alert-primary mt-3 text-center" role="alert">Répondez à cette question afin de prouver que vous n'êtes pas un robot.</div>
                     <hr>
                     <div class="container text-center">
                         <h3>

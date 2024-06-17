@@ -10,6 +10,6 @@ $rep_data_user2 = $data_user2->fetch();
 
 $data_user3 = $bdd->prepare("SELECT id_user, nom, prenom, role_user, pseudo, sexe, date_naissance, date_inscription, statut_newsletter, telephone, mail FROM utilisateur WHERE role_user = 'admin'");
 $data_user3->execute();
-$rep_data_user3 = $data_user3->fetchAll(PDO::FETCH_ASSOC);
+$rep_data_user3 = $data_user3->fetchAll();
 
 ?>
