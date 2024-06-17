@@ -74,7 +74,7 @@
                                 <option value="message">Messagerie</option>
                             </select>
                         </div>
-                        <button class="w-100 btn btn-secondary btn-lg btn-warning border-dark border-2" type="submit">Envoyer</button>
+                        <button class="w-100 btn btn-warning border-dark border-2" type="submit">Envoyer</button>
                     </div>
                 </form>
             </div>

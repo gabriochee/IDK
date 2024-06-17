@@ -66,7 +66,7 @@
                             <textarea class="form-control" id="message" name="message" rows="15" minlength="15" maxlength="500" required></textarea>
                             <div class="invalid-feedback">Veuillez fournir un message valide.</div>
                         </div>
-                        <button class="w-100 btn btn-secondary btn-lg btn-warning border-dark border-2" type="submit_not_connected" name="submit_not_connected">Envoyer</button>
+                        <button class="w-100 btn btn-warning border-dark border-2" type="submit_not_connected" name="submit_not_connected">Envoyer</button>
                     </div>
                 </form>
             </div>

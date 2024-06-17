@@ -61,7 +61,7 @@
                             <?php
                             $request = $bdd->query('SELECT id_captcha FROM captcha;');
                             $result = $request->fetchAll();
-                            $random_id = $result[rand(0, count($result) - 1)][0];
+                            $random_id = $result[rand(0, count($result) - 1)]['id_captcha'];
 
                             $request = $bdd->query('SELECT question FROM captcha WHERE id_captcha = ' . $random_id . ';');
                             $result = $request->fetch();
@@ -80,7 +80,7 @@
 
                         foreach ($result as $key => $value) {
                             echo '<input type="radio" class="btn-check" name="captcha_answer" value="' . $value['id_reponse'] . '" id="option' . $i . '" autocomplete="off">';
-                            echo '<label class="nav-btn btn btn-sm btn-warning border border-dark border-2 rounded-3 fs-sm-5 px-3" for="option' . $i . '">' . $value['contenu'] . '</label>';
+                            echo '<label class="w-100 nav-btn btn btn-sm btn-info border border-dark border-2 rounded-3 fs-sm-5 px-3" for="option' . $i . '">' . $value['contenu'] . '</label>';
                             $i++;
                         }
                         ?>
