@@ -1,5 +1,5 @@
 <?php require('../../inc/php/access.php'); ?>
-
+<?php require('../../inc/php/display_home.php'); ?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -11,7 +11,6 @@
     <title>IDK</title>
 </head>
 <body id="not_connected_home">
-    <?php require('../../inc/php/db.php'); ?>
     <?php require('../../inc/components/not_connected/header.php');?>      
     <main>
         <div class="container text-center m-auto">
@@ -20,7 +19,7 @@
                     <img src="../../inc/img/logo.svg" alt="Logo IDK" class="navbar-brand img-fluid my-5" width="150px" height="150px">
                     <h1 class="mb-5">Phrase d'accroche</h1>
                     <p class="mb-5">Texte explicatif du service : Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                    <button class="nav-btn btn btn-primary btn-lg btn-block btn-warning text-white border border-light border-2 rounded-3 mb-5">Commencer le questionnaire</button>
+                    <form method="" action="questionnaire.php"><button class="nav-btn btn btn-primary btn-lg btn-block btn-warning text-white border border-light border-2 rounded-3 mb-5">Commencer le questionnaire</button></form>
                 </div>
             </div>
         </div>
@@ -40,54 +39,29 @@
                 </div>
             </div>
         </div>
-
         <h1 class="text-center">Nouveauté</h1>
         <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-indicators">
-                <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                <?php foreach ($res_nouveaute as $index => $nouveaute) { ?>
+                    <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="<?php echo $index; ?>" class="<?php echo $index === 0 ? 'active' : ''; ?>" aria-current="<?php echo $index === 0 ? 'true' : 'false'; ?>" aria-label="Slide <?php echo $index + 1; ?>"></button>
+                <?php } ?>
             </div>
             <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#E8EDDF"/></svg>
-                    <div class="container">
-                        <div class="carousel-caption text-start text-dark d-flex">
-                            <div class="w-50">
-                                <h1><br>Nom œuvre</h1>
-                                <p><br><br>De Antoine Dupont<br>Genre<br>Sortie le jj/mm/aaaa<br><br><br></p>
-                                <button class="nav-btn btn btn-primary btn-lg btn-warning text-white border border-light border-2 rounded-3 d-flex m-auto">En voir plus</button>
+                <?php foreach ($res_nouveaute as $index => $nouveaute) { ?>
+                    <div class="carousel-item <?php echo $index === 0 ? 'active' : ''; ?>">
+                        <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#E8EDDF"/></svg>
+                        <div class="container">
+                            <div class="carousel-caption text-start text-dark d-flex">
+                                <div class="w-50">
+                                    <h1><br><?php echo htmlspecialchars($nouveaute['primaryTitle']); ?></h1>
+                                    <p><br><?php echo htmlspecialchars($nouveaute['genre']); ?><br>Sortie en <?php echo htmlspecialchars($nouveaute['startYear']); ?><br><br><br></p>
+                                    <button class="nav-btn btn btn-primary btn-lg btn-warning text-white border border-light border-2 rounded-3 d-flex m-auto">En voir plus</button>
+                                </div>
+                                <div class="w-50" style="background-color: #5956CA;"></div>
                             </div>
-                            <div class="w-50" style="background-color: #5956CA;"></div>
                         </div>
                     </div>
-                </div>
-                <div class="carousel-item">
-                    <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#E8EDDF"/></svg>
-                    <div class="container">
-                        <div class="carousel-caption text-start text-dark d-flex">
-                            <div class="w-50">
-                                <h1><br>Nom œuvre</h1>
-                                <p><br>De Antoine Dupont<br>Genre<br>Sortie le jj/mm/aaaa<br><br><br><br></p>
-                                <button class="nav-btn btn btn-primary btn-lg btn-warning text-white border border-light border-2 rounded-3 d-flex m-auto">En voir plus</button>
-                            </div>
-                            <div class="w-50" style="background-color: #5956CA;"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#E8EDDF"/></svg>
-                    <div class="container">
-                        <div class="carousel-caption text-start text-dark d-flex">
-                            <div class="w-50">
-                                <h1><br>Nom œuvre</h1>
-                                <p><br>De Antoine Dupont<br>Genre<br>Sortie le jj/mm/aaaa<br><br><br><br></p>
-                                <button class="nav-btn btn btn-primary btn-lg btn-warning text-white border border-light border-2 rounded-3 d-flex m-auto">En voir plus</button>
-                            </div>
-                            <div class="w-50" style="background-color: #5956CA;"></div>
-                        </div>
-                    </div> 
-                </div>
+                <?php } ?>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -98,6 +72,7 @@
                 <span class="visually-hidden">Next</span>
             </button>
         </div>
+
 
         <div class="container marketing">
             <h1 class="text-center mb-5">Listes les plus populaires</h1>
@@ -118,7 +93,7 @@
                     <button class="nav-btn btn btn-primary btn-lg btn-warning text-white border border-light border-2 rounded-3">En voir plus</button>
                 </div>
             </div>
-            <button class="w-75 nav-btn btn btn-primary btn-lg btn-warning text-white border border-light border-2 rounded-3 m-auto mt-4 d-flex justify-content-center">Voir plus de listes</button>
+            <button class="w-75 nav-btn btn btn-primary btn-lg btn-warning text-white border border-light border-2 rounded-3 m-auto mt-4 d-flex justify-content-center" onclick="window.location='public.list.php'">Voir plus de listes</button>
         </div>
 
         <div class="container marketing">

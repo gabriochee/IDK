@@ -12,17 +12,17 @@ $file_origin = pathinfo($parsed_origin, PATHINFO_FILENAME);
 $segments_location = explode('/', trim($location, '/'));
 $segments_origin = explode('/', trim($origin, '/'));
 
-
+// server_modif
 if (in_array("client", $segments_location)) {
     if (in_array("connected", $segments_location)) {
         if (!isset($_SESSION['connected'])) {
-            header("Location: /Projet_annuel/IDK-2/client/not_connected/login.php");
+            header("Location: IDK/client/not_connected/login.php");
             exit();
         } 
     }
     if (in_array("not_connected", $segments_location)) {
         if (isset($_SESSION['connected']) && $_SESSION['role_user'] !== 'admin') {
-            header("Location: /Projet_annuel/IDK-2/client/connected/home.php");
+            header("Location: IDK/client/connected/home.php");
             exit();
         } 
     }
@@ -30,11 +30,11 @@ if (in_array("client", $segments_location)) {
 
 if (in_array("admin", $segments_location)) {
     if (!isset($_SESSION['connected'])) {
-        header("Location: /Projet_annuel/IDK-2/client/not_connected/login.php");
+        header("Location: IDK/client/not_connected/login.php");
         exit();
     } 
     if (isset($_SESSION['connected']) && $_SESSION['role_user'] !== 'admin') {
-        header("Location: /Projet_annuel/IDK-2/client/connected/home.php");
+        header("Location: IDK/client/connected/home.php");
         exit();
     }
 }

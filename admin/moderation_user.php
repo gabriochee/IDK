@@ -11,6 +11,7 @@
 </head>
 <body id="backoffice_moderation_user" class="backoffice">
     <?php require_once('../inc/php/db.php'); ?>
+    <?php require_once('../inc/php/affichage_data_user.php'); ?>
     <?php require_once('../inc/components/backoffice/header.php'); ?>
     <?php require_once('../inc/library/fpdf/function_fpdf_admin.php'); ?>
     <?php require_once('../inc/php/function_create_admin.php'); ?>
@@ -509,7 +510,23 @@
                         </div>
                     </div>
                 </div>
-                <div class="text-center justify-content-center mt-5">
+                
+
+                <div class="pt-3 pb-2 mb-4 border-bottom">
+                    <h3>Administrateurs : </h3>
+                    <ul class="list-group list-group-flush">
+                    <?php 
+                        foreach($rep_data_user3 as $user) {
+                            echo '<li class="list-group-item d-flexalign-items-center justify-content-between">' . $user['nom'].' '.$user['prenom'].' - '.$user['pseudo'].' #'.$user['id_user'].' depuis '.$user['date_inscription'].'</td>';
+                            echo '<div class="btn-group me-2">';
+                            echo '<button type="button" class="btn btn-sm btn-outline-secondary">Modifier</button><button type="button" class="btn btn-sm btn-outline-secondary">Supprimer</button>';
+                            echo '</div></li>';
+                        }
+                    ?>
+                    </ul>
+                </div>
+
+    <div class="text-center justify-content-center mt-5">
         <button class="btn btn-primary fs-4 mt-3" id="create-admin-btn" type="button">Créer un admin ou utilisateur</button>
         <br><br><br>
     </div>

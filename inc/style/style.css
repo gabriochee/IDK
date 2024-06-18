@@ -15,6 +15,10 @@ body, .bg-idk{
   overflow-x: hidden !important;
 }
 
+.no-overflow-y {
+  overflow-y: hidden !important;
+}
+
 .alert {
   font-size: 15px;
 }

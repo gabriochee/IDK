@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
     const app = document.getElementById('question_reponses');
-
     const questions = [
         {
             question: 'Regardez-vous les avis avant de visionner une oeuvre ?',
@@ -35,85 +34,66 @@ document.addEventListener('DOMContentLoaded', () => {
             options: ['Avant 1980', '1980-1990', '1990-2000', '2000-2010', '2010-2020', 'Après 2020', 'Cette année']
         }
     ];
-
+    
     let currentQuestionIndex = 0;
     const answers = {};
-
+    
     function renderQuestion() {
         if (currentQuestionIndex >= questions.length) {
             displayResults();
             return;
         }
-
-        console.log("Rendering question:", currentQuestionIndex);
-
+    
         const question = questions[currentQuestionIndex];
-
-        // Si la question est "Quel genre vous attire ? (3 maximum)"
+        app.innerHTML = `
+            <div class="container text-center col-lg-6 my-md-5 py-2">
+                <h3>${question.question}</h3>
+            </div>
+            <div class="options container text-center py-1 py-md-1 d-flex flex-wrap justify-content-center">
+            ${question.options.map(option => `
+                <button class="option col-5 col-md-3 nav-btn btn btn-warning border border-dark border-2 rounded-3 m-2">${option}</button>
+            `).join('')}
+            </div>
+            ${question.question === 'Quel genre vous attire ? (3 maximum)' ? `
+            <div class="container col-lg-6 my-md-5 py-2">
+                <button class="btn btn-success w-100">Suivant</button>
+            </div>` : ''}
+            <div class="alert alert-warning mt-3" style="display: none;" id="alert">Vous ne pouvez sélectionner que 3 genres au maximum.</div>
+        `;
+    
         if (question.question === 'Quel genre vous attire ? (3 maximum)') {
-            app.innerHTML = `
-                <div class="container text-center col-lg-6 my-md-5 py-2">
-                    <h3>${question.question}</h3>
-                </div>
-                ${question.options.map(option => `
-                    <div class="options container col-4 text-center py-1 py-md-1">
-                        <button class="option col nav-btn btn btn-primary btn-sm btn-warning border border-dark border-2 rounded-3 fs-sm-5 px-3 w-50">${option}</button>
-                    </div>
-                `).join('')}
-                <div class="container col-lg-6 my-md-5 py-2">
-                    <button class="btn btn-success w-100">Suivant</button>
-                </div>
-            `;
-
             let selectedGenres = [];
-
+    
             document.querySelectorAll('.option').forEach(button => {
                 button.addEventListener('click', () => {
                     const genre = button.innerText;
-
-                    // Vérifier si le genre est déjà sélectionné
+    
                     if (selectedGenres.includes(genre)) {
-                        // Désélectionner le genre si déjà sélectionné
                         selectedGenres = selectedGenres.filter(item => item !== genre);
                         button.classList.remove('btn-warning');
                     } else {
-                        // Vérifier si déjà 3 genres sélectionnés
                         if (selectedGenres.length < 3) {
                             selectedGenres.push(genre);
                             button.classList.add('btn-warning');
                         } else {
-                            // Empêcher de sélectionner plus de 3 genres
-                            alert('Vous ne pouvez sélectionner que 3 genres au maximum.');
+                            document.getElementById('alert').style.display = 'block';
+                            setTimeout(() => {
+                                document.getElementById('alert').style.display = 'none';
+                            }, 2000);
                         }
                     }
-                    console.log("Selected genres:", selectedGenres);
                 });
             });
-
+    
             document.querySelector('button.btn-success').addEventListener('click', () => {
                 answers[currentQuestionIndex] = selectedGenres;
-                console.log("Answers so far:", answers);
                 currentQuestionIndex++;
                 renderQuestion();
             });
-
         } else {
-            // Pour les autres questions à sélection unique
-            app.innerHTML = `
-                <div class="container text-center col-lg-6 my-md-5 py-2">
-                    <h3>${question.question}</h3>
-                </div>
-                ${question.options.map(option => `
-                    <div class="options container col-4 text-center py-1 py-md-1">
-                        <button class="option col nav-btn btn btn-primary btn-sm btn-warning border border-dark border-2 rounded-3 fs-sm-5 px-3 w-50">${option}</button>
-                    </div>
-                `).join('')}
-            `;
-
             document.querySelectorAll('.option').forEach(button => {
                 button.addEventListener('click', () => {
                     answers[currentQuestionIndex] = button.innerText;
-                    console.log("Answers so far:", answers);
                     currentQuestionIndex++;
                     renderQuestion();
                 });
@@ -122,11 +102,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function displayResults() {
-        console.log(JSON.stringify(answers));
         app.innerHTML = `
-                <h2>Vos recommandations :</h2>
-                <h3>Veuillez patientez que les resultats se chargent</h3>
-            `;                
+            <div class="container text-center">
+                <h2 class="my-4">Vos recommandations :</h2>
+                <h3 class="my-3">Veuillez patientez que les résultats se chargent...</h3>
+                <div class="spinner-border" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+        `;
+        
         fetch('../../inc/php/function_questionnaire.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -134,27 +119,29 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .then(response => response.json())
         .then(data => {
-
-            let params = {};
-
-            for (const movie in data.movies){
-                params['movie' + movie] = data.movies[movie].id_work;
-            }
-            
-            window.location.replace("../../client/connected/questionnaire.php?" + new URLSearchParams(params));
-
-            return;
-            console.log("Data received from server:", data.movies); // Ajoutez cette ligne pour voir les données reçues
+            // console.log("Data received from server:", data); 
             app.innerHTML = `
-                <h2>Vos recommandations :</h2>
-                <ul>
-                    ${data.movies.map(movie => `<li>${movie.id_work}</li>`).join('')}
-                </ul>
+                <div class="container">
+                    <h2 class="text-center my-4">Vos recommandations :</h2>
+                    <ul class="list-group">
+                        ${data.movies.map(movie => `
+                            <li class="list-group-item mt-1">
+                                <a href="oeuvre.php?mv=${movie.id_work}" class="text-decoration-none">
+                                    ${movie.primaryTitle}
+                                </a>
+                            </li>
+                        `).join('')}
+                    </ul>
+                </div>
             `;
         })
         .catch(error => {
-            console.error('Erreur :', error);
-            alert('Une erreur est survenue. Veuillez réessayer plus tard.');
+            app.innerHTML = `
+                <div class="container text-center">
+                    <h2 class="text-center my-4">Erreur</h2>
+                    <p>Une erreur est survenue. Veuillez réessayer plus tard.</p>
+                </div>
+            `;
         });
     }
 

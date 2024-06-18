@@ -36,7 +36,7 @@ $country = [
 
 $annee_actuel = date("Y");
 
-$query = "SELECT wb.id_work FROM work_basics wb JOIN work_ratings wr ON wb.id_work = wr.id_work JOIN work_akas wa ON wb.id_work = wa.id_work JOIN work_genres wg ON wb.id_work = wg.id_work JOIN work_principals wp ON wb.id_work = wp.id_work JOIN name_basics nb ON wp.id_person = nb.id_person JOIN name_professions np ON wp.id_person = np.id_person WHERE 1=1";
+$query = "SELECT wb.id_work, primaryTitle FROM work_basics wb JOIN work_ratings wr ON wb.id_work = wr.id_work JOIN work_akas wa ON wb.id_work = wa.id_work JOIN work_genres wg ON wb.id_work = wg.id_work JOIN work_principals wp ON wb.id_work = wp.id_work JOIN name_basics nb ON wp.id_person = nb.id_person JOIN name_professions np ON wp.id_person = np.id_person WHERE 1=1";
 
 if ($avis) {
     if ($avis == 'Toujours') {

@@ -1,4 +1,7 @@
 <?php require_once('../../inc/php/access.php'); ?>
+<?php require('../../inc/php/display_home.php'); ?>
+<?php require_once('../../inc/php/affichage_data_user.php'); ?>
+<?php require_once('../../inc/php/function_search_user.php'); ?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -11,212 +14,89 @@
 </head>
 <body id="connected_home">
     <?php require_once('../../inc/components/connected/header.php'); ?>
-    <?php require_once('../../inc/php/affichage_data_user.php'); ?>
-    <?php require_once('../../inc/php/function_search_user.php'); ?>
     <main>
         <div class="container mt-5 mb-5">
             <div class="row">
                 <div class="col-md-4 border-right">
-                    <div class="d-flex flex-column align-items-center text-center">
-                        <img src="../../inc/img/user_img/<?php echo htmlspecialchars($rep_data_user1['photo_utilisateur']); ?>" alt="Photo de l'utilisateur" width="150px">
-                        <span class="text-black-50">#<?php echo $rep_data_user1['id_user']; ?></span>
-                        <span><?php echo $rep_data_user1['pseudo']; ?></span>
-                        <span><?php echo $rep_data_user1['nom'] .' '. $rep_data_user1['prenom']; ?></span>
-                        <span><?php echo $rep_data_user2['count(*)']; ?> amis</span>
+                    <div class="card card-profile text-center border-0" style="background-color: transparent;">
+                        <div class="card-body">
+                            <img src="../../inc/img/user_img/<?php echo htmlspecialchars($rep_data_user1['photo_utilisateur']); ?>" alt="Photo de l'utilisateur" class="mb-3 card-img-top img-fluid rounded-circle">
+                            <h4 class="card-title"><?php echo $rep_data_user1['pseudo'] .' (#'. $rep_data_user1['id_user'] .')'; ?></h4>
+                            <p class="card-text text-start my-0"><?php echo $rep_data_user1['nom'] .' '. $rep_data_user1['prenom']; ?></p>
+                            <p class="card-text text-start my-0">Inscrit depuis : <?php echo $rep_data_user1['date_inscription']; ?></p>
+                            <span class="badge bg-secondary mt-3"><?php echo $rep_data_user2['count(*)']; ?> amis</span>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-8 border-right">
+                <div class="col-md-8">
                     <div class="py-3 d-flex justify-content-center">
                         <div class="row w-100">
                             <div class="col-12 border-1">
-                                <div class="col-md-12 overflow-auto menu-oeuvre-2">
-                                    <h3>Mes demandes envoyée :</h3> 
-                                    <table class="table table-striped table-sm border border-1 border-dark mt-3">
+                                <div class="col-md-12 overflow-auto menu-oeuvre-2" style="max-height: 500px;">
+                                    <h3 class="mb-3">Mes demandes envoyées :</h3>
+                                    <table class="table table-striped table-sm border border-1 border-dark">
                                         <tbody>
-                                            <?php // Mettre une taille max !
-                                                foreach($rep3 as $rep3) {
-                                                    echo '<tr><td class="table-cell" scope="row">' . htmlspecialchars($rep3['pseudo']). ' - ' . htmlspecialchars($rep3['nom']).' '.htmlspecialchars($rep3['prenom']).'</td>';
-                                                    echo '<td class="table-cell">le 14/04/2024</td>';
-                                                    echo '<td class="table-cell text-end"><a href="home.php?demande=cancel_req&id='.$rep3['id_user'].'" class="nav-btn btn btn-sm btn-outline-secondary" type="submit" name="envoyer_ami">Annuler</a>';
-                                                    echo '</td></tr>';
-                                                }
-                                            ?>
+                                            <?php foreach ($rep3 as $rep3) { ?>
+                                                <tr>
+                                                    <td class="table-cell"><?php echo htmlspecialchars($rep3['pseudo']) . ' - ' . htmlspecialchars($rep3['nom']) . ' ' . htmlspecialchars($rep3['prenom']); ?></td>
+                                                    <td class="table-cell">le 14/04/2024</td>
+                                                    <td class="table-cell text-end">
+                                                        <a href="my_friend_list.php?demande=cancel_req&id=<?php echo $rep3['id_user']; ?>" class="btn btn-sm btn-outline-secondary" type="submit" name="envoyer_ami">Annuler</a>
+                                                    </td>
+                                                </tr>
+                                            <?php } ?>
                                         </tbody>
                                     </table>
-                                    <h3>Mes demandes reçu :</h3>
-                                    <table class="table table-striped table-sm border border-1 border-dark mt-3">
+
+                                    <h3 class="mb-3">Mes demandes reçues :</h3>
+                                    <table class="table table-striped table-sm border border-1 border-dark">
                                         <tbody>
-                                            <?php // Mettre une taille max !
-                                                foreach($rep2 as $rep2) {
-                                                    echo '<tr><td class="table-cell" scope="row">' . htmlspecialchars($rep2['pseudo']). ' - ' . htmlspecialchars($rep2['nom']).' '.htmlspecialchars($rep2['prenom']).'</td>';
-                                                    echo '<td class="table-cell">le 14/04/2024</td>';
-                                                    echo '<td class="table-cell text-end">';
-                                                    echo '<a href="home.php?demande=be_friend&id='.$rep2['id_user'].'" class="nav-btn btn btn-sm btn-outline-secondary" type="submit" name="envoyer_ami">Accepter</a></td>';
-                                                    echo '<a href="home.php?demande=cancel_req_from_receiver&id='.$rep2['id_user'].'" class="nav-btn btn btn-sm btn-outline-secondary" type="submit" name="envoyer_ami">Refuser</a>';
-                                                    echo '</td></tr>';
-                                                }
-                                            ?>
+                                            <?php foreach ($rep2 as $rep) { ?>
+                                                <tr>
+                                                    <td class="table-cell"><?php echo htmlspecialchars($rep['pseudo']) . ' - ' . htmlspecialchars($rep['nom']) . ' ' . htmlspecialchars($rep['prenom']); ?></td>
+                                                    <td class="table-cell">le 14/04/2024</td>
+                                                    <td class="table-cell text-end">
+                                                        <form action="my_friend_list.php" method="get" style="display: inline;">
+                                                            <input type="hidden" name="demande" value="be_friend">
+                                                            <input type="hidden" name="id" value="<?php echo $rep['id_user']; ?>">
+                                                            <button type="submit" class="btn btn-sm btn-outline-secondary" name="envoyer_ami">Accepter</button>
+                                                        </form>
+                                                        <form action="my_friend_list.php" method="get" style="display: inline;">
+                                                            <input type="hidden" name="demande" value="cancel_req_from_receiver">
+                                                            <input type="hidden" name="id" value="<?php echo $rep['id_user']; ?>">
+                                                            <button type="submit" class="btn btn-sm btn-outline-secondary" name="envoyer_ami">Refuser</button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            <?php } ?>
                                         </tbody>
                                     </table>
-                                </div> 
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <hr class="featurette-divider my-4">
+
                 <h3 class="text-center">Listes : </h3>
-                <div class="container">
-                        <div class="d-flex flex-column">
-                            <p class="fs-6">Liste par défaut : A voir</p>
-                            <div class="col-md-12 mb-3">
-                                <label class="labels">Commentaire :</label>
-                                <div class="d-none">
-                                    <input type="text" class="form-control" value="">
-                                    <button class="nav-btn btn btn-warning text-white border border-light border-2 rounded-3 w-100 my-1">Enregistrer</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="d-flex  flex-wrap justify-content-around">
-                            <div class="card text-center btn-custom" style="width: 15rem;">
-                                <img src="../../inc/img/film.svg" style="width: 13rem; margin: auto;" class="card-img-top border border-dark mt-3" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title text-center">Nom oeuvre</h5>
-                                    <div class="d-flex row justify-content-around">
-                                        <button type="button" class="btn btn-primary btn-warning text-white border border-light border-2">Retirer de la liste</button>
-                                    </div>
-                                </div>
-                                <p>Ajouté le 12/12/2023 13:12:23</p>
-                            </div>
-                            <div class="card text-center btn-custom" style="width: 15rem;">
-                                <img src="../../inc/img/film.svg" style="width: 13rem; margin: auto;" class="card-img-top border border-dark mt-3" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title text-center">Nom oeuvre</h5>
-                                    <div class="d-flex row justify-content-around">
-                                        <button type="button" class="btn btn-primary btn-warning text-white border border-light border-2">Retirer de la liste</button>
-                                    </div>
-                                </div>
-                                <p>Ajouté le 12/12/2023 13:12:23</p>
-                            </div>
-                            <div class="card text-center btn-custom" style="width: 15rem;">
-                                <img src="../../inc/img/film.svg" style="width: 13rem; margin: auto;" class="card-img-top border border-dark mt-3" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title text-center">Nom oeuvre</h5>
-                                    <div class="d-flex row justify-content-around">
-                                        <button type="button" class="btn btn-primary btn-warning text-white border border-light border-2">Retirer de la liste</button>
-                                    </div>
-                                </div>
-                                <p>Ajouté le 12/12/2023 13:12:23</p>
-                            </div>
-                            <div class="card text-center btn-custom" style="width: 15rem;">
-                                <img src="../../inc/img/film.svg" style="width: 13rem; margin: auto;" class="card-img-top border border-dark mt-3" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title text-center">Nom oeuvre</h5>
-                                    <div class="d-flex row justify-content-around">
-                                        <button type="button" class="btn btn-primary btn-warning text-white border border-light border-2">Retirer de la liste</button>
-                                    </div>
-                                </div>
-                                <p>Ajouté le 12/12/2023 13:12:23</p>
-                            </div>
-                            <div class="card text-center btn-custom" style="width: 15rem;">
-                                <img src="../../inc/img/film.svg" style="width: 13rem; margin: auto;" class="card-img-top border border-dark mt-3" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title text-center">Nom oeuvre</h5>
-                                    <div class="d-flex row justify-content-around">
-                                        <button type="button" class="btn btn-primary btn-warning text-white border border-light border-2">Retirer de la liste</button>
-                                    </div>
-                                </div>
-                                <p>Ajouté le 12/12/2023 13:12:23</p>
-                            </div>
-                        </div>
-                        <div class="d-flex  flex-row-reverse bd-highlight">
-                            <button type="button" href="#" class="m-3 btn btn-warning text-white border border-light border-2 small-text">En voir plus</button>
-                        </div>
-                </div>
-                <div class="container">
-                        <div class="d-flex flex-column">
-                            <p class="fs-6">Liste par défaut : Deja vu</p>
-                            <div class="col-md-12 mb-3">
-                                <label class="labels">Commentaire :</label>
-                                <div class="d-none">
-                                    <input type="text" class="form-control" value="">
-                                    <button class="nav-btn btn btn-warning text-white border border-light border-2 rounded-3 w-100 my-1">Enregistrer</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="d-flex  flex-wrap justify-content-around">
-                            <div class="card text-center btn-custom" style="width: 15rem;">
-                                <img src="../../inc/img/film.svg" style="width: 13rem; margin: auto;" class="card-img-top border border-dark mt-3" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title text-center">Nom oeuvre</h5>
-                                    <div class="d-flex row justify-content-around">
-                                        <button type="button" class="btn btn-primary btn-warning text-white border border-light border-2">Retirer de la liste</button>
-                                    </div>
-                                </div>
-                                <p>Ajouté le 12/12/2023 13:12:23</p>
-                            </div>
-                            <div class="card text-center btn-custom" style="width: 15rem;">
-                                <img src="../../inc/img/film.svg" style="width: 13rem; margin: auto;" class="card-img-top border border-dark mt-3" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title text-center">Nom oeuvre</h5>
-                                    <div class="d-flex row justify-content-around">
-                                        <button type="button" class="btn btn-primary btn-warning text-white border border-light border-2">Retirer de la liste</button>
-                                    </div>
-                                </div>
-                                <p>Ajouté le 12/12/2023 13:12:23</p>
-                            </div>
-                            <div class="card text-center btn-custom" style="width: 15rem;">
-                                <img src="../../inc/img/film.svg" style="width: 13rem; margin: auto;" class="card-img-top border border-dark mt-3" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title text-center">Nom oeuvre</h5>
-                                    <div class="d-flex row justify-content-around">
-                                        <button type="button" class="btn btn-primary btn-warning text-white border border-light border-2">Retirer de la liste</button>
-                                    </div>
-                                </div>
-                                <p>Ajouté le 12/12/2023 13:12:23</p>
-                            </div>
-                            <div class="card text-center btn-custom" style="width: 15rem;">
-                                <img src="../../inc/img/film.svg" style="width: 13rem; margin: auto;" class="card-img-top border border-dark mt-3" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title text-center">Nom oeuvre</h5>
-                                    <div class="d-flex row justify-content-around">
-                                        <button type="button" class="btn btn-primary btn-warning text-white border border-light border-2">Retirer de la liste</button>
-                                    </div>
-                                </div>
-                                <p>Ajouté le 12/12/2023 13:12:23</p>
-                            </div>
-                            <div class="card text-center btn-custom" style="width: 15rem;">
-                                <img src="../../inc/img/film.svg" style="width: 13rem; margin: auto;" class="card-img-top border border-dark mt-3" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title text-center">Nom oeuvre</h5>
-                                    <div class="d-flex row justify-content-around">
-                                        <button type="button" class="btn btn-primary btn-warning text-white border border-light border-2">Retirer de la liste</button>
-                                    </div>
-                                </div>
-                                <p>Ajouté le 12/12/2023 13:12:23</p>
-                            </div>
-                        </div>
-                        <div class="d-flex  flex-row-reverse bd-highlight">
-                            <button type="button" href="#" class="m-3 btn btn-warning text-white border border-light border-2 small-text">En voir plus</button>
-                        </div>
-                </div>
                 <div class="col-md-12 overflow-auto menu-oeuvre-2">
                     <table class="table table-striped"> <!-- Rendre overflow -->
                         <tbody>
                             <?php 
-                            try{
-                                $req = $bdd->prepare('SELECT nom, id_liste FROM listes WHERE id_user = :id_user');
+                            try {
+                                $req = $bdd->prepare('SELECT nom, id_liste FROM listes WHERE id_user = :id_user AND statut != "invisible"');
                                 $req->bindParam(":id_user", $_SESSION['id_user']);
                                 $req->execute();
 
                                 $res = $req->fetchAll();
 
-                                foreach($res as $liste){
+                                foreach ($res as $liste) {
                                     echo '<tr>
                                                 <td class="table-cell" scope="row">' . $liste['nom'] . '</td>
                                                 <td class="table-cell text-end"><a href="private_list.php?id_liste=' . $liste['id_liste'] . '" class="btn btn-sm btn-outline-secondary">En voir plus</a></td>
                                         </tr>';
                                 }
-                            } catch (PDOException $e){
+                            } catch (PDOException $e) {
                                 echo $e->getMessage();
                             }
                             ?>

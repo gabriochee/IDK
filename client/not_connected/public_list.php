@@ -20,40 +20,10 @@
                 </div>
             </div>
         </div>
-        <div class="container-fluid d-flex flex-column text-center">
-            <h3 class="mt-5 mx-auto col-6">Liste : Nom de la liste</h3>
-            <h5>Publiée le jj/mm/aaaa</h5>
+        <h3 class="text-center mb-3">Rechercher une liste publique : </h3>
+        <div class="container">
+            <input type="search" class="form-control border border-2 border-dark mb-4" placeholder="Rechercher..." aria-label="Search">
         </div>
-
-        <div class="container mt-sm-0 mt-5">
-            <h5>De <a href="#" class="link-dark link-underline-opacity-0 link-underline-opacity-100-hover">Eric123</a>
-                <br>
-                <br>
-                123 abonnées
-                <br>
-                123 critiques publiques
-                <br>
-                12 listes publiques
-                <br>
-                <br>
-                inscrit depuis jj/mm/aaaa</h4>
-        </div>
-
-        <!-- besoin de changer la taille verticale de cette div, si vous trouvez comment faire dites moi svp. -->
-        <div class="container m-0 mt-5 p-0 w-75 list-height m-auto border border-3 border-dark rounded-3 overflow-auto no-overflow-x" style="background-color: #CFDBD5;">
-            <div class="d-lg-flex row gx-2 gy-3 px-5 py-4 row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-1">
-                <?php require_once('../../inc/components/card.php'); ?>
-                <?php require_once('../../inc/components/card.php'); ?>
-                <?php require_once('../../inc/components/card.php'); ?>
-                <?php require_once('../../inc/components/card.php'); ?>
-                <?php require_once('../../inc/components/card.php'); ?>
-            </div>
-        </div>
-
-        <div class="container-fluid text-center my-5">
-            <a href="#" class="btn btn-primary btn-sm btn-warning border border-dark border-2 rounded-3 fs-4 col-md-3">Partager !</a>
-        </div>
-
     </main>
     <?php require_once('../../inc/components/not_connected/footer.php'); ?>
     <script src="../../inc/js/search_movie.js"></script>

@@ -15,7 +15,10 @@
     <?php require_once('../../inc/php/function_login.php'); ?>
     <header class="container w-100 d-flex justify-content-end mt-5 h-100">
         <button class="nav-link btn">
-            <i class="bi bi-moon-stars fs-3" height="100" width="100"></i>
+            <i class="bi bi-moon-stars fs-3 mx-3" height="100" width="100"></i>
+        </button>
+        <button class="nav-link btn" onclick="window.location='home.php'">
+            <i class="bi bi-arrow-return-left fs-3" height="100" width="100"></i>
         </button>
     </header>
     <main>
@@ -51,14 +54,14 @@
                         }
                         ?>
                     </div>
-                    <h5 class="mt-3 text-center">Répondez à cette question afin de prouver que vous n'êtes pas un robot.</h5>
+                    <div class="alert alert-primary mt-3 text-center" role="alert">Répondez à cette question afin de prouver que vous n'êtes pas un robot.</div>
                     <hr>
                     <div class="container text-center">
                         <h3>
                             <?php
                             $request = $bdd->query('SELECT id_captcha FROM captcha;');
                             $result = $request->fetchAll();
-                            $random_id = $result[rand(0, count($result) - 1)][0];
+                            $random_id = $result[rand(0, count($result) - 1)]['id_captcha'];
 
                             $request = $bdd->query('SELECT question FROM captcha WHERE id_captcha = ' . $random_id . ';');
                             $result = $request->fetch();
@@ -77,7 +80,7 @@
 
                         foreach ($result as $key => $value) {
                             echo '<input type="radio" class="btn-check" name="captcha_answer" value="' . $value['id_reponse'] . '" id="option' . $i . '" autocomplete="off">';
-                            echo '<label class="nav-btn btn btn-sm btn-warning border border-dark border-2 rounded-3 fs-sm-5 px-3" for="option' . $i . '">' . $value['contenu'] . '</label>';
+                            echo '<label class="w-100 nav-btn btn btn-sm btn-info border border-dark border-2 rounded-3 fs-sm-5 px-3" for="option' . $i . '">' . $value['contenu'] . '</label>';
                             $i++;
                         }
                         ?>
