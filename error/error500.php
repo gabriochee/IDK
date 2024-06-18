@@ -11,50 +11,14 @@
 </head>
 <body class="container-fluid min-vh-100 error-background d-flex flex-column text-center align-items-center">
     <main class="container-fluid d-flex no-wrap flex-column">
-        <div class="m-auto d-flex justify-content-between col-10">
-            <img src="../inc/img/logo.svg" class="img img-fluid" width="120px">
-            <img src="../inc/img/logo.svg" class="img img-fluid" width="120px">
-            <img src="../inc/img/logo.svg" class="img img-fluid" width="120px">
-            <img src="../inc/img/logo.svg" class="img img-fluid" width="120px">
-            <img src="../inc/img/logo.svg" class="img img-fluid" width="120px">
-            <img src="../inc/img/logo.svg" class="img img-fluid" width="120px">
+        <div class="row">
+            <div class="col-lg-6 m-auto p-4">
+                <a href="<?php echo $direction; ?>"><img src="../../inc/img/logo.svg" alt="Logo IDK" class="navbar-brand img-fluid my-5" width="150px" height="150px"></a>
+            </div>
         </div>
-        <div class="m-auto d-flex justify-content-evenly col-10">
-            <img src="../inc/img/logo.svg" class="img img-fluid" width="120px">
-            <img src="../inc/img/logo.svg" class="img img-fluid" width="120px">
-            <img src="../inc/img/logo.svg" class="img img-fluid" width="120px">
-            <img src="../inc/img/logo.svg" class="img img-fluid" width="120px">
-            <img src="../inc/img/logo.svg" class="img img-fluid" width="120px">
-            <img src="../inc/img/logo.svg" class="img img-fluid" width="120px">
-            <img src="../inc/img/logo.svg" class="img img-fluid" width="120px">
-            <img src="../inc/img/logo.svg" class="img img-fluid" width="120px">
-        </div>
-        <div>
-            <h1>Erreur 500, vous allez être rediriger automatique d'ici 30 secondes vers la page d'acceuil</h1>
-            <!-- add timer -->
-            <a href="<?php echo $direction; ?>"><img src="../inc/img/logo.svg" class="img img-fluid"></a>
-        </div>
-        <div class="m-auto d-flex justify-content-between col-10">
-            <img src="../inc/img/logo.svg" class="img img-fluid" width="120px">
-            <img src="../inc/img/logo.svg" class="img img-fluid" width="120px">
-            <img src="../inc/img/logo.svg" class="img img-fluid" width="120px">
-            <img src="../inc/img/logo.svg" class="img img-fluid" width="120px">
-            <img src="../inc/img/logo.svg" class="img img-fluid" width="120px">
-            <img src="../inc/img/logo.svg" class="img img-fluid" width="120px">
-            <img src="../inc/img/logo.svg" class="img img-fluid" width="120px">
-            <img src="../inc/img/logo.svg" class="img img-fluid" width="120px">
-        </div>
-        <div class="m-auto d-flex justify-content-evenly col-10">
-            <img src="../inc/img/logo.svg" class="img img-fluid" width="120px">
-            <img src="../inc/img/logo.svg" class="img img-fluid" width="120px">
-            <img src="../inc/img/logo.svg" class="img img-fluid" width="120px">
-            <img src="../inc/img/logo.svg" class="img img-fluid" width="120px">
-            <img src="../inc/img/logo.svg" class="img img-fluid" width="120px">
-            <img src="../inc/img/logo.svg" class="img img-fluid" width="120px">
-            <img src="../inc/img/logo.svg" class="img img-fluid" width="120px">
-            <img src="../inc/img/logo.svg" class="img img-fluid" width="120px">
-        </div>
+        <h1>Erreur 500, vous allez être rediriger automatique d'ici 30 secondes vers la page d'acceuil</h1>
     </main>
+    <script> setTimeout(function() { window.location.href='../client/not_connected/home.php';}, 5000); // server_modif</script>
     <script src="../inc/library/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -102,7 +102,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function displayResults() {
-        // console.log(JSON.stringify(answers));
         app.innerHTML = `
             <div class="container text-center">
                 <h2 class="my-4">Vos recommandations :</h2>
@@ -120,13 +119,13 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .then(response => response.json())
         .then(data => {
-            console.log("Data received from server:", data); 
+            // console.log("Data received from server:", data); 
             app.innerHTML = `
                 <div class="container">
                     <h2 class="text-center my-4">Vos recommandations :</h2>
                     <ul class="list-group">
                         ${data.movies.map(movie => `
-                            <li class="list-group-item">
+                            <li class="list-group-item mt-1">
                                 <a href="oeuvre.php?mv=${movie.id_work}" class="text-decoration-none">
                                     ${movie.primaryTitle}
                                 </a>
@@ -137,7 +136,6 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
         })
         .catch(error => {
-            // console.error('Erreur :', error);
             app.innerHTML = `
                 <div class="container text-center">
                     <h2 class="text-center my-4">Erreur</h2>

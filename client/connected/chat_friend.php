@@ -28,36 +28,42 @@
 <body>
     <?php require_once('../../inc/components/connected/header.php'); ?>
     <?php require_once('../../inc/php/function_chat_friend.php'); ?>
-    <div class="col-lg-6 m-auto p-4">
-        <h3 class="text-center mt-4">Messagerie</h3>
-    </div>
-    <section>
-        <div class="container py-5">
+    <main>
+        <div class="col-lg-6 m-auto p-4">
+            <h3 class="text-center mt-4">Messagerie</h3>
+        </div>
+        <div class="container py-3">
             <div class="row">
+                <!-- Liste des amis -->
                 <div class="col-md-6 col-lg-5 col-xl-4 mb-4 mb-md-0 border-end border-2 border-dark">
-                    <div class="container mt-5">
-                        <div class="row" id="friendsList"></div>
+                    <div class="container mt-5 p-3 bg-light shadow-sm rounded">
+                        <div class="row" id="friendsList">
+                            <!-- Les amis seront affichés ici -->
+                        </div>
                     </div>
                 </div>
+                <!-- Zone de messagerie -->
                 <div class="col-md-6 col-lg-7 col-xl-8">
-                    <h5 class="font-weight-bold mb-3 text-center" id="friend-name"></h5>
-                    <div class="message-container">
+                    <h5 class="font-weight-bold mb-3 text-center" id="friend-name">Nom de l'ami</h5>
+                    <div class="message-container border border-dark rounded p-3 bg-white shadow-sm">
                         <ul class="list-unstyled">
-                            <div class="container mt-5">
-                                <div class="row" id="message_list"></div>
+                            <div class="container mt-5 p-3">
+                                <div class="row" id="message_list">
+                                    <!-- Les messages seront affichés ici -->
+                                </div>
                             </div>
                         </ul>
                     </div>
                     <form id="myMessage">
-                        <div data-mdb-input-init class="form-outline my-3">
-                            <textarea class="form-control" id="messageText" rows="4" name="user_message"></textarea>
+                        <div class="form-outline my-3">
+                            <textarea class="form-control border border-dark" id="messageText" rows="4" name="user_message" placeholder="Écrire un message..."></textarea>
                         </div>
-                        <button class="w-100 btn btn-secondary btn-warning border-dark mt-2" type="submit" data-mdb-button-init data-mdb-ripple-init name="send_message">Envoyer</button>
+                        <button class="w-100 btn btn-warning border-dark mt-2" type="submit" name="send_message">Envoyer</button>
                     </form>
                 </div>
             </div>
         </div>
-    </section>
+    </main>
     <?php require_once('../../inc/components/connected/footer.php'); ?>
     <script src="../../inc/library/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script>

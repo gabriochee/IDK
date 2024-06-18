@@ -10,8 +10,7 @@
     <title>IDK</title>
 </head>
 <body id="backoffice_edit_captcha">
-    <?php 
-    require_once('../inc/components/backoffice/header.php'); ?>
+<?php require_once('../inc/components/backoffice/header.php'); ?>
     <div class="container-fluid">
         <div class="row">
             <?php require_once('../inc/components/backoffice/sidebar.php'); ?>

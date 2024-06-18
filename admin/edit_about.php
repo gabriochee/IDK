@@ -35,7 +35,7 @@
                 </div>
                 
                 <div class="d-flex justify-content-center">
-                    <button class="nav-btn btn btn-primary btn-lg btn-block btn-warning text-white border border-light border-2 rounded-3 w-75 my-3 d-block" id="modifier-about">Modifier</button>
+                    <button class="nav-btn btn btn-lg btn-block btn-warning text-white border border-light border-2 rounded-3 w-75 my-3 d-block" id="modifier-about">Modifier</button>
                 </div>
 
                 <form method="POST" id="form-edit-about" class="d-none my-5">

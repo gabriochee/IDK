@@ -12,7 +12,7 @@ $file_origin = pathinfo($parsed_origin, PATHINFO_FILENAME);
 $segments_location = explode('/', trim($location, '/'));
 $segments_origin = explode('/', trim($origin, '/'));
 
-
+// server_modif
 if (in_array("client", $segments_location)) {
     if (in_array("connected", $segments_location)) {
         if (!isset($_SESSION['connected'])) {

@@ -13,32 +13,27 @@
 
 <body id="connected_my_friend_list">
     <?php require_once('../../inc/components/connected/header.php'); ?>
-    <?php require_once('../../inc/php/db.php'); ?>
     <?php require_once('../../inc/php/affichage_data_user.php'); ?>
     <?php require_once('../../inc/php/function_search_user.php'); ?>
     <main>
         <div class="container mt-5 mb-5">
             <div class="row">
                 <div class="col-md-4 border-right">
-                    <div class="card border-0" style="background-color: transparent;">
-                        <img src="../../inc/img/user_img/<?php echo htmlspecialchars($rep_data_user1['photo_utilisateur']); ?>" class="card-img-top img-fluid" alt="Photo de l'utilisateur">
-                        <div class="card-body text-center">
-                            <span class="text-black-50">#<?php echo $rep_data_user1['id_user']; ?></span>
-                            <h5 class="card-title"><?php echo $rep_data_user1['pseudo']; ?></h5>
-                            <p class="card-text"><?php echo $rep_data_user1['nom'] . ' ' . $rep_data_user1['prenom']; ?></p>
-                            <span class="badge bg-secondary"><?php echo $rep_data_user2['count(*)']; ?> amis</span>
-                            <div class="mt-3">
-                                <button type="button" class="btn btn-sm btn-warning w-100 mt-3">Modifier profil</button>
-                                <button type="button" class="btn btn-sm btn-warning w-100 mt-1">Modifier photo</button>
-                            </div>
+                    <div class="card card-profile text-center border-0" style="background-color: transparent;">
+                        <div class="card-body">
+                            <img src="../../inc/img/user_img/<?php echo htmlspecialchars($rep_data_user1['photo_utilisateur']); ?>" alt="Photo de l'utilisateur" class="mb-3 card-img-top img-fluid rounded-circle">
+                            <h4 class="card-title"><?php echo $rep_data_user1['pseudo'] .' (#'. $rep_data_user1['id_user'] .')'; ?></h4>
+                            <p class="card-text text-start my-0"><?php echo $rep_data_user1['nom'] .' '. $rep_data_user1['prenom']; ?></p>
+                            <p class="card-text text-start my-0">Inscrit depuis : <?php echo $rep_data_user1['date_inscription']; ?></p>
+                            <span class="badge bg-secondary mt-3"><?php echo $rep_data_user2['count(*)']; ?> amis</span>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-8 border-end">
+                <div class="col-md-8">
                     <div class="py-3 d-flex justify-content-center">
                         <div class="row w-100">
                             <div class="col-12 border-1">
-                                <div class="col-md-12 overflow-auto menu-oeuvre-2">
+                                <div class="col-md-12 overflow-auto menu-oeuvre-2" style="max-height: 500px;">
                                     <h3 class="mb-3">Mes demandes envoyées :</h3>
                                     <table class="table table-striped table-sm border border-1 border-dark">
                                         <tbody>
@@ -136,9 +131,4 @@
     <script src="../../inc/js/friend_lists.js"></script>
     <script src="../../inc/library/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
-
-</html><button type="button" class="btn btn-sm btn-outline-secondary mt-3" onclick="window.location='chat_friend.php'">Contacter</button>
-                                    <button type="button" class="btn btn-sm btn-outline-secondary mt-1" onclick="showFriendLists(this)" value=<?php echo $rep4['id_user'] ?> data-bs-toggle="modal" data-bs-target="#listsModal">Voir les listes</button>
-
-
-                                    <?php echo '<a href="my_friend_list.php?demande=supp_friend&id=' . $rep4['id_user'] . '" class="nav-btn btn btn-sm btn-outline-secondary mt-1" type="submit" name="envoyer_ami">Supprimer</a>'; ?>
+</html>
