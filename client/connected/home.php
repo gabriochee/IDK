@@ -1,5 +1,5 @@
 <?php require_once('../../inc/php/access.php'); ?>
-<?php require('../../inc/php/display_home.php'); ?>
+<?php require_once('../../inc/php/display_home.php'); ?>
 <?php require_once('../../inc/php/affichage_data_user.php'); ?>
 <?php require_once('../../inc/php/function_search_user.php'); ?>
 <!DOCTYPE html>
