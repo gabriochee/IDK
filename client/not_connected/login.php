@@ -22,16 +22,11 @@
         </button>
     </header>
     <main>
-        <div class="container text-center m-auto">
-            <div class="row">
-                <div class="col-lg-6 m-auto p-3">
-                    <img src="../../inc/img/logo.svg" alt="Logo IDK" class="navbar-brand img-fluid my-4" width="150px" height="150px">
-                </div>
-            </div>
-        </div>
-
-        <div class="container col-sm-6 col-xl-4">
+        <div class="container col-sm-6">
             <div class="row g-3">
+                <div class="d-flex m-auto col-lg-6 p-3 justify-content-center mb-3">
+                    <img src="../../inc/img/logo.svg" alt="Logo IDK" class="navbar-brand img-fluid" width="150px" height="150px">
+                </div>
                 <form action="login.php" class="needs-validation" method="POST">
                     <div class="col-12">
                         <input type="text" class="form-control p-2" id="username" placeholder="Addresse email/pseudo" name="email" value="" required="">
@@ -98,15 +93,7 @@
                 </div>
             </div>
         </div>
-        <div class="container text-center m-auto">
-            <div class="row">
-            </div>
-        </div>
 
-        <div class="container col-sm-6 col-xl-4">
-            <form action="captcha_verify.php" class="needs-validation" method="get">
-            </form>
-        </div>
     </main>
     <script src="../../inc/library/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
