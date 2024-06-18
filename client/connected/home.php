@@ -1,4 +1,7 @@
 <?php require_once('../../inc/php/access.php'); ?>
+<?php require('../../inc/php/display_home.php'); ?>
+<?php require_once('../../inc/php/affichage_data_user.php'); ?>
+<?php require_once('../../inc/php/function_search_user.php'); ?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -11,8 +14,6 @@
 </head>
 <body id="connected_home">
     <?php require_once('../../inc/components/connected/header.php'); ?>
-    <?php require_once('../../inc/php/affichage_data_user.php'); ?>
-    <?php require_once('../../inc/php/function_search_user.php'); ?>
     <main>
         <div class="container mt-5 mb-5">
             <div class="row">
