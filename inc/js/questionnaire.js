@@ -134,7 +134,17 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .then(response => response.json())
         .then(data => {
-            console.log("Data received from server:", data); // Ajoutez cette ligne pour voir les données reçues
+
+            let params = {};
+
+            for (const movie in data.movies){
+                params['movie' + movie] = data.movies[movie].id_work;
+            }
+            
+            window.location.replace("../../client/connected/questionnaire.php?" + new URLSearchParams(params));
+
+            return;
+            console.log("Data received from server:", data.movies); // Ajoutez cette ligne pour voir les données reçues
             app.innerHTML = `
                 <h2>Vos recommandations :</h2>
                 <ul>
@@ -148,5 +158,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    renderQuestion();
+    const currentURL = new URL(document.URL);
+    const params = new URLSearchParams(currentURL.search);
+
+    if (params.size == 0){
+        renderQuestion();
+    }
 });
