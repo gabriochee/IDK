@@ -61,7 +61,7 @@
                             <?php
                             $request = $bdd->query('SELECT id_captcha FROM captcha;');
                             $result = $request->fetchAll();
-                            $random_id = $result[rand(0, count($result) - 1)][0];
+                            $random_id = $result[rand(0, count($result) - 1)]['id_captcha'];
 
                             $request = $bdd->query('SELECT question FROM captcha WHERE id_captcha = ' . $random_id . ';');
                             $result = $request->fetch();

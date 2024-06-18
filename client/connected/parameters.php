@@ -23,7 +23,7 @@
             <div>
                 <form method = "POST" enctype= "multipart/form-data" action ="parameters.php">
                     <input type="file" name="image"/>
-                    <button type="submit" name ="submit_img">Modifier photo profil</button>
+                    <button type="submit" name ="submit_img">Modifier photo profil (PNG seulement)</button>
                 </form>
             </div>
             <img src="../../inc/img/user_img/<?php echo htmlspecialchars($rep_data_user1['photo_utilisateur']); ?>" alt="Photo de l'utilisateur" width="150px">

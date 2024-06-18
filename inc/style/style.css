@@ -3,8 +3,26 @@
 --------------------------- GLOBAL -------------------------
 ------------------------------------------------------------
 ------------------------------------------------------------ */
-body, .bg-idk{
+body, .bg-idk {
   background-color: #E8EDDF;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+body.dark-mode, .bg-idk.dark-mode {
+  background-color: #121212;
+  color: white;
+}
+
+#toggle-dark-mode {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  padding: 10px 20px;
+  background-color: #444;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
 }
 
 .backoffice body {
