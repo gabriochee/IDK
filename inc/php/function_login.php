@@ -17,7 +17,7 @@ if (isset($_POST['captcha_id']) && isset($_POST['captcha_answer'])) {
     }
 }
 
-if(isset($_POST['connecter'])) {
+if(isset($_POST['connecter']) && isset($_POST['captcha_answer'])) {
 
     $email = $_POST['email'];
     $password = $_POST['password'];

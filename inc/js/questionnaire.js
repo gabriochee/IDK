@@ -145,5 +145,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    renderQuestion();
+    const currentURL = new URL(document.URL);
+    const params = new URLSearchParams(currentURL.search);
+
+    if (params.size == 0){
+        renderQuestion();
+    }
 });

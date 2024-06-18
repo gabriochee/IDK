@@ -47,10 +47,9 @@
                 :id_user, :id_bloc, NOW(), :before_maj_titre, :before_maj_corps, :after_maj_titre, :after_maj_corps
             )
         ");
-        // Avant mise à jour
         $req5->bindParam(':before_maj_titre', $recup_before_update['titre']);
         $req5->bindParam(':before_maj_corps', $recup_before_update['corps']);
-        // Après mise à jour
+        
         $req5->bindParam(':after_maj_titre', $subject_update);
         $req5->bindParam(':after_maj_corps', $corps_message_update);
         $req5->bindParam(':id_user', $_SESSION['id_user']);
