@@ -75,21 +75,21 @@
 
                         foreach ($result as $key => $value) {
                             echo '<input type="radio" class="btn-check" name="captcha_answer" value="' . $value['id_reponse'] . '" id="option' . $i . '" autocomplete="off">';
-                            echo '<label class="w-100 nav-btn btn btn-sm btn-info border border-dark border-2 rounded-3 fs-sm-5 px-3" for="option' . $i . '">' . $value['contenu'] . '</label>';
+                            echo '<label class="w-100 nav-btn btn btn-sm btn-info border border-dark fs-sm-5 px-3" for="option' . $i . '">' . $value['contenu'] . '</label>';
                             $i++;
                         }
                         ?>
                         <input type="hidden" id="captcha_id" name="captcha_id" value="<?php echo $random_id; ?>">
                     </div>
                     <div class="col-12 mt-3">
-                        <button class="w-100 btn btn-secondary btn-lg btn-warning border-dark border-2" type="submit" name="connecter">Connexion</button>
+                        <button class="w-100 btn btn-warning border-dark " type="submit" name="connecter">Connexion</button>
                     </div>
                 </form>
                 <div class="col-12">
-                    <button class="w-100 btn btn-secondary btn-lg btn-warning border-dark border-2" type="submit" onclick="window.location='signin.php'">S'inscrire</button>
+                    <button class="w-100 btn btn-warning border-dark " type="submit" onclick="window.location='signin.php'">S'inscrire</button>
                 </div>
                 <div class="col-12 mt-1">
-                    <button class="w-100 btn btn-secondary btn-lg btn-warning border-dark border-2" type="submit">Mot de passe oublié</button>
+                    <button class="w-100 btn btn-warning border-dark " type="submit">Mot de passe oublié</button>
                 </div>
             </div>
         </div>

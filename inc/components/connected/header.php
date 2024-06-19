@@ -61,7 +61,7 @@
   </div>
   <?php 
     if (isset($_SESSION['role_user']) &&  $_SESSION['role_user'] == 'admin') { 
-      echo '<form method="" action="../../admin/home_backoffice.php"><button type="submit" name="" class="nav-btn btn w-25 btn-info border border-light border-2 rounded-3 d-flex m-auto mt-3 justify-content-center">Backoffice</button></form>';
+      echo '<form method="" action="../../admin/home.php"><button type="submit" name="" class="nav-btn btn w-25 btn-info border border-light border-2 rounded-3 d-flex m-auto mt-3 justify-content-center">Backoffice</button></form>';
       echo '<form method="" action="../../client/not_connected/home.php"><button type="submit" name="" class="nav-btn btn w-25 btn-info border border-light border-2 rounded-3 d-flex m-auto mt-2 justify-content-center">Acceuil non connecté</button></form>';
     }
   ?>

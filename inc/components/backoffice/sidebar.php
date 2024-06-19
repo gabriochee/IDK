@@ -2,7 +2,7 @@
     <div class="position-sticky pt-3">
         <ul class="nav flex-column mt-5">
             <li class="nav-item">
-                <a <?php if(basename($_SERVER['PHP_SELF']) == 'home_backoffice.php') echo 'class="nav-link active"'; ?> class="nav-link" aria-current="page" href="../admin/home_backoffice.php">Acceuil</a>
+                <a <?php if(basename($_SERVER['PHP_SELF']) == 'home.php') echo 'class="nav-link active"'; ?> class="nav-link" aria-current="page" href="../admin/home.php">Acceuil</a>
             </li>
             <li class="nav-item">
                 <a <?php if(basename($_SERVER['PHP_SELF']) == 'edit_about.php') echo 'class="nav-link active"'; ?> class="nav-link" href="../admin/edit_about.php">Edit : À propos</a>

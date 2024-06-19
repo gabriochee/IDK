@@ -16,8 +16,7 @@
         <div class="row">
             <?php require_once('../inc/components/backoffice/sidebar.php'); ?>
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-                <div class="table-responsive mt-4">
-                    <!-- ajouter un overflow -->
+                <div class="table-responsive mt-4"  style="max-height: 1000px;">
                     <table class="table table-striped table-sm border border-2 border-dark">
                         <tbody>
                         <?php 
