@@ -35,6 +35,8 @@
                         $result = $bdd->query($query);
                         $fetchedResult = $result->fetchAll();
                         
+                        //var_dump($fetchedResult);
+                        
                         if (!$fetchedResult) {
                             echo 'vide.';
                         } else if (str_contains($query, "SHOW COLUMNS")) {
@@ -44,14 +46,14 @@
                             }
                         } else if (str_contains($query, "SELECT")) {
                             echo '<table class="table"><tr>';
-                            for ($i = 0; $i < count($fetchedResult[0]); $i += 2) {
-                                echo "<th>" . array_keys($fetchedResult[0])[$i] . "</th>";
+                            foreach ($fetchedResult[0] as $attribute => $value) {
+                                echo "<th>" . $attribute . "</th>";
                             }
                             echo '</tr>';
                             foreach ($fetchedResult as $row) {
                                 echo '<tr>';
-                                for ($i = 0; $i < count($fetchedResult[0]); $i++) {
-                                    echo "<td>" . $row[$i] . "</td>";
+                                foreach ($row as $key => $value){
+                                    echo "<td>" . $value . "</td>";
                                 }
                                 echo '</tr>';
                             }
