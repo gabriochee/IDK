@@ -4,7 +4,6 @@
     
     
 
-    // Fetch users
     $req1 = $bdd->prepare("SELECT pseudo, nom, prenom, id_user FROM utilisateur");
     $req1->execute();
     $rep1 = $req1->fetchAll();
@@ -18,7 +17,7 @@
     );
     $rep2 = $req2->fetchAll();
 
-    //on veut afficher ceux que nous avons fait une demande d'ami
+    //les demandes d'ami pour nous
     $req3 = $bdd->prepare("SELECT pseudo, nom, prenom, id_user FROM utilisateur INNER JOIN demande_ami ON utilisateur.id_user = demande_ami.receveur WHERE demande_ami.envoyeur = :envoyeur");
     $req3->execute(
         array(
@@ -27,7 +26,7 @@
     );
     $rep3 = $req3->fetchAll();
     
-    //on veut afficher nos amis
+    //aficher nos amis
     $req4 = $bdd->prepare("SELECT pseudo, nom, prenom, id_user,photo_utilisateur FROM utilisateur INNER JOIN ami ON (utilisateur.id_user = ami.id_user_1 AND ami.id_user_2 = :me) OR (utilisateur.id_user = ami.id_user_2 AND ami.id_user_1 = :me) WHERE utilisateur.id_user != :me");
     $req4->execute(
         array(
@@ -36,7 +35,6 @@
     );
     $rep4 = $req4->fetchAll();
 
-    //vérifier si le get de demande et id ont bien recupéré une valeur
     if(isset($_GET['demande']) && isset($_GET['id'])){
         //
         if(isset($_SESSION['id_user'])){
@@ -91,7 +89,6 @@
         }
         
     }
-    //devenir vraiment ami
     function being_friend($my_user_id, $other_user_id, $bdd){
         try{
             $devenir_ami="INSERT INTO ami(id_user_1, id_user_2, date_amitie) VALUES (:me, :other, NOW())";
@@ -104,7 +101,7 @@
             die($e->getMessage());
         }
     }
-    //demande en attente
+
     function envoyer_demande($my_user_id, $other_user_id, $bdd) {
         try{
             $demande_ami = "INSERT INTO demande_ami(envoyeur, receveur) VALUES (:me, :other)";
@@ -119,7 +116,7 @@
         }
         
     }
-    //regarder s'il y a une demande d'ami en attente
+
     function check_friend_request_status_from_me($my_user_id, $other_user_id, $bdd) {
         try {
             $check_status_friend = "SELECT COUNT(*) FROM demande_ami WHERE envoyeur = :me AND receveur = :other";
@@ -145,9 +142,8 @@
             die($e->getMessage());
         }
     }
-    //
 
-    //annuler la demande d'ami en attente
+
     function cancel_request($my_user_id, $other_user_id, $bdd){
         try{
             $cancel_request= $bdd->prepare("DELETE FROM demande_ami WHERE envoyeur=:me AND receveur= :other");
@@ -159,7 +155,7 @@
             die($e->getMessage());
         }
     }
-    //check si on est déjà ami avec cette personne
+
     function is_friend_already($my_user_id, $other_user_id, $bdd){
         try{
             $check_friend = $bdd->prepare("SELECT COUNT(*) FROM ami WHERE (id_user_1= :me AND id_user_2=:other) OR (id_user_2= :me AND id_user_1= :other)");
@@ -171,7 +167,6 @@
             die($e->getMessage());
         }
     }
-    //supprimer un ami
     function supp_friend($my_user_id, $other_user_id, $bdd){
         try{
             $supp_friend = $bdd->prepare("DELETE FROM ami WHERE (id_user_1= :me AND id_user_2=:other) OR (id_user_2= :me AND id_user_1= :other)");

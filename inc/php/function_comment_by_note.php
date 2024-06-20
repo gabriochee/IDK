@@ -9,7 +9,6 @@ try {
         $note = $data['note'];
         $idMovie = $data['idMovie2'];
 
-        // Préparation de la requête SQL
         $req2 = $bdd->prepare("SELECT a.critique, a.date_avis, a.statut, a.note, u.id_user, u.pseudo
                                 FROM avis AS a
                                 JOIN utilisateur AS u ON a.id_user = u.id_user
@@ -21,17 +20,14 @@ try {
         $req2->bindParam(":id_work", $idMovie);
         $req2->execute();
 
-        // Récupération des résultats
         $reviews = $req2->fetchAll(PDO::FETCH_ASSOC);
 
 
-        // Construction de la réponse JSON
         $response = [
             "status" => "success",
             "reviews" => $reviews
         ];
 
-        // Envoi de la réponse JSON
         echo json_encode($response);
     }else{
         echo json_encode(["status" => "error", "message" => "La note n'est pas spécifie."]);

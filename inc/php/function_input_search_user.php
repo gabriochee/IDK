@@ -15,7 +15,6 @@ try {
         $keyword_user = $_GET['keyword_user'];
         require_once("db.php");
 
-        // Configure PDO pour afficher les erreurs
         $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         $id_user = $_SESSION['id_user'];

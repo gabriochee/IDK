@@ -6,12 +6,48 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="navbar-nav">
-        <div class="nav-item text-nowrap">
-            <form method="" action="../inc/php/logout.php">
-                <button type="submit" class="btn">
+        <div class="nav-item text-nowrap d-flex align-items-center">
+            <form method="" action="../inc/php/logout.php" class="me-2">
+                <button type="submit" class="btn btn-link p-0">
                     <a class="nav-link px-3">Déconnexion</a>
                 </button>
             </form>
+            <button id="dark-mode" class="nav-link btn me-4">
+                <i class="bi bi-moon-stars"></i>
+            </button>
         </div>
     </div>
+    <script>
+
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const toggleButton = document.getElementById('dark-mode');
+
+            const enableDarkMode = () => {
+                document.body.classList.add('dark-mode');
+                localStorage.setItem('dark-mode', 'enabled');
+            };
+
+            const disableDarkMode = () => {
+                document.body.classList.remove('dark-mode');
+                localStorage.setItem('dark-mode', 'disabled');
+            };
+
+            if (localStorage.getItem('dark-mode') === 'enabled') {
+                enableDarkMode();
+            } else if (localStorage.getItem('dark-mode') === 'disabled') {
+                disableDarkMode();
+            } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                enableDarkMode();
+            }
+
+            toggleButton.addEventListener('click', () => {
+                if (document.body.classList.contains('dark-mode')) {
+                    disableDarkMode();
+                } else {
+                    enableDarkMode();
+                }
+            });
+        });
+
+    </script>
 </header>

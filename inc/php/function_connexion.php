@@ -35,7 +35,6 @@ if (isset($_POST['code'])) {
         $req->bindValue(':email', $email, PDO::PARAM_STR);
         $req->bindValue(':verification_code', $verification_code, PDO::PARAM_STR);
         $req->execute();
-        //vérif si la requete a fonctionné vérifie si la requete a modifié une ligne dans la bdd ou pas ?
         if ($req->rowCount() > 0) {
             if ($mail->send()) {
                 header('Location: confirmation_connexion.php?email_sent=true');

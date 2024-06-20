@@ -51,8 +51,8 @@
                 </a>
               </li>
               <li class="nav-item">
-                <button class="nav-link btn">
-                  <i class="bi bi-moon-stars"></i>
+              <button id="dark-mode" class="nav-link btn">
+                  <i class ="bi bi-moon-stars"></i>
                 </button>
               </li>
             </ul>
@@ -70,5 +70,39 @@
   <form class="d-flex justify-content-center col-5 m-auto mt-2 mb-2">
     <input type="search" onkeydown="searchKeywordMovie()" class="form-control bg-dark text-white form-control-dark" placeholder="Rechercher une oeuvre !" aria-label="Search" id="navbar_movie">
   </form>
+
+  <script>
+
+  document.addEventListener('DOMContentLoaded', (event) => {
+      const toggleButton = document.getElementById('dark-mode');
+
+      const enableDarkMode = () => {
+          document.body.classList.add('dark-mode');
+          localStorage.setItem('dark-mode', 'enabled');
+      };
+
+      const disableDarkMode = () => {
+          document.body.classList.remove('dark-mode');
+          localStorage.setItem('dark-mode', 'disabled');
+      };
+
+      if (localStorage.getItem('dark-mode') === 'enabled') {
+          enableDarkMode();
+      } else if (localStorage.getItem('dark-mode') === 'disabled') {
+          disableDarkMode();
+      } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          enableDarkMode();
+      }
+
+      toggleButton.addEventListener('click', () => {
+          if (document.body.classList.contains('dark-mode')) {
+              disableDarkMode();
+          } else {
+              enableDarkMode();
+          }
+      });
+  });
+
+  </script>
   <div id="resultats_movie"></div>
 </header>

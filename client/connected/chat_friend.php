@@ -17,7 +17,7 @@
             font-size: 0.5em;
         }
         .message-container {
-            max-height: 400px; /* Définissez une hauteur maximale en fonction de vos besoins */
+            max-height: 400px; 
             overflow-y: scroll;
         }
         .custom-no-underline {
@@ -34,22 +34,19 @@
         </div>
         <div class="container py-3">
             <div class="row">
-                <!-- Liste des amis -->
                 <div class="col-md-6 col-lg-5 col-xl-4 mb-4 mb-md-0 border-end border-2 border-dark">
                     <div class="container mt-5 p-3 bg-light shadow-sm rounded">
                         <div class="row" id="friendsList">
-                            <!-- Les amis seront affichés ici -->
                         </div>
                     </div>
                 </div>
-                <!-- Zone de messagerie -->
                 <div class="col-md-6 col-lg-7 col-xl-8">
                     <h5 class="font-weight-bold mb-3 text-center" id="friend-name">Nom de l'ami</h5>
                     <div class="message-container border border-dark rounded p-3 bg-white shadow-sm">
                         <ul class="list-unstyled">
                             <div class="container mt-5 p-3">
                                 <div class="row" id="message_list">
-                                    <!-- Les messages seront affichés ici -->
+                                    
                                 </div>
                             </div>
                         </ul>

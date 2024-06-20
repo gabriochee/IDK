@@ -49,7 +49,7 @@
                 </form>
               </li>
               <li class="nav-item">
-                <button id="toggle-dark-mode" class="nav-link btn">
+                <button id="dark-mode" class="nav-link btn">
                   <i class ="bi bi-moon-stars"></i>
                 </button>
               </li>
@@ -68,12 +68,12 @@
   <form class="d-flex justify-content-center col-5 m-auto mt-2 mb-2">
     <input type="search" onkeydown="searchKeywordMovie()" class="form-control bg-dark text-white form-control-dark" placeholder="Rechercher une oeuvre !" aria-label="Search" id="navbar_movie">
   </form>
+
   <script>
 
   document.addEventListener('DOMContentLoaded', (event) => {
-      const toggleButton = document.getElementById('toggle-dark-mode');
+      const toggleButton = document.getElementById('dark-mode');
 
-      // Fonction pour activer ou désactiver le mode sombre
       const enableDarkMode = () => {
           document.body.classList.add('dark-mode');
           localStorage.setItem('dark-mode', 'enabled');
@@ -84,7 +84,6 @@
           localStorage.setItem('dark-mode', 'disabled');
       };
 
-      // Vérifiez si l'utilisateur a déjà choisi un mode
       if (localStorage.getItem('dark-mode') === 'enabled') {
           enableDarkMode();
       } else if (localStorage.getItem('dark-mode') === 'disabled') {
@@ -103,5 +102,7 @@
   });
 
   </script>
+
+  
   <div id="resultats_movie"></div>
 </header>

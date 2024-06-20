@@ -440,18 +440,14 @@
 
 
                         data.reviews.forEach(review => {
-                        // Create a new paragraph element for each review
                         const paragraph = document.createElement('p');
                         
-                        // Construct the content of the paragraph
                         paragraph.textContent = `${review.date_avis} - ${review.pseudo} -${review.critique} `;
                         
-                        // Append the paragraph to the comments container
                         commentsContainer.appendChild(paragraph);
                     });
 
 
-                        // Display the comments section for the selected note
                     }
                 })
                 .catch(error => {

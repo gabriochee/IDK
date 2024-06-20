@@ -80,7 +80,7 @@
 
                 <h3 class="text-center">Listes : </h3>
                 <div class="col-md-12 overflow-auto menu-oeuvre-2">
-                    <table class="table table-striped"> <!-- Rendre overflow -->
+                    <table class="table table-striped"> 
                         <tbody>
                             <?php 
                             try {

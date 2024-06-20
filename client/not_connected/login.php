@@ -14,7 +14,7 @@
 <body id="not_connected_login">
     <?php require_once('../../inc/php/function_login.php'); ?>
     <header class="container w-100 d-flex justify-content-end mt-5 h-100">
-        <button class="nav-link btn">
+        <button  id="dark-mode" class="nav-link btn">
             <i class="bi bi-moon-stars fs-3 mx-3" height="100" width="100"></i>
         </button>
         <button class="nav-link btn" onclick="window.location='home.php'">
@@ -27,6 +27,7 @@
                 <div class="col-lg-6 m-auto p-3">
                     <img src="../../inc/img/logo.svg" alt="Logo IDK" class="navbar-brand img-fluid my-4" width="150px" height="150px">
                 </div>
+                
             </div>
         </div>
 
@@ -108,6 +109,39 @@
             </form>
         </div>
     </main>
+    <script>
+
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const toggleButton = document.getElementById('dark-mode');
+
+            const enableDarkMode = () => {
+                document.body.classList.add('dark-mode');
+                localStorage.setItem('dark-mode', 'enabled');
+            };
+
+            const disableDarkMode = () => {
+                document.body.classList.remove('dark-mode');
+                localStorage.setItem('dark-mode', 'disabled');
+            };
+
+            if (localStorage.getItem('dark-mode') === 'enabled') {
+                enableDarkMode();
+            } else if (localStorage.getItem('dark-mode') === 'disabled') {
+                disableDarkMode();
+            } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                enableDarkMode();
+            }
+
+            toggleButton.addEventListener('click', () => {
+                if (document.body.classList.contains('dark-mode')) {
+                    disableDarkMode();
+                } else {
+                    enableDarkMode();
+                }
+            });
+        });
+
+    </script>
     <script src="../../inc/library/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 

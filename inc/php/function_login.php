@@ -24,7 +24,6 @@ if(isset($_POST['connecter']) && isset($_POST['captcha_answer'])) {
     $pepper = 'sZB8J0az0z';
 
     if($email != "" && $password != "") {
-        //recup info de l'user qui veut se connecter
         $req1 = $bdd->prepare("SELECT id_user, nom, prenom, pseudo, mail, mdp, role_user FROM utilisateur WHERE mail = :email");
         $req1->bindParam(':email', $email, PDO::PARAM_STR);
         $req1->execute();
@@ -33,7 +32,6 @@ if(isset($_POST['connecter']) && isset($_POST['captcha_answer'])) {
 
         if($reponse) {
             if(password_verify($password.$pepper, $reponse['mdp'])) {
-                // Préparer la deuxième requête sans la virgule superflue
                 $req2 = $bdd->prepare("SELECT supprime FROM utilisateur WHERE id_user = :id_user");
                 $req2->bindValue(':id_user', $reponse['id_user'], PDO::PARAM_INT);
                 $req2->execute();

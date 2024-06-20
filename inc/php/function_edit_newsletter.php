@@ -33,7 +33,7 @@
         $req8->execute();
         $recup_before_update = $req8->fetch(PDO::FETCH_ASSOC); // Utilisez fetch() au lieu de fetchAll() pour récupérer une seule ligne
     
-        // Mettre à jour la table contenu
+        // Maj table contenu
         $req6 = $bdd->prepare("UPDATE contenu SET titre = :subject_update, corps = :corps_message_update WHERE id_bloc = :id_bloc");
         $req6->bindParam(':subject_update', $subject_update);
         $req6->bindParam(':corps_message_update', $corps_message_update);
@@ -57,15 +57,6 @@
         $req5->execute();
     }
     
-    /*UPDATE administration_contenu
-SET last_titre = 'test2'
-WHERE id_maj = (
-    SELECT MAX(id_maj)
-    FROM administration_contenu
-    WHERE id_bloc = 137
-)
-AND id_bloc = 137;
-*/
 
 
     // Envoyer l'historique de la newsletter
@@ -81,12 +72,10 @@ AND id_bloc = 137;
             $mail->Port = 465;
             $mail->setFrom('annuelprojet2@gmail.com');
             
-            // Récupérer les abonnés
             $req1_emails = $bdd->prepare("SELECT mail FROM utilisateur WHERE statut_newsletter = '1'");
             $req1_emails->execute();
             $emails = $req1_emails->fetchAll(PDO::FETCH_COLUMN);
             
-            // Configuration de l'e-mail en dehors de la boucle
             $mail->isHTML(true);
             $mail->Subject = $_POST["subject_hist"];
             $mail->Body = "
@@ -117,12 +106,10 @@ AND id_bloc = 137;
             </html>";
 
             
-            // Ajouter les destinataires
             foreach ($emails as $email) {
                 $mail->addAddress($email);
             }
 
-            // Envoyer l'e-mail
             if ($mail->send()) {
                 echo "Le message a été envoyé avec succès";
             } else {
@@ -133,7 +120,6 @@ AND id_bloc = 137;
         }
     }
     
-    // Envoyer la newsletter
     if (isset($_POST['envoyer'])) {
         try {
             $mail = new PHPMailer(true);
@@ -146,12 +132,10 @@ AND id_bloc = 137;
             $mail->Port = 465;
             $mail->setFrom('annuelprojet2@gmail.com');
             
-            // Récupérer les abonnés
             $req1_emails = $bdd->prepare("SELECT mail FROM utilisateur WHERE statut_newsletter = '1'");
             $req1_emails->execute();
             $emails = $req1_emails->fetchAll(PDO::FETCH_COLUMN);
             
-            // Configuration de l'e-mail en dehors de la boucle
             $mail->isHTML(true);
             $mail->Subject = $_POST["subject"];
             $mail->Body = "
@@ -183,7 +167,6 @@ AND id_bloc = 137;
             </html>";
 
             
-            // Ajouter les destinataires
             foreach ($emails as $email) {
                 $mail->addAddress($email);
             }
@@ -193,7 +176,6 @@ AND id_bloc = 137;
         }
 
         try {
-            // Enregistrer dans la base de données si l'envoi est réussi
             if ($mail->send()) {
                 $req2_news = $bdd->prepare("INSERT INTO contenu(page_appartenance, titre, corps) VALUES ('newsletter', :sujet, :corps)");
                 $req2_news->bindParam(':sujet', $_POST["subject"]);
