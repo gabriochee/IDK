@@ -172,21 +172,21 @@
             }
     
         } catch (Exception $e) {
-            echo "Erreur lors de l'envoi du message : " . $mail->ErrorInfo;
+            echo "<div class='alert alert-danger text-center' role='alert'>Erreur lors de l'envoi du message : " . $mail->ErrorInfo . "</div>";
         }
 
         try {
             if ($mail->send()) {
-                $req2_news = $bdd->prepare("INSERT INTO contenu(page_appartenance, titre, corps) VALUES ('newsletter', :sujet, :corps)");
+                $req2_news = $bdd->prepare("INSERT INTO contenu(page_appartenance, titre, corps) VALUES ('Newsletter', :sujet, :corps)");
                 $req2_news->bindParam(':sujet', $_POST["subject"]);
                 $req2_news->bindParam(':corps', $_POST["corps_message"]);
                 $req2_news->execute();
-                echo "Le message a été envoyé avec succès";
+                echo '<div class="alert alert-success text-center" role="alert">Le message a été envoyé avec succès</div>';
             } else {
-                echo "Erreur lors de l'envoi du message : " . $mail->ErrorInfo;
+                echo "<div class='alert alert-danger text-center' role='alert'>Erreur lors de l'envoi du message : " . $mail->ErrorInfo . "</div>";
             }
         } catch (Exception $e) {
-            echo "Erreur lors de l'envoi du message : " . $mail->ErrorInfo;
+            echo "<div class='alert alert-danger text-center' role='alert'>Erreur lors de l'envoi du message : " . $mail->ErrorInfo . "</div>";
         }
     }
 ?>

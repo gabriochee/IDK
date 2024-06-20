@@ -13,15 +13,11 @@ $genres = isset($data[6]) ? $data[6] : [];
 $annee = isset($data[7]) ? $data[7] : '';
 
 $asie = ['AF', 'AM', 'AZ', 'BH', 'BD', 'BT', 'BN', 'KH', 'CN', 'GE', 'IN', 'ID', 'IR', 'IQ', 'IL', 'JP', 'JO', 'KZ', 'KW', 'KG', 'LA', 'LB', 'MY', 'MV', 'MN', 'MM', 'NP', 'KP', 'KR', 'OM', 'PK', 'PS', 'PH', 'QA', 'SA', 'SG', 'LK', 'SY', 'TW', 'TJ', 'TH', 'TL', 'TR', 'TM', 'AE', 'UZ', 'VN', 'YE'];
-
 $afrique = ['DZ', 'AO', 'BJ', 'BW', 'BF', 'BI', 'CM', 'CV', 'CF', 'TD', 'KM', 'CG', 'CD', 'CI', 'DJ', 'EG', 'GQ', 'ER', 'ET', 'GA', 'GM', 'GH', 'GN', 'GW', 'KE', 'LS', 'LR', 'LY', 'MG', 'MW', 'ML', 'MR', 'MU', 'YT', 'MA', 'MZ', 'NA', 'NE', 'NG', 'RE', 'RW', 'ST', 'SN', 'SC', 'SL', 'SO', 'ZA', 'SS', 'SD', 'SZ', 'TZ', 'TG', 'TN', 'UG', 'EH', 'ZM', 'ZW'];
-
 $europe = ['AL', 'AD', 'AM', 'AT', 'AZ', 'BY', 'BE', 'BA', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR', 'GE', 'DE', 'GR', 'HU', 'IS', 'IE', 'IT', 'KZ', 'XK', 'LV', 'LI', 'LT', 'LU', 'MT', 'MD', 'MC', 'ME', 'NL', 'MK', 'NO', 'PL', 'PT', 'RO', 'RU', 'SM', 'RS', 'SK', 'SI', 'ES', 'SE', 'CH', 'TR', 'UA', 'GB', 'VA'];
-
 $amerique = ['AS', 'AI', 'AG', 'AR', 'AW', 'BS', 'BB', 'BZ', 'BM', 'BO', 'BR', 'VG', 'CL', 'CO', 'CR', 'CU', 'DM', 'DO', 'EC', 'SV', 'FK', 'GF', 'GL', 'GD', 'GP', 'GT', 'GY', 'HT', 'HN', 'JM', 'MQ', 'MX', 'MS', 'AN', 'NI', 'PA', 'PY', 'PE', 'PR', 'BL', 'KN', 'LC', 'MF', 'PM', 'VC', 'SR', 'TT', 'TC', 'VI', 'UY', 'VE'];
-
 $country = [
-    'Etats-Unis' => 'US', // Correction de l'orthographe de 'Etats-Unis'
+    'Etats-Unis' => 'US', 
     'Inde' => 'IN',
     'Chine' => 'CN',
     'Japon' => 'JP',
@@ -29,7 +25,7 @@ $country = [
     'Allemagne' => 'DE',
     'France' => 'FR',
     'Corée du Sud' => 'KR',
-    'Brésil' => 'BR', // Correction de l'orthographe de 'Brésil'
+    'Brésil' => 'BR',
     'Nigéria' => 'NG',
     'Italie' => 'IT'
 ];
@@ -144,7 +140,9 @@ try {
         $stmt->execute();
     }
     $movies = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    // Retourner les résultats filtrés en JSON
+
+
+    
     echo json_encode(['movies' => $movies, 'requête' => $query]);
 } catch (PDOException $e) {
     echo json_encode(['Erreur de requête :' => $e->getMessage(), 'CHEF LA REQUET' => $query]);

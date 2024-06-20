@@ -1,4 +1,7 @@
 <?php require_once('../inc/php/access.php'); ?>
+<?php require_once('../inc/php/affichage_data_user.php'); ?>
+<?php require_once('../inc/library/fpdf/function_fpdf_admin.php'); ?>
+<?php require_once('../inc/php/function_create_admin.php'); ?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -10,23 +13,20 @@
     <title>IDK</title>
 </head>
 <body id="backoffice_moderation_user" class="backoffice">
-    <?php require_once('../inc/php/db.php'); ?>
-    <?php require_once('../inc/php/affichage_data_user.php'); ?>
     <?php require_once('../inc/components/backoffice/header.php'); ?>
-    <?php require_once('../inc/library/fpdf/function_fpdf_admin.php'); ?>
-    <?php require_once('../inc/php/function_create_admin.php'); ?>
     <div class="container-fluid">
         <div class="row">
             <?php require_once('../inc/components/backoffice/sidebar.php'); ?>
-            
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-            <form action="moderation_user.php" method="POST">
-                <div class="form-group">
-                    <label for="userId">Exporter en pdf il faut saisir l'id de l'utilisateur:</label>
-                    <input type="number" class="form-control" id="userId" name="userId" required>
-                </div>
-                <button type="submit" class="btn btn-primary mt-3">Créer PDF</button>
-            </form>
+
+                <form action="moderation_user.php" method="POST">
+                    <div class="form-group">
+                        <label for="userId">Exporter en pdf il faut saisir l'id de l'utilisateur:</label>
+                        <input type="number" class="form-control" id="userId" name="userId" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-3">Créer PDF</button>
+                </form>
+
                 <div class="table-responsive mt-4">
                     <h3 class="mb-3">Utilisateurs : </h3>
                     <?php
@@ -510,8 +510,6 @@
                         </div>
                     </div>
                 </div>
-                
-
                 <div class="pt-3 pb-2 mb-4 border-bottom">
                     <h3>Administrateurs : </h3>
                     <ul class="list-group list-group-flush">
@@ -525,57 +523,54 @@
                     ?>
                     </ul>
                 </div>
+                <div class="text-center justify-content-center mt-5">
+                    <button class="btn btn-primary fs-4 mt-3" id="create-admin-btn" type="button">Créer un admin ou utilisateur</button>
+                    <br><br><br>
+                </div>
+                <div class="d-none flex-column align-items-center mt-3" id="create-admin-form">
+                    <form action="moderation_user.php" method="POST" class="d-flex flex-column w-50 align-items-center mt-3">
+                        <div class="col-12">
+                            <label for="nom" class="form-label">Nom</label>
+                            <input type="text" class="form-control" id="nom" name="nom" required>
+                        </div>
+                        <div class="col-12">
+                            <label for="prenom" class="form-label">Prénom</label>
+                            <input type="text" class="form-control" id="prenom" name="prenom" required>
+                        </div>
+                        <div class="col-12">
+                            <label for="pseudo" class="form-label">Pseudo</label>
+                            <input type="text" class="form-control" id="pseudo" name="pseudo" required>
+                        </div>
+                        <!--ici faire une liste déroumlante pour le role --> 
+                        <div class="col-12">
+                            <label for="role_user" class="form-label">Role</label>
+                            <select class="form-control" id="role_user" name="role_user" required>
+                                <option value="utilisateur">utilisateur</option>
+                                <option value="admin">admin</option>
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            <label for="mail" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="mail" name="mail" required>
+                        </div>
+                        <div class="col-12">
+                            <label for="pseudo" class="form-label">Mot de passe</label>
+                            <input type="text" class="form-control" id="mdp" name="mdp" required>
+                        </div>
+                        <button class="btn btn-primary fs-4 mt-3" type="submit" name="create_admin">Créer</button>
+                    </form>
+                </div>
+                <script>
+                    document.addEventListener("DOMContentLoaded", function() {
+                        const createAdminBtn = document.getElementById('create-admin-btn');
+                        const createAdminForm = document.getElementById('create-admin-form');
 
-    <div class="text-center justify-content-center mt-5">
-        <button class="btn btn-primary fs-4 mt-3" id="create-admin-btn" type="button">Créer un admin ou utilisateur</button>
-        <br><br><br>
-    </div>
-
-    <div class="d-none flex-column align-items-center mt-3" id="create-admin-form">
-        <form action="moderation_user.php" method="POST" class="d-flex flex-column w-50 align-items-center mt-3">
-            <div class="col-12">
-                <label for="nom" class="form-label">Nom</label>
-                <input type="text" class="form-control" id="nom" name="nom" required>
-            </div>
-            <div class="col-12">
-                <label for="prenom" class="form-label">Prénom</label>
-                <input type="text" class="form-control" id="prenom" name="prenom" required>
-            </div>
-            <div class="col-12">
-                <label for="pseudo" class="form-label">Pseudo</label>
-                <input type="text" class="form-control" id="pseudo" name="pseudo" required>
-            </div>
-            <!--ici faire une liste déroumlante pour le role --> 
-            <div class="col-12">
-                <label for="role_user" class="form-label">Role</label>
-                <select class="form-control" id="role_user" name="role_user" required>
-                    <option value="utilisateur">utilisateur</option>
-                    <option value="admin">admin</option>
-                </select>
-            </div>
-            <div class="col-12">
-                <label for="mail" class="form-label">Email</label>
-                <input type="email" class="form-control" id="mail" name="mail" required>
-            </div>
-            <div class="col-12">
-                <label for="pseudo" class="form-label">Mot de passe</label>
-                <input type="text" class="form-control" id="mdp" name="mdp" required>
-            </div>
-            <button class="btn btn-primary fs-4 mt-3" type="submit" name="create_admin">Créer</button>
-        </form>
-    </div>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const createAdminBtn = document.getElementById('create-admin-btn');
-            const createAdminForm = document.getElementById('create-admin-form');
-
-            createAdminBtn.addEventListener('click', function() {
-                createAdminForm.classList.toggle('d-none'); 
-                createAdminForm.scrollIntoView({ behavior: 'smooth' });
-            });
-        });
-    </script>
+                        createAdminBtn.addEventListener('click', function() {
+                            createAdminForm.classList.toggle('d-none'); 
+                            createAdminForm.scrollIntoView({ behavior: 'smooth' });
+                        });
+                    });
+                </script>
 
             </main>
         </div>

@@ -1,5 +1,5 @@
 <?php require_once('../../inc/php/access.php'); ?>
-<?php require('../../inc/php/display_home.php'); ?>
+<?php require_once('../../inc/php/display_home.php'); ?>
 <?php require_once('../../inc/php/affichage_data_user.php'); ?>
 <?php require_once('../../inc/php/function_search_user.php'); ?>
 <!DOCTYPE html>
@@ -33,6 +33,7 @@
                         <div class="row w-100">
                             <div class="col-12 border-1">
                                 <div class="col-md-12 overflow-auto menu-oeuvre-2" style="max-height: 500px;">
+                                    
                                     <h3 class="mb-3">Mes demandes envoyées :</h3>
                                     <table class="table table-striped table-sm border border-1 border-dark">
                                         <tbody>
@@ -104,7 +105,7 @@
                     </table>
                 </div>
                 <div class="container text-center">
-                    <a href="./new_list.php" class="nav-btn btn btn-primary btn-lg btn-warning text-white border border-light border-2 rounded-3 px-5 mb-3">+ créer une nouvelle liste</a>
+                    <a href="./new_list.php" class="nav-btn btn btn-lg btn-warning text-white border border-light border-2 rounded-3 px-5 mb-3">+ créer une nouvelle liste</a>
                 </div>   
                 <hr class="featurette-divider my-2">
                 <h1 class="text-center mt-3">Nouveauté</h1>
@@ -122,7 +123,7 @@
                                     <div class="w-50">
                                         <h1><br>Nom œuvre</h1>
                                         <p><br><br>De Antoine Dupont<br>Genre<br>Sortie le jj/mm/aaaa<br><br><br></p>
-                                        <button class="nav-btn btn btn-primary btn-lg btn-warning text-white border border-light border-2 rounded-3 d-flex m-auto">En voir plus</button>
+                                        <button class="nav-btn btn btn-lg btn-warning text-white border border-light border-2 rounded-3 d-flex m-auto">En voir plus</button>
                                     </div>
                                     <div class="w-50" style="background-color: #5956CA;"></div>
                                 </div>
@@ -135,7 +136,7 @@
                                     <div class="w-50">
                                         <h1><br>Nom œuvre</h1>
                                         <p><br>De Antoine Dupont<br>Genre<br>Sortie le jj/mm/aaaa<br><br><br><br></p>
-                                        <button class="nav-btn btn btn-primary btn-lg btn-warning text-white border border-light border-2 rounded-3 d-flex m-auto">En voir plus</button>
+                                        <button class="nav-btn btn btn-lg btn-warning text-white border border-light border-2 rounded-3 d-flex m-auto">En voir plus</button>
                                     </div>
                                     <div class="w-50" style="background-color: #5956CA;"></div>
                                 </div>
@@ -148,7 +149,7 @@
                                     <div class="w-50">
                                         <h1><br>Nom œuvre</h1>
                                         <p><br>De Antoine Dupont<br>Genre<br>Sortie le jj/mm/aaaa<br><br><br><br></p>
-                                        <button class="nav-btn btn btn-primary btn-lg btn-warning text-white border border-light border-2 rounded-3 d-flex m-auto">En voir plus</button>
+                                        <button class="nav-btn btn btn-lg btn-warning text-white border border-light border-2 rounded-3 d-flex m-auto">En voir plus</button>
                                     </div>
                                     <div class="w-50" style="background-color: #5956CA;"></div>
                                 </div>
@@ -171,18 +172,19 @@
                         <div class="col-lg-3 border border-dark border-2 text-center rounded-2" style="height: 350px; background-color: #CFDBD5;">
                             <h2 class="mt-5">Nom de la liste</h2>
                             <p class="text-start mb-4">Auteur : Antoine Dupont<br>Détails : Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                            <button class="nav-btn btn btn-primary btn-lg btn-warning text-white border border-light border-2 rounded-3">En voir plus</button>
+                            <button class="nav-btn btn btn-lg btn-warning text-white border border-light border-2 rounded-3">En voir plus</button>
                         </div>
                         <div class="col-lg-3 border border-dark border-2 text-center rounded-2" style="height: 350px; background-color: #CFDBD5;">
                             <h2 class="mt-5">Nom de la liste</h2>
                             <p class="text-start mb-4">Auteur : Antoine Dupont<br>Détails : Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                            <button class="nav-btn btn btn-primary btn-lg btn-warning text-white border border-light border-2 rounded-3">En voir plus</button>
+                            <button class="nav-btn btn btn-lg btn-warning text-white border border-light border-2 rounded-3">En voir plus</button>
                         </div>
                         <div class="col-lg-3 border border-dark border-2 text-center rounded-2" style="height: 350px; background-color: #CFDBD5;">
                             <h2 class="mt-5">Nom de la liste</h2>
                             <p class="text-start mb-4">Auteur : Antoine Dupont<br>Détails : Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                            <button class="nav-btn btn btn-primary btn-lg btn-warning text-white border border-light border-2 rounded-3">En voir plus</button>
+                            <button class="nav-btn btn btn-lg btn-warning text-white border border-light border-2 rounded-3">En voir plus</button>
                         </div>
+                        <button class="w-75 nav-btn btn btn-lg btn-warning text-white border border-light border-2 rounded-3 m-auto mt-4 d-flex justify-content-center" onclick="window.location='public_list.php'">Voir plus de listes</button>
                     </div>
                 </div>
 
@@ -193,7 +195,7 @@
                         <div class="col-md-7">
                             <h2 class="featurette-heading">Nom œuvre</h2>
                             <p class="lead mb-4">De Antoine Dupont<br>Genre<br>Sortie le jj/mm/aaaa<br>Résumer : Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a gasz jaeal.</p>
-                            <button class="nav-btn btn btn-primary btn-lg btn-warning text-white border border-light border-2 rounded-3 d-flex m-auto">En voir plus</button>
+                            <button class="nav-btn btn btn-lg btn-warning text-white border border-light border-2 rounded-3 d-flex m-auto">En voir plus</button>
                         </div>
                         <div class="col-md-5">
                             <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#5956CA"/></svg>
@@ -204,7 +206,7 @@
                         <div class="col-md-7 order-md-2">
                             <h2 class="featurette-heading">Nom œuvre</span></h2>
                             <p class="lead mb-4">De Antoine Dupont<br>Genre<br>Sortie le jj/mm/aaaa<br>Résumer : Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a gasz jaeal.</p>
-                            <button class="nav-btn btn btn-primary btn-lg btn-warning text-white border border-light border-2 rounded-3 d-flex m-auto">En voir plus</button>
+                            <button class="nav-btn btn btn-lg btn-warning text-white border border-light border-2 rounded-3 d-flex m-auto">En voir plus</button>
                         </div>
                         <div class="col-md-5 order-md-1">
                             <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#5956CA"/></svg>
@@ -215,7 +217,7 @@
                         <div class="col-md-7">
                             <h2 class="featurette-heading">Nom œuvre</h2>
                             <p class="lead mb-4">De Antoine Dupont<br>Genre<br>Sortie le jj/mm/aaaa<br>Résumer : Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a gasz jaeal.</p>
-                            <button class="nav-btn btn btn-primary btn-lg btn-warning text-white border border-light border-2 rounded-3 d-flex m-auto">En voir plus</button>
+                            <button class="nav-btn btn btn-lg btn-warning text-white border border-light border-2 rounded-3 d-flex m-auto">En voir plus</button>
                         </div>
                         <div class="col-md-5">
                             <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#5956CA"/></svg>

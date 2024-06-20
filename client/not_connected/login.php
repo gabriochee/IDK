@@ -33,6 +33,9 @@
 
         <div class="container col-sm-6 col-xl-4">
             <div class="row g-3">
+                <div class="d-flex m-auto col-lg-6 p-3 justify-content-center mb-3">
+                    <img src="../../inc/img/logo.svg" alt="Logo IDK" class="navbar-brand img-fluid" width="150px" height="150px">
+                </div>
                 <form action="login.php" class="needs-validation" method="POST">
                     <div class="col-12">
                         <input type="text" class="form-control p-2" id="username" placeholder="Addresse email/pseudo" name="email" value="" required="">
@@ -81,33 +84,25 @@
 
                         foreach ($result as $key => $value) {
                             echo '<input type="radio" class="btn-check" name="captcha_answer" value="' . $value['id_reponse'] . '" id="option' . $i . '" autocomplete="off">';
-                            echo '<label class="w-100 nav-btn btn btn-sm btn-info border border-dark border-2 rounded-3 fs-sm-5 px-3" for="option' . $i . '">' . $value['contenu'] . '</label>';
+                            echo '<label class="w-100 nav-btn btn btn-sm btn-info border border-dark fs-sm-5 px-3" for="option' . $i . '">' . $value['contenu'] . '</label>';
                             $i++;
                         }
                         ?>
                         <input type="hidden" id="captcha_id" name="captcha_id" value="<?php echo $random_id; ?>">
                     </div>
                     <div class="col-12 mt-3">
-                        <button class="w-100 btn btn-secondary btn-lg btn-warning border-dark border-2" type="submit" name="connecter">Connexion</button>
+                        <button class="w-100 btn btn-warning border-dark " type="submit" name="connecter">Connexion</button>
                     </div>
                 </form>
                 <div class="col-12">
-                    <button class="w-100 btn btn-secondary btn-lg btn-warning border-dark border-2" type="submit" onclick="window.location='signin.php'">S'inscrire</button>
+                    <button class="w-100 btn btn-warning border-dark " type="submit" onclick="window.location='signin.php'">S'inscrire</button>
                 </div>
                 <div class="col-12 mt-1">
-                    <button class="w-100 btn btn-secondary btn-lg btn-warning border-dark border-2" type="submit">Mot de passe oublié</button>
+                    <button class="w-100 btn btn-warning border-dark " type="submit">Mot de passe oublié</button>
                 </div>
-            </div>
-        </div>
-        <div class="container text-center m-auto">
-            <div class="row">
             </div>
         </div>
 
-        <div class="container col-sm-6 col-xl-4">
-            <form action="captcha_verify.php" class="needs-validation" method="get">
-            </form>
-        </div>
     </main>
     <script>
 

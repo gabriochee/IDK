@@ -114,7 +114,7 @@
                                 <option value="0" <?php if (isset($_POST['newsletter']) && $_POST['newsletter'] == "0"){ echo 'selected';} ?>>Je refuse de recevoir la Newsletter</option>
                             </select>
                         </div>
-                        <button class="w-100 btn btn-secondary btn-lg btn-warning border-dark border-2" id="signin-btn" type="submit" name="send">S'inscrire</button>
+                        <button class="w-100 btn btn-warning border-dark border-2" id="signin-btn" type="submit" name="send">S'inscrire</button>
                     </div>
                 </form>
             </div>

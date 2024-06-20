@@ -77,7 +77,7 @@ if (isset($_POST['connect'])) {
                     $req8->execute();
                     header('Location: ../connected/home.php');
                 } else if ($role == 'admin') {
-                    header('Location: ../../admin/home_backoffice.php');
+                    header('Location: ../../admin/home.php');
                 } else {
                     header('Location: confirmation_connexion.php?wrong_role=true');
                 }
