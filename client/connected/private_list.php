@@ -187,16 +187,6 @@ if (isset($_GET['id_liste'])) {
                 <label class="btn" for="public-list">publique</label>
             </div>
         <?php } ?>
-
-        <div class="container-fluid col-10 fs-5 border border-2 border-dark overflow-auto max-height" style="background-color : #CFDBD5;">
-            <ul>
-                <?php
-                for ($i = 1; $i <= 11; $i++) {
-                    echo "<li class='py-2'> Ami $i - <a href='#' class='link-dark link-underline-opacity-0 link-underline-opacity-100-hover'>Ajouter</a></li>";
-                }
-                ?>
-            </ul>
-        </div>
     </main>
     <?php require_once('../../inc/components/connected/footer.php'); ?>
     <?php if ($isOwner) {

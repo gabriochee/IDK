@@ -22,11 +22,14 @@
         </div>
         <h3 class="text-center mb-3">Rechercher une liste publique : </h3>
         <div class="container">
-            <input type="search" class="form-control border border-2 border-dark mb-4" placeholder="Rechercher..." aria-label="Search">
+            <input type="search" class="form-control border border-2 border-dark mb-4" oninput="searchPublicList(this.value)" placeholder="Rechercher..." aria-label="Search">
+        </div>
+        <div class="container" id="lists-container">
+
         </div>
     </main>
     <?php require_once('../../inc/components/connected/footer.php'); ?>
-    <script src="../../inc/js/search_movie.js"></script>
+    <script src="../../inc/js/search_public_list.js"></script>
     <script src="../../inc/library/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
