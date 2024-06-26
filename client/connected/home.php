@@ -108,7 +108,7 @@
                     <a href="./new_list.php" class="nav-btn btn btn-lg btn-warning text-white border border-light border-2 rounded-3 px-5 mb-3">+ créer une nouvelle liste</a>
                 </div>   
                 <hr class="featurette-divider my-2">
-                <h1 class="text-center mt-3">Nouveauté</h1>
+                <h1 class="text-center mt-3">Nouveautés</h1>
                 <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-indicators">
                         <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -121,8 +121,8 @@
                             <div class="container">
                                 <div class="carousel-caption text-start text-dark d-flex">
                                     <div class="w-50">
-                                        <h1><br>Nom œuvre</h1>
-                                        <p><br><br>De Antoine Dupont<br>Genre<br>Sortie le jj/mm/aaaa<br><br><br></p>
+                                        <h1><br><?php echo $res_nouveaute[0]['primaryTitle']; ?></h1>
+                                        <p><br><br>De Antoine Dupont<br><?php if (isset($res_nouveaute[0]['genre'])){ echo $res_nouveaute[0]['genre'];} ?><br>Sortie en <?php echo $res_nouveaute[0]['startYear']; ?><br><br><br></p>
                                         <button class="nav-btn btn btn-lg btn-warning text-white border border-light border-2 rounded-3 d-flex m-auto">En voir plus</button>
                                     </div>
                                     <div class="w-50" style="background-color: #5956CA;"></div>
@@ -134,8 +134,8 @@
                             <div class="container">
                                 <div class="carousel-caption text-start text-dark d-flex">
                                     <div class="w-50">
-                                        <h1><br>Nom œuvre</h1>
-                                        <p><br>De Antoine Dupont<br>Genre<br>Sortie le jj/mm/aaaa<br><br><br><br></p>
+                                        <h1><br><?php echo $res_nouveaute[1]['primaryTitle']; ?></h1>
+                                        <p><br>De Antoine Dupont<br><?php if (isset($res_nouveaute[1]['genre'])){ echo $res_nouveaute[1]['genre'];} ?><br>Sortie en <?php echo $res_nouveaute[1]['startYear']; ?><br><br><br><br></p>
                                         <button class="nav-btn btn btn-lg btn-warning text-white border border-light border-2 rounded-3 d-flex m-auto">En voir plus</button>
                                     </div>
                                     <div class="w-50" style="background-color: #5956CA;"></div>
@@ -147,8 +147,8 @@
                             <div class="container">
                                 <div class="carousel-caption text-start text-dark d-flex">
                                     <div class="w-50">
-                                        <h1><br>Nom œuvre</h1>
-                                        <p><br>De Antoine Dupont<br>Genre<br>Sortie le jj/mm/aaaa<br><br><br><br></p>
+                                        <h1><br><?php echo $res_nouveaute[2]['primaryTitle']; ?></h1>
+                                        <p><br>De Antoine Dupont<br><?php if (isset($res_nouveaute[2]['genre'])){ echo $res_nouveaute[2]['genre'];} ?><br>Sortie en <?php echo $res_nouveaute[2]['startYear']; ?><br><br><br><br></p>
                                         <button class="nav-btn btn btn-lg btn-warning text-white border border-light border-2 rounded-3 d-flex m-auto">En voir plus</button>
                                     </div>
                                     <div class="w-50" style="background-color: #5956CA;"></div>
