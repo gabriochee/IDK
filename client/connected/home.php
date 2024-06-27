@@ -193,8 +193,8 @@
                     <h1 class="text-center mb-5">Films populaires du moment</h1>
                     <div class="row featurette">
                         <div class="col-md-7">
-                            <h2 class="featurette-heading">Nom œuvre</h2>
-                            <p class="lead mb-4">De Antoine Dupont<br>Genre<br>Sortie le jj/mm/aaaa<br>Résumer : Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a gasz jaeal.</p>
+                            <h2 class="featurette-heading"><?php echo $res_populaires[0]['primaryTitle']; ?></h2>
+                            <p class="lead mb-4">De Antoine Dupont<br><?php echo $res_populaires[0]['genre'];?><br>Sortie en <?php echo $res_populaires[1]['startYear']; ?><br>Résumé : Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a gasz jaeal.</p>
                             <button class="nav-btn btn btn-lg btn-warning text-white border border-light border-2 rounded-3 d-flex m-auto">En voir plus</button>
                         </div>
                         <div class="col-md-5">
@@ -204,8 +204,8 @@
                     <hr class="featurette-divider">
                     <div class="row featurette">
                         <div class="col-md-7 order-md-2">
-                            <h2 class="featurette-heading">Nom œuvre</span></h2>
-                            <p class="lead mb-4">De Antoine Dupont<br>Genre<br>Sortie le jj/mm/aaaa<br>Résumer : Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a gasz jaeal.</p>
+                            <h2 class="featurette-heading"><?php echo $res_populaires[1]['primaryTitle']; ?></h2>
+                            <p class="lead mb-4">De Antoine Dupont<br><?php echo $res_populaires[1]['genre'];?><br>Sortie en <?php echo $res_populaires[1]['startYear']; ?><br>Résumé : Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a gasz jaeal.</p>
                             <button class="nav-btn btn btn-lg btn-warning text-white border border-light border-2 rounded-3 d-flex m-auto">En voir plus</button>
                         </div>
                         <div class="col-md-5 order-md-1">
@@ -215,8 +215,8 @@
                     <hr class="featurette-divider">
                     <div class="row featurette mb-5">
                         <div class="col-md-7">
-                            <h2 class="featurette-heading">Nom œuvre</h2>
-                            <p class="lead mb-4">De Antoine Dupont<br>Genre<br>Sortie le jj/mm/aaaa<br>Résumer : Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a gasz jaeal.</p>
+                            <h2 class="featurette-heading"><?php echo $res_populaires[2]['primaryTitle']; ?></h2>
+                            <p class="lead mb-4">De Antoine Dupont<br><?php echo $res_populaires[2]['genre'];?><br>Sortie en <?php echo $res_populaires[1]['startYear']; ?><br>Résumé : Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a gasz jaeal.</p>
                             <button class="nav-btn btn btn-lg btn-warning text-white border border-light border-2 rounded-3 d-flex m-auto">En voir plus</button>
                         </div>
                         <div class="col-md-5">
