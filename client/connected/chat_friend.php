@@ -35,19 +35,16 @@
         <div class="container py-3">
             <div class="row">
                 <div class="col-md-6 col-lg-5 col-xl-4 mb-4 mb-md-0 border-end border-2 border-dark">
-                    <div class="container mt-5 p-3 bg-light shadow-sm rounded">
-                        <div class="row" id="friendsList">
-                        </div>
+                    <div class="container p-3 bg-light shadow-sm rounded">
+                        <div class="row overflow-auto" id="friendsList" style="max-height: 500px;"></div>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-7 col-xl-8">
+                <div class="col-md-6 col-lg-7 col-xl-8 overflow-auto" style="max-height: 500px;">
                     <h5 class="font-weight-bold mb-3 text-center" id="friend-name">Nom de l'ami</h5>
                     <div class="message-container border border-dark rounded p-3 bg-white shadow-sm">
                         <ul class="list-unstyled">
                             <div class="container mt-5 p-3">
-                                <div class="row" id="message_list">
-                                    
-                                </div>
+                                <div class="row" id="message_list"></div>
                             </div>
                         </ul>
                     </div>
@@ -79,7 +76,7 @@
                     listItem.innerHTML = 
                         `<div class="d-flex justify-content-between">
                             <div class="d-flex flex-row">
-                                <img src="../../inc/img/profile.svg" class="rounded-circle d-flex align-self-center me-3 shadow-1-strong" width="60">
+                                <img src="../../inc/img/user_img/${friend.photo_utilisateur}" class="rounded-circle d-flex align-self-center me-3 shadow-1-strong" width="60">
                                 <div class="pt-1">
                                     <p class="m-0 text-black">${friend.pseudo}</p>
                                     <p class="m-0 text-black">${friend.prenom} ${friend.nom}</p>
@@ -87,8 +84,6 @@
                             </div>
                             <div class="pt-1 my-auto">
                                 <button type="submit" onclick="fetchFriendConv('${friend.pseudo}', ${friend.id_user})" name="friendDisplay" class="nav-btn btn btn-primary btn-sm btn-warning text-white border border-light border-2 rounded-3">Voir conversation</button>
-                                <!--<p class="small text-muted mb-1">Just now</p>-->
-                                <!--<span class="badge bg-danger float-end">1</span>-->
                             </div>
                         </div>`;
                     listFriend.appendChild(listItem);

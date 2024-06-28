@@ -63,7 +63,7 @@
 
                                 if (isset($_POST['show'])) {
                                     $userInformations = ($bdd->query("SELECT id_user, nom, prenom, pseudo, sexe, date_inscription, mail, telephone, date_naissance FROM utilisateur WHERE id_user = {$_POST['show']};"))->fetchAll();
-                                } elseif (isset($_POST['ban-id'])) {
+                                } else if (isset($_POST['ban-id'])) {
                                     $sql = "INSERT INTO ban(definitif, date_ban, date_deban, raison, id_user) VALUES (:definitif, :dateban, :datedeban, :raison, :id_user)";
                                     $prep = $bdd->prepare($sql);
                                     $prep->bindValue(":id_user", intval($_POST['ban-id']));
@@ -82,7 +82,7 @@
                                     } catch (PDOException $e) {
                                         echo $e->getMessage();
                                     }
-                                } elseif (isset($_POST['delete-id'])){
+                                } else if (isset($_POST['delete-id'])){
                                     $sql = "UPDATE utilisateur SET supprime = 1 WHERE id_user = :id";
                                     $prep = $bdd->prepare($sql);
                                     $prep->bindValue(":id", $_POST['delete-id']);
@@ -92,6 +92,7 @@
                                     } catch (PDOException $e){
                                         echo $e->getMessage();
                                     }
+                                    
                                 } else if (isset($_POST['unban-id'])){
                                     $req = $bdd->prepare("UPDATE ban SET date_deban = NOW(), definitif = FALSE WHERE id_user = :id_user ORDER BY id_ban DESC LIMIT 1;");
                                     $req->bindParam(":id_user", $_POST['unban-id']);

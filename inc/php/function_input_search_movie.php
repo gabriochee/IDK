@@ -9,8 +9,8 @@ $smtp_movie = $bdd->prepare("SELECT work_akas.id_work, work_akas.title, work_rat
 try {
     $smtp_movie->bindValue(":keyword_movie", "'\"" . $keyword_movie . "'\"");
     $smtp_movie->execute();
-    $res_search_movie = $smtp_movie->fetchAll(PDO::FETCH_ASSOC);
-} catch (PDOException $e){
+    $res_search_movie = $smtp_movie->fetchAll();
+} catch (PDOException $e) {
     echo json_encode(array("message" => $e->getMessage()));
     exit;
 }

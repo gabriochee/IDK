@@ -75,7 +75,7 @@
                     <div class="col-md-2 mt-3 d-flex align-items-center"><canvas id="repart_genre_month"></canvas></div>
                     <div class="col-md-2 mt-3 d-flex align-items-center"><canvas id="repart_genre_year"></canvas></div>
                     <div class="col-12">
-                        <!-- mettre tableau des pages les plus visiter filtrable (jour:defaut, semaine, mois, année, all) -->
+                        <h1>mettre tableau des pages les plus visiter filtrable (jour:defaut, semaine, mois, année, all)</h1>
                     </div>
                 </div>
             </main>

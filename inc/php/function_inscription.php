@@ -80,9 +80,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $_SESSION['id_user'] = $reponse['id_user'];
         //a voir
         $req5 = $bdd->prepare('INSERT INTO listes(date_creation, details, statut, id_user, nom) VALUES (:date_creation, :details, :list_status, :id_user, :nom);');
-        $nom_a_voir ="A voir";
+        $nom_a_voir ="À voir";
         $description_a_voir = "Liste par défaut : Films que j'ai envie de voir";
-        $status_a_voir ="defaut";
+        $status_a_voir ="default";
         
         $req5->bindParam(":nom", $nom_a_voir);
         $req5->bindParam(":details", $description_a_voir);
@@ -92,8 +92,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $req5->execute();
         //deja vu
         $req5 = $bdd->prepare('INSERT INTO listes(date_creation, details, statut, id_user, nom) VALUES (:date_creation, :details, :list_status, :id_user, :nom);');
-        $nom_vu ="Déja vu";
-        $description_vu = "Liste par défaut : Films que j'ai déja vu";
+        $nom_vu ="Déjà vu";
+        $description_vu = "Liste par défaut : Films que j'ai déjà vu";
         $status_vu ="default";
         
         $req5->bindParam(":nom", $nom_vu);
@@ -106,7 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $req5 = $bdd->prepare('INSERT INTO listes(date_creation, details, statut, id_user, nom) VALUES (:date_creation, :details, :list_status, :id_user, :nom);');
         $nom_reco ="Recommendation";
         $description_reco = "";
-        $status_reco ="invisible";
+        $status_reco ="default";
         
         $req5->bindParam(":nom", $nom_reco);
         $req5->bindParam(":details", $description_reco);
@@ -115,17 +115,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $req5->bindParam(":id_user", $_SESSION['id_user']);
         $req5->execute();
         // fusion
-        $req5 = $bdd->prepare('INSERT INTO listes(date_creation, details, statut, id_user, nom) VALUES (:date_creation, :details, :list_status, :id_user, :nom);');
-        $nom_fusion ="Fusion";
-        $description_fusion = "";
-        $status_fusion ="invisible";
+        // $req5 = $bdd->prepare('INSERT INTO listes(date_creation, details, statut, id_user, nom) VALUES (:date_creation, :details, :list_status, :id_user, :nom);');
+        // $nom_fusion ="Fusion";
+        // $description_fusion = "";
+        // $status_fusion ="invisible";
         
-        $req5->bindParam(":nom", $nom_fusion);
-        $req5->bindParam(":details", $description_fusion);
-        $req5->bindParam(":list_status", $status_fusion);
-        $req5->bindValue(":date_creation", date('Y-m-d H:i:s'));
-        $req5->bindParam(":id_user", $_SESSION['id_user']);
-        $req5->execute();
+        // $req5->bindParam(":nom", $nom_fusion);
+        // $req5->bindParam(":details", $description_fusion);
+        // $req5->bindParam(":list_status", $status_fusion);
+        // $req5->bindValue(":date_creation", date('Y-m-d H:i:s'));
+        // $req5->bindParam(":id_user", $_SESSION['id_user']);
+        // $req5->execute();
 
     } catch (PDOException $e) {
         echo $e->getMessage();

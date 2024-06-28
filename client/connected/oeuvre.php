@@ -1,4 +1,5 @@
 <?php require_once('../../inc/php/access.php'); ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -12,7 +13,6 @@
 </head>
 
 <body id="oeuvre">
-    <?php require_once('../../inc/php/db.php'); ?>
     <?php require_once('../../inc/php/function_oeuvre.php'); ?>
     <?php require_once('../../inc/components/connected/header.php'); ?>
     <main>
