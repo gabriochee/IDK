@@ -4,6 +4,7 @@
 <?php require_once('../../inc/php/function_search_user.php'); ?>
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,6 +13,7 @@
     <link rel="stylesheet" href="../../inc/library/bootstrap/bootstrap-icons/font/bootstrap-icons.min.css">
     <title>IDK</title>
 </head>
+
 <body id="connected_home">
     <?php require_once('../../inc/components/connected/header.php'); ?>
     <main>
@@ -21,8 +23,8 @@
                     <div class="card card-profile text-center border-0" style="background-color: transparent;">
                         <div class="card-body">
                             <img src="../../inc/img/user_img/<?php echo htmlspecialchars($rep_data_user1['photo_utilisateur']); ?>" alt="Photo de l'utilisateur" class="mb-3 card-img-top img-fluid rounded-circle">
-                            <h4 class="card-title"><?php echo $rep_data_user1['pseudo'] .' (#'. $rep_data_user1['id_user'] .')'; ?></h4>
-                            <p class="card-text text-start my-0"><?php echo $rep_data_user1['nom'] .' '. $rep_data_user1['prenom']; ?></p>
+                            <h4 class="card-title"><?php echo $rep_data_user1['pseudo'] . ' (#' . $rep_data_user1['id_user'] . ')'; ?></h4>
+                            <p class="card-text text-start my-0"><?php echo $rep_data_user1['nom'] . ' ' . $rep_data_user1['prenom']; ?></p>
                             <p class="card-text text-start my-0">Inscrit depuis : <?php echo $rep_data_user1['date_inscription']; ?></p>
                             <span class="badge bg-secondary mt-3"><?php echo $rep_data_user2['count(*)']; ?> amis</span>
                         </div>
@@ -33,7 +35,7 @@
                         <div class="row w-100">
                             <div class="col-12 border-1">
                                 <div class="col-md-12 overflow-auto menu-oeuvre-2" style="max-height: 500px;">
-                                    
+
                                     <h3 class="mb-3">Mes demandes envoyées :</h3>
                                     <table class="table table-striped table-sm border border-1 border-dark">
                                         <tbody>
@@ -81,9 +83,9 @@
 
                 <h3 class="text-center">Listes : </h3>
                 <div class="col-md-12 overflow-auto menu-oeuvre-2">
-                    <table class="table table-striped"> 
+                    <table class="table table-striped">
                         <tbody>
-                            <?php 
+                            <?php
                             try {
                                 $req = $bdd->prepare('SELECT nom, id_liste FROM listes WHERE id_user = :id_user AND statut != "invisible"');
                                 $req->bindParam(":id_user", $_SESSION['id_user']);
@@ -106,7 +108,7 @@
                 </div>
                 <div class="container text-center">
                     <a href="./new_list.php" class="nav-btn btn btn-lg btn-warning text-white border border-light border-2 rounded-3 px-5 mb-3">+ créer une nouvelle liste</a>
-                </div>   
+                </div>
                 <hr class="featurette-divider my-2">
                 <h1 class="text-center mt-3">Nouveautés</h1>
                 <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
@@ -116,45 +118,25 @@
                         <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
                     </div>
                     <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#E8EDDF"/></svg>
+                        <?php $active = true; foreach($res_nouveaute as $film) { ?>
+                        <div class="carousel-item <?php if ($active) {echo 'active'; $active = false;} ?>">
+                            <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
+                                <rect width="100%" height="100%" fill="#E8EDDF" />
+                            </svg>
                             <div class="container">
                                 <div class="carousel-caption text-start text-dark d-flex">
                                     <div class="w-50">
-                                        <h1><br><?php echo $res_nouveaute[0]['primaryTitle']; ?></h1>
-                                        <p><br><br>De Antoine Dupont<br><?php if (isset($res_nouveaute[0]['genre'])){ echo $res_nouveaute[0]['genre'];} ?><br>Sortie en <?php echo $res_nouveaute[0]['startYear']; ?><br><br><br></p>
+                                        <h1><br><?php echo $film['primaryTitle']; ?></h1>
+                                        <p><br><br>De <?php echo $film['name']; ?><br><?php if (isset($film['genre'])) {
+                                                                            echo $film['genre'];
+                                                                        } ?><br>Sortie en <?php echo $film['startYear']; ?><br><br><br></p>
                                         <button class="nav-btn btn btn-lg btn-warning text-white border border-light border-2 rounded-3 d-flex m-auto">En voir plus</button>
                                     </div>
                                     <div class="w-50" style="background-color: #5956CA;"></div>
                                 </div>
                             </div>
                         </div>
-                        <div class="carousel-item">
-                            <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#E8EDDF"/></svg>
-                            <div class="container">
-                                <div class="carousel-caption text-start text-dark d-flex">
-                                    <div class="w-50">
-                                        <h1><br><?php echo $res_nouveaute[1]['primaryTitle']; ?></h1>
-                                        <p><br>De Antoine Dupont<br><?php if (isset($res_nouveaute[1]['genre'])){ echo $res_nouveaute[1]['genre'];} ?><br>Sortie en <?php echo $res_nouveaute[1]['startYear']; ?><br><br><br><br></p>
-                                        <button class="nav-btn btn btn-lg btn-warning text-white border border-light border-2 rounded-3 d-flex m-auto">En voir plus</button>
-                                    </div>
-                                    <div class="w-50" style="background-color: #5956CA;"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#E8EDDF"/></svg>
-                            <div class="container">
-                                <div class="carousel-caption text-start text-dark d-flex">
-                                    <div class="w-50">
-                                        <h1><br><?php echo $res_nouveaute[2]['primaryTitle']; ?></h1>
-                                        <p><br>De Antoine Dupont<br><?php if (isset($res_nouveaute[2]['genre'])){ echo $res_nouveaute[2]['genre'];} ?><br>Sortie en <?php echo $res_nouveaute[2]['startYear']; ?><br><br><br><br></p>
-                                        <button class="nav-btn btn btn-lg btn-warning text-white border border-light border-2 rounded-3 d-flex m-auto">En voir plus</button>
-                                    </div>
-                                    <div class="w-50" style="background-color: #5956CA;"></div>
-                                </div>
-                            </div> 
-                        </div>
+                        <?php } ?>
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -169,21 +151,13 @@
                 <div class="container marketing">
                     <h1 class="text-center mb-5">Listes les plus populaires</h1>
                     <div class="row d-flex justify-content-around">
-                        <div class="col-lg-3 border border-dark border-2 text-center rounded-2" style="height: 350px; background-color: #CFDBD5;">
-                            <h2 class="mt-5">Nom de la liste</h2>
-                            <p class="text-start mb-4">Auteur : Antoine Dupont<br>Détails : Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                            <button class="nav-btn btn btn-lg btn-warning text-white border border-light border-2 rounded-3">En voir plus</button>
-                        </div>
-                        <div class="col-lg-3 border border-dark border-2 text-center rounded-2" style="height: 350px; background-color: #CFDBD5;">
-                            <h2 class="mt-5">Nom de la liste</h2>
-                            <p class="text-start mb-4">Auteur : Antoine Dupont<br>Détails : Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                            <button class="nav-btn btn btn-lg btn-warning text-white border border-light border-2 rounded-3">En voir plus</button>
-                        </div>
-                        <div class="col-lg-3 border border-dark border-2 text-center rounded-2" style="height: 350px; background-color: #CFDBD5;">
-                            <h2 class="mt-5">Nom de la liste</h2>
-                            <p class="text-start mb-4">Auteur : Antoine Dupont<br>Détails : Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                            <button class="nav-btn btn btn-lg btn-warning text-white border border-light border-2 rounded-3">En voir plus</button>
-                        </div>
+                        <?php foreach ($res_listes_populaires as $liste) { ?>
+                            <div class="col-lg-3 border border-dark border-2 text-center rounded-2" style="height: 350px; background-color: #CFDBD5;">
+                                <h2 class="mt-5"><?php echo $liste['nom']; ?></h2>
+                                <p class="text-start mb-4">De <?php echo $liste['pseudo']; ?><br>Détails : <?php echo $liste['details']; ?></p>
+                                <a href="./private_list.php?id_liste=<?php echo $liste['id_liste']; ?>" class="nav-btn btn btn-lg btn-warning text-white border border-light border-2 rounded-3">En voir plus</a>
+                            </div>
+                        <?php } ?>
                         <button class="w-75 nav-btn btn btn-lg btn-warning text-white border border-light border-2 rounded-3 m-auto mt-4 d-flex justify-content-center" onclick="window.location='public_list.php'">Voir plus de listes</button>
                     </div>
                 </div>
@@ -194,33 +168,39 @@
                     <div class="row featurette">
                         <div class="col-md-7">
                             <h2 class="featurette-heading"><?php echo $res_populaires[0]['primaryTitle']; ?></h2>
-                            <p class="lead mb-4">De Antoine Dupont<br><?php echo $res_populaires[0]['genre'];?><br>Sortie en <?php echo $res_populaires[1]['startYear']; ?><br>Résumé : Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a gasz jaeal.</p>
+                            <p class="lead mb-4">De <?php echo $res_populaires[0]['name']; ?><br><?php echo $res_populaires[0]['genre']; ?><br>Sortie en <?php echo $res_populaires[0]['startYear']; ?><br>Résumé : Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a gasz jaeal.</p>
                             <button class="nav-btn btn btn-lg btn-warning text-white border border-light border-2 rounded-3 d-flex m-auto">En voir plus</button>
                         </div>
                         <div class="col-md-5">
-                            <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#5956CA"/></svg>
+                            <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" preserveAspectRatio="xMidYMid slice" focusable="false">
+                                <rect width="100%" height="100%" fill="#5956CA" />
+                            </svg>
                         </div>
                     </div>
                     <hr class="featurette-divider">
                     <div class="row featurette">
                         <div class="col-md-7 order-md-2">
                             <h2 class="featurette-heading"><?php echo $res_populaires[1]['primaryTitle']; ?></h2>
-                            <p class="lead mb-4">De Antoine Dupont<br><?php echo $res_populaires[1]['genre'];?><br>Sortie en <?php echo $res_populaires[1]['startYear']; ?><br>Résumé : Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a gasz jaeal.</p>
+                            <p class="lead mb-4">De <?php echo $res_populaires[1]['name']; ?><br><?php echo $res_populaires[1]['genre']; ?><br>Sortie en <?php echo $res_populaires[1]['startYear']; ?><br>Résumé : Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a gasz jaeal.</p>
                             <button class="nav-btn btn btn-lg btn-warning text-white border border-light border-2 rounded-3 d-flex m-auto">En voir plus</button>
                         </div>
                         <div class="col-md-5 order-md-1">
-                            <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#5956CA"/></svg>
+                            <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" preserveAspectRatio="xMidYMid slice" focusable="false">
+                                <rect width="100%" height="100%" fill="#5956CA" />
+                            </svg>
                         </div>
                     </div>
                     <hr class="featurette-divider">
                     <div class="row featurette mb-5">
                         <div class="col-md-7">
                             <h2 class="featurette-heading"><?php echo $res_populaires[2]['primaryTitle']; ?></h2>
-                            <p class="lead mb-4">De Antoine Dupont<br><?php echo $res_populaires[2]['genre'];?><br>Sortie en <?php echo $res_populaires[1]['startYear']; ?><br>Résumé : Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a gasz jaeal.</p>
+                            <p class="lead mb-4">De <?php echo $res_populaires[2]['name'] ?><br><?php echo $res_populaires[2]['genre']; ?><br>Sortie en <?php echo $res_populaires[1]['startYear']; ?><br>Résumé : Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a gasz jaeal.</p>
                             <button class="nav-btn btn btn-lg btn-warning text-white border border-light border-2 rounded-3 d-flex m-auto">En voir plus</button>
                         </div>
                         <div class="col-md-5">
-                            <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#5956CA"/></svg>
+                            <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" preserveAspectRatio="xMidYMid slice" focusable="false">
+                                <rect width="100%" height="100%" fill="#5956CA" />
+                            </svg>
                         </div>
                     </div>
                 </div>
@@ -231,4 +211,5 @@
     <script src="../../inc/js/search_movie.js"></script>
     <script src="../../inc/library/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
