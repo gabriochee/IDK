@@ -64,6 +64,8 @@
         let intervalId = null; 
         let currentFriendId = 0; // variable pour stocker l'id de l'utilisateur qu'on a cliqué et qu'on a 
         // fetch mes amis pour que je puisse cliquer et envoyer message à cet amis
+        let expression = /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/gi;
+        let regex = new RegExp(expression);
 
         document.addEventListener('DOMContentLoaded', function() {
             if (typeof friendData !== 'undefined') {
@@ -156,6 +158,19 @@
                             const messageContent = document.createElement('p');
                             messageContent.classList.add('mb-0');
                             messageContent.textContent = message.contenu_message;
+                            
+                            for (const fragment of messageContent.textContent.split(' ')){
+                                let validUrl = true;
+                                try {
+                                    let url = new URL(fragment);
+                                } catch (_){
+                                    validUrl = false;
+                                }
+                                
+                                if (validUrl){
+                                    messageContent.innerHTML = messageContent.innerHTML.replace(fragment, `<a href="${fragment}">${fragment}</a>`);
+                                }
+                            }
                             
                             const messageDate = document.createElement('p');
                             messageDate.textContent = message.date_messsage;

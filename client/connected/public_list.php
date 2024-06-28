@@ -24,7 +24,7 @@
         <div class="container">
             <input type="search" class="form-control border border-2 border-dark mb-4" oninput="searchPublicList(this.value)" placeholder="Rechercher..." aria-label="Search">
         </div>
-        <div class="container" id="lists-container">
+        <div class="container d-flex flex-column" id="lists-container">
 
         </div>
     </main>

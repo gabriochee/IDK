@@ -1,5 +1,3 @@
-
-
 const star1 = document.getElementById("rate-1");
 const star2 = document.getElementById("rate-2");
 const star3 = document.getElementById("rate-3");
@@ -14,11 +12,39 @@ const movieSynposis = document.getElementById("movie-synopsis");
 const movieTitle = document.getElementById("movie-title").innerText;
 const movieYear = document.getElementById("movie-year").innerText;
 
+var urlParams = new URLSearchParams(window.location.search);
+var idMovie = urlParams.get('mv');
 
+const searchFriend = async () => {
+  const friendsResultsContainer = document.querySelector("#friends-result-container");
+  friendsResultsContainer.innerHTML = "";
 
+  let friendKeyword = document.getElementById("search-friend-input").value;
+  const req = await fetch(`../../inc/php/search_friend.php?` + new URLSearchParams({friend_keyword : friendKeyword}), {credentials : "same-origin"});
+  const res = await req.json();
 
+  for (const user of res){
+    friendsResultsContainer.innerHTML += `<div class="d-flex justify-content-between"><p>${user.pseudo}</p><button type="button" class="btn btn-warning" onclick="sendMovieToFriend(this, ${user.id_user})">Envoyer</button></div>`;
+  }
+}
 
+const sendMovieToFriend = async (elem, idFriend) => {
+  const url = location.protocol + '//' + location.host + location.pathname;
 
+  let message = elem.parentNode.parentNode.parentNode.querySelector('textarea').value;
+  let req = await fetch('../../inc/php/send_message_chat.php', {
+  method: "post",
+  credentials : "same-origin",
+  headers: {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json'
+  },
+  body : JSON.stringify({
+    message : message + '\r\n' + url + '?' + new URLSearchParams({mv : idMovie}),
+    idFriend : idFriend
+  })
+})
+}
 const noConnectedElement = document.getElementById("no-connected");
 if (noConnectedElement !== null) {
   noConnectedElement.addEventListener("click", function () {
@@ -37,8 +63,6 @@ const options = {
 if (star1 != undefined){
   stars.forEach((star) => {
     star.addEventListener("click", async function (clickEvent) {
-      var urlParams = new URLSearchParams(window.location.search);
-      var idMovie = urlParams.get('mv');
       note = 0;
       for (let i = 0; i < stars.indexOf(star); i++) {
         stars[i].classList.remove("bi-star-half");

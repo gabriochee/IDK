@@ -41,6 +41,7 @@ const sendListToFriend = async (elem, idFriend) => {
   const url = location.protocol + '//' + location.host + location.pathname;
 
   let message = elem.parentNode.parentNode.parentNode.querySelector('textarea').value;
+  await fetch('../../inc/php/share_list_counter.php?' + new URLSearchParams({idListe : id_liste}));
   let req = await fetch('../../inc/php/send_message_chat.php', {
   method: "post",
   credentials : "same-origin",
@@ -49,7 +50,7 @@ const sendListToFriend = async (elem, idFriend) => {
     'Content-Type': 'application/json'
   },
   body : JSON.stringify({
-    message : message + '\r\n' + url + '?' + new URLSearchParams({id_liste : id_liste}),
+    message : message + ' \r\n' + url + '?' + new URLSearchParams({id_liste : id_liste}),
     idFriend : idFriend
   })
 })

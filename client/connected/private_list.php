@@ -78,7 +78,7 @@ if (isset($_GET['id_liste'])) {
             <div class="d-lg-flex row gx-2 gy-3 px-5 py-3 row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-1">
             <?php
                 if (isset($_GET['id_liste'])) {
-                    $req = $bdd->prepare("SELECT element_liste.id_work, work_basics.primaryTitle, work_basics.startYear FROM element_liste JOIN work_basics ON element_liste.id_work = work_basics.id_work WHERE id_liste = :id_liste;");
+                    $req = $bdd->prepare("SELECT element_liste.id_work, work_basics.primaryTitle, work_basics.startYear FROM element_liste JOIN work_basics ON element_liste.id_work = work_basics.id_work WHERE id_liste = :id_liste ORDER BY date_ajout;");
                     $req->bindParam(":id_liste", $_GET['id_liste']);
                     $req->execute();
                     $res;
