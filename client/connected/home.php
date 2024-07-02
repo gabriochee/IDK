@@ -132,7 +132,9 @@
                                                                         } ?><br>Sortie en <?php echo $film['startYear']; ?><br><br><br></p>
                                         <button class="nav-btn btn btn-lg btn-warning text-white border border-light border-2 rounded-3 d-flex m-auto">En voir plus</button>
                                     </div>
-                                    <div class="w-50" style="background-color: #5956CA;"></div>
+                                    <div class="w-50 d-flex justify-content-center" style="background-color: #5956CA;">
+                                        <img class="movie-poster" movie-title="<?php echo $film['primaryTitle']; ?>" movie-year="<?php echo $film['startYear']; ?>" src="">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -209,6 +211,7 @@
     </main>
     <?php require_once('../../inc/components/connected/footer.php'); ?>
     <script src="../../inc/js/search_movie.js"></script>
+    <script src="../../inc/js/display_home_movies.js"></script>
     <script src="../../inc/library/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 
