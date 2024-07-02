@@ -39,6 +39,5 @@ if (in_array("admin", $segments_location)) {
     }
 }
 
-
 ?>
 

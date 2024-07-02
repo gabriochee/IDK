@@ -13,7 +13,7 @@
     <main class="container-fluid d-flex no-wrap flex-column">
         <div class="row">
             <div class="col-lg-6 m-auto p-4">
-                <a href="<?php echo $direction; ?>"><img src="../../inc/img/logo.svg" alt="Logo IDK" class="navbar-brand img-fluid my-5" width="150px" height="150px"></a>
+                <a href="<?php echo $direction; ?>"><img src="../inc/img/logo.svg" alt="Logo IDK" class="navbar-brand img-fluid my-5" width="150px" height="150px"></a>
             </div>
         </div>
         <h1>Erreur 404, vous allez être rediriger automatique d'ici 30 secondes vers la page d'acceuil</h1>

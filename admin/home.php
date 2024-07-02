@@ -1,4 +1,5 @@
 <?php require_once('../inc/php/access.php'); ?>
+<?php require_once('../inc/php/display_home_backoffice.php'); ?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -29,10 +30,10 @@
                         </div>
                         <div class="card mb-4 rounded-3 shadow-sm">
                             <div class="card-header py-3">
-                                <h4 class="my-0 fw-normal">Nombres d'oeuvre stockée dans la base <small>(le 12/12/2024 12:12:12)</small></h4>
+                                <h4 class="my-0 fw-normal"><?php echo 'Nombres d\'oeuvre stockée dans la base (' . date("Y-m-d H:i:s") . ')';?></h4>
                             </div>
                             <div class="card-body">
-                                <h1 class="card-title pricing-card-title"><small class="text-muted fw-light">8 000 000</small></h1>
+                                <h1 class="card-title pricing-card-title"><small class="text-muted fw-light"><?php echo $res_nb_oeuvre['nb_oeuvre']; ?></small></h1>
                             </div>
                         </div>
                     </div>
@@ -42,7 +43,7 @@
                                 <h4 class="my-0 fw-normal">Moyennes d'ages des utilisateurs</h4>
                             </div>
                             <div class="card-body">
-                                <h1 class="card-title pricing-card-title"><small class="text-muted fw-light">34 ans</small></h1>
+                                <h1 class="card-title pricing-card-title"><small class="text-muted fw-light"><?php echo $res_moyenne_age['moyenne_age']; ?> ans</small></h1>
                             </div>
                         </div>
                         <div class="card mb-4 rounded-3 shadow-sm">
@@ -54,9 +55,56 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col d-flex align-items-center"><canvas id="proportion_sexe"></canvas></div>
-                    <div class="col-md-6 mt-3"><canvas id="nb_inscription"></canvas></div>
-                    <div class="col-md-6 mt-3"><canvas id="creation_listes"></canvas></div>
+                    <div class="col">
+                        <div class="card mb-4 rounded-3 shadow-sm">
+                            <div class="card-header py-3">
+                                <h4 class="my-0 fw-normal">Proportions des genres</h4>
+                            </div>
+                            <div class="card-body">
+                                <h1 class="card-title pricing-card-title">
+                                    <small class="text-muted fw-light"><ul class="text-start">
+                                        <li><small class="text-muted fw-light">Hommes : <?php echo $res_genre['hommes']; ?></small></li>
+                                        <li><small class="text-muted fw-light">Femmes : <?php echo $res_genre['femmes']; ?></small></li>
+                                        <li><small class="text-muted fw-light">Autres : <?php echo $res_genre['autres']; ?></small></li>
+                                    </ul></small>
+                                </h1>
+                            </div>
+                        </div>
+                        <div class="card mb-4 rounded-3 shadow-sm">
+                            <div class="card-header py-3">
+                                <h4 class="my-0 fw-normal">Nombres d'inscriptions</h4>
+                            </div>
+                            <div class="card-body">
+                                <h1 class="card-title pricing-card-title">
+                                    <small class="text-muted fw-light"><ul class="text-start">
+                                        <li><small class="text-muted fw-light">Aujourd'hui : <?php echo $res_nb_inscription['today']; ?></small></li>
+                                        <li><small class="text-muted fw-light">Cette semaine : <?php echo $res_nb_inscription['semaine']; ?></small></li>
+                                        <li><small class="text-muted fw-light">Ce mois : <?php echo $res_nb_inscription['mois']; ?></small></li>
+                                        <li><small class="text-muted fw-light">Cette année : <?php echo $res_nb_inscription['annee']; ?></small></li>
+                                        <li><small class="text-muted fw-light">Total : <?php echo $res_nb_inscription['total']; ?></small></li>
+                                    </ul></small>
+                                </h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <div class="card mb-4 rounded-3 shadow-sm">
+                            <div class="card-header py-3">
+                                <h4 class="my-0 fw-normal">Nombres de listes crée</h4>
+                            </div>
+                            <div class="card-body">
+                                <h1 class="card-title pricing-card-title">
+                                    <small class="text-muted fw-light"><ul class="text-start">
+                                        <li><small class="text-muted fw-light">Aujourd'hui : <?php echo $res_creation_listes['today']; ?></small></li>
+                                        <li><small class="text-muted fw-light">Cette semaine : <?php echo $res_creation_listes['semaine']; ?></small></li>
+                                        <li><small class="text-muted fw-light">Ce mois : <?php echo $res_creation_listes['mois']; ?></small></li>
+                                        <li><small class="text-muted fw-light">Cette année : <?php echo $res_creation_listes['annee']; ?></small></li>
+                                        <li><small class="text-muted fw-light">Total : <?php echo $res_creation_listes['total']; ?></small></li>
+                                    </ul></small>
+                                </h1>
+                            </div>
+                        </div>
+                    </div>
                     <div class="col-md-12 mt-3">
                         <div class="card mb-4 rounded-3 shadow-sm">
                             <div class="card-header py-3">

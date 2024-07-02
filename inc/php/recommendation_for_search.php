@@ -2,7 +2,7 @@
 session_start();
 require_once("db.php");
 
-if (!isset($_SESSION['connected']) || $_SESSION['connected'] != 'connected') { exit; }
+if (!isset($_SESSION['connected']) || $_SESSION['connected'] != 'connected') {exit;}
 
 $id_work = $_GET['id_work'];
 

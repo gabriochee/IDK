@@ -22,15 +22,6 @@
         </button>
     </header>
     <main>
-        <div class="container text-center m-auto">
-            <div class="row">
-                <div class="col-lg-6 m-auto p-3">
-                    <img src="../../inc/img/logo.svg" alt="Logo IDK" class="navbar-brand img-fluid my-4" width="150px" height="150px">
-                </div>
-                
-            </div>
-        </div>
-
         <div class="container col-sm-6 col-xl-4">
             <div class="row g-3">
                 <div class="d-flex m-auto col-lg-6 p-3 justify-content-center mb-3">

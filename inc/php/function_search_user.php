@@ -9,7 +9,7 @@
     $rep1 = $req1->fetchAll();
 
     //on veut afficher ceux qui nous ont envoyé donc utilisateur.id_user = demande_ami.envoyeur quand c a nous que l'on a envoyé donc "receveur"=>$_SESSION['id_user']
-    $req2 = $bdd->prepare("SELECT pseudo, nom, prenom, id_user FROM utilisateur INNER JOIN demande_ami ON utilisateur.id_user = demande_ami.envoyeur WHERE demande_ami.receveur = :receveur");
+    $req2 = $bdd->prepare("SELECT pseudo, nom, prenom, id_user FROM utilisateur INNER JOIN demande_ami ON utilisateur.id_user = demande_ami.envoyeur WHERE demande_ami.receveur = :receveur AND statut_demande = 'En attente'");
     $req2->execute(
         array(
             "receveur"=>$_SESSION['id_user']
@@ -85,7 +85,7 @@
             }
         } else {
             //header('Location: ')
-            echo 'marche pas ';
+            // echo 'marche pas ';
         }
         
     }
@@ -96,30 +96,8 @@
             $stmt->bindParam(':me', $my_user_id);
             $stmt->bindParam(':other', $other_user_id);
             $stmt->execute();
-            update_user_stats($my_user_id, $bdd);
             server_log($my_user_id . " est devenu ami avec " . $other_user_id);
         }catch(PDOException $e){
-            die($e->getMessage());
-        }
-    }
-
-    function update_user_stats($user_id, $bdd) {
-        try {
-            $req_avg_age = $bdd->prepare("SELECT AVG(age_amis) AS moyenne_age_ami FROM ( SELECT TIMESTAMPDIFF(YEAR, u.date_naissance, CURDATE()) AS age_amis FROM ami a INNER JOIN utilisateur u ON a.id_user_2 = u.id_user WHERE a.id_user_1 = :id_user AND u.date_naissance IS NOT NULL) AS ages_amis;");
-            $req_avg_age->execute(":id_user", $user_id);
-            $avg_age = $req_avg_age->fetch();
-
-            $req_majority_genre = $bdd->prepare("SELECT u.sexe AS majorite_genre_ami FROM ami a INNER JOIN utilisateur u ON a.id_user_2 = u.id_user WHERE a.id_user_1 = :id_user GROUP BY u.sexe ORDER BY COUNT(*) DESC LIMIT 1;");
-            $req_avg_age->execute(":id_user", $user_id);
-            $majority_genre = $req_majority_genre->fetch();
-
-            $sql_update_stats = "UPDATE utilisateur SET moyenne_age_ami = :avg_age, majorite_genre_ami = :majority_gender WHERE id_utilisateur = :user_id";
-            $stmt_update_stats = $bdd->prepare($sql_update_stats);
-            $stmt_update_stats->bindParam(':avg_age', $avg_age);
-            $stmt_update_stats->bindParam(':majority_gender', $majority_genre);
-            $stmt_update_stats->bindParam(':user_id', $user_id);
-            $stmt_update_stats->execute();
-        } catch(PDOException $e) {
             die($e->getMessage());
         }
     }
@@ -168,7 +146,7 @@
 
     function cancel_request($my_user_id, $other_user_id, $bdd){
         try{
-            $cancel_request= $bdd->prepare("DELETE FROM demande_ami WHERE envoyeur=:me AND receveur= :other");
+            $cancel_request= $bdd->prepare("UPDATE demande_ami SET statut_demande ='Refuser' WHERE envoyeur=:me AND receveur= :other");
             $cancel_request->bindParam(':me', $my_user_id);
             $cancel_request->bindParam(':other', $other_user_id);
             $cancel_request->execute();

@@ -15,7 +15,7 @@ const searchKeywordMovie = async () => {
  
 const addMovieToList = async (id_work) => {
     try {
-        await fetch(`../../inc/php/search_for_recommendation.php?id_work=${id_work}`, {
+        await fetch(`../../inc/php/recommendation_for_search.php?id_work=${id_work}`, {
             credentials: 'same-origin'
         });
     } catch (error) {
