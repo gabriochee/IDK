@@ -328,7 +328,6 @@
 
         <?php require_once('../../inc/components/connected/footer.php'); ?>
         <script src="../../inc/js/oeuvre.js"></script>
-        <script src="../../inc/js/search_movie.js"></script>
         <script src="../../inc/js/add_movie_to_my_lists.js"></script>
         <script>
             document.addEventListener('DOMContentLoaded', function() {

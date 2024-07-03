@@ -204,7 +204,6 @@
         </div>
     </main>
     <?php require_once('../../inc/components/connected/footer.php'); ?>
-    <script src="../../inc/js/search_movie.js"></script>
     <script src="../../inc/js/display_home_movies.js"></script>
     <script src="../../inc/library/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>

@@ -40,7 +40,7 @@ const sendMovieToFriend = async (elem, idFriend) => {
     'Content-Type': 'application/json'
   },
   body : JSON.stringify({
-    message : message + '\r\n' + url + '?' + new URLSearchParams({mv : idMovie}),
+    message : message + ' \r\n' + url + '?' + new URLSearchParams({mv : idMovie}),
     idFriend : idFriend
   })
 })

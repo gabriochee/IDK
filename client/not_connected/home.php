@@ -145,7 +145,6 @@
         </div>
     </main>
     <?php require('../../inc/components/not_connected/footer.php'); ?>
-    <script src="../../inc/js/search_movie.js"></script>
     <script src="../../inc/library/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 
