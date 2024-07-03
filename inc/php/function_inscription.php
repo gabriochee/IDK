@@ -78,36 +78,33 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $reponse = $req->fetch();
         $_SESSION['email'] = $reponse['mail'];
         $_SESSION['id_user'] = $reponse['id_user'];
-        //a voir
+        
         $req5 = $bdd->prepare('INSERT INTO listes(date_creation, details, statut, id_user, nom) VALUES (:date_creation, :details, :list_status, :id_user, :nom);');
         $nom_a_voir ="À voir";
         $description_a_voir = "Liste par défaut : Films que j'ai envie de voir";
         $status_a_voir ="default";
-        
         $req5->bindParam(":nom", $nom_a_voir);
         $req5->bindParam(":details", $description_a_voir);
         $req5->bindParam(":list_status", $status_a_voir);
         $req5->bindValue(":date_creation", date('Y-m-d H:i:s'));
         $req5->bindParam(":id_user", $_SESSION['id_user']);
         $req5->execute();
-        //deja vu
+        
         $req5 = $bdd->prepare('INSERT INTO listes(date_creation, details, statut, id_user, nom) VALUES (:date_creation, :details, :list_status, :id_user, :nom);');
         $nom_vu ="Déjà vu";
         $description_vu = "Liste par défaut : Films que j'ai déjà vu";
         $status_vu ="default";
-        
         $req5->bindParam(":nom", $nom_vu);
         $req5->bindParam(":details", $description_vu);
         $req5->bindParam(":list_status", $status_vu);
         $req5->bindValue(":date_creation", date('Y-m-d H:i:s'));
         $req5->bindParam(":id_user", $_SESSION['id_user']);
         $req5->execute();
-        //recommandation
+        
         $req5 = $bdd->prepare('INSERT INTO listes(date_creation, details, statut, id_user, nom) VALUES (:date_creation, :details, :list_status, :id_user, :nom);');
         $nom_reco ="Recommendation";
         $description_reco = "";
         $status_reco ="default";
-        
         $req5->bindParam(":nom", $nom_reco);
         $req5->bindParam(":details", $description_reco);
         $req5->bindParam(":list_status", $status_reco);
@@ -129,7 +126,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     } catch (PDOException $e) {
         echo $e->getMessage();
-        //header('Location: signin.php?wrong_email=true');
+        // header('Location: signin.php?wrong_email=true');
     }
 }
 ?>
