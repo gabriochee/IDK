@@ -26,7 +26,7 @@
                             <h4 class="card-title"><?php echo $rep_data_user1['pseudo'] . ' (#' . $rep_data_user1['id_user'] . ')'; ?></h4>
                             <p class="card-text text-start my-0"><?php echo $rep_data_user1['nom'] . ' ' . $rep_data_user1['prenom']; ?></p>
                             <p class="card-text text-start my-0">Inscrit depuis : <?php echo $rep_data_user1['date_inscription']; ?></p>
-                            <span class="badge bg-secondary mt-3"><?php echo $rep_data_user2['count(*)']; ?> amis</span>
+                            <span class="badge bg-secondary mt-3"><?php echo $rep_data_user2['count(id_user_1)']; ?> amis</span>
                         </div>
                     </div>
                 </div>
@@ -170,39 +170,33 @@
                     <div class="row featurette">
                         <div class="col-md-7">
                             <h2 class="featurette-heading"><?php echo $res_populaires[0]['primaryTitle']; ?></h2>
-                            <p class="lead mb-4">De <?php echo $res_populaires[0]['name']; ?><br><?php echo $res_populaires[0]['genre']; ?><br>Sortie en <?php echo $res_populaires[0]['startYear']; ?><br>Résumé : Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a gasz jaeal.</p>
+                            <p class="lead mb-4">De <?php echo $res_populaires[0]['name']; ?><br><?php echo $res_populaires[0]['genre']; ?><br>Sortie en <?php echo $res_populaires[0]['startYear']; ?><br><span class="resume"></span></p>
                             <button class="nav-btn btn btn-lg btn-warning text-white border border-light border-2 rounded-3 d-flex m-auto">En voir plus</button>
                         </div>
                         <div class="col-md-5">
-                            <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" preserveAspectRatio="xMidYMid slice" focusable="false">
-                                <rect width="100%" height="100%" fill="#5956CA" />
-                            </svg>
+                            <img class="movie-poster" movie-title="<?php echo $res_populaires[0]['primaryTitle']; ?>" movie-year="<?php echo $res_populaires[0]['startYear']; ?>" src="">
                         </div>
                     </div>
                     <hr class="featurette-divider">
                     <div class="row featurette">
                         <div class="col-md-7 order-md-2">
                             <h2 class="featurette-heading"><?php echo $res_populaires[1]['primaryTitle']; ?></h2>
-                            <p class="lead mb-4">De <?php echo $res_populaires[1]['name']; ?><br><?php echo $res_populaires[1]['genre']; ?><br>Sortie en <?php echo $res_populaires[1]['startYear']; ?><br>Résumé : Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a gasz jaeal.</p>
+                            <p class="lead mb-4">De <?php echo $res_populaires[1]['name']; ?><br><?php echo $res_populaires[1]['genre']; ?><br>Sortie en <?php echo $res_populaires[1]['startYear']; ?><br><span class="resume"></span></p>
                             <button class="nav-btn btn btn-lg btn-warning text-white border border-light border-2 rounded-3 d-flex m-auto">En voir plus</button>
                         </div>
                         <div class="col-md-5 order-md-1">
-                            <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" preserveAspectRatio="xMidYMid slice" focusable="false">
-                                <rect width="100%" height="100%" fill="#5956CA" />
-                            </svg>
+                            <img class="movie-poster" movie-title="<?php echo $res_populaires[1]['primaryTitle']; ?>" movie-year="<?php echo $res_populaires[1]['startYear']; ?>" src="">
                         </div>
                     </div>
                     <hr class="featurette-divider">
                     <div class="row featurette mb-5">
                         <div class="col-md-7">
                             <h2 class="featurette-heading"><?php echo $res_populaires[2]['primaryTitle']; ?></h2>
-                            <p class="lead mb-4">De <?php echo $res_populaires[2]['name'] ?><br><?php echo $res_populaires[2]['genre']; ?><br>Sortie en <?php echo $res_populaires[1]['startYear']; ?><br>Résumé : Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a gasz jaeal.</p>
+                            <p class="lead mb-4">De <?php echo $res_populaires[2]['name'] ?><br><?php echo $res_populaires[2]['genre']; ?><br>Sortie en <?php echo $res_populaires[1]['startYear']; ?><br><span class="resume"></span></p>
                             <button class="nav-btn btn btn-lg btn-warning text-white border border-light border-2 rounded-3 d-flex m-auto">En voir plus</button>
                         </div>
                         <div class="col-md-5">
-                            <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" preserveAspectRatio="xMidYMid slice" focusable="false">
-                                <rect width="100%" height="100%" fill="#5956CA" />
-                            </svg>
+                            <img class="movie-poster" movie-title="<?php echo $res_populaires[2]['primaryTitle']; ?>" movie-year="<?php echo $res_populaires[2]['startYear']; ?>" src="">
                         </div>
                     </div>
                 </div>
@@ -210,7 +204,6 @@
         </div>
     </main>
     <?php require_once('../../inc/components/connected/footer.php'); ?>
-    <script src="../../inc/js/search_movie.js"></script>
     <script src="../../inc/js/display_home_movies.js"></script>
     <script src="../../inc/library/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>

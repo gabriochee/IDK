@@ -13,8 +13,6 @@ if (isset($_GET['id_liste'])) {
 
     $res = $req->fetch();
 
-    var_dump($res);
-
     if ($res['id_user'] == $_SESSION['id_user']) {
         $req = $bdd->prepare("DELETE FROM element_liste WHERE id_liste = :id_liste");
         $req->bindParam(":id_liste", $id_liste);

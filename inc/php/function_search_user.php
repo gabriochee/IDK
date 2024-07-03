@@ -36,7 +36,7 @@
     $rep4 = $req4->fetchAll();
 
     if(isset($_GET['demande']) && isset($_GET['id'])){
-        //
+        
         if(isset($_SESSION['id_user'])){
             
             if ($_GET['demande'] === 'attente_demande_ami') {
@@ -83,11 +83,7 @@
                     die($e->getMessage());
                 }
             }
-        } else {
-            //header('Location: ')
-            // echo 'marche pas ';
-        }
-        
+        }        
     }
     function being_friend($my_user_id, $other_user_id, $bdd){
         try{

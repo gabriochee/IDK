@@ -195,7 +195,6 @@ if (isset($_GET['id_liste'])) {
     <script>
         const id_liste = <?php echo $_GET['id_liste']; ?>;
     </script>
-    <script src="../../inc/js/search_movie.js"></script>
     <script src="../../inc/js/private_list.js"></script>
     <script src="../../inc/library/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>

@@ -30,6 +30,5 @@
     <?php require_once('../../inc/components/not_connected/footer.php'); ?>
     <script> setTimeout(function() { window.location.href = 'confirmation_connexion.php';}, 5000); </script>
     <script src="../../inc/library/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="../../inc/js/search_movie.js"></script>
 </body>
 </html>

@@ -35,8 +35,6 @@
                         $result = $bdd->query($query);
                         $fetchedResult = $result->fetchAll();
                         
-                        //var_dump($fetchedResult);
-                        
                         if (!$fetchedResult) {
                             echo 'vide.';
                         } else if (str_contains($query, "SHOW COLUMNS")) {

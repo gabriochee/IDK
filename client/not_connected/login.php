@@ -22,6 +22,11 @@
         </button>
     </header>
     <main>
+<<<<<<< HEAD
+        
+
+=======
+>>>>>>> 7c277aad49c2ca106105b840e3332dcada45a4d0
         <div class="container col-sm-6 col-xl-4">
             <div class="row g-3">
                 <div class="d-flex m-auto col-lg-6 p-3 justify-content-center mb-3">

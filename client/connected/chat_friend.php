@@ -61,6 +61,10 @@
     <?php require_once('../../inc/components/connected/footer.php'); ?>
     <script src="../../inc/library/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script>
+        function scrollToBottom() {
+            const messageContainer = document.querySelector('.message-container');
+            messageContainer.scrollTop = messageContainer.scrollHeight;
+        }
         let intervalId = null; 
         let currentFriendId = 0; // variable pour stocker l'id de l'utilisateur qu'on a cliqué et qu'on a 
         // fetch mes amis pour que je puisse cliquer et envoyer message à cet amis
@@ -68,6 +72,7 @@
         let regex = new RegExp(expression);
 
         document.addEventListener('DOMContentLoaded', function() {
+            
             if (typeof friendData !== 'undefined') {
                 let listFriend = document.getElementById('friendsList');
 
@@ -90,17 +95,13 @@
                         </div>`;
                     listFriend.appendChild(listItem);
                 });
-            } else {
-                // console.error('friendData n\'est pas défini');
             }
         });
+        
 
         function fetchFriendConv(pseudo, id_user) {
-            console.log("Friend clicked:", pseudo);
-            console.log("id of clicked:", id_user);
-            
             document.getElementById('friend-name').innerText = pseudo;
-            currentFriendId = id_user; // Mise à jour de la variable globale à utiliser pour savoir à qui envoyer
+            currentFriendId = id_user; 
 
             if (intervalId) {
                 clearInterval(intervalId);
@@ -110,6 +111,7 @@
 
         
         function send_id(currentFriendId) {
+            
             intervalId = setInterval(() => {
                 const me = <?php echo $_SESSION['id_user']; ?>;
                 fetch('../../inc/php/function_fetch_message.php', {
@@ -121,9 +123,7 @@
                 })
                 .then(response => response.json())
                 .then(data => {
-                    if (data.status === 'error') {
-                        // 
-                    } else {
+                    if (data.status != 'error') {
                         document.querySelector('#message_list').innerHTML = '';
                         data.forEach(message => {
                             const li = document.createElement('li');
@@ -185,13 +185,16 @@
 
                             document.querySelector('#message_list').appendChild(li);
                         });
+                        
                     }
                 })
                 .catch(error => {
-                    // 
+                    
                 });
             }, 1000); 
         }
+        
+        
 
         document.getElementById('myMessage').addEventListener('submit', function(event) {
             event.preventDefault(); 
@@ -205,18 +208,24 @@
                 },
                 body: JSON.stringify({ message: messageText, idFriend: currentFriendId2 })
             })
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.json();
+            })
             .then(data => {
+                console.log(data);
                 if (data.status === 'success') {
+                    scrollToBottom();
                     document.getElementById('messageText').value = "";
-                } else {
-                    // 
                 }
             })
             .catch(error => {
-                // 
+                
             });
         });
+
     </script>
 </body>
 </html>
