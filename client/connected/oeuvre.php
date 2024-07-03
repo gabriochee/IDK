@@ -1,4 +1,5 @@
 <?php require_once('../../inc/php/access.php'); ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -12,7 +13,6 @@
 </head>
 
 <body id="oeuvre">
-    <?php require_once('../../inc/php/db.php'); ?>
     <?php require_once('../../inc/php/function_oeuvre.php'); ?>
     <?php require_once('../../inc/components/connected/header.php'); ?>
     <main>
@@ -79,10 +79,14 @@
                             <div class="card col-1 mx-1 p-3 color-custom-1" style="width: 170px;">
                                 <div class="card-body d-flex flex-column justify-content-start align-items-center p-0">
                                     <p class="m-0 fw-bold fs-5">Ma note</p>
-                                    <p class="m-0 note-count fs-5 mt-2"><?php if ($rep8) {echo $myRating;} else {echo '--'; } ?></p>
+                                    <p class="m-0 note-count fs-5 mt-2"><?php if ($rep8) {
+                                                                            echo $myRating;
+                                                                        } else {
+                                                                            echo '--';
+                                                                        } ?></p>
                                     <div class="d-flex justify-content-center my-2">
                                         <?php
-                                        if ($rep8){
+                                        if ($rep8) {
                                             $a = $myPartie_decimale > 0 ? '1' : '0';
                                             for ($i = $a; $i < $myRating; $i++) {
                                                 echo '<i class="bi bi-star-fill"></i>';
@@ -148,7 +152,32 @@
                         <i class="bi bi-plus-circle ms-3"></i>
                     </div>
                     <div class="col-1 d-flex justify-content-center align-items-center border border-2 border-dark color-custom-1 menu-oeuvre">
-                        <i class="bi bi-share"></i>
+                        <i class="bi bi-share" data-bs-toggle="modal" data-bs-target="#shareMovieModal"></i>
+
+                        <div class="modal fade" id="shareMovieModal" tabindex="-1" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5">Partager ce film</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body d-flex flex-column justify-content-start">
+                                        <label for="share-comment" class="form-label text-start">Votre message</label>
+                                        <textarea class="form-control" id="share-comment" name="share-comment"></textarea>
+                                        <hr>
+                                        <label for="search-friend-input" class="form-label text-start">Rechercher un ami</label>
+                                        <input type="search" class="form-control mb-2" id="search-friend-input" onkeydown="searchFriend()">
+                                        <div class="container d-flex flex-column form-check" id="friends-result-container">
+
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer d-flex justify-content-between">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
                 <div>
@@ -221,7 +250,7 @@
                     <div id="commentaire-quatre" class="row justify-content-center" style="display: none;">
                         <div class="col-12 border border-2 border-top-0 border-dark color-custom-2">
                             <div class="overflow-auto menu-oeuvre-2" id="comments-quatre">
-                                
+
                             </div>
                         </div>
                     </div>
@@ -414,47 +443,42 @@
 
             function showCommentByNote(note) {
                 var note = note;
-                console.log(note);
                 var currentUrl2 = window.location.href;
                 var urlParams2 = new URLSearchParams(window.location.search);
                 var idMovie2 = urlParams2.get('mv');
                 fetch('../../inc/php/function_comment_by_note.php', {
-                    method: 'POST',
-                    credentials: 'same-origin',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        idMovie2:idMovie2,
-                        note:note
+                        method: 'POST',
+                        credentials: 'same-origin',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            idMovie2: idMovie2,
+                            note: note
+                        })
                     })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.status === 'error') {
-                        console.error(data.message);
-                    } else {
-                        console.log(data);
-                        const commentsContainer = document.getElementById(`comments-quatre`); 
-                        console.log(commentsContainer);
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === 'error') {
+                            console.error(data.message);
+                        } else {
+                            const commentsContainer = document.getElementById(`comments-quatre`);
+
+                            data.reviews.forEach(review => {
+                                const paragraph = document.createElement('p');
+
+                                paragraph.textContent = `${review.date_avis} - ${review.pseudo} -${review.critique} `;
+
+                                commentsContainer.appendChild(paragraph);
+                            });
 
 
-                        data.reviews.forEach(review => {
-                        const paragraph = document.createElement('p');
-                        
-                        paragraph.textContent = `${review.date_avis} - ${review.pseudo} -${review.critique} `;
-                        
-                        commentsContainer.appendChild(paragraph);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching reviews:', error);
                     });
-
-
-                    }
-                })
-                .catch(error => {
-                    console.error('Error fetching reviews:', error);
-                });
             }
-
         </script>
         <script src="../../inc/library/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>

@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once('db.php');
 
 $data = json_decode(file_get_contents('php://input'), true);
@@ -11,6 +12,17 @@ $duree = isset($data[4]) ? $data[4] : '';
 $provenance = isset($data[5]) ? $data[5] : '';
 $genres = isset($data[6]) ? $data[6] : [];
 $annee = isset($data[7]) ? $data[7] : '';
+
+for ($i = 0; $i > $data ; $i++){
+    // inserer le noms des questions dans le fetch 
+    $id_questionnaire = date("Y-m-d-H:i:s-") . $_SESSION['id_user'];
+    $req_insert = $bdd->prepare("INSERT INTO questionnaire (date, corps_question, corps_reponse, id_user, id_questionnaire) VALUES (NOW(), :corps_question, :corps_reponse, :id_user, :id_questionnaire)");
+    $req_insert->bindParam(':corps_question', $data);
+    $req_insert->bindParam(':corps_reponse', $data);
+    $req_insert->bindParam(':id_user', $_SESSION['id_user']);
+    $req_insert->bindParam(':id_questionnaire', $id_questionnaire);
+    $req_insert->execute();
+}
 
 $asie = ['AF', 'AM', 'AZ', 'BH', 'BD', 'BT', 'BN', 'KH', 'CN', 'GE', 'IN', 'ID', 'IR', 'IQ', 'IL', 'JP', 'JO', 'KZ', 'KW', 'KG', 'LA', 'LB', 'MY', 'MV', 'MN', 'MM', 'NP', 'KP', 'KR', 'OM', 'PK', 'PS', 'PH', 'QA', 'SA', 'SG', 'LK', 'SY', 'TW', 'TJ', 'TH', 'TL', 'TR', 'TM', 'AE', 'UZ', 'VN', 'YE'];
 $afrique = ['DZ', 'AO', 'BJ', 'BW', 'BF', 'BI', 'CM', 'CV', 'CF', 'TD', 'KM', 'CG', 'CD', 'CI', 'DJ', 'EG', 'GQ', 'ER', 'ET', 'GA', 'GM', 'GH', 'GN', 'GW', 'KE', 'LS', 'LR', 'LY', 'MG', 'MW', 'ML', 'MR', 'MU', 'YT', 'MA', 'MZ', 'NA', 'NE', 'NG', 'RE', 'RW', 'ST', 'SN', 'SC', 'SL', 'SO', 'ZA', 'SS', 'SD', 'SZ', 'TZ', 'TG', 'TN', 'UG', 'EH', 'ZM', 'ZW'];
@@ -32,7 +44,7 @@ $country = [
 
 $annee_actuel = date("Y");
 
-$query = "SELECT wb.id_work, primaryTitle FROM work_basics wb JOIN work_ratings wr ON wb.id_work = wr.id_work JOIN work_akas wa ON wb.id_work = wa.id_work JOIN work_genres wg ON wb.id_work = wg.id_work JOIN work_principals wp ON wb.id_work = wp.id_work JOIN name_basics nb ON wp.id_person = nb.id_person JOIN name_professions np ON wp.id_person = np.id_person WHERE 1=1";
+$query = "SELECT DISTINCT wb.id_work, primaryTitle FROM work_basics wb JOIN work_ratings wr ON wb.id_work = wr.id_work JOIN work_akas wa ON wb.id_work = wa.id_work JOIN work_genres wg ON wb.id_work = wg.id_work JOIN work_principals wp ON wb.id_work = wp.id_work JOIN name_basics nb ON wp.id_person = nb.id_person JOIN name_professions np ON wp.id_person = np.id_person WHERE 1=1";
 
 if ($avis) {
     if ($avis == 'Toujours') {

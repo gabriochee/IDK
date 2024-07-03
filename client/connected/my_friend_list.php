@@ -89,7 +89,7 @@
                         <?php foreach ($rep4 as $rep4) { ?>
                             <div class="col mb-4">
                                 <div class="card h-100 shadow-sm">
-                                    <img src="../../inc/img/user_img/<?php echo htmlspecialchars($rep4['photo_utilisateur']); ?>" class="card-img-top img-fluid" style="object-fit: cover; height: 200px;" alt="Photo de l'utilisateur">
+                                    <img src="../../inc/img/user_img/<?php echo htmlspecialchars($rep4['photo_utilisateur']); ?>" class="card-img-top img-fluid" style="height: 200px;" alt="Photo de l'utilisateur">
                                     <div class="card-body d-flex flex-column align-items-center">
                                         <h5 class="card-title username"><?php echo $rep4['pseudo']; ?></h5>
                                         <p class="card-text"><?php echo $rep4['nom'] . ' ' . $rep4['prenom']; ?></p>

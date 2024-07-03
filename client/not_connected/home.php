@@ -2,6 +2,7 @@
 <?php require('../../inc/php/display_home.php'); ?>
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,8 +11,9 @@
     <link rel="stylesheet" href="../../inc/library/bootstrap/bootstrap-icons/font/bootstrap-icons.min.css">
     <title>IDK</title>
 </head>
+
 <body id="not_connected_home">
-    <?php require('../../inc/components/not_connected/header.php');?>      
+    <?php require('../../inc/components/not_connected/header.php'); ?>
     <main>
         <div class="container mt-5 mb-5">
             <div class="container text-center m-auto">
@@ -41,83 +43,59 @@
                 </div>
             </div>
             <hr class="featurette-divider my-2">
-                <h1 class="text-center mt-3">Nouveauté</h1>
-                    <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
-                        <div class="carousel-indicators">
-                            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                        </div>
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#E8EDDF"/></svg>
-                                <div class="container">
-                                    <div class="carousel-caption text-start text-dark d-flex">
-                                        <div class="w-50">
-                                            <h1><br>Nom œuvre</h1>
-                                            <p><br><br>De Antoine Dupont<br>Genre<br>Sortie le jj/mm/aaaa<br><br><br></p>
-                                            <button class="nav-btn btn btn-lg btn-warning text-white border border-light border-2 rounded-3 d-flex m-auto">En voir plus</button>
-                                        </div>
-                                        <div class="w-50" style="background-color: #5956CA;"></div>
+            <h1 class="text-center mt-3">Nouveauté</h1>
+            <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                </div>
+                <div class="carousel-inner">
+                    <?php $active = true;
+                    foreach ($res_nouveaute as $film) { ?>
+                        <div class="carousel-item <?php if ($active) {
+                                                        echo 'active';
+                                                        $active = false;
+                                                    } ?>">
+                            <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
+                                <rect width="100%" height="100%" fill="#E8EDDF" />
+                            </svg>
+                            <div class="container">
+                                <div class="carousel-caption text-start text-dark d-flex">
+                                    <div class="w-50">
+                                        <h1><br><?php echo $film['primaryTitle']; ?></h1>
+                                        <p><br><br>De <?php echo $film['name']; ?><br><?php if (isset($film['genre'])) {
+                                                                                            echo $film['genre'];
+                                                                                        } ?><br>Sortie en <?php echo $film['startYear']; ?><br><br><br></p>
+                                        <button class="nav-btn btn btn-lg btn-warning text-white border border-light border-2 rounded-3 d-flex m-auto">En voir plus</button>
                                     </div>
+                                    <div class="w-50" style="background-color: #5956CA;"></div>
                                 </div>
                             </div>
-                            <div class="carousel-item">
-                                <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#E8EDDF"/></svg>
-                                <div class="container">
-                                    <div class="carousel-caption text-start text-dark d-flex">
-                                        <div class="w-50">
-                                            <h1><br>Nom œuvre</h1>
-                                            <p><br>De Antoine Dupont<br>Genre<br>Sortie le jj/mm/aaaa<br><br><br><br></p>
-                                            <button class="nav-btn btn btn-lg btn-warning text-white border border-light border-2 rounded-3 d-flex m-auto">En voir plus</button>
-                                        </div>
-                                        <div class="w-50" style="background-color: #5956CA;"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#E8EDDF"/></svg>
-                                <div class="container">
-                                    <div class="carousel-caption text-start text-dark d-flex">
-                                        <div class="w-50">
-                                            <h1><br>Nom œuvre</h1>
-                                            <p><br>De Antoine Dupont<br>Genre<br>Sortie le jj/mm/aaaa<br><br><br><br></p>
-                                            <button class="nav-btn btn btn-lg btn-warning text-white border border-light border-2 rounded-3 d-flex m-auto">En voir plus</button>
-                                        </div>
-                                        <div class="w-50" style="background-color: #5956CA;"></div>
-                                    </div>
-                                </div> 
-                            </div>
                         </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
-                    </div>
+                    <?php } ?>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
 
 
             <div class="container marketing">
                 <h1 class="text-center mb-5">Listes les plus populaires</h1>
                 <div class="row d-flex justify-content-around">
-                    <div class="col-lg-3 border border-dark border-2 text-center rounded-2" style="height: 350px; background-color: #CFDBD5;">
-                        <h2 class="mt-5">Nom de la liste</h2>
-                        <p class="text-start mb-4">Auteur : Antoine Dupont<br>Détails : Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                        <button class="nav-btn btn btn-lg btn-warning text-white border border-light border-2 rounded-3">En voir plus</button>
-                    </div>
-                    <div class="col-lg-3 border border-dark border-2 text-center rounded-2" style="height: 350px; background-color: #CFDBD5;">
-                        <h2 class="mt-5">Nom de la liste</h2>
-                        <p class="text-start mb-4">Auteur : Antoine Dupont<br>Détails : Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                        <button class="nav-btn btn btn-lg btn-warning text-white border border-light border-2 rounded-3">En voir plus</button>
-                    </div>
-                    <div class="col-lg-3 border border-dark border-2 text-center rounded-2" style="height: 350px; background-color: #CFDBD5;">
-                        <h2 class="mt-5">Nom de la liste</h2>
-                        <p class="text-start mb-4">Auteur : Antoine Dupont<br>Détails : Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                        <button class="nav-btn btn btn-lg btn-warning text-white border border-light border-2 rounded-3">En voir plus</button>
-                    </div>
+                    <?php foreach ($res_listes_populaires as $liste) { ?>
+                        <div class="col-lg-3 border border-dark border-2 text-center rounded-2" style="height: 350px; background-color: #CFDBD5;">
+                            <h2 class="mt-5"><?php echo $liste['nom']; ?></h2>
+                            <p class="text-start mb-4">De <?php echo $liste['pseudo']; ?><br>Détails : <?php echo $liste['details']; ?></p>
+                            <a href="./private_list.php?id_liste=<?php echo $liste['id_liste']; ?>" class="nav-btn btn btn-lg btn-warning text-white border border-light border-2 rounded-3">En voir plus</a>
+                        </div>
+                    <?php } ?>
                 </div>
                 <button class="w-75 nav-btn btn btn-lg btn-warning text-white border border-light border-2 rounded-3 m-auto mt-4 d-flex justify-content-center" onclick="window.location='public_list.php'">Voir plus de listes</button>
             </div>
@@ -127,34 +105,40 @@
                 <h1 class="text-center mb-5">Films populaires du moment</h1>
                 <div class="row featurette">
                     <div class="col-md-7">
-                        <h2 class="featurette-heading">Nom œuvre</h2>
-                        <p class="lead mb-4">De Antoine Dupont<br>Genre<br>Sortie le jj/mm/aaaa<br>Résumer : Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a gasz jaeal.</p>
+                        <h2 class="featurette-heading"><?php echo $res_populaires[0]['primaryTitle']; ?></h2>
+                        <p class="lead mb-4">De <?php echo $res_populaires[0]['name']; ?><br><?php echo $res_populaires[0]['genre']; ?><br>Sortie en <?php echo $res_populaires[0]['startYear']; ?><br>Résumé : Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a gasz jaeal.</p>
                         <button class="nav-btn btn btn-lg btn-warning text-white border border-light border-2 rounded-3 d-flex m-auto">En voir plus</button>
                     </div>
                     <div class="col-md-5">
-                        <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#5956CA"/></svg>
+                        <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" preserveAspectRatio="xMidYMid slice" focusable="false">
+                            <rect width="100%" height="100%" fill="#5956CA" />
+                        </svg>
                     </div>
                 </div>
                 <hr class="featurette-divider">
                 <div class="row featurette">
                     <div class="col-md-7 order-md-2">
-                        <h2 class="featurette-heading">Nom œuvre</span></h2>
-                        <p class="lead mb-4">De Antoine Dupont<br>Genre<br>Sortie le jj/mm/aaaa<br>Résumer : Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a gasz jaeal.</p>
+                        <h2 class="featurette-heading"><?php echo $res_populaires[1]['primaryTitle']; ?></h2>
+                        <p class="lead mb-4">De <?php echo $res_populaires[1]['name']; ?><br><?php echo $res_populaires[1]['genre']; ?><br>Sortie en <?php echo $res_populaires[1]['startYear']; ?><br>Résumé : Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a gasz jaeal.</p>
                         <button class="nav-btn btn btn-lg btn-warning text-white border border-light border-2 rounded-3 d-flex m-auto">En voir plus</button>
                     </div>
                     <div class="col-md-5 order-md-1">
-                        <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#5956CA"/></svg>
+                        <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" preserveAspectRatio="xMidYMid slice" focusable="false">
+                            <rect width="100%" height="100%" fill="#5956CA" />
+                        </svg>
                     </div>
                 </div>
                 <hr class="featurette-divider">
                 <div class="row featurette mb-5">
                     <div class="col-md-7">
-                        <h2 class="featurette-heading">Nom œuvre</h2>
-                        <p class="lead mb-4">De Antoine Dupont<br>Genre<br>Sortie le jj/mm/aaaa<br>Résumer : Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a gasz jaeal.</p>
+                        <h2 class="featurette-heading"><?php echo $res_populaires[2]['primaryTitle']; ?></h2>
+                        <p class="lead mb-4">De <?php echo $res_populaires[2]['name'] ?><br><?php echo $res_populaires[2]['genre']; ?><br>Sortie en <?php echo $res_populaires[1]['startYear']; ?><br>Résumé : Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a gasz jaeal.</p>
                         <button class="nav-btn btn btn-lg btn-warning text-white border border-light border-2 rounded-3 d-flex m-auto">En voir plus</button>
                     </div>
                     <div class="col-md-5">
-                        <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#5956CA"/></svg>
+                        <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" preserveAspectRatio="xMidYMid slice" focusable="false">
+                            <rect width="100%" height="100%" fill="#5956CA" />
+                        </svg>
                     </div>
                 </div>
             </div>
@@ -164,4 +148,5 @@
     <script src="../../inc/js/search_movie.js"></script>
     <script src="../../inc/library/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

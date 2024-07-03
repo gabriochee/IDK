@@ -19,7 +19,7 @@
                     <form action="./database_editor.php" method="POST">
                         <div class="col-12">
                             <label for="query-prompt" class="form-label fs-2">Requête</label>
-                            <textarea class="form-control fs-3" id="query-prompt" name="query-prompt" rows="7" minlength="0" maxlength="500" required><?php if (isset($_POST['query-prompt'])) { echo trim($_POST['query-prompt']); } ?></textarea>
+                            <textarea class="form-control fs-3" id="query-prompt" name="query-prompt" rows="7" minlength="0" maxlength="1000" required><?php if (isset($_POST['query-prompt'])) { echo trim($_POST['query-prompt']); } ?></textarea>
                         </div>
 
                         <button type="submit" class="btn btn-primary fs-2 mt-5">Envoyer</button>
@@ -34,8 +34,6 @@
                         $query = $_POST['query-prompt'];
                         $result = $bdd->query($query);
                         $fetchedResult = $result->fetchAll();
-                        
-                        //var_dump($fetchedResult);
                         
                         if (!$fetchedResult) {
                             echo 'vide.';

@@ -7,8 +7,18 @@ const searchKeywordMovie = async () => {
         if(json.length > 0) {
             json.forEach((post) => {
                 const linkUrl = `oeuvre.php?mv=${post.id_work}`;
-                document.querySelector("#resultats_movie").innerHTML += `<a href="${linkUrl}" class="text-white text-decoration-none">• ${post.title}</a><br>`;
+                document.querySelector("#resultats_movie").innerHTML += `<a href="${linkUrl}" class="text-white text-decoration-none" onclick="addMovieToList(${post.id_work})">• ${post.title}</a><br>`;
             });
         }
+    }
+}   
+ 
+const addMovieToList = async (id_work) => {
+    try {
+        await fetch(`../../inc/php/recommendation_for_search.php?id_work=${id_work}`, {
+            credentials: 'same-origin'
+        });
+    } catch (error) {
+        console.error('Erreur lors de l\'ajout du film à la liste:', error);
     }
 }

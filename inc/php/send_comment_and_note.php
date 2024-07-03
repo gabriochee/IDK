@@ -8,7 +8,6 @@
         $hasAvis = false;
         $hasComment = isset($data['comment']);
         $hasNote = isset($data['note']);
-        error_log(print_r($data, true));
         
         if ($hasNote || $hasComment){
             $req = $bdd->prepare("SELECT COUNT(id_avis) FROM avis WHERE id_user = :id_user AND id_work = :id_work;");

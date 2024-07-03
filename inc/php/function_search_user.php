@@ -9,7 +9,7 @@
     $rep1 = $req1->fetchAll();
 
     //on veut afficher ceux qui nous ont envoyé donc utilisateur.id_user = demande_ami.envoyeur quand c a nous que l'on a envoyé donc "receveur"=>$_SESSION['id_user']
-    $req2 = $bdd->prepare("SELECT pseudo, nom, prenom, id_user FROM utilisateur INNER JOIN demande_ami ON utilisateur.id_user = demande_ami.envoyeur WHERE demande_ami.receveur = :receveur");
+    $req2 = $bdd->prepare("SELECT pseudo, nom, prenom, id_user FROM utilisateur INNER JOIN demande_ami ON utilisateur.id_user = demande_ami.envoyeur WHERE demande_ami.receveur = :receveur AND statut_demande = 'En attente'");
     $req2->execute(
         array(
             "receveur"=>$_SESSION['id_user']
@@ -36,7 +36,7 @@
     $rep4 = $req4->fetchAll();
 
     if(isset($_GET['demande']) && isset($_GET['id'])){
-        //
+        
         if(isset($_SESSION['id_user'])){
             
             if ($_GET['demande'] === 'attente_demande_ami') {
@@ -83,11 +83,7 @@
                     die($e->getMessage());
                 }
             }
-        } else {
-            //header('Location: ')
-            echo 'marche pas ';
-        }
-        
+        }        
     }
     function being_friend($my_user_id, $other_user_id, $bdd){
         try{
@@ -146,7 +142,7 @@
 
     function cancel_request($my_user_id, $other_user_id, $bdd){
         try{
-            $cancel_request= $bdd->prepare("DELETE FROM demande_ami WHERE envoyeur=:me AND receveur= :other");
+            $cancel_request= $bdd->prepare("UPDATE demande_ami SET statut_demande ='Refuser' WHERE envoyeur=:me AND receveur= :other");
             $cancel_request->bindParam(':me', $my_user_id);
             $cancel_request->bindParam(':other', $other_user_id);
             $cancel_request->execute();

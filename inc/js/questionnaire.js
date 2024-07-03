@@ -45,6 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     
         const question = questions[currentQuestionIndex];
+        
         app.innerHTML = `
             <div class="container text-center col-lg-6 my-md-5 py-2">
                 <h3>${question.question}</h3>
@@ -60,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>` : ''}
             <div class="alert alert-warning mt-3" style="display: none;" id="alert">Vous ne pouvez sélectionner que 3 genres au maximum.</div>
         `;
-    
+        
         if (question.question === 'Quel genre vous attire ? (3 maximum)') {
             let selectedGenres = [];
     
@@ -119,7 +120,16 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .then(response => response.json())
         .then(data => {
-            // console.log("Data received from server:", data); 
+            try {
+                fetch(`../../inc/php/recommendation_for_questionnaire.php`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data.movies),
+                });
+            } catch (error) {
+                console.error('Erreur lors de l\'ajout des film à la liste de recommandation', error);
+            }
+
             app.innerHTML = `
                 <div class="container">
                     <h2 class="text-center my-4">Vos recommandations :</h2>

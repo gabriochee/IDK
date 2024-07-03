@@ -78,7 +78,7 @@ if (isset($_GET['id_liste'])) {
             <div class="d-lg-flex row gx-2 gy-3 px-5 py-3 row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-1">
             <?php
                 if (isset($_GET['id_liste'])) {
-                    $req = $bdd->prepare("SELECT element_liste.id_work, work_basics.primaryTitle, work_basics.startYear FROM element_liste JOIN work_basics ON element_liste.id_work = work_basics.id_work WHERE id_liste = :id_liste;");
+                    $req = $bdd->prepare("SELECT element_liste.id_work, work_basics.primaryTitle, work_basics.startYear FROM element_liste JOIN work_basics ON element_liste.id_work = work_basics.id_work WHERE id_liste = :id_liste ORDER BY date_ajout;");
                     $req->bindParam(":id_liste", $_GET['id_liste']);
                     $req->execute();
                     $res;
@@ -187,16 +187,6 @@ if (isset($_GET['id_liste'])) {
                 <label class="btn" for="public-list">publique</label>
             </div>
         <?php } ?>
-
-        <div class="container-fluid col-10 fs-5 border border-2 border-dark overflow-auto max-height" style="background-color : #CFDBD5;">
-            <ul>
-                <?php
-                for ($i = 1; $i <= 11; $i++) {
-                    echo "<li class='py-2'> Ami $i - <a href='#' class='link-dark link-underline-opacity-0 link-underline-opacity-100-hover'>Ajouter</a></li>";
-                }
-                ?>
-            </ul>
-        </div>
     </main>
     <?php require_once('../../inc/components/connected/footer.php'); ?>
     <?php if ($isOwner) {

@@ -35,19 +35,16 @@
         <div class="container py-3">
             <div class="row">
                 <div class="col-md-6 col-lg-5 col-xl-4 mb-4 mb-md-0 border-end border-2 border-dark">
-                    <div class="container mt-5 p-3 bg-light shadow-sm rounded">
-                        <div class="row" id="friendsList">
-                        </div>
+                    <div class="container p-3 bg-light shadow-sm rounded">
+                        <div class="row overflow-auto" id="friendsList" style="max-height: 500px;"></div>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-7 col-xl-8">
+                <div class="col-md-6 col-lg-7 col-xl-8 overflow-auto" style="max-height: 500px;">
                     <h5 class="font-weight-bold mb-3 text-center" id="friend-name">Nom de l'ami</h5>
                     <div class="message-container border border-dark rounded p-3 bg-white shadow-sm">
                         <ul class="list-unstyled">
                             <div class="container mt-5 p-3">
-                                <div class="row" id="message_list">
-                                    
-                                </div>
+                                <div class="row" id="message_list"></div>
                             </div>
                         </ul>
                     </div>
@@ -69,7 +66,14 @@
             messageContainer.scrollTop = messageContainer.scrollHeight;
         }
         let intervalId = null; 
+<<<<<<< HEAD
         let currentFriendId = 0; 
+=======
+        let currentFriendId = 0; // variable pour stocker l'id de l'utilisateur qu'on a cliqué et qu'on a 
+        // fetch mes amis pour que je puisse cliquer et envoyer message à cet amis
+        let expression = /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/gi;
+        let regex = new RegExp(expression);
+>>>>>>> 7c277aad49c2ca106105b840e3332dcada45a4d0
 
         document.addEventListener('DOMContentLoaded', function() {
             
@@ -83,7 +87,7 @@
                     listItem.innerHTML = 
                         `<div class="d-flex justify-content-between">
                             <div class="d-flex flex-row">
-                                <img src="../../inc/img/profile.svg" class="rounded-circle d-flex align-self-center me-3 shadow-1-strong" width="60">
+                                <img src="../../inc/img/user_img/${friend.photo_utilisateur}" class="rounded-circle d-flex align-self-center me-3 shadow-1-strong" width="60">
                                 <div class="pt-1">
                                     <p class="m-0 text-black">${friend.pseudo}</p>
                                     <p class="m-0 text-black">${friend.prenom} ${friend.nom}</p>
@@ -91,24 +95,23 @@
                             </div>
                             <div class="pt-1 my-auto">
                                 <button type="submit" onclick="fetchFriendConv('${friend.pseudo}', ${friend.id_user})" name="friendDisplay" class="nav-btn btn btn-primary btn-sm btn-warning text-white border border-light border-2 rounded-3">Voir conversation</button>
-                                <!--<p class="small text-muted mb-1">Just now</p>-->
-                                <!--<span class="badge bg-danger float-end">1</span>-->
                             </div>
                         </div>`;
                     listFriend.appendChild(listItem);
                 });
-            } else {
-                // console.error('friendData n\'est pas défini');
             }
         });
         
 
         function fetchFriendConv(pseudo, id_user) {
+<<<<<<< HEAD
             scrollToBottom();
             console.log("Friend clicked:", pseudo);
             console.log("id of clicked:", id_user);
             
             
+=======
+>>>>>>> 7c277aad49c2ca106105b840e3332dcada45a4d0
             document.getElementById('friend-name').innerText = pseudo;
             currentFriendId = id_user; 
 
@@ -132,9 +135,7 @@
                 })
                 .then(response => response.json())
                 .then(data => {
-                    if (data.status === 'error') {
-                        // 
-                    } else {
+                    if (data.status != 'error') {
                         document.querySelector('#message_list').innerHTML = '';
                         data.forEach(message => {
                             const li = document.createElement('li');
@@ -170,6 +171,19 @@
                             messageContent.classList.add('mb-0');
                             messageContent.textContent = message.contenu_message;
                             
+                            for (const fragment of messageContent.textContent.split(' ')){
+                                let validUrl = true;
+                                try {
+                                    let url = new URL(fragment);
+                                } catch (_){
+                                    validUrl = false;
+                                }
+                                
+                                if (validUrl){
+                                    messageContent.innerHTML = messageContent.innerHTML.replace(fragment, `<a href="${fragment}">${fragment}</a>`);
+                                }
+                            }
+                            
                             const messageDate = document.createElement('p');
                             messageDate.textContent = message.date_messsage;
                             messageDate.classList.add('date_size');
@@ -187,7 +201,7 @@
                     }
                 })
                 .catch(error => {
-                    // 
+                    
                 });
             }, 1000); 
         }
@@ -217,12 +231,19 @@
                 if (data.status === 'success') {
                     scrollToBottom();
                     document.getElementById('messageText').value = "";
+<<<<<<< HEAD
                 } else {
                     console.error('Erreur serveur :', data.message);
                 }
             })
             .catch(error => {
                 console.error('Erreur de requête :', error);
+=======
+                }
+            })
+            .catch(error => {
+                
+>>>>>>> 7c277aad49c2ca106105b840e3332dcada45a4d0
             });
         });
 
