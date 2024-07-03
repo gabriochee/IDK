@@ -90,15 +90,10 @@
                         </div>`;
                     listFriend.appendChild(listItem);
                 });
-            } else {
-                // console.error('friendData n\'est pas défini');
             }
         });
 
         function fetchFriendConv(pseudo, id_user) {
-            console.log("Friend clicked:", pseudo);
-            console.log("id of clicked:", id_user);
-            
             document.getElementById('friend-name').innerText = pseudo;
             currentFriendId = id_user; // Mise à jour de la variable globale à utiliser pour savoir à qui envoyer
 
@@ -121,9 +116,7 @@
                 })
                 .then(response => response.json())
                 .then(data => {
-                    if (data.status === 'error') {
-                        // 
-                    } else {
+                    if (data.status != 'error') {
                         document.querySelector('#message_list').innerHTML = '';
                         data.forEach(message => {
                             const li = document.createElement('li');
@@ -188,7 +181,7 @@
                     }
                 })
                 .catch(error => {
-                    // 
+                    
                 });
             }, 1000); 
         }
@@ -209,12 +202,10 @@
             .then(data => {
                 if (data.status === 'success') {
                     document.getElementById('messageText').value = "";
-                } else {
-                    // 
                 }
             })
             .catch(error => {
-                // 
+                
             });
         });
     </script>

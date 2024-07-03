@@ -335,8 +335,6 @@ $res_display_admin = array_reverse($res_display_admin);
                     .then(response => response.json())
                     .then(data => {
                         if (data.status === 'success') {
-                            // a retirer
-                            console.log(data.user);
 
                             userPhoto.src = `../inc/img/user_img/${data.user.photo_utilisateur}?${Date.now()}`;
                             userPseudoId.innerHTML = `<b>${data.user.pseudo} (#${data.user.id_user})</b>`;

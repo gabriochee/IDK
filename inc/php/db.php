@@ -19,7 +19,6 @@ try {
     $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
     handle_error("Erreur : " . $e->getMessage());
-    // echo "Erreur : " . $e->getMessage();
 }
 
 global $bdd;

@@ -40,7 +40,6 @@ document.addEventListener('DOMContentLoaded', () => {
     
     function renderQuestion() {
         if (currentQuestionIndex >= questions.length) {
-            console.log(answers);
             displayResults();
             return;
         }

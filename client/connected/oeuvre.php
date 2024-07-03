@@ -443,7 +443,6 @@
 
             function showCommentByNote(note) {
                 var note = note;
-                console.log(note);
                 var currentUrl2 = window.location.href;
                 var urlParams2 = new URLSearchParams(window.location.search);
                 var idMovie2 = urlParams2.get('mv');
@@ -463,10 +462,7 @@
                         if (data.status === 'error') {
                             console.error(data.message);
                         } else {
-                            console.log(data);
                             const commentsContainer = document.getElementById(`comments-quatre`);
-                            console.log(commentsContainer);
-
 
                             data.reviews.forEach(review => {
                                 const paragraph = document.createElement('p');
