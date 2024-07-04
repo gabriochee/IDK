@@ -1,5 +1,6 @@
 <?php
 require_once('db.php');
+require_once('log.php');
 
 if (isset($_POST['captcha_id']) && isset($_POST['captcha_answer'])) {
 
@@ -60,6 +61,7 @@ if(isset($_POST['connecter'])) {
                             header("Location: login.php?ban_not_def=true&raison=$raison&date_deban=$date_deban");
                         } else {
                             $_SESSION['email'] = $email;
+                            server_log($reponse['id_user'] . " est à la première étape de connexion");
                             header('Location: confirmation_connexion.php');
                         }
                     }

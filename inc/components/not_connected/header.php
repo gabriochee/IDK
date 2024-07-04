@@ -104,5 +104,7 @@
   });
 
   </script>
+  <script src="../../inc/js/search_movie.js"></script>
+
   <div id="resultats_movie"></div>
 </header>

@@ -21,7 +21,7 @@ try {
     $req_creation_listes->execute();
     $res_creation_listes = $req_creation_listes->fetch();
 // pas good
-    $req_moyenne_listes = $bdd->prepare("SELECT (SELECT COUNT(id_liste)) AS moyenne_liste FROM listes;");
+    $req_moyenne_listes = $bdd->prepare("SELECT AVG(liste_count) AS moyenne_liste FROM (SELECT u.id_user, COUNT(l.id_liste) AS liste_count FROM utilisateur u LEFT JOIN listes l ON u.id_user = l.id_user AND l.statut != 'default' GROUP BY u.id_user) AS subquery;");
     $req_moyenne_listes->execute();
     $res_moyenne_listes = $req_moyenne_listes->fetch();
 

@@ -1,6 +1,7 @@
 <?php
 
 require_once('db.php');
+require_once('log.php');
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -104,6 +105,7 @@ if (isset($_POST['connect'])) {
                     $email = $_SESSION['email'];
                     $req8->bindValue(':email', $email, PDO::PARAM_STR);
                     $req8->execute();
+                    server_log($_SESSION['id_user'] . " s'est connecté");
                     header('Location: ../connected/home.php');
                     exit;
                 } else if ($role == 'admin') {

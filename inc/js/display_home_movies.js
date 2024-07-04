@@ -20,12 +20,19 @@ function displayPoster(jsonData, poster) {
   const movie = jsonData.results[0];
   if (movie != undefined){
     const posterPath = movie.poster_path;
+    const synopsis = movie.overview;
 
     const rootPosterPath = "https://image.tmdb.org/t/p/w300/";
 
     poster.src = rootPosterPath + posterPath;
     poster.classList.add('shadow')
     poster.parentNode.style.backgroundColor = 'transparent';
+    
+    const resume = poster.parentNode.parentNode.querySelector('.resume');
+
+    if (resume != undefined){
+      resume.textContent = synopsis;
+    }
   }
 }
 

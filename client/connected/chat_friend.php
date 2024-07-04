@@ -39,9 +39,9 @@
                         <div class="row overflow-auto" id="friendsList" style="max-height: 500px;"></div>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-7 col-xl-8 overflow-auto" style="max-height: 500px;">
+                <div class="col-md-6 col-lg-7 col-xl-8 overflow-auto">
                     <h5 class="font-weight-bold mb-3 text-center" id="friend-name">Nom de l'ami</h5>
-                    <div class="message-container border border-dark rounded p-3 bg-white shadow-sm">
+                    <div class="message-container border border-dark rounded p-3 bg-white shadow-sm" style="max-height: 300px;">
                         <ul class="list-unstyled">
                             <div class="container mt-5 p-3">
                                 <div class="row" id="message_list"></div>
@@ -70,7 +70,6 @@
         // fetch mes amis pour que je puisse cliquer et envoyer message à cet amis
         let expression = /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/gi;
         let regex = new RegExp(expression);
->>>>>>> 7c277aad49c2ca106105b840e3332dcada45a4d0
 
         document.addEventListener('DOMContentLoaded', function() {
             
