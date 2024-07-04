@@ -26,7 +26,7 @@
                             <h4 class="card-title"><?php echo $rep_data_user1['pseudo'] . ' (#' . $rep_data_user1['id_user'] . ')'; ?></h4>
                             <p class="card-text text-start my-0"><?php echo $rep_data_user1['nom'] . ' ' . $rep_data_user1['prenom']; ?></p>
                             <p class="card-text text-start my-0">Inscrit depuis : <?php echo $rep_data_user1['date_inscription']; ?></p>
-                            <span class="badge bg-secondary mt-3"><?php echo $rep_data_user2['count(id_user_1)']; ?> amis</span>
+                            <span class="badge bg-secondary mt-3"><?php echo $rep_data_user2['nb_amis']; ?> amis</span>
                         </div>
                     </div>
                 </div>
@@ -132,7 +132,7 @@
                                                                         } ?><br>Sortie en <?php echo $film['startYear']; ?><br><br><br></p>
                                         <button class="nav-btn btn btn-lg btn-warning text-white border border-light border-2 rounded-3 d-flex m-auto">En voir plus</button>
                                     </div>
-                                    <div class="w-50 d-flex justify-content-center" style="background-color: #5956CA;">
+                                    <div class="w-50 d-flex justify-content-center" style="background-color: #E8EDDF;">
                                         <img class="movie-poster" movie-title="<?php echo $film['primaryTitle']; ?>" movie-year="<?php echo $film['startYear']; ?>" src="">
                                     </div>
                                 </div>

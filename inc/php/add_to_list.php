@@ -1,5 +1,6 @@
 <?php
 require_once('db.php');
+require_once('log.php');
 
 if (isset($_GET['id_work']) && isset($_GET['id_liste'])){
     $id_work = $_GET['id_work'];
@@ -17,6 +18,7 @@ if (isset($_GET['id_work']) && isset($_GET['id_liste'])){
 
         $req->execute();
         echo json_encode([]);
+        server_log("Ajout de l'oeuvre(" . $_GET['id_work'] . ") à la liste(" . $_GET['id_liste'] . ")");
     } else {
         echo json_encode(["error" => "Cet élément est déjà présent dans la liste."]);
     }

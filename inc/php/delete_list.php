@@ -1,5 +1,6 @@
 <?php
 require_once('db.php');
+require_once('log.php');
 
 session_start();
 
@@ -21,6 +22,9 @@ if (isset($_GET['id_liste'])) {
         $req = $bdd->prepare("DELETE FROM listes WHERE id_liste = :id_liste");
         $req->bindParam(":id_liste", $id_liste);
         $req->execute();
+
+        server_log("Supression liste($id_liste) par " . $_SESSION['id_user']);
+
         header("Location: ../../client/connected/home.php");
         exit;
     } else {

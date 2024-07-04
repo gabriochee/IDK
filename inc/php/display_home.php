@@ -3,7 +3,7 @@ require_once('db.php');
 
 try {
     $cette_annee = date('Y');
-    $data_nouveaute = $bdd->prepare("SELECT id_work, primaryTitle, startYear, genre, name FROM (SELECT wb.id_work, wb.primaryTitle, wb.startYear, wg.genre, name_basics.name FROM work_basics wb JOIN work_genres wg ON wb.id_work = wg.id_work JOIN work_director ON wb.id_work = work_director.id_work JOIN name_basics ON work_director.id_person = name_basics.id_person WHERE startYear = :annee ORDER BY wb.id_work DESC LIMIT 100) AS subquery ORDER BY RAND() LIMIT 3;");
+    $data_nouveaute = $bdd->prepare("SELECT id_work, primaryTitle, startYear, genre, name FROM (SELECT wb.id_work, wb.primaryTitle, wb.startYear, wg.genre, name_basics.name FROM work_basics wb JOIN work_genres wg ON wb.id_work = wg.id_work JOIN work_director ON wb.id_work = work_director.id_work JOIN name_basics ON work_director.id_person = name_basics.id_person JOIN work_ratings ON work_ratings.id_work = wb.id_work WHERE startYear = :annee AND averageRating >= 7.0 ORDER BY wb.id_work DESC LIMIT 100) AS subquery ORDER BY RAND() LIMIT 3;");
     $data_nouveaute->bindParam(':annee', $cette_annee);
     $data_nouveaute->execute();
 

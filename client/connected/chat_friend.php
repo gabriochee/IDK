@@ -100,6 +100,11 @@
         
 
         function fetchFriendConv(pseudo, id_user) {
+            scrollToBottom();
+            console.log("Friend clicked:", pseudo);
+            console.log("id of clicked:", id_user);
+            
+            
             document.getElementById('friend-name').innerText = pseudo;
             currentFriendId = id_user; 
 

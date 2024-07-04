@@ -1,4 +1,6 @@
 <?php require_once('../../inc/php/access.php'); ?>
+<?php require_once('../../inc/php/affichage_data_user.php'); ?>
+<?php require_once('../../inc/php/function_search_user.php'); ?>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -13,8 +15,6 @@
 
 <body id="connected_my_friend_list">
     <?php require_once('../../inc/components/connected/header.php'); ?>
-    <?php require_once('../../inc/php/affichage_data_user.php'); ?>
-    <?php require_once('../../inc/php/function_search_user.php'); ?>
     <main>
         <div class="container mt-5 mb-5">
             <div class="row">
@@ -22,10 +22,10 @@
                     <div class="card card-profile text-center border-0" style="background-color: transparent;">
                         <div class="card-body">
                             <img src="../../inc/img/user_img/<?php echo htmlspecialchars($rep_data_user1['photo_utilisateur']); ?>" alt="Photo de l'utilisateur" class="mb-3 card-img-top img-fluid rounded-circle">
-                            <h4 class="card-title"><?php echo $rep_data_user1['pseudo'] .' (#'. $rep_data_user1['id_user'] .')'; ?></h4>
-                            <p class="card-text text-start my-0"><?php echo $rep_data_user1['nom'] .' '. $rep_data_user1['prenom']; ?></p>
+                            <h4 class="card-title"><?php echo $rep_data_user1['pseudo'] . ' (#' . $rep_data_user1['id_user'] . ')'; ?></h4>
+                            <p class="card-text text-start my-0"><?php echo $rep_data_user1['nom'] . ' ' . $rep_data_user1['prenom']; ?></p>
                             <p class="card-text text-start my-0">Inscrit depuis : <?php echo $rep_data_user1['date_inscription']; ?></p>
-                            <span class="badge bg-secondary mt-3"><?php echo $rep_data_user2['nb_friend']; ?> amis</span>
+                            <span class="badge bg-secondary mt-3"><?php echo $rep_data_user2['nb_amis']; ?> amis</span>
                         </div>
                     </div>
                 </div>
@@ -94,9 +94,9 @@
                                         <h5 class="card-title username"><?php echo $rep4['pseudo']; ?></h5>
                                         <p class="card-text"><?php echo $rep4['nom'] . ' ' . $rep4['prenom']; ?></p>
                                         <span class="badge bg-secondary">1 ami</span>
-                                            <button type="button" class="btn btn-sm btn-warning w-100 mt-3" onclick="window.location='chat_friend.php'">Contacter</button>
-                                            <button type="button" class="btn btn-sm btn-warning w-100 mt-1" onclick="showFriendLists(this)" value="<?php echo $rep4['id_user'] ?>" data-bs-toggle="modal" data-bs-target="#listsModal">Voir les listes</button>
-                                            <a href="my_friend_list.php?demande=supp_friend&id=<?php echo $rep4['id_user']; ?>" class="btn btn-sm btn-warning w-100 mt-1">Supprimer</a>
+                                        <button type="button" class="btn btn-sm btn-warning w-100 mt-3" onclick="window.location='chat_friend.php'">Contacter</button>
+                                        <button type="button" class="btn btn-sm btn-warning w-100 mt-1" onclick="showFriendLists(this)" value="<?php echo $rep4['id_user'] ?>" data-bs-toggle="modal" data-bs-target="#listsModal">Voir les listes</button>
+                                        <a href="my_friend_list.php?demande=supp_friend&id=<?php echo $rep4['id_user']; ?>" class="btn btn-sm btn-warning w-100 mt-1">Supprimer</a>
                                     </div>
                                 </div>
                             </div>
@@ -130,4 +130,5 @@
     <script src="../../inc/js/friend_lists.js"></script>
     <script src="../../inc/library/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

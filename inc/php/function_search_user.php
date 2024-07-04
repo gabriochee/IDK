@@ -47,7 +47,7 @@
                     die($e->getMessage());
                 }
             }
-            if($_GET['demande'] === 'cancel_req'){
+            else if($_GET['demande'] === 'cancel_req'){
                 try{
                     cancel_request($_SESSION['id_user'], $_GET['id'], $bdd);
                     header('Location: my_friend_list.php');
@@ -55,7 +55,7 @@
                     die($e->getMessage());
                 }
             }
-            if($_GET['demande'] === 'cancel_req_from_receiver'){
+            else if($_GET['demande'] === 'cancel_req_from_receiver'){
                 try{
                     cancel_request($_GET['id'],$_SESSION['id_user'], $bdd);
                     header('Location: my_friend_list.php');
@@ -63,7 +63,7 @@
                     die($e->getMessage());
                 }
             }
-            if($_GET['demande'] === 'be_friend'){
+            else if($_GET['demande'] === 'be_friend'){
                 try{
                     being_friend($_SESSION['id_user'],$_GET['id'], $bdd);
                     cancel_request( $_GET['id'],$_SESSION['id_user'], $bdd);
@@ -74,7 +74,7 @@
                     die($e->getMessage());
                 }
             }
-            if($_GET['demande'] === 'supp_friend'){
+            else if($_GET['demande'] === 'supp_friend'){
                 try{
                     supp_friend($_SESSION['id_user'],$_GET['id'], $bdd);
                     header('Location: my_friend_list.php');

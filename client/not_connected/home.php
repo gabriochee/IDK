@@ -69,7 +69,7 @@
                                                                                         } ?><br>Sortie en <?php echo $film['startYear']; ?><br><br><br></p>
                                         <button class="nav-btn btn btn-lg btn-warning text-white border border-light border-2 rounded-3 d-flex m-auto">En voir plus</button>
                                     </div>
-                                    <div class="w-50" style="background-color: #5956CA;"></div>
+                                    <div class="w-50" style="background-color: #E8EDDF;"></div>
                                 </div>
                             </div>
                         </div>

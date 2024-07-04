@@ -9,24 +9,39 @@ if (isset($_GET['id_liste'])) {
     $res = $req->fetchAll();
     $nomListe = $res[0]['nom'];
     $dateCreation = $res[0]['date_creation'];
-    $isOwner = $res[0]['id_user'] == $_SESSION['id_user'];
+    $idOwner = $res[0]['id_user'];
+    $isOwner = $idOwner == $_SESSION['id_user'];
     $statut = $res[0]['statut'];
     $details = $res[0]['details'];
 
     $req = $bdd->prepare("SELECT pseudo, date_inscription FROM utilisateur WHERE id_user = :id_user;");
-    $req->bindParam(":id_user", $res[0]['id_user']);
+    $req->bindParam(":id_user", $idOwner);
     $req->execute();
 
     $res = $req->fetchAll();
     $pseudoProprietaire = $res[0]['pseudo'];
     $dateInscription = $res[0]['date_inscription'];
 
-    $req = $bdd->prepare("SELECT MAX(date_ajout) FROM element_liste WHERE id_liste = :id_liste;");
+    $req = $bdd->prepare("SELECT date_log FROM logs WHERE INSTR(log_action, :id_liste) AND INSTR(log_action, 'liste') ORDER BY date_log DESC LIMIT 1;");
     $req->bindParam(":id_liste", $_GET['id_liste']);
     $req->execute();
 
+    $res = $req->fetch();
+    $dateMaj = $res['date_log'];
+
+    $req = $bdd->prepare("SELECT COUNT(id_work) as public_ratings_number FROM avis WHERE statut = 'publique' AND id_user = :id_user;");
+    $req->bindParam(':id_user', $idOwner);
     $req->execute();
-    $dateMaj = isset($res[0]['date_ajout']) ? $res[0]['date_ajout'] : 'error';
+
+    $res = $req->fetch();
+    $nbCritiquesPubliques = $res['public_ratings_number'];
+
+    $req = $bdd->prepare("SELECT COUNT(id_liste) as public_lists_number FROM listes WHERE statut = 'publique' AND id_user = :id_user;");
+    $req->bindParam(':id_user', $idOwner);
+    $req->execute();
+
+    $res = $req->fetch();
+    $nbListesPubliques = $res['public_lists_number'];
 } else {
     header("Location: ../connected/home.php");
     exit();
@@ -64,9 +79,8 @@ if (isset($_GET['id_liste'])) {
                 <p class="fs-6 m-0">Dernière mise à jour le : <?php echo $dateMaj; ?></p>
                 <p class="fs-6 m-0">Auteur : <?php echo $pseudoProprietaire; ?></p>
 
-                <p class="fs-6 m-0">123 abonnées</p>
-                <p class="fs-6 m-0">123 critiques publiques</p>
-                <p class="fs-6 m-0">12 listes publiques</p>
+                <p class="fs-6 m-0"><?php echo $nbCritiquesPubliques; ?> critique<?php echo ($nbCritiquesPubliques > 1) ? 's' : '';?> publique<?php echo ($nbCritiquesPubliques > 1) ? 's' : '';?></p>
+                <p class="fs-6 m-0"><?php echo $nbListesPubliques; ?> liste<?php echo ($nbListesPubliques > 1) ? 's' : '';?> publique<?php echo ($nbListesPubliques > 1) ? 's' : '';?></p>
                 <p class="fs-6 m-0">Inscrit le : <?php echo $dateInscription; ?></p>
                 <hr>
                 <p class="fs-6 m-0">Description : <b><?php echo $details; ?></b></p>

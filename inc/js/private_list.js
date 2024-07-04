@@ -1,5 +1,6 @@
-const movieCards = document.querySelectorAll(".movie-card");
+let movieCards = document.querySelectorAll(".movie-card");
 const listStatusRadios = document.querySelectorAll("input[name=list-status]");
+const cardsContainer = document.getElementById("cards-container");
 
 const options = {
   method: 'GET',
@@ -58,7 +59,12 @@ const sendListToFriend = async (elem, idFriend) => {
 
 const addMovieToList = async (btn) => {
     const id_work = btn.value;
-    await fetch(`../../inc/php/add_to_list.php?id_work=${id_work}&id_liste=${id_liste}`);
+    await fetch(`../../inc/php/add_to_list.php?id_work=${id_work}&id_liste=${id_liste}`).catch(error => console.error(error));
+    let promise = await fetch("../../inc/php/get_movie_card.php?" + new URLSearchParams({mv: id_work, id_liste : id_liste}), {credentials : 'same-origin'});
+    let card = await promise.text() 
+    cardsContainer.innerHTML += card;
+    movieCards = document.querySelectorAll(".movie-card");
+    setCardsContent();
 }
 
 function onError(error){

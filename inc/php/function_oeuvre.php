@@ -20,23 +20,41 @@ if(isset($_GET['mv'])) {
     $req4 = $bdd->query("SELECT averageRating, numVotes FROM work_ratings WHERE id_work = {$_GET['mv']}");
     $rep4 = $req4->fetch(); 
     $req8 = null;
-    $rep8 = null;
+    $rep9 = null;
 
     $myRating;
     $myPartie_decimale;
     $myPartie_entiere;
 
+    $myFriendsRating;
+    $myFriendsPartie_decimale;
+    $myFriendsPartie_entiere;
+
+
     if (isset($_SESSION['id_user'])){
-        $req8 = $bdd->prepare('SELECT note FROM avis WHERE id_user = :id_user AND id_work = :id_work;');
+        $req8 = $bdd->prepare('SELECT note, statut FROM avis WHERE id_user = :id_user AND id_work = :id_work;');
         $req8->bindParam(":id_user", $_SESSION['id_user']);
         $req8->bindParam(":id_work", $_GET['mv']);
         $req8->execute();
         $rep8 = $req8->fetch();
 
+        $req9 = $bdd->prepare('SELECT AVG(note), COUNT(id_user) FROM avis JOIN ami ON avis.id_user = ami.id_user_1 WHERE id_work = :id_work AND id_user != :id_user AND statut IN (\'publique\', \'amis seulement\') AND (id_user_1 = :id_user OR id_user_2 = :id_user);');
+        $req9->bindParam(":id_user", $_SESSION['id_user']);
+        $req9->bindParam(":id_work", $_GET['mv']);
+        $req9->execute();
+        $rep9 = $req9->fetch();
+
         if ($rep8){
+            $statut = $rep8['statut'];
             $myRating = $rep8["note"] / 2;
             $myPartie_decimale = fmod($myRating, 1);
             $myPartie_entiere = intval($myRating);
+        }
+
+        if ($rep9) {
+            $myFriendsRating = $rep9['AVG(note)'] / 2;
+            $myFriendsPartie_decimale = fmod($myFriendsRating, 1);
+            $myFriendsPartie_entiere = intval($myFriendsRating);
         }
     }
 
