@@ -88,8 +88,8 @@ if (isset($_GET['id_liste'])) {
             </div>
 
         <!-- besoin de changer la taille verticale de cette div, si vous trouvez comment faire dites moi svp. -->
-        <div class="container m-0 mt-5 p-0 w-75 list-height m-auto border border-3 border-dark rounded-3 overflow-auto no-overflow-x" style="background-color: #CFDBD5;">
-            <div class="d-lg-flex row gx-2 gy-3 px-5 py-3 row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-1" id='cards-container'>
+        <div class="container m-0 mt-5 p-0 w-100 list-height m-auto border border-3 border-dark rounded-3 overflow-auto no-overflow-x" style="background-color: #CFDBD5;">
+            <div class="d-lg-flex row gx-2 gy-3 px-5 py-3 row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-1 ">
             <?php
                 if (isset($_GET['id_liste'])) {
                     $req = $bdd->prepare("SELECT element_liste.id_work, work_basics.primaryTitle, work_basics.startYear FROM element_liste JOIN work_basics ON element_liste.id_work = work_basics.id_work WHERE id_liste = :id_liste ORDER BY date_ajout;");

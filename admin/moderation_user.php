@@ -61,19 +61,19 @@
                                 <?php
                                 $userInformations = false;
 
-                                if (isset($_POST['show'])) {
+                                if (isset($_POST['show'])) 
+                                {
                                     $userInformations = ($bdd->query("SELECT id_user, nom, prenom, pseudo, sexe, date_inscription, mail, telephone, date_naissance FROM utilisateur WHERE id_user = {$_POST['show']};"))->fetchAll();
-                                } else if (isset($_POST['ban-id'])) {
+                                } 
+                                else if (isset($_POST['ban-id'])) 
+                                {
                                     $sql = "INSERT INTO ban(definitif, date_ban, date_deban, raison, id_user) VALUES (:definitif, :dateban, :datedeban, :raison, :id_user)";
                                     $prep = $bdd->prepare($sql);
                                     $prep->bindValue(":id_user", intval($_POST['ban-id']));
                                     $prep->bindValue(":definitif", (isset($_POST['definitif']) ? 1 : 0));
                                     $prep->bindValue(":dateban", date("Y-m-d H-i-s"));
-
                                     $interval = new DateInterval('P' . $_POST['ban-time-year'] . 'Y' . $_POST['ban-time-month'] . 'M' . $_POST['ban-time-day'] . 'DT' . $_POST['ban-time-hour'] . 'H' . $_POST['ban-time-minute'] . 'M' . $_POST['ban-time-second'] . 'S');
-
                                     $date_deban = (new DateTime('now'))->add($interval);
-
                                     $prep->bindValue(":datedeban", $date_deban->format("Y-m-d H-i-s"));
                                     $prep->bindParam(":raison", $_POST['raison']);
 
@@ -82,7 +82,9 @@
                                     } catch (PDOException $e) {
                                         echo $e->getMessage();
                                     }
-                                } else if (isset($_POST['delete-id'])){
+                                } 
+                                else if (isset($_POST['delete-id']))
+                                {
                                     $sql = "UPDATE utilisateur SET supprime = 1 WHERE id_user = :id";
                                     $prep = $bdd->prepare($sql);
                                     $prep->bindValue(":id", $_POST['delete-id']);
@@ -93,10 +95,11 @@
                                         echo $e->getMessage();
                                     }
                                     
-                                } else if (isset($_POST['unban-id'])){
+                                } 
+                                else if (isset($_POST['unban-id']))
+                                {
                                     $req = $bdd->prepare("UPDATE ban SET date_deban = NOW(), definitif = FALSE WHERE id_user = :id_user ORDER BY id_ban DESC LIMIT 1;");
                                     $req->bindParam(":id_user", $_POST['unban-id']);
-
                                     $req->execute();
                                 }
                                 
@@ -205,8 +208,8 @@
                                 if (isset($_POST['show'])) {
                                     $userInformations = ($bdd->query("SELECT id_user, nom, prenom, pseudo, sexe, date_inscription, mail, telephone, date_naissance FROM utilisateur WHERE id_user = {$_POST['show']};"))->fetchAll();
                                 }
-                                                                                                                                                                                                        try {
-                                $queryResponse = $bdd->query("SELECT utilisateur.id_user, CONCAT(utilisateur.prenom, ' ', utilisateur.nom) AS prenom_nom, utilisateur.pseudo, utilisateur.mail, ban.date_ban, ban.raison, ban.date_deban, ban.definitif FROM ban JOIN utilisateur ON ban.id_user = utilisateur.id_user AND (ban.definitif = 1 OR ban.date_deban > NOW());");
+                                try {
+                                    $queryResponse = $bdd->query("SELECT utilisateur.id_user, CONCAT(utilisateur.prenom, ' ', utilisateur.nom) AS prenom_nom, utilisateur.pseudo, utilisateur.mail, ban.date_ban, ban.raison, ban.date_deban, ban.definitif FROM ban JOIN utilisateur ON ban.id_user = utilisateur.id_user AND (ban.definitif = 1 OR ban.date_deban > NOW());");
                                 } catch (PDOException $e){
                                     echo $e->getMessage();
                                 }

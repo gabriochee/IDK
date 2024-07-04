@@ -3,47 +3,43 @@ session_start();
 require_once('db.php');
 
 $data = json_decode(file_get_contents('php://input'), true);
+$answers = $data['answers'];
+$answersQuestions = $data['answersQuestions'];
 
-$avis = isset($data[0]) ? $data[0] : '';
-$bande_son = isset($data[1]) ? $data[1] : '';
-$effet_speciaux = isset($data[2]) ? $data[2] : '';
-$casting = isset($data[3]) ? $data[3] : '';
-$duree = isset($data[4]) ? $data[4] : '';
-$provenance = isset($data[5]) ? $data[5] : '';
-$genres = isset($data[6]) ? $data[6] : [];
-$annee = isset($data[7]) ? $data[7] : '';
+foreach($answers as $answer) {
+    var_dump($answer);
+}
+exit;
 
-for ($i = 0; $i > $data ; $i++){
-    // inserer le noms des questions dans le fetch 
-    $id_questionnaire = date("Y-m-d-H:i:s-") . $_SESSION['id_user'];
-    $req_insert = $bdd->prepare("INSERT INTO questionnaire (date, corps_question, corps_reponse, id_user, id_questionnaire) VALUES (NOW(), :corps_question, :corps_reponse, :id_user, :id_questionnaire)");
-    $req_insert->bindParam(':corps_question', $data);
-    $req_insert->bindParam(':corps_reponse', $data);
-    $req_insert->bindParam(':id_user', $_SESSION['id_user']);
+$id_user = isset($_SESSION['id_user']) ? $_SESSION['id_user'] : $_SERVER['REMOTE_ADDR'];
+
+foreach ($answersQuestions as $answersQuestion) {
+    $i = 0;
+    $id_questionnaire = date("Y-m-d-H:i:s-") . $id_user;
+    $req_insert = $bdd->prepare("INSERT INTO reponses_questionnaire (date, corps_question, corps_reponse, id_user, id_questionnaire) VALUES (NOW(), :corps_question, :corps_reponse, :id_user, :id_questionnaire)");
+    $req_insert->bindParam(':corps_question', $answersQuestion);
+    $req_insert->bindParam(':corps_reponse', $answers[$i]);
+    $req_insert->bindParam(':id_user', $id_user);
     $req_insert->bindParam(':id_questionnaire', $id_questionnaire);
     $req_insert->execute();
+    $i++;
 }
+
+$avis = isset($answers[0]) ? $answers[0] : '';
+$bande_son = isset($answers[1]) ? $answers[1] : '';
+$effet_speciaux = isset($answers[2]) ? $answers[2] : '';
+$casting = isset($answers[3]) ? $answers[3] : '';
+$duree = isset($answers[4]) ? $answers[4] : '';
+$provenance = isset($answers[5]) ? $answers[5] : '';
+$genres = isset($answers[6]) ? $answers[6] : [];
+$annee = isset($answers[7]) ? $answers[7] : '';
 
 $asie = ['AF', 'AM', 'AZ', 'BH', 'BD', 'BT', 'BN', 'KH', 'CN', 'GE', 'IN', 'ID', 'IR', 'IQ', 'IL', 'JP', 'JO', 'KZ', 'KW', 'KG', 'LA', 'LB', 'MY', 'MV', 'MN', 'MM', 'NP', 'KP', 'KR', 'OM', 'PK', 'PS', 'PH', 'QA', 'SA', 'SG', 'LK', 'SY', 'TW', 'TJ', 'TH', 'TL', 'TR', 'TM', 'AE', 'UZ', 'VN', 'YE'];
 $afrique = ['DZ', 'AO', 'BJ', 'BW', 'BF', 'BI', 'CM', 'CV', 'CF', 'TD', 'KM', 'CG', 'CD', 'CI', 'DJ', 'EG', 'GQ', 'ER', 'ET', 'GA', 'GM', 'GH', 'GN', 'GW', 'KE', 'LS', 'LR', 'LY', 'MG', 'MW', 'ML', 'MR', 'MU', 'YT', 'MA', 'MZ', 'NA', 'NE', 'NG', 'RE', 'RW', 'ST', 'SN', 'SC', 'SL', 'SO', 'ZA', 'SS', 'SD', 'SZ', 'TZ', 'TG', 'TN', 'UG', 'EH', 'ZM', 'ZW'];
 $europe = ['AL', 'AD', 'AM', 'AT', 'AZ', 'BY', 'BE', 'BA', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR', 'GE', 'DE', 'GR', 'HU', 'IS', 'IE', 'IT', 'KZ', 'XK', 'LV', 'LI', 'LT', 'LU', 'MT', 'MD', 'MC', 'ME', 'NL', 'MK', 'NO', 'PL', 'PT', 'RO', 'RU', 'SM', 'RS', 'SK', 'SI', 'ES', 'SE', 'CH', 'TR', 'UA', 'GB', 'VA'];
 $amerique = ['AS', 'AI', 'AG', 'AR', 'AW', 'BS', 'BB', 'BZ', 'BM', 'BO', 'BR', 'VG', 'CL', 'CO', 'CR', 'CU', 'DM', 'DO', 'EC', 'SV', 'FK', 'GF', 'GL', 'GD', 'GP', 'GT', 'GY', 'HT', 'HN', 'JM', 'MQ', 'MX', 'MS', 'AN', 'NI', 'PA', 'PY', 'PE', 'PR', 'BL', 'KN', 'LC', 'MF', 'PM', 'VC', 'SR', 'TT', 'TC', 'VI', 'UY', 'VE'];
-$country = [
-    'Etats-Unis' => 'US', 
-    'Inde' => 'IN',
-    'Chine' => 'CN',
-    'Japon' => 'JP',
-    'Angleterre' => 'GB',
-    'Allemagne' => 'DE',
-    'France' => 'FR',
-    'Corée du Sud' => 'KR',
-    'Brésil' => 'BR',
-    'Nigéria' => 'NG',
-    'Italie' => 'IT'
-];
-
+$country = ['Etats-Unis' => 'US', 'Inde' => 'IN', 'Chine' => 'CN', 'Japon' => 'JP', 'Angleterre' => 'GB', 'Allemagne' => 'DE', 'France' => 'FR', 'Corée du Sud' => 'KR', 'Brésil' => 'BR', 'Nigéria' => 'NG', 'Italie' => 'IT'];
 $annee_actuel = date("Y");
-
 $query = "SELECT DISTINCT wb.id_work, primaryTitle FROM work_basics wb JOIN work_ratings wr ON wb.id_work = wr.id_work JOIN work_akas wa ON wb.id_work = wa.id_work JOIN work_genres wg ON wb.id_work = wg.id_work JOIN work_principals wp ON wb.id_work = wp.id_work JOIN name_basics nb ON wp.id_person = nb.id_person JOIN name_professions np ON wp.id_person = np.id_person WHERE 1=1";
 
 if ($avis) {
@@ -151,12 +147,9 @@ try {
     } else {
         $stmt->execute();
     }
-    $movies = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-
-    
+    $movies = $stmt->fetchAll(PDO::FETCH_ASSOC);    
     echo json_encode(['movies' => $movies, 'requête' => $query]);
 } catch (PDOException $e) {
-    echo json_encode(['Erreur de requête :' => $e->getMessage(), 'CHEF LA REQUET' => $query]);
+    echo json_encode(['Erreur de requête :' => $e->getMessage(), 'Requête : ' => $query]);
 }
 ?>

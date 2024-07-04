@@ -29,13 +29,81 @@ $req_display_admin->execute();
 $res_display_admin = $req_display_admin->fetchAll();
 $res_display_admin = array_reverse($res_display_admin);
 // ajouter un admin
-
-// lors du clique sur en voir plus afficher les infos dans le form 
-// modifier infos dans la base 
-// ban/deban 
 // export données 
-// supprimer user 
 
+
+// modifier infos dans la base 
+function updateUser($bdd) {
+    if (isset($_POST['id_user'])) {
+        try {
+            $req_update = "UPDATE utilisateur SET nom = :nom, prenom = :prenom, pseudo = :pseudo, sexe = :sexe, date_naissance = :date_naissance, mail = :mail, telephone = :telephone WHERE id_user = :id_user";
+            $update = $bdd->prepare($req_update);
+            $update->execute([
+                'nom' => $_POST['lastName'],
+                'prenom' => $_POST['firstName'],
+                'pseudo' => $_POST['username'],
+                'sexe' => $_POST['sexe'],
+                'date_naissance' => "{$_POST['birthday-year']}-{$_POST['birthday-month']}-{$_POST['birthday-day']}",
+                'mail' => $_POST['email'],
+                'telephone' => $_POST['phone'],
+                'id_user' => $_POST['id_user']
+            ]);
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+}
+//ban
+function banUser($bdd) {
+    if (isset($_POST['ban-id'])) {
+        $req_ban = "INSERT INTO ban(definitif, date_ban, date_deban, raison, id_user) VALUES (:definitif, :dateban, :datedeban, :raison, :id_user)";
+        $prep = $bdd->prepare($req_ban);
+        $prep->bindValue(":id_user", intval($_POST['ban-id']));
+        $prep->bindValue(":definitif", (isset($_POST['definitif']) ? 1 : 0));
+        $prep->bindValue(":dateban", date("Y-m-d H-i-s"));
+       
+        $interval = new DateInterval('P' . $_POST['ban-time-year'] . 'Y' . $_POST['ban-time-month'] . 'M' . $_POST['ban-time-day'] . 'DT' . $_POST['ban-time-hour'] . 'H' . $_POST['ban-time-minute'] . 'M' . $_POST['ban-time-second'] . 'S');
+        $date_deban = (new DateTime('now'))->add($interval);
+        
+        $prep->bindValue(":datedeban", $date_deban->format("Y-m-d H-i-s"));
+        $prep->bindParam(":raison", $_POST['raison']);
+
+        try {
+            $prep->execute();
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+}
+// supprimer user 
+function deleteUser($bdd) {
+    if (isset($_POST['delete-id'])) {
+        $req_delete = "UPDATE utilisateur SET supprime = 1 WHERE id_user = :id";
+        $prep = $bdd->prepare($req_delete);
+        $prep->bindValue(":id", $_POST['delete-id']);
+
+        try {
+            $prep->execute();
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+}
+//deban
+function unbanUser($bdd) {
+    if (isset($_POST['unban-id'])) {
+        $req_deban = $bdd->prepare("UPDATE ban SET date_deban = NOW(), definitif = FALSE WHERE id_user = :id_user ORDER BY id_ban DESC LIMIT 1;");
+        $req_deban->bindParam(":id_user", $_POST['unban-id']);
+        $req_deban->execute();
+    }
+}
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    updateUser($bdd);
+    banUser($bdd);
+    deleteUser($bdd);
+    unbanUser($bdd);
+}
 
 ?>
 
@@ -217,13 +285,12 @@ $res_display_admin = array_reverse($res_display_admin);
                                     </div>
                                     <div class="col-12">
                                         <label for="email" class="form-label">Email</label>
-                                        <input type="email" class="form-control" id="email" name="email" pattern="{,100}" required value="<?php if (isset($rep_data_user1['mail'])) {echo $rep_data_user1['mail'];} ?>">
+                                        <input type="email" class="form-control" id="email" name="email" pattern="{,100}" required>
                                         <div class="invalid-feedback">Veuillez fournir un email valide.</div>
                                     </div>
                                     <div class="col-12">
                                         <label for="phone" class="form-label">Numéro de téléphone</label>
-                                        <input type="tel" class="form-control" id="phone" name="phone" pattern="{,100}" required 
-                                            value="<?php if (isset($rep_data_user1['telephone'])) {echo $rep_data_user1['telephone'];} ?>">
+                                        <input type="tel" class="form-control" id="phone" name="phone" pattern="{,100}" required>
                                         <div class="invalid-feedback">Veuillez fournir un numéro de téléphone valide (10 chiffres).</div>
                                     </div>
 
@@ -234,13 +301,13 @@ $res_display_admin = array_reverse($res_display_admin);
                                             <option value="0">Je refuse de recevoir la Newsletter</option>
                                         </select>
                                     </div>
-                                    <button class="w-100 btn btn-warning border-dark" id="signin-btn" type="submit" name="send">Mettre à jour</button>
+                                    <button class="w-100 btn btn-warning border-dark" type="submit" name="id_user" id="id_user">Mettre à jour</button>
                                 </div>
                             </form>
 
                             <div class="d-flex">
                                 <form action="parameters.php" method="POST" class="w-50 me-1">
-                                    <button class="w-100 btn btn-warning border-dark d-flex m-auto justify-content-center mt-1" id="signin-btn" type="submit" name="export">Exporter données</button>
+                                    <button class="w-100 btn btn-warning border-dark d-flex m-auto justify-content-center mt-1" type="submit" name="export">Exporter données</button>
                                 </form>
                                 <form class="w-50">
                                     <button class="w-100 btn btn-warning border-dark d-flex m-auto justify-content-center mt-1" id="new-mdp-btn" type="button">Changer mot de passe</button>
@@ -290,6 +357,7 @@ $res_display_admin = array_reverse($res_display_admin);
         document.addEventListener("DOMContentLoaded", function() {
             const buttons = document.querySelectorAll('.show');
             const content = document.getElementById('user');  
+            const userId = document.getElementById('id_user')
 
             const userPhoto = document.getElementById('user-photo');
             const userPseudoId = document.getElementById('user-pseudo-id');
@@ -335,7 +403,7 @@ $res_display_admin = array_reverse($res_display_admin);
                     .then(response => response.json())
                     .then(data => {
                         if (data.status === 'success') {
-
+                            
                             userPhoto.src = `../inc/img/user_img/${data.user.photo_utilisateur}?${Date.now()}`;
                             userPseudoId.innerHTML = `<b>${data.user.pseudo} (#${data.user.id_user})</b>`;
                             userFullname.innerHTML = `<b>${data.user.nom} ${data.user.prenom}</b>`;
@@ -354,7 +422,7 @@ $res_display_admin = array_reverse($res_display_admin);
                             if (data.user.id_ban === null) {
                                 ban.classList.add('d-none');
                             } else {
-                                ban.textContent = `Déja banni le ${data.user.date_ban} jusqu'au ${data.user.date_deban} pour : ${data.user.raison}`;
+                                ban.innerHTML = `<b>Banni du ${data.user.date_ban} jusqu'au ${data.user.date_deban} pour motif :</b>  ${data.user.raison}`;
                             }
 
                             firstNameInput.value = data.user.prenom;
@@ -387,7 +455,8 @@ $res_display_admin = array_reverse($res_display_admin);
                                     break; 
                                 }
                             }
-                            
+                            userId.value = data.user.id_user;
+
                             content.classList.remove('d-none');
                             content.scrollIntoView({ behavior: 'smooth' });
                         } else {

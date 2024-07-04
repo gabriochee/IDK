@@ -20,7 +20,7 @@ try {
     $req_creation_listes = $bdd->prepare("SELECT DISTINCT COUNT(date_creation) AS total, (SELECT COUNT(date_creation) FROM listes WHERE YEAR(date_creation) = YEAR(CURDATE())) AS annee, (SELECT COUNT(date_creation) FROM listes WHERE YEAR(date_creation) = YEAR(CURDATE()) AND MONTH(date_creation) = MONTH(CURDATE())) AS mois, (SELECT COUNT(date_creation) FROM listes WHERE YEARWEEK(date_creation, 1) = YEARWEEK(CURDATE(), 1)) AS semaine, (SELECT COUNT(date_creation) FROM listes WHERE DATE(date_creation) = CURDATE()) AS today FROM listes;");
     $req_creation_listes->execute();
     $res_creation_listes = $req_creation_listes->fetch();
-// pas good
+
     $req_moyenne_listes = $bdd->prepare("SELECT AVG(liste_count) AS moyenne_liste FROM (SELECT u.id_user, COUNT(l.id_liste) AS liste_count FROM utilisateur u LEFT JOIN listes l ON u.id_user = l.id_user AND l.statut != 'default' GROUP BY u.id_user) AS subquery;");
     $req_moyenne_listes->execute();
     $res_moyenne_listes = $req_moyenne_listes->fetch();
