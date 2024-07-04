@@ -7,6 +7,9 @@ const star5 = document.getElementById("rate-5");
 const stars = [star1, star2, star3, star4, star5];
 let note = 0;
 
+const myRating = document.getElementById("my-rating");
+const myStars = Array.from(document.getElementById("my-stars-rating").childNodes).slice(1); // On retire le premier élément car ce n'est pas une étoile
+
 const moviePoster = document.getElementById("movie-poster");
 const movieSynposis = document.getElementById("movie-synopsis");
 const movieTitle = document.getElementById("movie-title").innerText;
@@ -63,31 +66,53 @@ const options = {
 if (star1 != undefined){
   stars.forEach((star) => {
     star.addEventListener("click", async function (clickEvent) {
+      const currentIndex = stars.indexOf(star);
       note = 0;
-      for (let i = 0; i < stars.indexOf(star); i++) {
+      for (let i = 0; i < currentIndex; i++) {
         stars[i].classList.remove("bi-star-half");
         stars[i].classList.remove("bi-star");
         stars[i].classList.add("bi-star-fill");
+
+        myStars[i].classList.remove("bi-star-half");
+        myStars[i].classList.remove("bi-star");
+        myStars[i].classList.add("bi-star-fill");
+
         note++;
       }
 
-      for (let i = 4; i > stars.indexOf(star); i--) {
+      for (let i = 4; i > currentIndex; i--) {
         stars[i].classList.remove("bi-star-half");
         stars[i].classList.remove("bi-star-fill");
         stars[i].classList.add("bi-star");
+
+        myStars[i].classList.remove("bi-star-half");
+        myStars[i].classList.remove("bi-star-fill");
+        myStars[i].classList.add("bi-star");
       }
 
       if (clickEvent.offsetX > 25) {
         star.classList.remove("bi-star");
         star.classList.remove("bi-star-half");
         star.classList.add("bi-star-fill");
+
+        myStars[currentIndex].classList.remove("bi-star");
+        myStars[currentIndex].classList.remove("bi-star-half");
+        myStars[currentIndex].classList.add("bi-star-fill");
+
         note++;
       } else {
         star.classList.remove("bi-star");
         star.classList.remove("bi-star-fill");
         star.classList.add("bi-star-half");
+
+        myStars[currentIndex].classList.remove("bi-star");
+        myStars[currentIndex].classList.remove("bi-star-fill");
+        myStars[currentIndex].classList.add("bi-star-half");
+
         note += .5;
       }
+
+      myRating.textContent = note;
 
       fetch("../../inc/php/send_comment_and_note.php", {
         method: "POST",

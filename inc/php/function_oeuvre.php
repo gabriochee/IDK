@@ -27,11 +27,13 @@ if(isset($_GET['mv'])) {
     $myPartie_entiere;
 
     if (isset($_SESSION['id_user'])){
-        $req8 = $bdd->prepare('SELECT note FROM avis WHERE id_user = :id_user AND id_work = :id_work;');
+        $req8 = $bdd->prepare('SELECT note, statut FROM avis WHERE id_user = :id_user AND id_work = :id_work;');
         $req8->bindParam(":id_user", $_SESSION['id_user']);
         $req8->bindParam(":id_work", $_GET['mv']);
         $req8->execute();
         $rep8 = $req8->fetch();
+
+        $statut = $rep8['statut'];
 
         if ($rep8){
             $myRating = $rep8["note"] / 2;

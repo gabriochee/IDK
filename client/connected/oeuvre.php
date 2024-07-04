@@ -79,12 +79,12 @@
                             <div class="card col-1 mx-1 p-3 color-custom-1" style="width: 170px;">
                                 <div class="card-body d-flex flex-column justify-content-start align-items-center p-0">
                                     <p class="m-0 fw-bold fs-5">Ma note</p>
-                                    <p class="m-0 note-count fs-5 mt-2"><?php if ($rep8) {
+                                    <p class="m-0 note-count fs-5 mt-2" id="my-rating"><?php if ($rep8) {
                                                                             echo $myRating;
                                                                         } else {
                                                                             echo '--';
                                                                         } ?></p>
-                                    <div class="d-flex justify-content-center my-2">
+                                    <div class="d-flex justify-content-center my-2" id="my-stars-rating">
                                         <?php
                                         if ($rep8) {
                                             $a = $myPartie_decimale > 0 ? '1' : '0';
@@ -163,7 +163,7 @@
                                     <label for="search-list-input" class="form-label text-start">Rechercher</label>
                                     <input type="search" class="form-control mb-2" id="search-list-input" onkeydown="searchMyLists(this, this.value)">
                                     <div class="container d-flex flex-column form-check" id="lists-result-container">
-                                        
+
                                     </div>
                                 </div>
                                 <div class="modal-footer d-flex justify-content-between">
@@ -310,13 +310,14 @@
                             <textarea class="form-control" id="commentText" rows="4" name="commentText"></textarea>
 
                             <div class="container d-flex justify-content-center mt-3">
-                                <input type="radio" class="btn-check" name="list-status" id="private-comment" value="privee" autocomplete="off" checked>
-                                <label class="btn" for="private-comment">privée</label>
-                                <input type="radio" class="btn-check" name="list-status" id="only-friends-comment" value="amis seulement" autocomplete="off">
-                                <label class="btn" for="only-friends-comment">amis seulement</label>
+                                <input type="radio" class="btn-check" name="list-status" id="private-list" value="privee" autocomplete="off" <?php if ($statut == 'privee') { echo 'checked'; } ?>>
+                                <label class="btn" for="private-list">privée</label>
 
-                                <input type="radio" class="btn-check" name="list-status" id="public-comment" value="publique" autocomplete="off">
-                                <label class="btn" for="public-comment">publique</label>
+                                <input type="radio" class="btn-check" name="list-status" id="only-friends-list" value="amis seulement" autocomplete="off" <?php if ($statut == 'amis seulement') { echo 'checked';} ?>>
+                                <label class="btn" for="only-friends-list">amis seulement</label>
+
+                                <input type="radio" class="btn-check" name="list-status" id="public-list" value="publique" autocomplete="off" <?php if ($statut == 'publique') { echo 'checked';} ?>>
+                                <label class="btn" for="public-list">publique</label>
                             </div>
                         </div>
                         <button class="w-100 btn btn-secondary btn-warning border-dark mt-2" type="submit" data-mdb-button-init data-mdb-ripple-init name="send_comment">Envoyer</button>
