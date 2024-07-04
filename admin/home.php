@@ -63,9 +63,9 @@
                             <div class="card-body">
                                 <h1 class="card-title pricing-card-title">
                                     <small class="text-muted">
-                                        <span class="badge rounded-pill text-bg-warning fw-light w-75">Hommes : <?php echo $res_genre['hommes']; ?></span>
-                                        <span class="badge rounded-pill text-bg-warning fw-light w-75">Femmes : <?php echo $res_genre['femmes']; ?></span>
-                                        <span class="badge rounded-pill text-bg-warning fw-light w-75">Autres : <?php echo $res_genre['autres']; ?></span>
+                                        <span class="badge rounded-pill text-bg-warning fw-light w-75">Hommes : <?php echo $res_genre['hommes'];?></span>
+                                        <span class="badge rounded-pill text-bg-warning fw-light w-75">Femmes : <?php echo $res_genre['femmes'];?></span>
+                                        <span class="badge rounded-pill text-bg-warning fw-light w-75">Autres : <?php echo $res_genre['autres'];?></span>
                                     </small>
                                 </h1>
                             </div>
@@ -79,21 +79,13 @@
                             <div class="card-body">
                                 <h1 class="card-title pricing-card-title">
                                     <small class="text-muted">
-                                        <span class="badge rounded-pill text-bg-warning fw-light w-75">Hommes : <?php echo $res_genre['hommes']; ?></span>
-                                        <span class="badge rounded-pill text-bg-warning fw-light w-75">Femmes : <?php echo $res_genre['femmes']; ?></span>
-                                        <span class="badge rounded-pill text-bg-warning fw-light w-75">Autres : <?php echo $res_genre['autres']; ?></span>
+                                        <span class="badge rounded-pill text-bg-warning fw-light w-75">Aujourd'hui : <?php echo $res_nb_inscription['today'];?></span>
+                                        <span class="badge rounded-pill text-bg-warning fw-light w-75">Cette semaine : <?php echo $res_nb_inscription['semaine'];?></span>
+                                        <span class="badge rounded-pill text-bg-warning fw-light w-75">Ce mois : <?php echo $res_nb_inscription['mois'];?></span>
+                                        <span class="badge rounded-pill text-bg-warning fw-light w-75">Cette année : <?php echo $res_nb_inscription['annee'];?></span>
+                                        <span class="badge rounded-pill text-bg-warning fw-light w-75">Total : <?php echo $res_nb_inscription['total'];?></span>
                                     </small>
-                                </h1>    
-                            <h4 class="card-title pricing-card-title text-muted fw-light">
-                                    
-                                        <ul class="text-start">
-                                            <li>Aujourd'hui : <span class="badge text-bg-info"><?php echo $res_nb_inscription['today']; ?></span></li>
-                                            <li>Cette semaine : <span class="badge text-bg-info"><?php echo $res_nb_inscription['semaine']; ?></span></li>
-                                            <li>Ce mois : <span class="badge text-bg-info"><?php echo $res_nb_inscription['mois']; ?></span></li>
-                                            <li>Cette année : <span class="badge text-bg-info"><?php echo $res_nb_inscription['annee']; ?></span></li>
-                                            <li>Total : <span class="badge text-bg-info"><?php echo $res_nb_inscription['total']; ?></span></li>
-                                        </ul>
-                                </h4>
+                                </h1>
                             </div>
                         </div>
                     </div>
@@ -103,11 +95,15 @@
                                 <h4 class="my-0 fw-normal">Nombres de listes crée</h4>
                             </div>
                             <div class="card-body row">
-                                <h4 class="col-6 text-start">Aujourd'hui : <span class="badge text-bg-info"><?php echo $res_creation_listes['today'];?></span></h4>
-                                <h4 class="col-6 text-start">Cette semaine : <span class="badge text-bg-info"><?php echo $res_creation_listes['semaine'];?></span></h4>
-                                <h4 class="col-6 text-start">Ce mois : <span class="badge text-bg-info"><?php echo $res_creation_listes['mois'];?></span></h4>
-                                <h4 class="col-6 text-start">Cette année : <span class="badge text-bg-info"><?php echo $res_creation_listes['annee'];?></span></h4>
-                                <h4 class="col-12">Total : <span class="badge text-bg-info"><?php echo $res_creation_listes['total'];?></span></h4>
+                                <h1 class="card-title pricing-card-title">
+                                    <small class="text-muted">
+                                        <span class="badge rounded-pill text-bg-warning fw-light w-75">Aujourd'hui : <?php echo $res_creation_listes['today'];?></span>
+                                        <span class="badge rounded-pill text-bg-warning fw-light w-75">Cette semaine : <?php echo $res_creation_listes['semaine'];?></span>
+                                        <span class="badge rounded-pill text-bg-warning fw-light w-75">Ce mois : <?php echo $res_creation_listes['mois'];?></span>
+                                        <span class="badge rounded-pill text-bg-warning fw-light w-75">Cette année : <?php echo $res_creation_listes['annee'];?></span>
+                                        <span class="badge rounded-pill text-bg-warning fw-light w-75">Total : <?php echo $res_creation_listes['total'];?></span>
+                                    </small>
+                                </h1>
                             </div>
                         </div>
                     </div>
@@ -117,7 +113,7 @@
                                 <h4 class="my-0 fw-normal">Nombres moyennes de listes par utilisateurs <small>(hors "A voir" et "Déja vu")</small></h4>
                             </div>
                             <div class="card-body">
-                                <h1 class="card-title pricing-card-title"><small class="text-muted fw-light">2</small></h1>
+                                <h1 class="card-title pricing-card-title"><small class="text-muted fw-light"><?php echo $res_moyenne_listes['moyenne_liste'];?></small></h1>
                             </div>
                         </div>
                     </div>

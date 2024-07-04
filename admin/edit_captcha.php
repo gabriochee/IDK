@@ -9,41 +9,43 @@
     <link rel="stylesheet" href="../inc/library/bootstrap/bootstrap-icons/font/bootstrap-icons.min.css">
     <title>IDK</title>
 </head>
-<body id="backoffice_edit_captcha">
+<body id="backoffice_edit_captcha" class="backoffice">
 <?php require_once('../inc/components/backoffice/header.php'); ?>
     <div class="container-fluid">
         <div class="row">
-            <?php require_once('../inc/components/backoffice/sidebar.php'); ?>
+            <?php require_once('../inc/components/backoffice/sidebar.php'); ?>            
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-                <div class="table-responsive mt-4" id="captcha-table">
-                    <h3>Maintenance Captcha</h3>
-                </div>
-                <hr>
-                <div class="container-fluid px-0 mt-4">
-                    <h3 class="text-center"><span class=" w-100 badge text-bg-light fw-light">Ajouter un captcha</span></h3>
-                    <div class="input-group my-3">
-                        <span class="input-group-text w-25">Question</span>
-                        <input type="text" class="form-control" id="question" name="question" maxlength="150" required>
-                        <div class="invalid-feedback">Veuillez fournir une question valide.</div>
-                    </div>
+                <div class="container border border-black rounded-2 border-2 pb-2 mt-3">
+                    <h1 class="text-center mt-4">Captcha</h1>
+                    <hr class="featurette-divider my-2">
 
-
-                    <div class="container px-0" id="answers">
-                        <div id="answer">
-                            <div class="container d-flex align-items-center justify-content-between px-0 mt-3">
-                                <div class="d-flex align-items-center px-0 mx-0">
-                                    <label for="answer1" class="form-label fs-3 m-0">Réponse 1</label>
-                                    <input name="good-answer" type="radio" class="form-check-input bigger-radio border-dark border-1 align-items-center my-0 ms-3" required value="good-answer">
-                                    <label class="form-check-label fs-5 mx-2" for="good-answer">Bonne réponse</label>
-                                </div>
-                                <button type="button" class="delete-btn nav-btn btn btn-primary btn-sm btn-danger text-white border border-light border-2 rounded-3 px-3" onclick="deleteAnswer(this)">Supprimer</button>
-                            </div>
-                            <input type="text" class="form-control fs-5 border-dark border-2 rounded-3" id="answer1" name="answer1" maxlength="150" required>
-                            <div class="invalid-feedback">Veuillez fournir une réponse valide.</div>
+                    <div class="table-responsive mt-4" id="captcha-table"></div>
+                    <hr class="featurette-divider my-2">
+                    
+                    <div class="container-fluid px-0 mt-4">
+                        <h3 class="text-center"><span class="w-100 badge text-bg-warning fw-light py-3">Ajouter un captcha</span></h3>
+                        <div class="input-group my-3">
+                            <span class="input-group-text w-25">Question</span>
+                            <input type="text" class="form-control" id="question" name="question" maxlength="150" required>
+                            <div class="invalid-feedback">Veuillez fournir une question valide.</div>
                         </div>
+                        <div class="container px-0" id="answers">
+                            <div id="answer">
+                                <div class="container d-flex align-items-center justify-content-between px-0 mt-3">
+                                    <div class="d-flex align-items-center px-0 mx-0">
+                                        <label for="answer1" class="form-label fs-3 m-0">Réponse 1</label>
+                                        <input name="good-answer" type="radio" class="form-check-input bigger-radio border-dark border-1 align-items-center my-0 ms-3" required value="good-answer">
+                                        <label class="form-check-label fs-5 mx-2" for="good-answer">Bonne réponse</label>
+                                    </div>
+                                    <button type="button" class="delete-btn nav-btn btn btn-primary btn-sm btn-danger text-white border border-light border-2 rounded-3 px-3" onclick="deleteAnswer(this)">Supprimer</button>
+                                </div>
+                                <input type="text" class="form-control fs-5 border-dark border-2 rounded-3" id="answer1" name="answer1" maxlength="150" required>
+                                <div class="invalid-feedback">Veuillez fournir une réponse valide.</div>
+                            </div>
+                        </div>
+                        <button type="button" id="add-answer" class="nav-btn btn btn-warning text-white mt-5">+</button>
+                        <button type="button" id="submit-captacha" class="nav-btn btn btn-success text-white mt-5" onclick="createCaptcha(this)">Enregistrer</button>
                     </div>
-                    <button type="button" id="add-answer" class="nav-btn btn btn-primary btn-sm btn-warning text-white border border-light border-2 rounded-3 fs-1 mt-5 px-3">+</button>
-                    <button type="button" id="submit-captacha" class="nav-btn btn btn-primary btn-sm btn-success text-white border border-light border-2 rounded-3 fs-4 mt-5 py-3" onclick="createCaptcha(this)">Enregistrer</button>
                 </div>
             </main>
         </div>
@@ -62,3 +64,25 @@
     <script src="../inc/library/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
+
+<!--                     
+                    <div class="container px-0" id="answers">
+                        <div id="answer">
+                            <div class="d-flex justify-content-between my-1">
+                                <div class="d-flex align-items-center px-0 mx-0">
+                                    <input name="good-answer" type="radio" class="form-check-input border-dark border-1 align-items-center my-0 ms-3" required value="good-answer">
+                                    <label class="form-check-label fs-5 mx-2 text-small fs-6" for="good-answer">Bonne réponse</label>
+                                </div>
+                                <button type="button" class="delete-btn nav-btn btn btn-primary btn-sm btn-danger text-white border border-light border-2 rounded-3 px-3" onclick="deleteAnswer(this)">Supprimer</button>
+                            </div>
+                            <div class="input-group">
+                                <span class="input-group-text w-25">Réponse</span>
+                                <input type="text" class="form-control" id="answer1" name="answer1" maxlength="150" required>
+                                <div class="invalid-feedback">Veuillez fournir une question valide.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" id="add-answer" class="nav-btn btn btn-primary btn-sm btn-warning text-white border border-light border-2 rounded-3 fs-1 mt-5 px-3">+</button>
+                    <button type="button" id="submit-captacha" class="nav-btn btn btn-primary btn-sm btn-success text-white border border-light border-2 rounded-3 fs-4 mt-5 py-3" onclick="createCaptcha(this)">Enregistrer</button>
+ -->

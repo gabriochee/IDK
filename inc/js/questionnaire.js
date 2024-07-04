@@ -36,6 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
     
     let currentQuestionIndex = 0;
+    const answersQuestions = {};
     const answers = {};
     
     function renderQuestion() {
@@ -87,12 +88,14 @@ document.addEventListener('DOMContentLoaded', () => {
             });
     
             document.querySelector('button.btn-success').addEventListener('click', () => {
+                answersQuestions[currentQuestionIndex] = question.question;
                 answers[currentQuestionIndex] = selectedGenres;
                 currentQuestionIndex++;
                 renderQuestion();
             });
         } else {
             document.querySelectorAll('.option').forEach(button => {
+                answersQuestions[currentQuestionIndex] = question.question;
                 button.addEventListener('click', () => {
                     answers[currentQuestionIndex] = button.innerText;
                     currentQuestionIndex++;
@@ -116,10 +119,12 @@ document.addEventListener('DOMContentLoaded', () => {
         fetch('../../inc/php/function_questionnaire.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(answers),
+            body: JSON.stringify({answers: answers, answersQuestions: answersQuestions}),
         })
-        .then(response => response.json())
-        .then(data => {
+        .then(response => response.text())
+        .then(data => {  
+            console.log(data);
+            return;
             try {
                 fetch(`../../inc/php/recommendation_for_questionnaire.php`, {
                     method: 'POST',
@@ -146,6 +151,7 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
         })
         .catch(error => {
+            console.error(error);
             app.innerHTML = `
                 <div class="container text-center">
                     <h2 class="text-center my-4">Erreur</h2>

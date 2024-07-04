@@ -175,6 +175,7 @@ function createCaptcha(element){
   }).then(data => data.text()).then(data => {
     data = data.replace(/collapse0/g, "collapse".concat(i.toString()));
     captchaTable.insertAdjacentHTML('beforeend', data);
+    window.location('../admin/edit_captcha.php');
   });
 
 }
@@ -258,7 +259,7 @@ for (const answer of answers[0]){
     let removeBadgeButton = document.createElement('button');
     let removeIcon = document.createElement('i');
 
-    badge.classList.add('badge', 'bg-success', 'ms-2', 'me-2');
+    badge.classList.add('badge', 'bg-success', 'ms-2', 'me-2', 'd-flex', 'align-items-center');
     badge.innerHTML = "Bonne réponse";
 
     removeBadgeButton.classList.add("btn", "btn-secondary");
