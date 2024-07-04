@@ -26,7 +26,7 @@
                             <h4 class="card-title"><?php echo $rep_data_user1['pseudo'] . ' (#' . $rep_data_user1['id_user'] . ')'; ?></h4>
                             <p class="card-text text-start my-0"><?php echo $rep_data_user1['nom'] . ' ' . $rep_data_user1['prenom']; ?></p>
                             <p class="card-text text-start my-0">Inscrit depuis : <?php echo $rep_data_user1['date_inscription']; ?></p>
-                            <span class="badge bg-secondary mt-3"><?php echo $rep_data_user2['count(*)']; ?> amis</span>
+                            <span class="badge bg-secondary mt-3"><?php echo $rep_data_user2['nb_amis']; ?> amis</span>
                         </div>
                     </div>
                 </div>

@@ -107,6 +107,10 @@ if (isset($_POST['connect'])) {
                     header('Location: ../connected/home.php');
                     exit;
                 } else if ($role == 'admin') {
+                    $req8 = $bdd->prepare("UPDATE utilisateur SET derniere_connexion = NOW() WHERE mail = :email");
+                    $email = $_SESSION['email'];
+                    $req8->bindValue(':email', $email, PDO::PARAM_STR);
+                    $req8->execute();
                     header('Location: ../../admin/home.php');
                     exit;
                 } else {

@@ -66,9 +66,6 @@
             messageContainer.scrollTop = messageContainer.scrollHeight;
         }
         let intervalId = null; 
-<<<<<<< HEAD
-        let currentFriendId = 0; 
-=======
         let currentFriendId = 0; // variable pour stocker l'id de l'utilisateur qu'on a cliqué et qu'on a 
         // fetch mes amis pour que je puisse cliquer et envoyer message à cet amis
         let expression = /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/gi;
@@ -104,14 +101,11 @@
         
 
         function fetchFriendConv(pseudo, id_user) {
-<<<<<<< HEAD
             scrollToBottom();
             console.log("Friend clicked:", pseudo);
             console.log("id of clicked:", id_user);
             
             
-=======
->>>>>>> 7c277aad49c2ca106105b840e3332dcada45a4d0
             document.getElementById('friend-name').innerText = pseudo;
             currentFriendId = id_user; 
 
@@ -231,19 +225,10 @@
                 if (data.status === 'success') {
                     scrollToBottom();
                     document.getElementById('messageText').value = "";
-<<<<<<< HEAD
-                } else {
-                    console.error('Erreur serveur :', data.message);
-                }
-            })
-            .catch(error => {
-                console.error('Erreur de requête :', error);
-=======
                 }
             })
             .catch(error => {
                 
->>>>>>> 7c277aad49c2ca106105b840e3332dcada45a4d0
             });
         });
 
