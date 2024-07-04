@@ -34,7 +34,6 @@ if(isset($_POST['connecter'])) {
 
         if($reponse) {
             if(password_verify($password.$pepper, $reponse['mdp'])) {
-                // Préparer la deuxième requête sans la virgule superflue
                 $req2 = $bdd->prepare("SELECT supprime FROM utilisateur WHERE id_user = :id_user");
                 $req2->bindValue(':id_user', $reponse['id_user'], PDO::PARAM_INT);
                 $req2->execute();
@@ -51,7 +50,6 @@ if(isset($_POST['connecter'])) {
                         $ban_or_not = $req2->fetch(PDO::FETCH_ASSOC);
                         if ($ban_or_not && $ban_or_not['definitif'] == 1) {
 
-                            //urlencode pour être sur que tous les caractères spéciaux soient pris en compte
                             $raison = urlencode($ban_or_not['raison']);
 
                             header("Location: login.php?ban_def=true&raison=$raison");
