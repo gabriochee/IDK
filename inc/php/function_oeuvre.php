@@ -53,8 +53,8 @@ if(isset($_GET['mv'])) {
 
         if ($rep9) {
             $myFriendsRating = $rep9['AVG(note)'] / 2;
-            $myFriendsPartie_decimale = fmod($myRating, 1);
-            $myFriendsPartie_entiere = intval($myRating);
+            $myFriendsPartie_decimale = fmod($myFriendsRating, 1);
+            $myFriendsPartie_entiere = intval($myFriendsRating);
         }
     }
 

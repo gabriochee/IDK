@@ -327,13 +327,13 @@
                             <textarea class="form-control" id="commentText" rows="4" name="commentText"></textarea>
 
                             <div class="container d-flex justify-content-center mt-3">
-                                <input type="radio" class="btn-check" name="list-status" id="private-list" value="privee" autocomplete="off" <?php if ($statut == 'privee') { echo 'checked'; } ?>>
+                                <input type="radio" class="btn-check" name="list-status" id="private-list" value="privee" autocomplete="off" <?php if (isset($statut) && ($statut == 'privee')) { echo 'checked'; } ?>>
                                 <label class="btn" for="private-list">privée</label>
 
-                                <input type="radio" class="btn-check" name="list-status" id="only-friends-list" value="amis seulement" autocomplete="off" <?php if ($statut == 'amis seulement') { echo 'checked';} ?>>
+                                <input type="radio" class="btn-check" name="list-status" id="only-friends-list" value="amis seulement" autocomplete="off" <?php if (isset($statut) && ($statut == 'amis seulement')) { echo 'checked';} ?>>
                                 <label class="btn" for="only-friends-list">amis seulement</label>
 
-                                <input type="radio" class="btn-check" name="list-status" id="public-list" value="publique" autocomplete="off" <?php if ($statut == 'publique') { echo 'checked';} ?>>
+                                <input type="radio" class="btn-check" name="list-status" id="public-list" value="publique" autocomplete="off" <?php if (isset($statut) && ($statut == 'publique')) { echo 'checked';} ?>>
                                 <label class="btn" for="public-list">publique</label>
                             </div>
                         </div>

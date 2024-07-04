@@ -1,4 +1,4 @@
-const movieCards = document.querySelectorAll(".movie-card");
+let movieCards = document.querySelectorAll(".movie-card");
 const listStatusRadios = document.querySelectorAll("input[name=list-status]");
 const cardsContainer = document.getElementById("cards-container");
 
@@ -63,6 +63,7 @@ const addMovieToList = async (btn) => {
     let promise = await fetch("../../inc/php/get_movie_card.php?" + new URLSearchParams({mv: id_work, id_liste : id_liste}), {credentials : 'same-origin'});
     let card = await promise.text() 
     cardsContainer.innerHTML += card;
+    movieCards = document.querySelectorAll(".movie-card");
     setCardsContent();
 }
 
