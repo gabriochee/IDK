@@ -1,5 +1,6 @@
 <?php
 require_once('db.php');
+require_once('log.php');
 
 session_start();
 
@@ -20,6 +21,8 @@ if (isset($_POST['list-name'])){
         $id = $req->fetch()["MAX(id_liste)"];
 
         $req->execute();
+
+        server_log("Création nouvelle liste(" . $id . ") par " . $_SESSION['id_user']);
         header("Location: ../../client/connected/private_list.php?id_liste={$id}");
         exit();
 
