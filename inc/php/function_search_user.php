@@ -18,7 +18,7 @@
     $rep2 = $req2->fetchAll();
 
     //les demandes d'ami pour nous
-    $req3 = $bdd->prepare("SELECT pseudo, nom, prenom, id_user FROM utilisateur INNER JOIN demande_ami ON utilisateur.id_user = demande_ami.receveur WHERE demande_ami.envoyeur = :envoyeur");
+    $req3 = $bdd->prepare("SELECT pseudo, nom, prenom, id_user FROM utilisateur INNER JOIN demande_ami ON utilisateur.id_user = demande_ami.receveur WHERE demande_ami.envoyeur = :envoyeur AND statut_demande = 'En attente'");
     $req3->execute(
         array(
             "envoyeur"=>$_SESSION['id_user']
@@ -65,9 +65,10 @@
             }
             else if($_GET['demande'] === 'be_friend'){
                 try{
-                    being_friend($_SESSION['id_user'],$_GET['id'], $bdd);
+                    
                     cancel_request( $_GET['id'],$_SESSION['id_user'], $bdd);
                     cancel_request($_SESSION['id_user'], $_GET['id'], $bdd);
+                    being_friend($_SESSION['id_user'],$_GET['id'], $bdd);
                     header('Location: my_friend_list.php');
                 }
                 catch(PDOException $e){
@@ -87,12 +88,31 @@
     }
     function being_friend($my_user_id, $other_user_id, $bdd){
         try{
+            echo "<script>alert('test');</script>";
             $devenir_ami="INSERT INTO ami(id_user_1, id_user_2, date_amitie) VALUES (:me, :other, NOW())";
             $stmt = $bdd->prepare($devenir_ami);
             $stmt->bindParam(':me', $my_user_id);
             $stmt->bindParam(':other', $other_user_id);
             $stmt->execute();
+
+            
+            $change_statut = "UPDATE demande_ami 
+                          SET statut_demande = 'Acceptee' 
+                          WHERE id_demande = (
+                              SELECT id_demande 
+                              FROM demande_ami 
+                              WHERE (envoyeur = :envoyeur AND receveur = :receveur) 
+                                 OR (envoyeur = :receveur AND receveur = :envoyeur)
+                              ORDER BY date_demande DESC
+                              LIMIT 1
+                          )";
+            $stmt2 = $bdd->prepare($change_statut);
+            $stmt2->bindParam(':envoyeur', $my_user_id);
+            $stmt2->bindParam(':receveur', $other_user_id);
+            $stmt2->execute();
+            
             server_log($my_user_id . " est devenu ami avec " . $other_user_id);
+            
         }catch(PDOException $e){
             die($e->getMessage());
         }
@@ -100,10 +120,12 @@
 
     function envoyer_demande($my_user_id, $other_user_id, $bdd) {
         try{
-            $demande_ami = "INSERT INTO demande_ami(envoyeur, receveur) VALUES (:me, :other)";
+            $demande_ami = "INSERT INTO demande_ami(envoyeur, receveur,date_demande,statut_demande) VALUES (:me, :other, now(), :statut_demande)";
+            $statut_demande = "En attente";
             $stmt = $bdd->prepare($demande_ami);
             $stmt->bindParam(':me', $my_user_id);
             $stmt->bindParam(':other', $other_user_id);
+            $stmt->bindParam(':statut_demande', $statut_demande);
             $stmt->execute();
             server_log($my_user_id . " a demandé en ami " . $other_user_id);
         }
@@ -115,7 +137,7 @@
 
     function check_friend_request_status_from_me($my_user_id, $other_user_id, $bdd) {
         try {
-            $check_status_friend = "SELECT COUNT(*) FROM demande_ami WHERE envoyeur = :me AND receveur = :other";
+            $check_status_friend = "SELECT COUNT(*) FROM demande_ami WHERE envoyeur = :me AND receveur = :other AND statut_demande = 'En attente'";
             $stmt = $bdd->prepare($check_status_friend);
             $stmt->bindParam(':me', $my_user_id);
             $stmt->bindParam(':other', $other_user_id);
@@ -128,7 +150,7 @@
 
     function check_friend_request_status_from_other($my_user_id, $other_user_id, $bdd) {
         try {
-            $check_status_friend = "SELECT COUNT(*) FROM demande_ami WHERE envoyeur = :other AND receveur = :me";
+            $check_status_friend = "SELECT COUNT(*) FROM demande_ami WHERE envoyeur = :other AND receveur = :me AND statut_demande = 'En attente'";
             $stmt = $bdd->prepare($check_status_friend);
             $stmt->bindParam(':me', $my_user_id);
             $stmt->bindParam(':other', $other_user_id);
@@ -142,7 +164,15 @@
 
     function cancel_request($my_user_id, $other_user_id, $bdd){
         try{
-            $cancel_request= $bdd->prepare("UPDATE demande_ami SET statut_demande ='Refuser' WHERE envoyeur=:me AND receveur= :other");
+            $cancel_request= $bdd->prepare("UPDATE demande_ami 
+                          SET statut_demande = 'Refuser' 
+                          WHERE id_demande = (
+                              SELECT id_demande 
+                              FROM demande_ami 
+                              WHERE envoyeur = :me AND receveur = :other
+                              ORDER BY date_demande DESC
+                              LIMIT 1
+                          )");
             $cancel_request->bindParam(':me', $my_user_id);
             $cancel_request->bindParam(':other', $other_user_id);
             $cancel_request->execute();
