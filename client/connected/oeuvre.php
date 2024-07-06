@@ -409,8 +409,7 @@
                 4: quatre,
                 3: trois,
                 2: deux,
-                1: un,
-                0: zero
+                1: un
             };
 
             function handleNoteClick(note) {
@@ -468,6 +467,8 @@
                         if (data.status === 'error') {
                             console.error(data.message);
                         } else {
+                            console.log(data.reviews);
+
                             const commentsContainer = document.getElementById(`comments-quatre`);
 
                             commentsContainer.innerHTML = '';

@@ -55,7 +55,7 @@
                                             echo '        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>';
                                             echo '      </div>';
                                             echo '      <div class="modal-body ">';
-                                            echo '        <p>' . nl2br(htmlspecialchars($messages["messages"])) . '</p>';
+                                            echo '        <p class="text-danger">' . nl2br(htmlspecialchars($messages["messages"])) . '</p>';
                                             echo '      </div>';
                                             echo '      <div class="modal-footer">';
                                             echo '        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>';

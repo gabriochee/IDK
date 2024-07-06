@@ -5,8 +5,7 @@
     try {
         $id_user = $_SESSION['id_user'];
         
-        $req1 = $bdd->prepare("
-            SELECT utilisateur.id_user
+        $req1 = $bdd->prepare("SELECT utilisateur.id_user
             FROM ami
             INNER JOIN utilisateur ON (ami.id_user_1 = utilisateur.id_user OR ami.id_user_2 = utilisateur.id_user)
             WHERE (ami.id_user_1 = :id_user OR ami.id_user_2 = :id_user)
@@ -27,8 +26,7 @@
         $note = $data['note'];
         $idMovie = $data['idMovie2'];
 
-        $req2 = $bdd->prepare("
-            SELECT a.critique, a.date_avis, a.statut, a.note, u.id_user, u.pseudo
+        $req2 = $bdd->prepare("SELECT a.critique, a.date_avis, a.statut, floor(a.note/2), u.id_user, u.pseudo
             FROM avis AS a
             JOIN utilisateur AS u ON a.id_user = u.id_user
             WHERE (a.statut = 'publique' OR a.statut = 'amis seulement')
