@@ -32,6 +32,10 @@ document.addEventListener('DOMContentLoaded', () => {
         {
             question: 'De quelle année ?',
             options: ['Avant 1980', '1980-1990', '1990-2000', '2000-2010', '2010-2020', 'Après 2020', 'Cette année']
+        },
+        {
+            question: 'Voulez vous prendre en comptes les film de votre liste "À voir" ?',
+            options: ['Oui', 'Non']
         }
     ];
     
@@ -116,13 +120,15 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
         `;
         
-        fetch('../../inc/php/function_questionnaire.php', {
+        fetch('../../inc/php/function_questionnaire_co.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({answers: answers, answersQuestions: answersQuestions}),
         })
-        .then(response => response.json())
+        .then(response => response.text())
         .then(data => { 
+            console.log(data.requete);
+            return;
             try {
                 fetch(`../../inc/php/recommendation_for_questionnaire.php`, {
                     method: 'POST',

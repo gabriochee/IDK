@@ -23,7 +23,7 @@
         </div>
     </main>
     <?php require_once('../../inc/components/not_connected/footer.php'); ?>
-    <script src="../../inc/js/questionnaire.js"></script>
+    <script src="../../inc/js/questionnaire_not_co.js"></script>
     <script src="../../inc/library/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
