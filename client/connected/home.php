@@ -130,7 +130,7 @@
                                         <p><br><br>De <?php echo $film['name']; ?><br><?php if (isset($film['genre'])) {
                                                                             echo $film['genre'];
                                                                         } ?><br>Sortie en <?php echo $film['startYear']; ?><br><br><br></p>
-                                        <button class="nav-btn btn btn-lg btn-warning text-white border border-light border-2 rounded-3 d-flex m-auto">En voir plus</button>
+                                        <a href="oeuvre.php?mv=<?php echo $film['id_work']; ?>" class="nav-btn btn btn-lg btn-warning text-white border border-light border-2 rounded-3 m-auto">En voir plus</a>
                                     </div>
                                     <div class="w-50 d-flex justify-content-center" style="background-color: #E8EDDF;">
                                         <img class="movie-poster" movie-title="<?php echo $film['primaryTitle']; ?>" movie-year="<?php echo $film['startYear']; ?>" src="">
@@ -171,7 +171,7 @@
                         <div class="col-md-7">
                             <h2 class="featurette-heading"><?php echo $res_populaires[0]['primaryTitle']; ?></h2>
                             <p class="lead mb-4">De <?php echo $res_populaires[0]['name']; ?><br><?php echo $res_populaires[0]['genre']; ?><br>Sortie en <?php echo $res_populaires[0]['startYear']; ?><br><span class="resume"></span></p>
-                            <button class="nav-btn btn btn-lg btn-warning text-white border border-light border-2 rounded-3 d-flex m-auto">En voir plus</button>
+                            <a href="oeuvre.php?mv=<?php echo $res_populaires[0]['id_work']; ?>" class="nav-btn btn btn-lg btn-warning text-white border border-light border-2 rounded-3 m-auto">En voir plus</a>
                         </div>
                         <div class="col-md-5">
                             <img class="movie-poster" movie-title="<?php echo $res_populaires[0]['primaryTitle']; ?>" movie-year="<?php echo $res_populaires[0]['startYear']; ?>" src="">
@@ -182,7 +182,7 @@
                         <div class="col-md-7 order-md-2">
                             <h2 class="featurette-heading"><?php echo $res_populaires[1]['primaryTitle']; ?></h2>
                             <p class="lead mb-4">De <?php echo $res_populaires[1]['name']; ?><br><?php echo $res_populaires[1]['genre']; ?><br>Sortie en <?php echo $res_populaires[1]['startYear']; ?><br><span class="resume"></span></p>
-                            <button class="nav-btn btn btn-lg btn-warning text-white border border-light border-2 rounded-3 d-flex m-auto">En voir plus</button>
+                            <a href="oeuvre.php?mv=<?php echo $res_populaires[1]['id_work']; ?>" class="nav-btn btn btn-lg btn-warning text-white border border-light border-2 rounded-3 m-auto">En voir plus</a>
                         </div>
                         <div class="col-md-5 order-md-1">
                             <img class="movie-poster" movie-title="<?php echo $res_populaires[1]['primaryTitle']; ?>" movie-year="<?php echo $res_populaires[1]['startYear']; ?>" src="">
@@ -192,8 +192,8 @@
                     <div class="row featurette mb-5">
                         <div class="col-md-7">
                             <h2 class="featurette-heading"><?php echo $res_populaires[2]['primaryTitle']; ?></h2>
-                            <p class="lead mb-4">De <?php echo $res_populaires[2]['name'] ?><br><?php echo $res_populaires[2]['genre']; ?><br>Sortie en <?php echo $res_populaires[1]['startYear']; ?><br><span class="resume"></span></p>
-                            <button class="nav-btn btn btn-lg btn-warning text-white border border-light border-2 rounded-3 d-flex m-auto">En voir plus</button>
+                            <p class="lead mb-4">De <?php echo $res_populaires[2]['name'] ?><br><?php echo $res_populaires[2]['genre']; ?><br>Sortie en <?php echo $res_populaires[2]['startYear']; ?><br><span class="resume"></span></p>
+                            <a href="oeuvre.php?mv=<?php echo $res_populaires[2]['id_work']; ?>" class="nav-btn btn btn-lg btn-warning text-white border border-light border-2 rounded-3 m-auto">En voir plus</a>
                         </div>
                         <div class="col-md-5">
                             <img class="movie-poster" movie-title="<?php echo $res_populaires[2]['primaryTitle']; ?>" movie-year="<?php echo $res_populaires[2]['startYear']; ?>" src="">

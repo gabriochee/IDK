@@ -67,7 +67,7 @@
                                         <p><br><br>De <?php echo $film['name']; ?><br><?php if (isset($film['genre'])) {
                                                                                             echo $film['genre'];
                                                                                         } ?><br>Sortie en <?php echo $film['startYear']; ?><br><br><br></p>
-                                        <button class="nav-btn btn btn-lg btn-warning text-white border border-light border-2 rounded-3 d-flex m-auto">En voir plus</button>
+                                        <a href="oeuvre.php?mv=<?php echo $film['id_work']; ?>" class="nav-btn btn btn-lg btn-warning text-white border border-light border-2 rounded-3 m-auto">En voir plus</a>
                                     </div>
                                     <div class="w-50" style="background-color: #E8EDDF;"></div>
                                 </div>
@@ -107,7 +107,7 @@
                     <div class="col-md-7">
                         <h2 class="featurette-heading"><?php echo $res_populaires[0]['primaryTitle']; ?></h2>
                         <p class="lead mb-4">De <?php echo $res_populaires[0]['name']; ?><br><?php echo $res_populaires[0]['genre']; ?><br>Sortie en <?php echo $res_populaires[0]['startYear']; ?><br>Résumé : Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a gasz jaeal.</p>
-                        <button class="nav-btn btn btn-lg btn-warning text-white border border-light border-2 rounded-3 d-flex m-auto">En voir plus</button>
+                        <a href="oeuvre.php?mv=<?php echo $res_populaires[0]['id_work']; ?>" class="nav-btn btn btn-lg btn-warning text-white border border-light border-2 rounded-3 m-auto">En voir plus</a>
                     </div>
                     <div class="col-md-5">
                         <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" preserveAspectRatio="xMidYMid slice" focusable="false">
@@ -120,7 +120,7 @@
                     <div class="col-md-7 order-md-2">
                         <h2 class="featurette-heading"><?php echo $res_populaires[1]['primaryTitle']; ?></h2>
                         <p class="lead mb-4">De <?php echo $res_populaires[1]['name']; ?><br><?php echo $res_populaires[1]['genre']; ?><br>Sortie en <?php echo $res_populaires[1]['startYear']; ?><br>Résumé : Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a gasz jaeal.</p>
-                        <button class="nav-btn btn btn-lg btn-warning text-white border border-light border-2 rounded-3 d-flex m-auto">En voir plus</button>
+                        <a href="oeuvre.php?mv=<?php echo $res_populaires[1]['id_work']; ?>" class="nav-btn btn btn-lg btn-warning text-white border border-light border-2 rounded-3 m-auto">En voir plus</a>
                     </div>
                     <div class="col-md-5 order-md-1">
                         <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" preserveAspectRatio="xMidYMid slice" focusable="false">
@@ -133,7 +133,7 @@
                     <div class="col-md-7">
                         <h2 class="featurette-heading"><?php echo $res_populaires[2]['primaryTitle']; ?></h2>
                         <p class="lead mb-4">De <?php echo $res_populaires[2]['name'] ?><br><?php echo $res_populaires[2]['genre']; ?><br>Sortie en <?php echo $res_populaires[1]['startYear']; ?><br>Résumé : Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a gasz jaeal.</p>
-                        <button class="nav-btn btn btn-lg btn-warning text-white border border-light border-2 rounded-3 d-flex m-auto">En voir plus</button>
+                        <a href="oeuvre.php?mv=<?php echo $res_populaires[2]['id_work']; ?>" class="nav-btn btn btn-lg btn-warning text-white border border-light border-2 rounded-3 m-auto">En voir plus</a>
                     </div>
                     <div class="col-md-5">
                         <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" preserveAspectRatio="xMidYMid slice" focusable="false">
