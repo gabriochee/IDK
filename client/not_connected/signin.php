@@ -166,10 +166,6 @@
                                                     } ?>>Je refuse de recevoir la Newsletter</option>
                             </select>
                         </div>
-                        <p class="container text-center">Votre signature</p>
-                        <div class="d-flex justify-content-center">
-                            <canvas id="signature" width="350" height="350"></canvas>
-                        </div>
                         <button class="w-100 btn btn-warning border-dark border-2" id="signin-btn" type="submit" name="send">S'inscrire</button>
                     </div>
                 </form>

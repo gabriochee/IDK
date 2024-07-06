@@ -2,7 +2,20 @@
 require('fpdf.php');
 require_once('db_lib.php');
 if(isset($_POST['export'])){
-    $userId = $_SESSION['id_user'];
+    echo 'tex';
+    $userId = $_SESSION['id_user']; // Assurez-vous que $_SESSION['id_user'] est initialisé correctement
+    $signature = $_POST['signature'];
+
+    list($type, $data) = explode(';', $signature);
+    list(, $data) = explode(',', $data);
+    $data = base64_decode($data);
+
+    $signatureNom = 'signature_' . $userId . '.png'; // Utilisation de $userId au lieu de $_SESSION['id_user']
+    $signatureChemin = '../inc/img/user_signature/' . $signatureNom;
+    file_put_contents($signatureChemin, $data);
+
+    $req = $bdd->prepare("UPDATE utilisateur SET signature = :signature WHERE id_user = :id_user");
+    $req->execute(['signature' => $signatureChemin, 'id_user' => $userId]); // Utilisation de $userId au lieu de $id_user
     
     $stmt = $bdd->prepare('SELECT id_user, nom, prenom, date_naissance, sexe, pseudo, mail, date_inscription, statut_newsletter, telephone FROM utilisateur WHERE id_user = :id');
     $stmt->bindParam(':id', $userId, PDO::PARAM_INT);
