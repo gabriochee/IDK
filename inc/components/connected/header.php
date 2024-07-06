@@ -40,6 +40,9 @@
               <li>
                 <a <?php if(basename($_SERVER['PHP_SELF']) == 'parameters.php') echo 'class="nav-link text-decoration-underline text-white"'; ?> class="nav-link text-white" href="../../client/connected/parameters.php">Paramètres</a>
               </li>
+              <li>
+                <a <?php if(basename($_SERVER['PHP_SELF']) == 'messagerie_co.php') echo 'class="nav-link text-decoration-underline text-white"'; ?> class="nav-link text-white" href="../../client/connected/messagerie_co.php">Ticket admin</a>
+              </li>
             </ul>
 
             <ul class="navbar-nav d-flex justify-content-lg-end align-items-center gap-2 flex-grow-1 m-md-0 mt-5">
