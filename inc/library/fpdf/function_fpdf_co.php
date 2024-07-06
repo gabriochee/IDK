@@ -13,13 +13,11 @@ if(isset($_POST['export'])){
         die('Utilisateur non trouvé.');
     }
 
-    // creation du PDF
     class PDF extends FPDF {
         function Header() {
             $this->SetFont('Arial','B',15);
             $this->Cell(80);
             $this->Cell(30,10,'Details de l\'utilisateur',0,0,'C');
-            
             $this->Ln(20);
         }
 
@@ -35,13 +33,31 @@ if(isset($_POST['export'])){
     $pdf->AddPage();
     $pdf->SetFont('Arial','B',12);
 
+    $pdf->SetFillColor(200,220,255);
+    $pdf->SetTextColor(0);
+    $pdf->SetDrawColor(0,0,0);
+    $pdf->SetLineWidth(.3);
+    $pdf->SetFont('','B');
+
+    $w = array(50, 140);
+    $header = array('Champ', 'Valeur');
+    
+    for($i=0;$i<count($header);$i++)
+        $pdf->Cell($w[$i],7,$header[$i],1,0,'C',true);
+    $pdf->Ln();
+
+    $pdf->SetFillColor(224,235,255);
+    $pdf->SetTextColor(0);
+    $pdf->SetFont('');
+
+    $fill = false;
     foreach ($userData as $key => $value) {
-        $pdf->Cell(50,10, ucfirst(str_replace('_', ' ', $key)), 1);
-        $pdf->Cell(0,10, $value, 1);
+        $pdf->Cell($w[0],10, ucfirst(str_replace('_', ' ', $key)), 1, 0, 'L', $fill);
+        $pdf->Cell($w[1],10, $value, 1, 0, 'L', $fill);
         $pdf->Ln();
+        $fill = !$fill;
     }
     ob_end_clean();
-    $pdf->Output('D', 'utilisateur.pdf'); // 'D' pour force download
-    
+    $pdf->Output('D', 'utilisateur.pdf'); 
 }
 ?>

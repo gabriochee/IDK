@@ -27,55 +27,44 @@ JOIN work_principals wp ON wb.id_work = wp.id_work
 JOIN name_basics nb ON wp.id_person = nb.id_person 
 JOIN name_professions np ON wp.id_person = np.id_person WHERE 1=1";
 
-$requete = [];
 
 if ($avis) {
     if ($avis == 'Toujours') {
         $query .= " AND wr.averageRating > 8.5";
-        $requete[] = "Filtre avis: Toujours (Note > 8.5)";
     } else if ($avis == 'De temps en temps') {
         $query .= " AND wr.averageRating > 7.5";
-        $requete[] = "Filtre avis: De temps en temps (Note > 7.5)";
     }
 }
 
 if ($bande_son) {
     if ($bande_son == "Oui !!") {
         $query .= " AND wp.category = 'composer' AND nb.id_person IN (SELECT id_person FROM name_professions WHERE profession = 'composer')";
-        $requete[] = "Filtre bande sonore: Oui (Composer)";
     }
 }
 
 if ($effet_speciaux) {
     if ($effet_speciaux == "Oui !!") {
         $query .= " AND np.profession = 'visual_effects'";
-        $requete[] = "Filtre effets spéciaux: Oui (Visual Effects)";
     }
 }
 
 if ($casting) {
     if ($casting == "Toujours") {
         $query .= " AND wb.id_work IN (SELECT id_work FROM work_principals WHERE category IN ('actor', 'actress') AND id_person IN (SELECT id_person FROM name_knownForTitles GROUP BY id_person HAVING COUNT(*) > 10))";
-        $requete[] = "Filtre casting: Toujours (Acteurs connus)";
     } else if ($casting == "De temps en temps") {
         $query .= " AND wb.id_work IN (SELECT id_work FROM work_principals WHERE category IN ('actor', 'actress') AND id_person IN (SELECT id_person FROM name_knownForTitles GROUP BY id_person HAVING COUNT(*) <= 10))";
-        $requete[] = "Filtre casting: De temps en temps (Acteurs moins connus)";
     }
 }
 
 if ($duree) {
     if ($duree == "Moins d'une heure") {
         $query .= " AND wb.runtimeMinutes < 59";
-        $requete[] = "Filtre durée: Moins d'une heure";
     } else if ($duree == "Entre 1h et 1h30") {
         $query .= " AND wb.runtimeMinutes BETWEEN 60 AND 89";
-        $requete[] = "Filtre durée: Entre 1h et 1h30";
     } else if ($duree == "Entre 1h30 et 2h") {
         $query .= " AND wb.runtimeMinutes BETWEEN 90 et 119";
-        $requete[] = "Filtre durée: Entre 1h30 et 2h";
     } else {
         $query .= " AND wb.runtimeMinutes > 120";
-        $requete[] = "Filtre durée: Plus de 2h";
     }
 }
 
@@ -83,24 +72,19 @@ if ($provenance) {
     switch ($provenance) {
         case "Asie":
             $query .= " AND wa.region IN ('" . implode("','", $asie) . "')";
-            $requete[] = "Filtre provenance: Asie";
             break;
         case "Afrique":
             $query .= " AND wa.region IN ('" . implode("','", $afrique) . "')";
-            $requete[] = "Filtre provenance: Afrique";
             break;
         case "Amérique":
             $query .= " AND wa.region IN ('" . implode("','", $amerique) . "')";
-            $requete[] = "Filtre provenance: Amérique";
             break;
         case "Europe":
             $query .= " AND wa.region IN ('" . implode("','", $europe) . "')";
-            $requete[] = "Filtre provenance: Europe";
             break;
         default:
             if (isset($country[$provenance])) {
                 $query .= " AND wa.region = '" . $country[$provenance] . "'";
-                $requete[] = "Filtre provenance: " . $provenance;
             }
             break;
     }
@@ -112,36 +96,27 @@ if ($genres) {
         $query .= " OR wg.genre = '" . $genre . "'";
     }
     $query .= ")";
-    $requete[] = "Filtre genres: " . implode(", ", $genres);
 }
 
 if ($annee) {
     if ($annee == "Avant 1980") {
         $query .= " AND wb.startYear < 1979";
-        $requete[] = "Filtre année: Avant 1980";
     } else if ($annee == "1980-1990") {
         $query .= " AND wb.startYear BETWEEN 1980 AND 1989";
-        $requete[] = "Filtre année: 1980-1990";
     } else if ($annee == "1990-2000") {
         $query .= " AND wb.startYear BETWEEN 1990 AND 1999";
-        $requete[] = "Filtre année: 1990-2000";
     } else if ($annee == "2000-2010"){
         $query .= " AND wb.startYear BETWEEN 2000 AND 2009";
-        $requete[] = "Filtre année: 2000-2010";
     } else if ($annee == "2010-2020") {
         $query .= " AND wb.startYear BETWEEN 2010 AND 2019";
-        $requete[] = "Filtre année: 2010-2020";
     } else if ($annee == "Après 2020") {
         $query .= " AND wb.startYear > 2020";
-        $requete[] = "Filtre année: Après 2020";
     } else if ($annee == "Cette année"){
         $query .= " AND wb.startYear = :annee_actuel";
-        $requete[] = "Filtre année: Cette année";
     }
 }
 
 $query .= " ORDER BY RAND() LIMIT 5;";
-$requete[] = "Requete final : " . $query;
 
 try {
     $stmt = $bdd->prepare($query);
@@ -151,8 +126,8 @@ try {
         $stmt->execute();
     }
     $movies = $stmt->fetchAll();    
-    echo json_encode(['movies' => $movies, 'requete' => $requete]);
+    echo json_encode(['movies' => $movies]);
 } catch (PDOException $e) {
-    echo json_encode(['erreur' => $e->getMessage(), 'requete' => $requete]);
+    echo json_encode(['erreur' => $e->getMessage()]);
 }
 ?>

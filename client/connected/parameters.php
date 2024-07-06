@@ -1,4 +1,8 @@
 <?php require_once('../../inc/php/access.php'); ?>
+<?php require_once('../../inc/php/parameter_user_update.php'); ?>
+<?php require_once('../../inc/php/affichage_data_user.php'); ?>
+<?php require_once('../../inc/library/fpdf/function_fpdf_co.php'); ?>
+<?php require_once('../../inc/php/upload_image.php');?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -10,19 +14,25 @@
     <title>IDK</title>
 </head>
 <body id="connected_parameters">
-    <?php require_once('../../inc/php/parameter_user_update.php'); ?>
     <?php require_once('../../inc/components/connected/header.php'); ?>
-    <?php require_once('../../inc/php/affichage_data_user.php'); ?>
-    <?php require_once('../../inc/library/fpdf/function_fpdf_co.php'); ?>
-    <?php require_once('../../inc/php/upload_image.php');?>
-    
     <main>
         <div class="container-fluid mt-5 mb-5 py-2">
             <div class="row justify-content-center gap-5">
                 <div class="col-md-4">
                     <div class="card card-profile text-center border-0" style="background-color: transparent;">
                         <div class="card-body">
-                            <img src="../../inc/img/user_img/<?php echo htmlspecialchars($rep_data_user1['photo_utilisateur']); ?>?<?php echo time(); ?>" alt="Photo de l'utilisateur" class="mb-3 card-img-top img-fluid rounded-circle">                            <h4 class="card-title"><?php echo $rep_data_user1['pseudo'] .' (#'. $rep_data_user1['id_user'] .')'; ?></h4>
+                        <?php
+                            $photo_utilisateur = $rep_data_user1['photo_utilisateur'];
+
+                            if (empty($photo_utilisateur)) {
+                                $photo_path = '../../inc/img/user_img/profile.svg';
+                            } else {
+                                $photo_path = '../../inc/img/user_img/' . htmlspecialchars($photo_utilisateur) . '?' . time();
+                            }
+                        ?>
+                            <img src="<?php echo $photo_path; ?>" alt="Photo de l'utilisateur" class="mb-3 card-img-top img-fluid rounded-circle">
+                            <h4 class="card-title"><?php echo $rep_data_user1['pseudo'] . ' (#' . $rep_data_user1['id_user'] . ')'; ?></h4>
+
                             <p class="card-text text-start my-0"><?php echo $rep_data_user1['nom'] .' '. $rep_data_user1['prenom']; ?></p>
                             <p class="card-text text-start my-0">Inscrit depuis : <?php echo $rep_data_user1['date_inscription']; ?></p>
                             <span class="badge bg-secondary mt-3"><?php echo $rep_data_user2['nb_amis']; ?> amis</span>
