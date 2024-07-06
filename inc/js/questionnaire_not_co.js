@@ -36,6 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
     
     let currentQuestionIndex = 0;
+    const answers = {};
     
     function renderQuestion() {
         if (currentQuestionIndex >= questions.length) {
@@ -86,14 +87,12 @@ document.addEventListener('DOMContentLoaded', () => {
             });
     
             document.querySelector('button.btn-success').addEventListener('click', () => {
-                answersQuestions[currentQuestionIndex] = question.question;
                 answers[currentQuestionIndex] = selectedGenres;
                 currentQuestionIndex++;
                 renderQuestion();
             });
         } else {
             document.querySelectorAll('.option').forEach(button => {
-                answersQuestions[currentQuestionIndex] = question.question;
                 button.addEventListener('click', () => {
                     answers[currentQuestionIndex] = button.innerText;
                     currentQuestionIndex++;

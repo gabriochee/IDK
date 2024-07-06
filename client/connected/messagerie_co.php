@@ -14,15 +14,15 @@
     <?php require_once('../../inc/components/connected/header.php'); ?>
     <main>
         <div class="container text-center m-auto">
-            <a href="my_ticket.php" class="nav-btn btn btn-sm btn-warning text-white border border-light border-2 rounded-3 mt-5">Voir mes tickets</a>
             <div class="row">
                 <div class="col-lg-6 m-auto p-4">
                     <img src="../../inc/img/logo.svg" alt="Logo IDK" class="navbar-brand img-fluid my-5" width="150px" height="150px">
                     <h3 class="mt-1">Contact</h3>
+                    <a href="my_ticket.php" class="nav-btn btn btn-warning text-white mt-5 w-50 border-dark border-2">Voir mes tickets</a>
                 </div>
             </div>
         </div>
-        <div class=" row g-5 justify-content-center mb-4">
+        <div class="row g-5 justify-content-center mb-4">
             <div class="col-md-7 col-lg-8">
                 <form  method="POST" action="messagerie_co.php" >
                     <div class="row g-3 justify-content-center">
@@ -35,7 +35,7 @@
                             <textarea class="form-control" id="message" name="message" rows="15" minlength="15" maxlength="500" required></textarea>
                             <div class="invalid-feedback">Veuillez fournir un message valide.</div>
                         </div>
-                        <button class="w-100 btn btn-secondary btn-lg btn-warning border-dark border-2" type="submit" name="submit">Envoyer</button>
+                        <button class="w-100 btn btn-lg btn-warning border-dark border-2" type="submit" name="submit">Envoyer</button>
                     </div>
                 </form>
             </div>

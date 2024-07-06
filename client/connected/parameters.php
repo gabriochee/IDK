@@ -1,4 +1,8 @@
 <?php require_once('../../inc/php/access.php'); ?>
+<?php require_once('../../inc/php/parameter_user_update.php'); ?>
+<?php require_once('../../inc/php/affichage_data_user.php'); ?>
+<?php require_once('../../inc/library/fpdf/function_fpdf_co.php'); ?>
+<?php require_once('../../inc/php/upload_image.php');?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -10,12 +14,7 @@
     <title>IDK</title>
 </head>
 <body id="connected_parameters">
-    <?php require_once('../../inc/php/parameter_user_update.php'); ?>
     <?php require_once('../../inc/components/connected/header.php'); ?>
-    <?php require_once('../../inc/php/affichage_data_user.php'); ?>
-    <?php require_once('../../inc/library/fpdf/function_fpdf_co.php'); ?>
-    <?php require_once('../../inc/php/upload_image.php');?>
-    
     <main>
         <div class="container-fluid mt-5 mb-5 py-2">
             <div class="row justify-content-center gap-5">

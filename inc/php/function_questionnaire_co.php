@@ -18,7 +18,7 @@ foreach ($answersQuestions as $i => $answersQuestion) {
     $req_insert->execute();
 }
 
-$liste_dejavu = $bdd->prepare("SELECT id_work FROM element_liste JOIN liste ON element_liste.id_liste = liste.id_liste WHERE liste.id_user = :id_user AND nom = 'Déjà vu';");
+$liste_dejavu = $bdd->prepare("SELECT id_work FROM element_liste JOIN listes ON element_liste.id_liste = listes.id_liste WHERE listes.id_user = :id_user AND nom = 'Déjà vu';");
 $liste_dejavu->execute(array("id_user" => $id_user));
 $res_liste_dejavu = $liste_dejavu->fetchAll();
 $data_user = $bdd->prepare("SELECT moyenne_age_ami, majorite_genre_ami FROM utilisateur WHERE id_user = :id_user;");
@@ -35,9 +35,6 @@ $provenance = isset($answers[5]) ? $answers[5] : '';
 $genres = isset($answers[6]) ? $answers[6] : [];
 $annee = isset($answers[7]) ? $answers[7] : '';
 $avoir = isset($answers[8]) ? $answers[8] : '';
-$liste_avoir = $bdd->prepare("SELECT DISTINCT wb.id_work, wb.primaryTitle FROM IDK.work_basics wb JOIN IDK.element_liste el ON wb.id_work = el.id_work JOIN IDK.listes l ON el.id_liste = l.id_liste WHERE l.id_user = :id_user AND l.nom = 'À voir' ORDER BY RAND() LIMIT 1;");
-$liste_avoir->execute(array("id_user" => $id_user));
-$res_liste_avoir = $liste_avoir->fetch();
 
 $asie = ['AF', 'AM', 'AZ', 'BH', 'BD', 'BT', 'BN', 'KH', 'CN', 'GE', 'IN', 'ID', 'IR', 'IQ', 'IL', 'JP', 'JO', 'KZ', 'KW', 'KG', 'LA', 'LB', 'MY', 'MV', 'MN', 'MM', 'NP', 'KP', 'KR', 'OM', 'PK', 'PS', 'PH', 'QA', 'SA', 'SG', 'LK', 'SY', 'TW', 'TJ', 'TH', 'TL', 'TR', 'TM', 'AE', 'UZ', 'VN', 'YE'];
 $afrique = ['DZ', 'AO', 'BJ', 'BW', 'BF', 'BI', 'CM', 'CV', 'CF', 'TD', 'KM', 'CG', 'CD', 'CI', 'DJ', 'EG', 'GQ', 'ER', 'ET', 'GA', 'GM', 'GH', 'GN', 'GW', 'KE', 'LS', 'LR', 'LY', 'MG', 'MW', 'ML', 'MR', 'MU', 'YT', 'MA', 'MZ', 'NA', 'NE', 'NG', 'RE', 'RW', 'ST', 'SN', 'SC', 'SL', 'SO', 'ZA', 'SS', 'SD', 'SZ', 'TZ', 'TG', 'TN', 'UG', 'EH', 'ZM', 'ZW'];
@@ -56,55 +53,43 @@ JOIN name_basics nb ON wp.id_person = nb.id_person
 JOIN name_professions np ON wp.id_person = np.id_person 
 WHERE 1=1";
 
-$requete = [];
-
 if ($avis) {
     if ($avis == 'Toujours') {
         $query .= " AND wr.averageRating > 8.5";
-        $requete[] = "Filtre avis: Toujours (Note > 8.5)";
     } else if ($avis == 'De temps en temps') {
         $query .= " AND wr.averageRating > 7.5";
-        $requete[] = "Filtre avis: De temps en temps (Note > 7.5)";
     }
 }
 
 if ($bande_son) {
     if ($bande_son == "Oui !!") {
         $query .= " AND wp.category = 'composer' AND nb.id_person IN (SELECT id_person FROM name_professions WHERE profession = 'composer')";
-        $requete[] = "Filtre bande sonore: Oui (Composer)";
     }
 }
 
 if ($effet_speciaux) {
     if ($effet_speciaux == "Oui !!") {
         $query .= " AND np.profession = 'visual_effects'";
-        $requete[] = "Filtre effets spéciaux: Oui (Visual Effects)";
     }
 }
 
 if ($casting) {
     if ($casting == "Toujours") {
         $query .= " AND wb.id_work IN (SELECT id_work FROM work_principals WHERE category IN ('actor', 'actress') AND id_person IN (SELECT id_person FROM name_knownForTitles GROUP BY id_person HAVING COUNT(*) > 10))";
-        $requete[] = "Filtre casting: Toujours (Acteurs connus)";
     } else if ($casting == "De temps en temps") {
         $query .= " AND wb.id_work IN (SELECT id_work FROM work_principals WHERE category IN ('actor', 'actress') AND id_person IN (SELECT id_person FROM name_knownForTitles GROUP BY id_person HAVING COUNT(*) <= 10))";
-        $requete[] = "Filtre casting: De temps en temps (Acteurs moins connus)";
     }
 }
 
 if ($duree) {
     if ($duree == "Moins d'une heure") {
         $query .= " AND wb.runtimeMinutes < 59";
-        $requete[] = "Filtre durée: Moins d'une heure";
     } else if ($duree == "Entre 1h et 1h30") {
         $query .= " AND wb.runtimeMinutes BETWEEN 60 AND 89";
-        $requete[] = "Filtre durée: Entre 1h et 1h30";
     } else if ($duree == "Entre 1h30 et 2h") {
-        $query .= " AND wb.runtimeMinutes BETWEEN 90 et 119";
-        $requete[] = "Filtre durée: Entre 1h30 et 2h";
+        $query .= " AND wb.runtimeMinutes BETWEEN 90 AND 119";
     } else {
         $query .= " AND wb.runtimeMinutes > 120";
-        $requete[] = "Filtre durée: Plus de 2h";
     }
 }
 
@@ -112,24 +97,19 @@ if ($provenance) {
     switch ($provenance) {
         case "Asie":
             $query .= " AND wa.region IN ('" . implode("','", $asie) . "')";
-            $requete[] = "Filtre provenance: Asie";
             break;
         case "Afrique":
             $query .= " AND wa.region IN ('" . implode("','", $afrique) . "')";
-            $requete[] = "Filtre provenance: Afrique";
             break;
         case "Amérique":
             $query .= " AND wa.region IN ('" . implode("','", $amerique) . "')";
-            $requete[] = "Filtre provenance: Amérique";
             break;
         case "Europe":
             $query .= " AND wa.region IN ('" . implode("','", $europe) . "')";
-            $requete[] = "Filtre provenance: Europe";
             break;
         default:
             if (isset($country[$provenance])) {
                 $query .= " AND wa.region = '" . $country[$provenance] . "'";
-                $requete[] = "Filtre provenance: " . $provenance;
             }
             break;
     }
@@ -137,7 +117,6 @@ if ($provenance) {
 
 if ($genres) {
     $query .= " AND ( wg.genre = '" . $genres[0] . "'";
-    
     for ($i = 1; $i < count($genres); $i++) {
         if ($i == 1 && $genres[$i] != $genres[0]) {
             $query .= " AND wg.genre = '" . $genres[$i] . "'";
@@ -145,76 +124,75 @@ if ($genres) {
             $query .= " OR wg.genre = '" . $genres[$i] . "'";
         }
     }
-    $requete[] = "Filtre genres: " . implode(", ", $genres);
 }
 
 if ($moyenne_age_ami){
     if ($moyenne_age_ami < 20) {
         $query .= " OR wg.genre = 'Animation'";
-        $requete[] = "Filtre moyenne d'âge d'amis: Moins de 20 ans -> genre : Animation)";
     } else if ($moyenne_age_ami >= 20 && $moyenne_age_ami < 30) {
         $query .= " OR wg.genre = 'Action'";
-        $requete[] = "Filtre moyenne d'âge d'amis: 20-29 ans -> genre : Action)";
     } else if ($moyenne_age_ami >= 30 && $moyenne_age_ami < 40) {
         $query .= " OR wg.genre = 'Mystery'";
-        $requete[] = "Filtre moyenne d'âge d'amis: 30-39 ans -> genre : Mystery)";
     } else {
         $query .= " OR wg.genre = 'History'";
-        $requete[] = "Filtre moyenne d'âge d'amis: 40 ans et plus -> genre : History)";
     }
 }
 
 if ($majorite_genre_ami){
     if ($majorite_genre_ami == 'homme') {
         $query .= " OR wg.genre = 'Action'";
-        $requete[] = "Filtre moyenne d'age d'amis: Homme -> genre : ";
     } else if ($majorite_genre_ami == 'femme') {
         $query .= " OR wg.genre = 'Drama'";
-        $requete[] = "Filtre moyenne d'age d'amis: Femme -> genre : ";
     } else if ($majorite_genre_ami == "autre") {
         $query .= " OR wg.genre = 'Film-Noir'";
-        $requete[] = "Filtre moyenne d'age d'amis: Autre -> genre : ";
     }
 }
 
 $query .= ")";
 
-
 if ($annee) {
     if ($annee == "Avant 1980") {
         $query .= " AND wb.startYear < 1979";
-        $requete[] = "Filtre année: Avant 1980";
+        $liste_avoir = $bdd->prepare("SELECT DISTINCT wb.id_work, wb.primaryTitle FROM work_basics wb JOIN element_liste el ON wb.id_work = el.id_work JOIN listes l ON el.id_liste = l.id_liste WHERE l.id_user = :id_user AND l.nom = 'À voir' AND wb.startYear < 1979 ORDER BY RAND() LIMIT 1;");
+        $liste_avoir->execute(['id_user' => $id_user]);
     } else if ($annee == "1980-1990") {
         $query .= " AND wb.startYear BETWEEN 1980 AND 1989";
-        $requete[] = "Filtre année: 1980-1990";
+        $liste_avoir = $bdd->prepare("SELECT DISTINCT wb.id_work, wb.primaryTitle FROM work_basics wb JOIN element_liste el ON wb.id_work = el.id_work JOIN listes l ON el.id_liste = l.id_liste WHERE l.id_user = :id_user AND l.nom = 'À voir' AND wb.startYear BETWEEN 1980 AND 1989 ORDER BY RAND() LIMIT 1;");
+        $liste_avoir->execute(['id_user' => $id_user]);
     } else if ($annee == "1990-2000") {
         $query .= " AND wb.startYear BETWEEN 1990 AND 1999";
-        $requete[] = "Filtre année: 1990-2000";
+        $liste_avoir = $bdd->prepare("SELECT DISTINCT wb.id_work, wb.primaryTitle FROM work_basics wb JOIN element_liste el ON wb.id_work = el.id_work JOIN listes l ON el.id_liste = l.id_liste WHERE l.id_user = :id_user AND l.nom = 'À voir' AND wb.startYear BETWEEN 1990 AND 1999 ORDER BY RAND() LIMIT 1;");
+        $liste_avoir->execute(['id_user' => $id_user]);
     } else if ($annee == "2000-2010"){
         $query .= " AND wb.startYear BETWEEN 2000 AND 2009";
-        $requete[] = "Filtre année: 2000-2010";
+        $liste_avoir = $bdd->prepare("SELECT DISTINCT wb.id_work, wb.primaryTitle FROM work_basics wb JOIN element_liste el ON wb.id_work = el.id_work JOIN listes l ON el.id_liste = l.id_liste WHERE l.id_user = :id_user AND l.nom = 'À voir' AND wb.startYear BETWEEN 2000 AND 2009 ORDER BY RAND() LIMIT 1;");
+        $liste_avoir->execute(['id_user' => $id_user]);
     } else if ($annee == "2010-2020") {
         $query .= " AND wb.startYear BETWEEN 2010 AND 2019";
-        $requete[] = "Filtre année: 2010-2020";
+        $liste_avoir = $bdd->prepare("SELECT DISTINCT wb.id_work, wb.primaryTitle FROM work_basics wb JOIN element_liste el ON wb.id_work = el.id_work JOIN listes l ON el.id_liste = l.id_liste WHERE l.id_user = :id_user AND l.nom = 'À voir' AND wb.startYear BETWEEN 2010 AND 2019 ORDER BY RAND() LIMIT 1;");
+        $liste_avoir->execute(['id_user' => $id_user]);
     } else if ($annee == "Après 2020") {
         $query .= " AND wb.startYear > 2020";
-        $requete[] = "Filtre année: Après 2020";
+        $liste_avoir = $bdd->prepare("SELECT DISTINCT wb.id_work, wb.primaryTitle FROM work_basics wb JOIN element_liste el ON wb.id_work = el.id_work JOIN listes l ON el.id_liste = l.id_liste WHERE l.id_user = :id_user AND l.nom = 'À voir' AND wb.startYear > 2020 ORDER BY RAND() LIMIT 1;");
+        $liste_avoir->execute(['id_user' => $id_user]);
     } else if ($annee == "Cette année"){
         $query .= " AND wb.startYear = :annee_actuel";
-        $requete[] = "Filtre année: Cette année";
+        $liste_avoir = $bdd->prepare("SELECT DISTINCT wb.id_work, wb.primaryTitle FROM work_basics wb JOIN element_liste el ON wb.id_work = el.id_work JOIN listes l ON el.id_liste = l.id_liste WHERE l.id_user = :id_user AND l.nom = 'À voir' AND wb.startYear = :annee_actuel ORDER BY RAND() LIMIT 1;");
+        $liste_avoir->execute(['id_user' => $id_user, 'annee_actuel' => $annee_actuel]);
     }
+    $res_liste_avoir = $liste_avoir->fetch();
 }
 
 foreach($res_liste_dejavu as $elem_liste_dejavu) {
     $query .= " AND id_work != " . $elem_liste_dejavu . "";
 }
 
-$query .= " ORDER BY RAND() LIMIT 4;";
-$requete[] = "Requete final : " . $query;
+if (empty($res_liste_avoir)) {
+    $query .= " ORDER BY RAND() LIMIT 5;";
+} else {
+    $query .= " ORDER BY RAND() LIMIT 4;";
+}
 
-var_dump($query);
-var_dump($res_liste_avoir);
-exit;
 try {
     $stmt = $bdd->prepare($query);
     if ($annee == "Cette année") {
@@ -222,14 +200,19 @@ try {
     } else {
         $stmt->execute();
     }
-    $movies = $stmt->fetchAll();  
-    if($avoir) {
-        if ($avoir == "Oui") {
-            $movies[] = $res_liste_avoir;  
-        }
-    }  
-    echo json_encode(['movies' => $movies, 'requete' => $requete]);
+    
+    $movies = [];
+    
+    while ($line = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        $movies[] = $line;
+    }
+    
+    if ($avoir && $avoir == "Oui" && isset($res_liste_avoir)) {
+        $movies[] = $res_liste_avoir;  
+    }
+
+    echo json_encode(['movies' => $movies, 'req' => $query]);
 } catch (PDOException $e) {
-    echo json_encode(['erreur' => $e->getMessage(), 'requete' => $requete]);
+    echo json_encode(['erreur' => $e->getMessage()]);
 }
 ?>

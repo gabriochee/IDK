@@ -22,7 +22,7 @@
                             <textarea class="form-control fs-3" id="query-prompt" name="query-prompt" rows="7" minlength="0" maxlength="1000" required><?php if (isset($_POST['query-prompt'])) { echo trim($_POST['query-prompt']); } ?></textarea>
                         </div>
 
-                        <button type="submit" class="btn btn-primary fs-2 mt-5">Envoyer</button>
+                        <button type="submit" class="btn btn-sm btn-primary fs-2 mt-5">Envoyer</button>
                         <button type="button" class="btn btn-danger fs-2 mt-5" id="clear-button">Effacer</button>
                     </form>
                 </div>
@@ -43,7 +43,7 @@
                                 echo '<br>';
                             }
                         } else if (str_contains($query, "SELECT")) {
-                            echo '<table class="table"><tr>';
+                            echo '<table class="table table-responsive"><tr>';
                             foreach ($fetchedResult[0] as $attribute => $value) {
                                 echo "<th>" . $attribute . "</th>";
                             }
