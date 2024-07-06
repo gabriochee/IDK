@@ -23,7 +23,7 @@
         <div id="question_reponses"></div>
     </main>
     <?php require_once('../../inc/components/connected/footer.php'); ?>
-    <script src="../../inc/js/questionnaire.js"></script>
+    <script src="../../inc/js/questionnaire_co.js"></script>
     <script src="../../inc/library/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
