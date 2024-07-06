@@ -2,8 +2,6 @@
 session_start();
 require_once("db.php");
 
-if (!isset($_SESSION['connected']) || $_SESSION['connected'] != 'connected') {exit;}
-
 $movies = json_decode(file_get_contents('php://input'), true);
 
 try {
