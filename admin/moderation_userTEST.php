@@ -352,7 +352,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             </div>
 
                             <div class="d-flex">
-                                <button class="w-100 btn btn-warning border-dark d-flex m-auto justify-content-center mt-1" id="ban-menu-btn" data-bs-toggle="modal" data-bs-target="#banModal">Bannir</button>
+                                <button class="w-100 btn btn-warning border-dark d-flex m-auto justify-content-center mt-1 me-1" id="ban-menu-btn" data-bs-toggle="modal" data-bs-target="#banModal">Bannir</button>
 
                                 <div class="modal fade" id="banModal" tabindex="-1">
                                     <div class="modal-dialog">

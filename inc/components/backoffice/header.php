@@ -18,9 +18,9 @@
         </div>
     </div>
     <script>
-
         document.addEventListener('DOMContentLoaded', (event) => {
             const toggleButton = document.getElementById('dark-mode');
+            const sidebar =document.getElementById('sidebarMenu');
 
             const enableDarkMode = () => {
                 document.body.classList.add('dark-mode');
@@ -48,6 +48,5 @@
                 }
             });
         });
-
     </script>
 </header>

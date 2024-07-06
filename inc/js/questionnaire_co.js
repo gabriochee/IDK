@@ -125,10 +125,9 @@ document.addEventListener('DOMContentLoaded', () => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({answers: answers, answersQuestions: answersQuestions}),
         })
-        .then(response => response.text())
+        .then(response => response.json())
         .then(data => { 
-            console.log(data.requete);
-            return;
+            console.log(data);
             try {
                 fetch(`../../inc/php/recommendation_for_questionnaire.php`, {
                     method: 'POST',
