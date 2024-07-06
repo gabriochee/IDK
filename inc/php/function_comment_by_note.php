@@ -1,27 +1,46 @@
 <?php
-session_start();
-require_once('db.php');
+    session_start();
+    require_once('db.php');
 
-try {
-    $data = json_decode(file_get_contents('php://input'), true);
-    if (isset($data['note']) && isset($data['idMovie2'])) {
-        $me = $_SESSION['id_user'];
+    try {
+        $id_user = $_SESSION['id_user'];
+        
+        $req1 = $bdd->prepare("
+            SELECT utilisateur.id_user
+            FROM ami
+            INNER JOIN utilisateur ON (ami.id_user_1 = utilisateur.id_user OR ami.id_user_2 = utilisateur.id_user)
+            WHERE (ami.id_user_1 = :id_user OR ami.id_user_2 = :id_user)
+            AND utilisateur.id_user <> :id_user
+        ");
+        $req1->bindParam(":id_user", $id_user);
+        $req1->execute();
+        $recup_ami = $req1->fetchAll(PDO::FETCH_COLUMN, 0);  
+
+        $recup_ami[] = $id_user;
+
+        $placeholders = '';
+        foreach ($recup_ami as $key => $ami_id) {
+            $placeholders .= ($key > 0 ? ',' : '') . '?';
+        }
+
+        $data = json_decode(file_get_contents('php://input'), true);
         $note = $data['note'];
         $idMovie = $data['idMovie2'];
 
-        $req2 = $bdd->prepare("SELECT a.critique, a.date_avis, a.statut, a.note, u.id_user, u.pseudo
-                                FROM avis AS a
-                                JOIN utilisateur AS u ON a.id_user = u.id_user
-                                WHERE (a.statut = 'publique' OR a.statut = 'amis seulement')
-                                AND a.note = :note
-                                AND a.id_work = :id_work
-                                ");
-        $req2->bindParam(":note", $note);
-        $req2->bindParam(":id_work", $idMovie);
-        $req2->execute();
+        $req2 = $bdd->prepare("
+            SELECT a.critique, a.date_avis, a.statut, a.note, u.id_user, u.pseudo
+            FROM avis AS a
+            JOIN utilisateur AS u ON a.id_user = u.id_user
+            WHERE (a.statut = 'publique' OR a.statut = 'amis seulement')
+            AND a.note = ?
+            AND a.id_work = ?
+            AND u.id_user IN ($placeholders)
+        ");
+        
+        $params = array_merge([$note, $idMovie], $recup_ami);
+        $req2->execute($params);
 
         $reviews = $req2->fetchAll(PDO::FETCH_ASSOC);
-
 
         $response = [
             "status" => "success",
@@ -29,10 +48,7 @@ try {
         ];
 
         echo json_encode($response);
-    }else{
-        echo json_encode(["status" => "error", "message" => "La note n'est pas spécifie."]);
-    }
     } catch (PDOException $e) {
-    echo json_encode(["status" => "error", "message" => $e->getMessage()]);
-}
+        echo json_encode(["status" => "error", "message" => $e->getMessage()]);
+    }
 ?>

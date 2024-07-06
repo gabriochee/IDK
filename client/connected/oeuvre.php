@@ -160,10 +160,41 @@
                         </div>
                     </div>
 
-                    <div class="col-3 d-flex justify-content-center align-items-center border border-2 border-end-0 border-dark color-custom-1 menu-oeuvre">
+                    <div class="col-3 d-flex justify-content-center align-items-center border border-2 border-end-0 border-dark color-custom-1 menu-oeuvre" data-bs-toggle="modal" data-bs-target="#commentModal">
                         <p class="m-0">Rédiger/Modifier ma critique</p>
                         <i class="bi bi-chat-left-dots ms-3"></i>
                     </div>
+
+                    <div class="modal fade" id="commentModal" tabindex="-1" aria-labelledby="commentModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="commentModalLabel">Rédiger/Modifier ma critique</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="myComment">
+                                        <div data-mdb-input-init class="form-outline my-3">
+                                            <textarea class="form-control" id="commentText" rows="4" name="commentText"></textarea>
+
+                                            <div class="container d-flex justify-content-center mt-3">
+                                                <input type="radio" class="btn-check" name="list-status" id="private-list" value="privee" autocomplete="off" <?php if (isset($statut) && ($statut == 'privee')) { echo 'checked'; } ?>>
+                                                <label class="btn" for="private-list">privée</label>
+
+                                                <input type="radio" class="btn-check" name="list-status" id="only-friends-list" value="amis seulement" autocomplete="off" <?php if (isset($statut) && ($statut == 'amis seulement')) { echo 'checked';} ?>>
+                                                <label class="btn" for="only-friends-list">amis seulement</label>
+
+                                                <input type="radio" class="btn-check" name="list-status" id="public-list" value="publique" autocomplete="off" <?php if (isset($statut) && ($statut == 'publique')) { echo 'checked';} ?>>
+                                                <label class="btn" for="public-list">publique</label>
+                                            </div>
+                                        </div>
+                                        <button class="w-100 btn btn-secondary btn-warning border-dark mt-2" type="submit" data-mdb-button-init data-mdb-ripple-init name="send_comment">Envoyer</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="col-3 d-flex justify-content-center align-items-center border border-2 border-end-0 border-dark color-custom-1 menu-oeuvre" data-bs-toggle="modal" data-bs-target="#addMovieToListModal">
                         <p class="m-0">Ajouter à une liste</p>
                         <i class="bi bi-plus-circle ms-3"></i>
@@ -261,7 +292,7 @@
                             <i class="bi bi-star"></i>
                             <i class="bi bi-star"></i>
                         </div>
-                        <div class="col-2 d-flex justify-content-center align-items-center border border-2 border-end-0 border-dark color-custom-1 menu-oeuvre" id="note-un">
+                        <div class="col-2 d-flex justify-content-center align-items-center border border-2 border-dark color-custom-1 menu-oeuvre" id="note-un">
                             <p class="text fw-bold m-0 ms-3">1/5</p>
                             <i class="bi bi-star-fill ms-3"></i>
                             <i class="bi bi-star"></i>
@@ -269,20 +300,12 @@
                             <i class="bi bi-star"></i>
                             <i class="bi bi-star"></i>
                         </div>
-                        <div class="col-2 d-flex justify-content-center align-items-center border border-2 border-dark color-custom-1 menu-oeuvre" id="note-zero">
-                            <p class="text fw-bold m-0 ms-3">0/5</p>
-                            <i class="bi bi-star ms-3"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                        </div>
+                        
                     </div>
 
                     <div id="commentaire-cinq" class="row justify-content-center" style="display: none;">
                         <div class="col-12 border border-2 border-top-0 border-dark color-custom-2">
                             <div class="overflow-auto menu-oeuvre-2" id="comments-cinq">
-                                <p>salut5</p>
                             </div>
                         </div>
                     </div>
@@ -296,49 +319,30 @@
                     <div id="commentaire-trois" class="row justify-content-center" style="display: none;">
                         <div class="col-12 border border-2 border-top-0 border-dark color-custom-2">
                             <div class="overflow-auto menu-oeuvre-2" id="comments-trois">
-                                <p>salut3</p>
                             </div>
                         </div>
                     </div>
                     <div id="commentaire-deux" class="row justify-content-center" style="display: none;">
                         <div class="col-12 border border-2 border-top-0 border-dark color-custom-2">
                             <div class="overflow-auto menu-oeuvre-2" id="comments-deux">
-                                <p>salut2</p>
                             </div>
                         </div>
                     </div>
                     <div id="commentaire-un" class="row justify-content-center" style="display: none;">
                         <div class="col-12 border border-2 border-top-0 border-dark color-custom-2">
                             <div class="overflow-auto menu-oeuvre-2" id="comments-un">
-                                <p>salut1</p>
                             </div>
                         </div>
                     </div>
                     <div id="commentaire-zero" class="row justify-content-center" style="display: none;">
                         <div class="col-12 border border-2 border-top-0 border-dark color-custom-2">
                             <div class="overflow-auto menu-oeuvre-2" id="comments-zero">
-                                <p>salut 0</p>
                             </div>
                         </div>
                     </div>
 
-                    <form id="myComment">
-                        <div data-mdb-input-init class="form-outline my-3">
-                            <textarea class="form-control" id="commentText" rows="4" name="commentText"></textarea>
+                    
 
-                            <div class="container d-flex justify-content-center mt-3">
-                                <input type="radio" class="btn-check" name="list-status" id="private-list" value="privee" autocomplete="off" <?php if (isset($statut) && ($statut == 'privee')) { echo 'checked'; } ?>>
-                                <label class="btn" for="private-list">privée</label>
-
-                                <input type="radio" class="btn-check" name="list-status" id="only-friends-list" value="amis seulement" autocomplete="off" <?php if (isset($statut) && ($statut == 'amis seulement')) { echo 'checked';} ?>>
-                                <label class="btn" for="only-friends-list">amis seulement</label>
-
-                                <input type="radio" class="btn-check" name="list-status" id="public-list" value="publique" autocomplete="off" <?php if (isset($statut) && ($statut == 'publique')) { echo 'checked';} ?>>
-                                <label class="btn" for="public-list">publique</label>
-                            </div>
-                        </div>
-                        <button class="w-100 btn btn-secondary btn-warning border-dark mt-2" type="submit" data-mdb-button-init data-mdb-ripple-init name="send_comment">Envoyer</button>
-                    </form>
 
                 </div>
             </div>
@@ -349,67 +353,48 @@
         <script src="../../inc/js/add_movie_to_my_lists.js"></script>
         <script>
             document.addEventListener('DOMContentLoaded', function() {
-                var privee = document.getElementById("private-comment");
-                var ami = document.getElementById("only-friends-comment");
-                var publique = document.getElementById("public-comment");
+            var selectedStatut = document.querySelector('input[name="list-status"]:checked').value;
 
-                var selectedStatut = privee.value; // par défaut la valeur sélectionnée est 'privee'
-
-                // Recup statut
-                privee.addEventListener("change", function(event) {
-                    selectStatut(privee);
+            document.querySelectorAll('input[name="list-status"]').forEach(function(radio) {
+                radio.addEventListener('change', function(event) {
+                    selectedStatut = event.target.value;
                 });
+            });
 
-                ami.addEventListener("change", function(event) {
-                    selectStatut(ami);
-                });
-
-                publique.addEventListener("change", function(event) {
-                    selectStatut(publique);
-                });
-
-                function selectStatut(statutElement) {
-                    selectedStatut = statutElement.value;
-                }
-                document.getElementById("myComment").addEventListener("submit", function(event) {
+            document.getElementById("myComment").addEventListener("submit", function(event) {
                     event.preventDefault();
 
                     var currentUrl = window.location.href;
                     var urlParams = new URLSearchParams(window.location.search);
                     var idMovie = urlParams.get('mv');
-                    var currentUrl = window.location.href;
-                    var urlParams = new URLSearchParams(window.location.search);
-                    var idMovie = urlParams.get('mv');
-
                     var commentText = document.getElementById('commentText').value;
-                    var commentText = document.getElementById('commentText').value;
-
+                    
                     fetch('../../inc/php/send_comment_and_note.php', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({
-                                comment: commentText,
-                                statut: selectedStatut,
-                                idMovie: idMovie
-                            })
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            comment: commentText,
+                            statut: selectedStatut,
+                            idMovie: idMovie
                         })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.status === 'success') {
-                                // Vider
-                                document.getElementById('commentText').value = "";
-                                alert("Message envoyé avec succès !");
-                            } else {
-                                alert("Er du message : " + data.error);
-                            }
-                        })
-                        .catch(error => {
-                            alert("Erreur lors u message : " + error.message);
-                        });
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === 'success') {
+                            document.getElementById('commentText').value = "";
+                            alert("Message envoyé avec succès !");
+                        } else {
+                            alert("Erreur lors de l'envoi du message : " + data.error);
+                        }
+                    })
+                    .catch(error => {
+                        alert("Erreur lors de l'envoi du message : " + error.message);
+                    });
                 });
             });
+
 
             const cinq = document.getElementById("commentaire-cinq");
             const quatre = document.getElementById("commentaire-quatre");
@@ -460,10 +445,7 @@
                 alert("2");
                 handleNoteClick(1);
             });
-            document.getElementById("note-zero").addEventListener("click", function() {
-                alert("0");
-                handleNoteClick(0);
-            });
+            
 
             function showCommentByNote(note) {
                 var note = note;
@@ -487,6 +469,8 @@
                             console.error(data.message);
                         } else {
                             const commentsContainer = document.getElementById(`comments-quatre`);
+
+                            commentsContainer.innerHTML = '';
 
                             data.reviews.forEach(review => {
                                 const paragraph = document.createElement('p');
