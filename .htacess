@@ -1,7 +1,0 @@
-DirectoryIndex client/not_connected/home.php
-
-// ErrorDocument 404 error/error404.php
-
-// RewriteRule ^inc/ - [F,L]
-
-// Retirer les extension de fichier .php puis modifier tout le code en conséquence (sauf les requires)

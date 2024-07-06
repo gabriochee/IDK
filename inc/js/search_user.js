@@ -24,7 +24,7 @@ const searchKeywordUser = async () => {
 
                     resultatsUser.innerHTML += 
                     `<div class="card mb-3" style="width: 18rem;">
-                        <img class="card-img-top" src="../../inc/img/profile.svg" alt="Photo de profil" style="height: 150px; object-fit: cover;">
+                        
                         <div class="card-body text-center">
                             <h5 class="card-title">#${post.id_user}</h5>
                             <p class="card-text">${post.pseudo}</p>
