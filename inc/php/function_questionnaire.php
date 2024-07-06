@@ -6,23 +6,18 @@ $data = json_decode(file_get_contents('php://input'), true);
 $answers = $data['answers'];
 $answersQuestions = $data['answersQuestions'];
 
-foreach($answers as $answer) {
-    var_dump($answer);
-}
-exit;
-
-$id_user = isset($_SESSION['id_user']) ? $_SESSION['id_user'] : $_SERVER['REMOTE_ADDR'];
-
-foreach ($answersQuestions as $answersQuestion) {
-    $i = 0;
-    $id_questionnaire = date("Y-m-d-H:i:s-") . $id_user;
-    $req_insert = $bdd->prepare("INSERT INTO reponses_questionnaire (date, corps_question, corps_reponse, id_user, id_questionnaire) VALUES (NOW(), :corps_question, :corps_reponse, :id_user, :id_questionnaire)");
-    $req_insert->bindParam(':corps_question', $answersQuestion);
-    $req_insert->bindParam(':corps_reponse', $answers[$i]);
-    $req_insert->bindParam(':id_user', $id_user);
-    $req_insert->bindParam(':id_questionnaire', $id_questionnaire);
-    $req_insert->execute();
-    $i++;
+if (isset($_SESSION['id_user'])) {
+    $id_user = $_SESSION['id_user'];
+    foreach ($answersQuestions as $i => $answersQuestion) {
+        $corps_reponse = is_array($answers[$i]) ? implode('/', $answers[$i]) : $answers[$i];
+        $id_questionnaire = date("Y-m-d-H:i-") . $id_user;
+        $req_insert = $bdd->prepare("INSERT INTO reponses_questionnaire (date, corps_question, corps_reponse, id_user, id_questionnaire) VALUES (NOW(), :corps_question, :corps_reponse, :id_user, :id_questionnaire)");
+        $req_insert->bindParam(':corps_question', $answersQuestion);
+        $req_insert->bindParam(':corps_reponse', $corps_reponse);
+        $req_insert->bindParam(':id_user', $id_user);
+        $req_insert->bindParam(':id_questionnaire', $id_questionnaire);
+        $req_insert->execute();
+    }
 }
 
 $avis = isset($answers[0]) ? $answers[0] : '';

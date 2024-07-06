@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="container col-lg-6 my-md-5 py-2">
                 <button class="btn btn-success w-100">Suivant</button>
             </div>` : ''}
-            <div class="alert alert-warning mt-3" style="display: none;" id="alert">Vous ne pouvez sélectionner que 3 genres au maximum.</div>
+            <div class="alert alert-danger text-center mt-3" style="display: none;" id="alert">Vous ne pouvez sélectionner que 3 genres au maximum.</div>
         `;
         
         if (question.question === 'Quel genre vous attire ? (3 maximum)') {
@@ -121,10 +121,8 @@ document.addEventListener('DOMContentLoaded', () => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({answers: answers, answersQuestions: answersQuestions}),
         })
-        .then(response => response.text())
-        .then(data => {  
-            console.log(data);
-            return;
+        .then(response => response.json())
+        .then(data => { 
             try {
                 fetch(`../../inc/php/recommendation_for_questionnaire.php`, {
                     method: 'POST',

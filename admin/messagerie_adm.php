@@ -63,17 +63,38 @@
                                             echo '    </div>';
                                             echo '  </div>';
                                             echo '</div>';
-                                            echo '<td class="text-center align-middle">
-                                            
-                                                <form action="messagerie_adm.php" method="POST">
-                                                    <select name="ticket_status' . htmlspecialchars($messages["id"]) . '">
-                                                        <option value="pas commence">Pas commence</option>
-                                                        <option value="en cours">En cours</option>
-                                                        <option value="termine">Terminé</option>
-                                                    </select>
-                                                    <button type="submit" name="Statuer_co" class="btn btn-success fs-6 w-100 mt-3">Statuer</button>
-                                                </form>
-                                            </td>';
+
+
+                                            echo '<td class="text-center align-middle">';
+                                                echo '<form action="messagerie_adm.php" method="POST">';
+                                                echo '<select name="ticket_status" required>';
+
+                                                echo '<option value="Pas commence"';
+                                                if ($messages['statut_ticket'] === null || $messages['statut_ticket'] == 'Pas commence') {
+                                                    echo ' selected';
+                                                }
+                                                echo '>Pas commence</option>';
+                                                
+                                                echo '<option value="En cours"';
+                                                if ($messages['statut_ticket'] == 'En cours') {
+                                                    echo ' selected';
+                                                }
+                                                echo '>En cours</option>';
+                                                
+                                                echo '<option value="Termine"';
+                                                if ($messages['statut_ticket'] == 'Termine') {
+                                                    echo ' selected';
+                                                }
+                                                echo '>Terminé</option>';
+                                                
+                                                echo '</select>';
+                                                
+                                                    echo '<input type="hidden" name="id_demande" value="'. htmlspecialchars($messages["id"]) .  '">';
+                                                    echo '<button type="submit" name="Statuer_co" class="btn btn-success fs-6 w-100 mt-3">Statuer</button>';
+                                                echo '</form>';
+                                            echo '</td>';
+
+
                                             echo '<td class="text-center align-middle">
                                             <div class="d-grid gap-2">
                                                 <form action="demande_message.php" method="GET">
@@ -81,7 +102,10 @@
                                                 <button type="submit" class="btn btn-success fs-6 w-100">Voir plus</button>
                                                 </form>
                                             </div>
+                                            
                                             </td>';
+                                            $id_admin = isset($messages["id_admin"]) ? htmlspecialchars($messages["id_admin"]) : 'Non défini';
+                                            echo '<td class="text-center align-middle">' . $id_admin . '</td>';
                                         echo '</tr>';
                                     }
                                 ?>
@@ -129,17 +153,35 @@
                                             echo '    </div>';
                                             echo '  </div>';
                                             echo '</div>';
-                                            echo '<td class="text-center align-middle">
-                                                <form action="messagerie_adm.php" method="POST">
-                                                    <select name="ticket_status' . htmlspecialchars($messages["id"]) . '">
-                                                        <option value="pas commence">Pas commence</option>
-                                                        <option value="en cours">En cours</option>
-                                                        <option value="termine">Terminé</option>
-                                                    </select>
-                                                    <input type="hidden" name="envoyer_id_demande" value="'. htmlspecialchars($messages["id"]) .  '">
-                                                    <button type="submit" name="Statuer_non_co" class="btn btn-success fs-6 w-100 mt-2">Statuer</button>
-                                                </form>
-                                            </td>';
+                                            echo '<td class="text-center align-middle">';
+                                                echo '<form action="messagerie_adm.php" method="POST">';
+                                                echo '<select name="ticket_status" required>';
+
+                                                echo '<option value="Pas commence"';
+                                                if ($messages['statut_ticket'] === null || $messages['statut_ticket'] == 'Pas commence') {
+                                                    echo ' selected';
+                                                }
+                                                echo '>Pas commence</option>';
+                                                
+                                                echo '<option value="En cours"';
+                                                if ($messages['statut_ticket'] == 'En cours') {
+                                                    echo ' selected';
+                                                }
+                                                echo '>En cours</option>';
+                                                
+                                                echo '<option value="Termine"';
+                                                if ($messages['statut_ticket'] == 'Termine') {
+                                                    echo ' selected';
+                                                }
+                                                echo '>Terminé</option>';
+                                                
+                                                echo '</select>';
+                                                
+                                                    echo '<input type="hidden" name="id_demande" value="'. htmlspecialchars($messages["id"]) .  '">';
+                                                    echo '<button type="submit" name="Statuer_not_co" class="btn btn-success fs-6 w-100 mt-3">Statuer</button>';
+                                                echo '</form>';
+                                                echo '<td class="text-center align-middle">' . htmlspecialchars($messages["id_admin"]) . '</td>';
+                                            echo '</td>';
                                         echo '</tr>';
                                     }
                                 ?>
