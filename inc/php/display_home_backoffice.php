@@ -25,6 +25,50 @@ try {
     $req_moyenne_listes->execute();
     $res_moyenne_listes = $req_moyenne_listes->fetch();
 
+    $req_nb_questionnaire = $bdd->prepare("SELECT COUNT(DISTINCT id_questionnaire) as total, (SELECT COUNT(DISTINCT id_questionnaire) FROM reponses_questionnaire WHERE YEAR(date) = YEAR(CURDATE())) AS annee, (SELECT COUNT(DISTINCT id_questionnaire) FROM reponses_questionnaire WHERE YEAR(date) = YEAR(CURDATE()) AND MONTH(date) = MONTH(CURDATE())) AS mois, (SELECT COUNT(DISTINCT id_questionnaire) FROM reponses_questionnaire WHERE YEARWEEK(date, 1) = YEARWEEK(CURDATE(), 1)) AS semaine, (SELECT COUNT(DISTINCT id_questionnaire) FROM reponses_questionnaire WHERE DATE(date) = CURDATE()) AS today FROM reponses_questionnaire;");
+    $req_nb_questionnaire->execute();
+    $res_nb_questionnaire = $req_nb_questionnaire->fetch();
+
+    $req_questionnaire_origine = $bdd->prepare("SELECT corps_reponse FROM IDK.reponses_questionnaire WHERE corps_question = 'De quel pays d\'origine préféreriez-vous ?' ORDER BY corps_reponse DESC LIMIT 5;");
+    $req_questionnaire_origine->execute();
+    $res_questionnaire_origine = $req_questionnaire_origine->fetch();
+
+    $req_questionnaire_annee = $bdd->prepare("SELECT corps_reponse FROM IDK.reponses_questionnaire WHERE corps_question = 'De quelle année ?' ORDER BY corps_reponse DESC LIMIT 5;");
+    $req_questionnaire_annee->execute();
+    $res_questionnaire_annee = $req_questionnaire_annee->fetch();
+
+    function getTopGenres($bdd, $interval) {
+        $query = "SELECT corps_reponse FROM reponses_questionnaire WHERE corps_question = 'Quel genre vous attire ? (3 maximum)' AND $interval";
+        
+        $stmt = $bdd->prepare($query);
+        $stmt->execute();
+        $responses = $stmt->fetchAll(PDO::FETCH_COLUMN);
+        
+        $genreCounts = [];
+        foreach ($responses as $response) {
+            $genres = explode('/', $response);
+            foreach ($genres as $genre) {
+                $genre = trim($genre);
+                if (!empty($genre)) {
+                    if (!isset($genreCounts[$genre])) {
+                        $genreCounts[$genre] = 0;
+                    }
+                    $genreCounts[$genre]++;
+                }
+            }
+        }
+        
+        arsort($genreCounts);
+        return array_slice($genreCounts, 0, 5, true);
+    }
+
+    $today = getTopGenres($bdd, "DATE(date) = CURDATE()");
+    $thisWeek = getTopGenres($bdd, "YEARWEEK(date, 1) = YEARWEEK(CURDATE(), 1)");
+    $thisMonth = getTopGenres($bdd, "YEAR(date) = YEAR(CURDATE()) AND MONTH(date) = MONTH(CURDATE())");
+    $thisYear = getTopGenres($bdd, "YEAR(date) = YEAR(CURDATE())");
+    $total = getTopGenres($bdd, "1=1");
+
+
 } catch (PDOException $e) {
     echo $e->getMessage();
 }
