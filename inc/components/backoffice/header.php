@@ -20,7 +20,8 @@
     <script>
         document.addEventListener('DOMContentLoaded', (event) => {
             const toggleButton = document.getElementById('dark-mode');
-            const sidebar =document.getElementById('sidebarMenu');
+            const sidebar = document.getElementById('sidebarMenu');
+            const card = document.getElementsByClassName('card');
 
             const enableDarkMode = () => {
                 document.body.classList.add('dark-mode');

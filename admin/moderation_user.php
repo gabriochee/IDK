@@ -1,9 +1,9 @@
 <?php require_once('../inc/php/access.php'); ?>
-<?php require_once('../inc/php/affichage_data_user.php'); ?>
 <?php require_once('../inc/library/fpdf/function_fpdf_admin.php'); ?>
-<?php require_once('../inc/php/function_create_admin.php'); ?>
+<?php require_once('../inc/php/function_display_moderation_user.php'); ?>
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,125 +12,286 @@
     <link rel="stylesheet" href="../inc/library/bootstrap/bootstrap-icons/font/bootstrap-icons.min.css">
     <title>IDK</title>
 </head>
+
 <body id="backoffice_moderation_user" class="backoffice">
     <?php require_once('../inc/components/backoffice/header.php'); ?>
     <div class="container-fluid">
         <div class="row">
             <?php require_once('../inc/components/backoffice/sidebar.php'); ?>
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <div class="container border border-black rounded-2 border-2 mt-3">
 
-                <form action="moderation_user.php" method="POST">
-                    <div class="form-group">
-                        <label for="userId">Exporter en pdf il faut saisir l'id de l'utilisateur:</label>
-                        <input type="number" class="form-control" id="userId" name="userId" required>
+                    <h1 class="text-center mt-4">Modération</h1>
+                    <p class="text-end mb-0">Administrateur connecté : <?php echo $res_display_admin_co['prenom'] . ' ' . $res_display_admin_co['nom']; ?></p>
+                    <p class="text-end mt-0"><?php echo date('o-m-d H:i:s'); ?></p>
+                    <hr class="featurette-divider my-2">
+
+                    <div class="col-md-12 overflow-auto mt-4">
+                        <div class="d-flex">
+                            <h3 class="w-25 text-start">Utilisateurs :</h3>
+                            <input class="form-control form-control-white w-100 mb-3" type="text" placeholder="Recherche" aria-label="Search">
+                        </div>
+                        <div class="overflow-auto menu-oeuvre-2" style="max-height: 300px;">
+                            <table class="table table-striped table-sm border border-3 border-dark" id="users-table">
+                                <tbody class="table-dark">
+                                    <?php
+                                    foreach ($res_display_user as $user) {
+                                        echo '<tr><td class="table-cell text-start">#' . $user['id_user'] . '    ' . $user['pseudo'] . ' (' . $user['prenom'] . $user['nom'] . ')</td>';
+                                        echo '<td class="table-cell w-25"><button type="submit" data-id="' . $user['id_user'] . '" class="btn btn-warning w-100 fs-6 show">En voir plus</button></td></tr>';
+                                    }
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                    <button type="submit" class="btn btn-primary mt-3">Créer PDF</button>
-                </form>
+                    <hr class="featurette-divider my-2">
 
-                <div class="table-responsive mt-4">
-                    <h3 class="mb-3">Utilisateurs : </h3>
-                    <?php
-                    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                        if (isset($_POST['id_user'])) {
-                            try {
-                                $result = $bdd->query("UPDATE utilisateur SET nom = '{$_POST['lastName']}', prenom = '{$_POST['firstName']}', pseudo = '{$_POST['pseudo']}', sexe = '{$_POST['sexe']}', date_naissance = \"{$_POST['birthday-year']}-{$_POST['birthday-month']}-{$_POST['birthday-day']}\", mail = '{$_POST['mail']}', telephone = '{$_POST['phone']}' WHERE id_user = {$_POST['id_user']};");
-                            } catch (PDOException $e) {
-                                echo $e->getMessage();
-                            }
-                        }
-                    }
-                    ?>
-                    <input class="form-control form-control-white w-100 mb-3" type="text" placeholder="Recherche" aria-label="Search">
-                    <div class="overflow-auto menu-oeuvre-2">
-                        <table class="table table-striped table-sm border border-3 border-dark" id="users-table">
-                            <thead class="table-dark">
-                                <tr>
-                                    <th class="table-cell" scope="col">#id</th>
-                                    <th class="table-cell" scope="col">Prenom Nom</th>
-                                    <th class="table-cell" scope="col">Pseudo</th>
-                                    <th class="table-cell" scope="col">Sexe</th>
-                                    <th class="table-cell" scope="col">Date d'inscritpion</th>
-                                    <th class="table-cell" scope="col">Email</th>
-                                    <th class="table-cell" scope="col">Date de naissance</th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
+                    <div class="col-md-12 overflow-auto mt-4">
+                        <div class="d-flex">
+                            <h3 class="w-25 text-start">Utilisateurs ban :</h3>
+                            <input class="form-control form-control-white w-100 mb-3" type="text" placeholder="Recherche" aria-label="Search">
+                        </div>
+                        <div class="overflow-auto menu-oeuvre-2" style="max-height: 300px;">
+                            <table class="table table-striped table-sm border border-3 border-dark" id="users-table">
+                                <tbody class="table-dark">
+                                    <?php
+                                    foreach ($res_display_user_ban as $user_ban) {
+                                        echo '<tr><td class="table-cell text-start">#' . $user_ban['id_user'] . '    ' . $user_ban['pseudo'] . ' (' . $user_ban['prenom'] . $user_ban['nom'] . ')</td>';
+                                        echo '<td class="table-cell w-25"><button type="submit" data-id="' . $user_ban['id_user'] . '" class="btn btn-warning w-100 fs-6 show">En voir plus</button></td></tr>';
+                                    }
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <hr class="featurette-divider my-2">
+
+                    <div class="col-md-12 overflow-auto mt-4">
+                        <div class="d-flex">
+                            <h3 class="text-start w-25">Administrateur :</h3>
+                            <div class="d-flex w-100">
+                                <input class="w-100 form-control form-control-white mb-3 me-3" type="text" placeholder="Recherche" aria-label="Search">
+                                <button class="w-25 btn btn-warning border-dark d-flex m-auto justify-content-center mb-3" data-bs-toggle="modal" data-bs-target="#create-admin">Crée un admin</button>
+                            </div>
+                        </div>
+                        <div class="overflow-auto menu-oeuvre-2" style="max-height: 300px;">
+                            <table class="table table-striped table-sm border border-3 border-dark" id="users-table">
+                                <tbody class="table-dark">
+                                    <?php
+                                    foreach ($res_display_admin as $admin) {
+                                        echo '<tr><td class="table-cell text-start">#' . $admin['id_user'] . '    ' . $admin['pseudo'] . ' (' . $admin['prenom'] . $admin['nom'] . ')</td>';
+                                        echo '<td class="table-cell w-25"><button type="submit" data-id="' . $admin['id_user'] . '" class="btn btn-warning w-100 fs-6 show">En voir plus</button></td></tr>';
+                                    }
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="modal fade" id="create-admin" tabindex="-1">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5">Crée un administrateur</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+                                <div class="modal-body">
+                                <form action="moderation_user.php" method="POST" class="d-flex flex-column w-100 align-items-center mt-3">
+                                    <div class="col-12">
+                                        <label for="nom" class="form-label">Nom</label>
+                                        <input type="text" class="form-control" id="nom" name="nom" required>
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="prenom" class="form-label">Prénom</label>
+                                        <input type="text" class="form-control" id="prenom" name="prenom" required>
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="pseudo" class="form-label">Pseudo</label>
+                                        <input type="text" class="form-control" id="pseudo" name="pseudo" required>
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="sexe" class="form-label">Sexe</label>
+                                        <select class="form-select" id="sexe" name="sexe" required>
+                                            <option value="homme">Homme</option>
+                                            <option value="femme">Femme</option>
+                                            <option value="autre">Autre</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="date_naissance" class="form-label">Date de naissance</small></label>
+                                        <input type="date" class="form-control" id="date_naissance" name="date_naissance" required>
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="mail" class="form-label">Email</label>
+                                        <input type="email" class="form-control" id="mail" name="mail" required>
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="phone" class="form-label">Numéro de téléphone</label>
+                                        <input type="tel" class="form-control" id="phone" name="phone" pattern="{,100}" required>
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="pseudo" class="form-label">Mot de passe</label>
+                                        <input type="password" class="form-control" id="mdp" name="mdp" required>
+                                    </div>
+                                    <button class="btn btn-sm btn-warning fs-4 mt-3 w-100" type="submit" name="push_data_admin">Créer</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row justify-content-center gap-5 d-none" id="user">
+
+                        <hr class="featurette-divider my-2">
+                        <div class="col-md-4">
+                            <div class="card card-profile text-center border-0" style="background-color: transparent;">
+                                <div class="card-body">
+                                    <img id="user-photo" src="" alt="Photo de l'utilisateur" class="mb-3 card-img-top img-fluid rounded-circle">
+                                    <h3 id="user-pseudo-id" class="card-title"></h3>
+                                    <h4 id="user-fullname" class="card-text text-start my-0"></h4>
+                                    <p id="user-registration-date" class="card-text text-start my-0"></p>
+                                    <p id="last-connexion" class="card-text text-start my-0"></p>
+                                    <span id="number-of-friends" class="badge bg-secondary my-3"></span>
+                                    <p id="average-friends-age" class="card-text text-start my-0"></p>
+                                    <p id="majority-friends-sexe" class="card-text text-start my-0"></p>
+                                    <p id="relation-pending" class="card-text text-start my-0"></p>
+                                    <p id="relation-refused" class="card-text text-start my-0"></p>
+                                    <p id="number-of-list-public" class="card-text text-start my-0"></p>
+                                    <p id="number-of-list-private" class="card-text text-start my-0"></p>
+                                    <p id="number-of-list-only-friend" class="card-text text-start my-0"></p>
+                                    <p id="number-of-opinion-public" class="card-text text-start my-0"></p>
+                                    <p id="number-of-opinion-private" class="card-text text-start my-0"></p>
+                                    <p id="ban" class="card-text text-start my-0"></p>
+                                </div>
+                            </div>
+                            <form method="POST" enctype="multipart/form-data" action="moderation_user.php" class="mt-2">
+                                <div class="mb-3">
+                                    <input type="file" name="image" class="form-control">
+                                </div>
+                                <button type="submit" name="submit_img" class="btn btn-warning border-dark w-100">Modifier photo profil</button>
+                            </form>
+                        </div>
+                        <div class="col-md-6">
+                            <form action="" class="needs-validation" method="POST">
+                                <div class="row g-3">
+                                    <div class="col-sm-6">
+                                        <label for="firstName" class="form-label">Prénom</label>
+                                        <input type="text" class="form-control" id="firstName" name="firstName" pattern="[a-zA-ZÀ-ÿ0-9.' -]{2,40}" required>
+                                        <div class="invalid-feedback">Veuillez fournir un prénom valide.</div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label for="lastName" class="form-label">Nom</label>
+                                        <input type="text" class="form-control" id="lastName" name="lastName" pattern="[a-zA-ZÀ-ÿ0-9.' -]{2,40}" required>
+                                        <div class="invalid-feedback">Veuillez fournir un nom valide.</div>
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="username" class="form-label">Pseudo</label>
+                                        <input type="text" class="form-control" id="username" name="username" pattern="{,100}" required>
+                                        <div class="invalid-feedback">Veuillez fournir un pseudo existant valide.</div>
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="sexe" class="form-label">Sexe</label>
+                                        <select class="form-select" id="sexe" name="sexe" required>
+                                            <option value="Homme">Homme</option>
+                                            <option value="Femme">Femme</option>
+                                            <option value="Autre">Autre</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-12 d-flex justify-content-between">
+                                        <div class="col-3">
+                                            <label for="birthday-day" class="form-label">Jour</label>
+                                            <input type="number" class="form-control" id="birthday-day" name="birthday-day" min="1" max="31">
+                                            <div class="invalid-feedback">Veuillez fournir un jour valide.</div>
+                                        </div>
+                                        <div class="col-4">
+                                            <label for="birthday-month" class="form-label">Mois</label>
+                                            <select class="form-control" name="birthday-month" id="birthday-month">
+                                                <option disabled value></option>
+                                                <option value="01">janvier</option>
+                                                <option value="02">février</option>
+                                                <option value="03">mars</option>
+                                                <option value="04">avril</option>
+                                                <option value="05">mai</option>
+                                                <option value="06">juin</option>
+                                                <option value="07">juillet</option>
+                                                <option value="08">août</option>
+                                                <option value="09">septembre</option>
+                                                <option value="10">octobre</option>
+                                                <option value="11">novembre</option>
+                                                <option value="12">décembre</option>
+                                            </select>
+                                            <div class="invalid-feedback">Veuillez fournir un mois valide.</div>
+                                        </div>
+
+                                        <div class="col-3">
+                                            <label for="birthday-year" class="form-label">Année</label>
+                                            <input type="number" class="form-control" name="birthday-year" id="birthday-year" min="1900" max="<?php echo (date("Y")); ?>">
+                                            <div class="invalid-feedback">Veuillez fournir une année valide.</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="email" class="form-label">Email</label>
+                                        <input type="email" class="form-control" id="email" name="email" pattern="{,100}">
+                                        <div class="invalid-feedback">Veuillez fournir un email valide.</div>
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="phone" class="form-label">Numéro de téléphone</label>
+                                        <input type="text" class="form-control" id="phone" name="phone" pattern="{,100}">
+                                        <div class="invalid-feedback">Veuillez fournir un numéro de téléphone valide (10 chiffres).</div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <label for="sexe" class="form-label">Newsletter</label>
+                                        <select class="form-select" name="newsletter" id="newsletter" required>
+                                            <option value="1">J'accepte de reçevoir la Newsletter</option>
+                                            <option value="0">Je refuse de recevoir la Newsletter</option>
+                                        </select>
+                                    </div>
+                                    <button class="w-100 btn btn-warning border-dark" type="submit" name="id_user" id="update-user-btn">Mettre à jour</button>
+                                </div>
+                            </form>
+
+                            <div class="d-flex">
+                                <form action="moderation_user.php" method="POST" class="w-50 me-1">
+                                    <button class="w-100 btn btn-warning border-dark d-flex m-auto justify-content-center mt-1" type="submit" id="export" name="export">Exporter données</button>
+                                </form>
+                                <form class="w-50">
+                                    <button class="w-100 btn btn-warning border-dark d-flex m-auto justify-content-center mt-1" id="new-mdp-btn" type="button">Changer mot de passe</button>
+                                </form>
+                            </div>
+                            <div class="d-flex flex-column align-items-center mt-8">
                                 <?php
-                                $userInformations = false;
-
-                                if (isset($_POST['show'])) 
-                                {
-                                    $userInformations = ($bdd->query("SELECT id_user, nom, prenom, pseudo, sexe, date_inscription, mail, telephone, date_naissance FROM utilisateur WHERE id_user = {$_POST['show']};"))->fetchAll();
-                                } 
-                                else if (isset($_POST['ban-id'])) 
-                                {
-                                    $sql = "INSERT INTO ban(definitif, date_ban, date_deban, raison, id_user) VALUES (:definitif, :dateban, :datedeban, :raison, :id_user)";
-                                    $prep = $bdd->prepare($sql);
-                                    $prep->bindValue(":id_user", intval($_POST['ban-id']));
-                                    $prep->bindValue(":definitif", (isset($_POST['definitif']) ? 1 : 0));
-                                    $prep->bindValue(":dateban", date("Y-m-d H-i-s"));
-                                    $interval = new DateInterval('P' . $_POST['ban-time-year'] . 'Y' . $_POST['ban-time-month'] . 'M' . $_POST['ban-time-day'] . 'DT' . $_POST['ban-time-hour'] . 'H' . $_POST['ban-time-minute'] . 'M' . $_POST['ban-time-second'] . 'S');
-                                    $date_deban = (new DateTime('now'))->add($interval);
-                                    $prep->bindValue(":datedeban", $date_deban->format("Y-m-d H-i-s"));
-                                    $prep->bindParam(":raison", $_POST['raison']);
-
-                                    try {
-                                        $prep->execute();
-                                    } catch (PDOException $e) {
-                                        echo $e->getMessage();
-                                    }
-                                } 
-                                else if (isset($_POST['delete-id']))
-                                {
-                                    $sql = "UPDATE utilisateur SET supprime = 1 WHERE id_user = :id";
-                                    $prep = $bdd->prepare($sql);
-                                    $prep->bindValue(":id", $_POST['delete-id']);
-
-                                    try {
-                                        $prep->execute();
-                                    } catch (PDOException $e){
-                                        echo $e->getMessage();
-                                    }
-                                    
-                                } 
-                                else if (isset($_POST['unban-id']))
-                                {
-                                    $req = $bdd->prepare("UPDATE ban SET date_deban = NOW(), definitif = FALSE WHERE id_user = :id_user ORDER BY id_ban DESC LIMIT 1;");
-                                    $req->bindParam(":id_user", $_POST['unban-id']);
-                                    $req->execute();
+                                if (isset($_GET['2mdp0'])) {
+                                    echo "<div class='alert alert-danger' role='alert'>Les deux MDP ne correspondent pas</div>";
                                 }
-                                
-                                try {
-                                    $queryResponse = $bdd->query("SELECT utilisateur.id_user, CONCAT(prenom, ' ', nom) AS prenom_nom, pseudo, sexe, date_inscription, mail, date_naissance FROM utilisateur LEFT JOIN ban ON ban.id_user = utilisateur.id_user WHERE supprime = 0 AND (ban.definitif = 0 OR ban.definitif IS NULL) AND (ban.date_deban < NOW() OR ban.date_deban IS NULL) GROUP BY utilisateur.id_user;");
-                                } catch (PDOException $e) {
-                                    echo $e->getMessage();
+                                if (isset($_GET['ex_mdp0'])) {
+                                    echo "<div class='alert alert-danger' role='alert'>l'ancien MDP est faux</div>";
                                 }
-
-                                $result = $queryResponse->fetchAll();
-                                $idUser;
-
-                                foreach ($result as $row) {
-                                    echo '<tr>';
-                                    foreach ($row as $key => $info) {
-                                        if (gettype($key) === 'string') {
-                                            if ($key == 'id_user') {
-                                                $idUser = $info;
-                                                $info = '#' . $info;
-                                            }
-                                            echo '<td class="table-cell">' . $info . '</td>';
-                                        }
-                                    }
-                                    echo '<form action="moderation_user.php" method="post">';
-                                    echo '<td class="table-cell"><button type="submit" class="btn btn-sm btn-outline-secondary" name=show value=' . $idUser . '>En voir plus</button></td>';
-                                    echo '<td class="table-cell"><button type="button" class="btn btn-sm btn-warning ban-menu-btn" data-bs-toggle="modal" data-bs-target="#banModal" value=' . $idUser . '>Bannir</button></td>';
-                                    echo '<td class="table-cell"><button type="button" class="btn btn-sm btn-danger delete-menu-btn" data-bs-toggle="modal" data-bs-target="#deleteModal" name=delete value=' . $idUser . '>Supprimer</button></td>';
-                                    echo '</form>';
-                                    echo '</tr>';
+                                if (isset($_GET['mdp1'])) {
+                                    echo "<div class='alert alert-danger' role='alert'>Le changement de MDP a été effectué avec succès</div>";
+                                }
+                                if (isset($_GET['mdp0'])) {
+                                    echo "<div class='alert alert-danger' role='alert'>Le MDP ne s'est pas modifié</div>";
                                 }
                                 ?>
+                                <form action="moderation_user.php" id="new-mdp-form" class="d-none d-flex flex-column w-100 align-items-center mt-3" method="POST">
+                                    <div class="col-12">
+                                        <label for="current-password" class="form-label">Mot de passe actuel</label>
+                                        <input type="password" class="form-control" id="current-password" name="current-password" required>
+                                    </div>
+                                    <div class="col-12 mt-1">
+                                        <label for="new-password" class="form-label">Nouveau mot de passe</label>
+                                        <input type="password" class="form-control" id="new-password" name="new-password" required>
+                                    </div>
+                                    <div class="col-12 mt-1">
+                                        <label for="confirm-password" class="form-label">Confirmer le nouveau mot de passe</label>
+                                        <input type="password" class="form-control" id="confirm-password" name="confirm-password" required>
+                                    </div>
+                                    <button class="w-100 btn btn-warning border-dark d-flex m-auto justify-content-center my-3" id="update-password-btn" type="submit" name="update-pass">Mettre à jour le mot de passe</button>
+                                </form>
+                            </div>
+
+                            <div class="d-flex">
+                                <button class="w-100 btn btn-warning border-dark d-flex m-auto justify-content-center mt-1 me-1" id="ban-menu-btn" data-bs-toggle="modal" data-bs-target="#banModal">Bannir</button>
+
                                 <div class="modal fade" id="banModal" tabindex="-1">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
@@ -138,7 +299,7 @@
                                                 <h1 class="modal-title fs-5">Voulez vous bannir cet utilisateur ?</h1>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                             </div>
-                                            <form action="moderation_user.php" method="post">
+                                            <form action="moderation_user.php" method="POST">
                                                 <div class="modal-body">
                                                     <div class="container align-items-center fs-5">
                                                         <input class="form-check-input p-1" type="checkbox" name="definitif" id="definitif" data-bs-toggle="collapse" data-bs-target="#duree-ban">
@@ -172,413 +333,205 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="modal-footer">
+                                                <div class="modal-footer d-flex justify-content-between">
                                                     <button type="submit" id="ban-btn" class="btn btn-danger" name="ban-id">Bannir</button>
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
                                                 </div>
                                             </form>
                                         </div>
                                     </div>
                                 </div>
-                            </tbody>
-                        </table>
-                    </div>
 
-                    <h3 class="mb-3 mt-3">Utilisateurs bannis: </h3>
-                    <div class="overflow-auto menu-oeuvre-2">
-                        <table class="table table-striped table-sm border border-3 border-dark" id="users-table">
-                            <thead class="table-dark">
-                                <tr>
-                                    <th class="table-cell" scope="col">#id</th>
-                                    <th class="table-cell" scope="col">Prenom Nom</th>
-                                    <th class="table-cell" scope="col">Pseudo</th>
-                                    <th class="table-cell" scope="col">Email</th>
-                                    <th class="table-cell" scope="col">Date ban</th>
-                                    <th class="table-cell" scope="col">Raison</th>
-                                    <th class="table-cell" scope="col">Date deban</th>
-                                    <th class="table-cell" scope="col">Définitif</th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                $userInformations = false;
-
-                                if (isset($_POST['show'])) {
-                                    $userInformations = ($bdd->query("SELECT id_user, nom, prenom, pseudo, sexe, date_inscription, mail, telephone, date_naissance FROM utilisateur WHERE id_user = {$_POST['show']};"))->fetchAll();
-                                }
-                                try {
-                                    $queryResponse = $bdd->query("SELECT utilisateur.id_user, CONCAT(utilisateur.prenom, ' ', utilisateur.nom) AS prenom_nom, utilisateur.pseudo, utilisateur.mail, ban.date_ban, ban.raison, ban.date_deban, ban.definitif FROM ban JOIN utilisateur ON ban.id_user = utilisateur.id_user AND (ban.definitif = 1 OR ban.date_deban > NOW());");
-                                } catch (PDOException $e){
-                                    echo $e->getMessage();
-                                }
-
-                                $result = $queryResponse->fetchAll();
-                                $idUser;
-
-                                foreach ($result as $row) {
-                                    echo '<tr>';
-                                    foreach ($row as $key => $info) {
-                                        if (gettype($key) === 'string') {
-                                            if ($key == 'id_user') {
-                                                $idUser = $info;
-                                                $info = '#' . $info;
-                                            }
-                                            echo '<td class="table-cell">' . $info . '</td>';
-                                        }
-                                    }
-                                    echo '<form action="moderation_user.php" method="post">';
-                                    echo '<td class="table-cell"><button type="submit" class="btn btn-sm btn-outline-secondary" name=show value=' . $idUser . '>En voir plus</button></td>';
-                                    echo '<td class="table-cell"><button type="button" class="btn btn-sm btn-success unban-menu-btn" data-bs-toggle="modal" data-bs-target="#unbanModal" value=' . $idUser . '>Débannir</button></td>';
-                                    echo '<td class="table-cell"><button type="button" class="btn btn-sm btn-danger delete-menu-btn" data-bs-toggle="modal" data-bs-target="#deleteModal" name=delete value=' . $idUser . '>Supprimer</button></td>';
-                                    echo '</form>';
-                                    echo '</tr>';
-                                }
-                                ?>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <hr class="featurette-divider my-2 <?php if (!isset($_POST['show'])) {echo 'visually-hidden';} ?>">
-                <div class="modal fade" id="unbanModal" tabindex="-1">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5">Voulez vous débannir cet utilisateur ?</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                            </div>
-                            <div class="modal-body">
-                                <form action="moderation_user.php" method="post" class="d-flex justify-content-between">
-                                    <button type="submit" id="unban-btn" class="btn btn-success" name="unban-id" value="">Débannir</button>
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal fade" id="deleteModal" tabindex="-1">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5">Voulez vous supprimer cet utilisateur ?</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                            </div>
-                            <div class="modal-body">
-                                <form action="moderation_user.php" method="post" class="d-flex justify-content-between">
-                                    <button type="submit" id="delete-btn" class="btn btn-danger" name="delete-id" value="">Supprimer</button>
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="container rounded bg-white mt-5 mb-5 <?php if (!isset($_POST['show'])) {echo 'visually-hidden';} ?>">
-                    <div class="row">
-                        <div class="col-md-4 border-right">
-                            <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-                                <img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
-                                <span class="font-weight-bold"><?php if ($userInformations) { echo '#' . $userInformations[0]['id_user']; } ?></span>
-                                <span class="text-black-50"><?php if ($userInformations) { echo $userInformations[0]['prenom'] . ' ' . $userInformations[0]['nom']; } ?></span>
-                                <div class="d-flex justify-content-center">
-                                    <button class="nav-btn btn btn-primary btn-block btn-warning text-white border border-light border-2 rounded-3 w-100 mb-3">Supprimer</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-8 border-right">
-                            <form action="moderation_user.php" class="needs-validation" method="post">
-                                <div class="p-3 pt-5">
-                                    <div class="row mt-2">
-                                        <div class="col-md-6">
-                                            <label class="labels">Nom</label>
-                                            <input type="text" name="lastName" class="form-control" value="<?php if ($userInformations) { echo $userInformations[0]['nom']; } ?>">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label class="labels">Prénom</label>
-                                            <input type="text" name="firstName" class="form-control" value="<?php if ($userInformations) { echo $userInformations[0]['prenom']; } ?>">
-                                        </div>
-                                        <div class="col-md-12">
-                                            <label class="labels">Pseudo</label>
-                                            <input type="text" name="pseudo" class="form-control" value="<?php if ($userInformations) { echo $userInformations[0]['pseudo']; } ?>">
-                                        </div>
-                                        <div class="col-md-12">
-                                            <label class="labels">Sexe</label>
-                                            <div class="d-sm-flex justify-content-center container ps-0">
-                                                <div class="container d-flex align-items-center ps-0">
-                                                    <input id="homme" name="sexe" value="homme" type="radio" class="form-check-input border-dark mt-0" required <?php if ($userInformations) { if ($userInformations[0]['sexe'] == 'homme') { echo 'checked';}} ?>>
-                                                    <label class="form-check-label labels mx-2" for="homme">Homme</label>
-                                                </div>
-                                                <div class="container d-flex align-items-center ps-0">
-                                                    <input id="femme" name="sexe" value="femme" type="radio" class="form-check-input border-dark mt-0" required <?php if ($userInformations) { if ($userInformations[0]['sexe'] == 'femme') { echo 'checked'; }} ?>>
-                                                    <label class="form-check-label labels mx-2" for="femme">Femme</label>
-                                                </div>
-                                                <div class="container d-flex align-items-center ps-0">
-                                                    <input id="autre" name="sexe" value="autre" type="radio" class="form-check-input border-dark mt-0" required <?php if ($userInformations) { if ($userInformations[0]['sexe'] == 'autre') { echo 'checked'; }} ?>>
-                                                    <label class="form-check-label labels mx-2" for="autre">Autre</label>
-                                                </div>
+                                <div class="modal fade" id="unbanModal" tabindex="-1">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5">Voulez vous débannir cet utilisateur ?</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                             </div>
-                                        </div>
-                                        <div class="row mt-1">
-                                            <label class="labels">Date de naissance</label>
-                                            <div class="col-md-4">
-                                                <label class="labels">Jour</label>
-                                                <input type="text" name="birthday-day" class="form-control" value="<?php if ($userInformations) { echo date('d', strtotime($userInformations[0]['date_naissance'])); } ?>">
+                                            <div class="modal-body">
+                                                <form action="moderation_user.php" method="POST" class="d-flex justify-content-between">
+                                                    <button type="submit" id="unban-btn" class="btn btn-success" name="unban-id" value="">Débannir</button>
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                                                </form>
                                             </div>
-                                            <div class="col-md-4">
-                                                <label class="labels">Mois</label>
-                                                <input type="text" name="birthday-month" class="form-control" value="<?php if ($userInformations) { echo date('m', strtotime($userInformations[0]['date_naissance'])); } ?>">
-                                            </div>
-                                            <div class="col-md-4">
-                                                <label class="labels">Année</label>
-                                                <input type="text" name="birthday-year" class="form-control" value="<?php if ($userInformations) { echo date('Y', strtotime($userInformations[0]['date_naissance']));} ?>">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <label class="labels">Email</label>
-                                            <input type="text" name="mail" class="form-control" value="<?php if ($userInformations) { echo $userInformations[0]['mail']; } ?>">
-                                        </div>
-                                        <div class="col-md-12">
-                                            <label class="labels">Numéro de mobile</label>
-                                            <input type="text" name="phone" class="form-control" value="<?php if ($userInformations) { echo $userInformations[0]['telephone']; } ?>">
-                                        </div>
-                                    </div>
-                                    <div class="d-flex justify-content-center">
-                                        <button class="nav-btn btn btn-primary btn-lg btn-block btn-warning text-white border border-light border-2 rounded-3 w-100 my-3" name='id_user' value="<?php if ($userInformations) { echo $userInformations[0]['id_user']; } ?>">Modifier</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-
-                        <hr class="featurette-divider my-2">
-                        <h3 class="text-center">Relation : </h3>
-                        <div class="py-3 d-flex justify-content-center">
-                            <div class="row w-100">
-                                <input class="form-control form-control-white w-100 mb-3" type="text" placeholder="Recherche" aria-label="Search">
-                                <div class="col-12 border-bottom border-1">
-                                    <div class="col-md-12 overflow-auto menu-oeuvre-2">
-                                        <table class="table table-striped table-sm border-top border-1 border-dark">
-                                            <tbody>
-                                                <tr>
-                                                    <td class="table-cell" scope="row">Eric123 (#14572)</td>
-                                                    <td class="table-cell">Amis depuis le 14/04/2024</td>
-                                                    <td class="table-cell">Inscrit depuis 14/04/2024</td>
-                                                    <td class="table-cell"><button type="button" class="btn btn-sm btn-outline-secondary">Supprimer relation</button></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="table-cell" scope="row">Eric123 (#14572)</td>
-                                                    <td class="table-cell">Amis depuis le 14/04/2024</td>
-                                                    <td class="table-cell">Inscrit depuis 14/04/2024</td>
-                                                    <td class="table-cell"><button type="button" class="btn btn-sm btn-outline-secondary">Supprimer relation</button></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="table-cell" scope="row">Eric123 (#14572)</td>
-                                                    <td class="table-cell">Amis depuis le 14/04/2024</td>
-                                                    <td class="table-cell">Inscrit depuis 14/04/2024</td>
-                                                    <td class="table-cell"><button type="button" class="btn btn-sm btn-outline-secondary">Supprimer relation</button></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="table-cell" scope="row">Eric123 (#14572)</td>
-                                                    <td class="table-cell">Amis depuis le 14/04/2024</td>
-                                                    <td class="table-cell">Inscrit depuis 14/04/2024</td>
-                                                    <td class="table-cell"><button type="button" class="btn btn-sm btn-outline-secondary">Supprimer relation</button></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <hr class="featurette-divider my-2">
-                        <h3 class="text-center">Commentaires : </h3>
-                        <div class="py-3 d-flex justify-content-center">
-                            <div class="row w-100">
-                                <div class="col-12 border-bottom border-top border-1 border-black">
-                                    <div class="overflow-auto menu-oeuvre-2">
-                                        <div>
-                                            <p class="m-0 fw-bold">&#x2022; Commentaire #34618 publié le 14/04/2024 à 13:23:34 : Nom de l'oeuvre : 0/5</p>
-                                            <p class="mb-0">This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>
-                                            <button class="nav-btn btn btn-primary btn-lg btn-block btn-warning text-white border border-light border-2 rounded-3 w-100 mb-3">Supprimer</button>
-                                        </div>
-                                        <div>
-                                            <p class="m-0 fw-bold">&#x2022; Commentaire #34618 publié le 14/04/2024 à 13:23:34 : Nom de l'oeuvre : 0/5</p>
-                                            <p class="mb-0">This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>
-                                            <button class="nav-btn btn btn-primary btn-lg btn-block btn-warning text-white border border-light border-2 rounded-3 w-100 mb-3">Supprimer</button>
-                                        </div>
-                                        <div>
-                                            <p class="m-0 fw-bold">&#x2022; Commentaire #34618 publié le 14/04/2024 à 13:23:34 : Nom de l'oeuvre : 0/5</p>
-                                            <p class="mb-0">This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>
-                                            <button class="nav-btn btn btn-primary btn-lg btn-block btn-warning text-white border border-light border-2 rounded-3 w-100 mb-3">Supprimer</button>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
 
-                        <hr class="featurette-divider my-2">
-                        <h3 class="text-center">Listes : </h3>
+                                <button class="w-100 btn btn-warning border-dark d-flex m-auto justify-content-center mb-3 mt-1" data-bs-toggle="modal" data-bs-target="#deleteModal">Supprimer</button>
 
-                        <div class="py-3 d-flex justify-content-center">
-                            <div class="row w-100">
-                                <div class="col-md-12">
-                                    <label class="labels">Titre</label>
-                                    <input type="text" class="form-control" placeholder="Déja vu" value="">
+                                <div class="modal fade" id="deleteModal" tabindex="-1">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5">Voulez vous supprimer cet utilisateur ?</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="moderation_user.php" method="POST" class="d-flex justify-content-between">
+                                                    <button type="submit" id="delete-btn" class="btn btn-danger" name="delete-id" value="">Supprimer</button>
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
-                                    <label class="labels">Commentaire</label>
-                                    <input type="text" class="form-control" value="">
-                                </div>
-                                <div class="d-flex justify-content-center">
-                                    <button class="nav-btn btn btn-primary btn-lg btn-block btn-warning text-white border border-light border-2 rounded-3 w-100 mb-3">Supprimer</button>
-                                </div>
-                                <div class="col-md-12 overflow-auto menu-oeuvre-2">
-                                    <table class="table table-striped table-sm border-top border-1 border-dark">
-                                        <tbody>
-                                            <tr>
-                                                <td class="table-cell" scope="row">Nom oeuvre</td>
-                                                <td class="table-cell">Ajouté le 12/12/2023 13:12:23</td>
-                                                <td class="table-cell"><button type="button" class="btn btn-sm btn-outline-secondary">Retirer</button></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="table-cell" scope="row">Nom oeuvre</td>
-                                                <td class="table-cell">Ajouté le 12/12/2023 13:12:23</td>
-                                                <td class="table-cell"><button type="button" class="btn btn-sm btn-outline-secondary">Retirer</button></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="table-cell" scope="row">Nom oeuvre</td>
-                                                <td class="table-cell">Ajouté le 12/12/2023 13:12:23</td>
-                                                <td class="table-cell"><button type="button" class="btn btn-sm btn-outline-secondary">Retirer</button></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="table-cell" scope="row">Nom oeuvre</td>
-                                                <td class="table-cell">Ajouté le 12/12/2023 13:12:23</td>
-                                                <td class="table-cell"><button type="button" class="btn btn-sm btn-outline-secondary">Retirer</button></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="table-cell" scope="row">Nom oeuvre</td>
-                                                <td class="table-cell">Ajouté le 12/12/2023 13:12:23</td>
-                                                <td class="table-cell"><button type="button" class="btn btn-sm btn-outline-secondary">Retirer</button></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="table-cell" scope="row">Nom oeuvre</td>
-                                                <td class="table-cell">Ajouté le 12/12/2023 13:12:23</td>
-                                                <td class="table-cell"><button type="button" class="btn btn-sm btn-outline-secondary">Retirer</button></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
 
-                        <hr class="featurette-divider my-2">
-                        <div class="py-3 d-flex justify-content-center">
-                            <div class="row w-100">
-                                <div class="col-md-12">
-                                    <label class="labels">Titre</label>
-                                    <input type="text" class="form-control" placeholder="À voir" value="">
-                                </div>
-                                <div class="col-md-12 mb-3">
-                                    <label class="labels">Commentaire</label>
-                                    <input type="text" class="form-control" value="">
-                                </div>
-                                <div class="d-flex justify-content-center">
-                                    <button class="nav-btn btn btn-primary btn-lg btn-block btn-warning text-white border border-light border-2 rounded-3 w-100 mb-3">Supprimer</button>
-                                </div>
-                                <div class="col-md-12 overflow-auto menu-oeuvre-2">
-                                    <table class="table table-striped table-sm border-top border-1 border-dark">
-                                        <tbody>
-                                            <tr>
-                                                <td class="table-cell" scope="row">Nom oeuvre</td>
-                                                <td class="table-cell">Ajouté le 12/12/2023 13:12:23</td>
-                                                <td class="table-cell"><button type="button" class="btn btn-sm btn-outline-secondary">Retirer</button></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="table-cell" scope="row">Nom oeuvre</td>
-                                                <td class="table-cell">Ajouté le 12/12/2023 13:12:23</td>
-                                                <td class="table-cell"><button type="button" class="btn btn-sm btn-outline-secondary">Retirer</button></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="table-cell" scope="row">Nom oeuvre</td>
-                                                <td class="table-cell">Ajouté le 12/12/2023 13:12:23</td>
-                                                <td class="table-cell"><button type="button" class="btn btn-sm btn-outline-secondary">Retirer</button></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="table-cell" scope="row">Nom oeuvre</td>
-                                                <td class="table-cell">Ajouté le 12/12/2023 13:12:23</td>
-                                                <td class="table-cell"><button type="button" class="btn btn-sm btn-outline-secondary">Retirer</button></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
                             </div>
+
                         </div>
                     </div>
-                </div>
-                <div class="pt-3 pb-2 mb-4 border-bottom">
-                    <h3>Administrateurs : </h3>
-                    <ul class="list-group list-group-flush">
-                    <?php 
-                        foreach($rep_data_user3 as $user) {
-                            echo '<li class="list-group-item d-flexalign-items-center justify-content-between">' . $user['nom'].' '.$user['prenom'].' - '.$user['pseudo'].' #'.$user['id_user'].' depuis '.$user['date_inscription'].'</td>';
-                            echo '<div class="btn-group me-2">';
-                            echo '<button type="button" class="btn btn-sm btn-outline-secondary">Modifier</button><button type="button" class="btn btn-sm btn-outline-secondary">Supprimer</button>';
-                            echo '</div></li>';
-                        }
-                    ?>
-                    </ul>
-                </div>
-                <div class="text-center justify-content-center mt-5">
-                    <button class="btn btn-primary fs-4 mt-3" id="create-admin-btn" type="button">Créer un admin ou utilisateur</button>
-                    <br><br><br>
-                </div>
-                <div class="d-none flex-column align-items-center mt-3" id="create-admin-form">
-                    <form action="moderation_user.php" method="POST" class="d-flex flex-column w-50 align-items-center mt-3">
-                        <div class="col-12">
-                            <label for="nom" class="form-label">Nom</label>
-                            <input type="text" class="form-control" id="nom" name="nom" required>
-                        </div>
-                        <div class="col-12">
-                            <label for="prenom" class="form-label">Prénom</label>
-                            <input type="text" class="form-control" id="prenom" name="prenom" required>
-                        </div>
-                        <div class="col-12">
-                            <label for="pseudo" class="form-label">Pseudo</label>
-                            <input type="text" class="form-control" id="pseudo" name="pseudo" required>
-                        </div>
-                        <!--ici faire une liste déroumlante pour le role --> 
-                        <div class="col-12">
-                            <label for="role_user" class="form-label">Role</label>
-                            <select class="form-control" id="role_user" name="role_user" required>
-                                <option value="utilisateur">utilisateur</option>
-                                <option value="admin">admin</option>
-                            </select>
-                        </div>
-                        <div class="col-12">
-                            <label for="mail" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="mail" name="mail" required>
-                        </div>
-                        <div class="col-12">
-                            <label for="pseudo" class="form-label">Mot de passe</label>
-                            <input type="text" class="form-control" id="mdp" name="mdp" required>
-                        </div>
-                        <button class="btn btn-primary fs-4 mt-3" type="submit" name="create_admin">Créer</button>
-                    </form>
-                </div>
-                <script>
-                    document.addEventListener("DOMContentLoaded", function() {
-                        const createAdminBtn = document.getElementById('create-admin-btn');
-                        const createAdminForm = document.getElementById('create-admin-form');
 
-                        createAdminBtn.addEventListener('click', function() {
-                            createAdminForm.classList.toggle('d-none'); 
-                            createAdminForm.scrollIntoView({ behavior: 'smooth' });
-                        });
-                    });
-                </script>
-
+                </div>
             </main>
         </div>
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const buttons = document.querySelectorAll('.show');
+            const content = document.getElementById('user');
+            const userId = document.getElementById('id_user')
+
+            const userPhoto = document.getElementById('user-photo');
+            const userPseudoId = document.getElementById('user-pseudo-id');
+            const userFullname = document.getElementById('user-fullname');
+            const userRegistrationDate = document.getElementById('user-registration-date');
+            const lastConnexion = document.getElementById('last-connexion');
+            const numberOfFriends = document.getElementById('number-of-friends');
+            const averageFriendsAge = document.getElementById('average-friends-age');
+            const majorityFriendsSexe = document.getElementById('majority-friends-sexe');
+            const relationWaiting = document.getElementById('relation-pending');
+            const relationRefused = document.getElementById('relation-refused');
+            const numberOfListPublic = document.getElementById('number-of-list-public');
+            const numberOflistPrivate = document.getElementById('number-of-list-private');
+            const numberOflistOnlyFriend = document.getElementById('number-of-list-only-friend');
+            const numberOfOpinionPublic = document.getElementById('number-of-opinion-public');
+            const numberOfOpinionPrivate = document.getElementById('number-of-opinion-private');
+            const ban = document.getElementById('ban');
+
+            const firstNameInput = document.getElementById('firstName');
+            const lastNameInput = document.getElementById('lastName');
+            const usernameInput = document.getElementById('username');
+            const birthdayDayInput = document.getElementById('birthday-day');
+            const birthdayMonthSelect = document.getElementById('birthday-month');
+            const birthdayYearInput = document.getElementById('birthday-year');
+            const sexeSelect = document.getElementById('sexe');
+            const emailInput = document.getElementById('email');
+            const phoneInput = document.getElementById('phone');
+            const newsletterSelect = document.getElementById('newsletter');
+
+            const newMdpBtn = document.getElementById('new-mdp-btn');
+            const newMdpForm = document.getElementById('new-mdp-form');
+            const banBtn = document.getElementById('ban-btn');
+            const banMenuBtn = document.getElementById('ban-menu-btn');
+            const deleteBtn = document.getElementById('delete-btn');
+            const unbanBtn = document.getElementById('unban-btn');
+            const updateBtn = document.getElementById('update-user-btn');
+            const bannedUsers = <?php echo json_encode($res_display_user_ban); ?>;
+            const exportData = document.getElementById('export');
+
+            newMdpBtn.addEventListener('click', function() {
+                newMdpForm.classList.toggle('d-none');
+                newMdpForm.scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+
+            buttons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const userId = this.getAttribute('data-id');
+
+                    fetch(`../inc/php/function_moderation_user.php?id=${userId}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.status === 'success') {
+                                let isBanned = false;
+
+                                userPhoto.src = `../inc/img/user_img/${data.user.photo_utilisateur}?${Date.now()}`;
+                                userPseudoId.innerHTML = `<b>${data.user.pseudo} (#${data.user.id_user})</b>`;
+                                userFullname.innerHTML = `<b>${data.user.nom} ${data.user.prenom}</b>`;
+                                userRegistrationDate.innerHTML = `<b>Inscrit depuis :</b> ${data.user.date_inscription}`;
+                                lastConnexion.innerHTML = `<b>Dèrnière connexion :</b> ${data.user.derniere_connexion}`;
+                                numberOfFriends.textContent = `${data.user.nombre_amis} amis`;
+                                averageFriendsAge.innerHTML = `<b>Moyenne d'age d'amis :</b> ${data.user.moyenne_age_ami}`;
+                                majorityFriendsSexe.innerHTML = `<b>Genre majoritaire de relations :</b> ${data.user.majorite_genre_ami}`;
+                                relationWaiting.innerHTML = `<b>Demande d'amis en attente :</b> ${data.user.nombre_demandes_amis}`;
+                                relationRefused.innerHTML = `<b>Demande d'amis refusées :</b> ${data.user.nombre_demandes_refusees}`;
+                                numberOfListPublic.innerHTML = `<b>Nombres de listes publiques :</b> ${data.user.nombre_listes_publique}`;
+                                numberOflistPrivate.innerHTML = `<b>Nombres de listes privées :</b> ${data.user.nombre_listes_privee}`;
+                                numberOflistOnlyFriend.innerHTML = `<b>Nombres de listes uniquement pour amis :</b> ${data.user.nombre_listes_only_amis}`;
+                                numberOfOpinionPublic.innerHTML = `<b>Nombres d'avis publiques :</b> ${data.user.nombre_avis_publique}`;
+                                numberOfOpinionPrivate.innerHTML = `<b>Nombres d'avis privées :</b> ${data.user.nombre_avis_privee}`;
+
+                                banBtn.value = data.user.id_user;
+                                unbanBtn.value = data.user.id_user;
+                                deleteBtn.value = data.user.id_user;
+                                updateBtn.value = data.user.id_user;
+                                exportData.value = data.user.id_user;
+
+                                for (const user of bannedUsers) {
+                                    if (Object.values(user).includes(data.user.id_user)) {
+                                        ban.innerHTML = `<b>Banni du ${data.user.date_ban} jusqu'au ${data.user.date_deban} pour motif :</b>  ${data.user.raison}`;
+                                        banMenuBtn.setAttribute('data-bs-target', "#unbanModal");
+                                        banMenuBtn.innerText = "Débannir";
+                                        isBanned = true;
+                                    }
+                                }
+
+                                if (!isBanned) {
+                                    ban.classList.add('d-none');
+                                    banMenuBtn.setAttribute('data-bs-target', "#banModal");
+                                    banMenuBtn.innerText = "Bannir";
+                                }
+
+                                firstNameInput.value = data.user.prenom;
+                                lastNameInput.value = data.user.nom;
+                                usernameInput.value = data.user.pseudo;
+
+
+                                const dateNaissance = data.user.date_naissance.split("-");
+                                birthdayDayInput.value = dateNaissance[2];
+                                for (let i = 0; i < birthdayMonthSelect.options.length; i++) {
+                                    if (birthdayMonthSelect.options[i].value === String(dateNaissance[1])) {
+                                        birthdayMonthSelect.options[i].selected = true;
+                                        break;
+                                    }
+                                }
+                                birthdayYearInput.value = dateNaissance[0];
+
+                                console.log(birthdayYearInput);
+                                for (let i = 0; i < sexeSelect.options.length; i++) {
+                                    if (sexeSelect.options[i].value === String(data.user.sexe)) {
+                                        sexeSelect.options[i].selected = true;
+                                        break;
+                                    }
+                                }
+                                emailInput.value = data.user.mail;
+                                phoneInput.value = data.user.telephone;
+                                for (let i = 0; i < newsletterSelect.options.length; i++) {
+                                    if (newsletterSelect.options[i].value === String(data.user.statut_newsletter)) {
+                                        newsletterSelect.options[i].selected = true;
+                                        break;
+                                    }
+                                }
+                                userId.value = data.user.id_user;
+
+                                content.classList.remove('d-none');
+                                content.scrollIntoView({
+                                    behavior: 'smooth'
+                                });
+                            } else {
+                                console.error('Erreur:', data.message);
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Erreur lors de la récupération des informations de l\'utilisateur', error);
+                        });
+                });
+            });
+        });
+    </script>
     <script src="../inc/library/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="../inc/js/moderation_user.js"></script>
 </body>

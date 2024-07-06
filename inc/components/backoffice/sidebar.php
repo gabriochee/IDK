@@ -26,6 +26,9 @@
                 <a <?php if(basename($_SERVER['PHP_SELF']) == 'diary_log.php') echo 'class="nav-link active"'; ?> class="nav-link" href="../admin/diary_log.php">Log</a>
             </li>
             <li class="nav-item">
+                <a <?php if(basename($_SERVER['PHP_SELF']) == 'database_editor.php') echo 'class="nav-link active"'; ?> class="nav-link" href="../admin/database_editor.php">DataBase Editor</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" aria-current="page" href="../client/not_connected/home.php">Acceuil non connecté</a>
             </li>
             <li class="nav-item">

@@ -8,9 +8,15 @@ body, .bg-idk {
   transition: background-color 0.1s, color 0.1s;
 }
 
-body.dark-mode, .bg-idk.dark-mode {
+body.dark-mode, .bg-idk.dark-mode, body#sidebarMenu.dark-mode{
   background-color: #8D8780;
   color: white;
+}
+
+.dark-mode {
+  background-color: #444;
+  color: #eee;
+  border: 1px solid #666;
 }
 
 
