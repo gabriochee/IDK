@@ -2,6 +2,7 @@
 <?php require_once('../inc/php/affichage_data_user.php'); ?>
 <?php require_once('../inc/library/fpdf/function_fpdf_admin.php'); ?>
 <?php require_once('../inc/php/function_create_admin.php'); ?>
+<?php require_once('../inc/php/db.php'); ?>
 
 
 <?php
@@ -18,7 +19,7 @@ $res_display_user = $req_display_user->fetchAll();
 $res_display_user = array_reverse($res_display_user);
 // rechercher un user ban pas admin pas delete
 // afficher tout les user ban pas admin pas delete GOOD 
-$req_display_user_ban = $bdd->prepare("SELECT utilisateur.id_user, nom, prenom, pseudo FROM utilisateur JOIN ban ON utilisateur.id_user = ban.id_user WHERE role_user = 'utilisateur' AND supprime = 0;");
+$req_display_user_ban = $bdd->prepare("SELECT utilisateur.id_user, utilisateur.prenom, utilisateur.nom, utilisateur.pseudo FROM ban JOIN utilisateur ON ban.id_user = utilisateur.id_user AND (ban.definitif = 1 OR ban.date_deban > NOW());");
 $req_display_user_ban->execute();
 $res_display_user_ban = $req_display_user_ban->fetchAll();
 $res_display_user_ban = array_reverse($res_display_user_ban);
@@ -31,9 +32,9 @@ $res_display_admin = array_reverse($res_display_admin);
 // ajouter un admin
 // export données 
 
-
 // modifier infos dans la base 
-function updateUser($bdd) {
+function updateUser($bdd)
+{
     if (isset($_POST['id_user'])) {
         try {
             $req_update = "UPDATE utilisateur SET nom = :nom, prenom = :prenom, pseudo = :pseudo, sexe = :sexe, date_naissance = :date_naissance, mail = :mail, telephone = :telephone WHERE id_user = :id_user";
@@ -54,17 +55,18 @@ function updateUser($bdd) {
     }
 }
 //ban
-function banUser($bdd) {
+function banUser($bdd)
+{
     if (isset($_POST['ban-id'])) {
         $req_ban = "INSERT INTO ban(definitif, date_ban, date_deban, raison, id_user) VALUES (:definitif, :dateban, :datedeban, :raison, :id_user)";
         $prep = $bdd->prepare($req_ban);
         $prep->bindValue(":id_user", intval($_POST['ban-id']));
         $prep->bindValue(":definitif", (isset($_POST['definitif']) ? 1 : 0));
         $prep->bindValue(":dateban", date("Y-m-d H-i-s"));
-       
+
         $interval = new DateInterval('P' . $_POST['ban-time-year'] . 'Y' . $_POST['ban-time-month'] . 'M' . $_POST['ban-time-day'] . 'DT' . $_POST['ban-time-hour'] . 'H' . $_POST['ban-time-minute'] . 'M' . $_POST['ban-time-second'] . 'S');
         $date_deban = (new DateTime('now'))->add($interval);
-        
+
         $prep->bindValue(":datedeban", $date_deban->format("Y-m-d H-i-s"));
         $prep->bindParam(":raison", $_POST['raison']);
 
@@ -76,7 +78,8 @@ function banUser($bdd) {
     }
 }
 // supprimer user 
-function deleteUser($bdd) {
+function deleteUser($bdd)
+{
     if (isset($_POST['delete-id'])) {
         $req_delete = "UPDATE utilisateur SET supprime = 1 WHERE id_user = :id";
         $prep = $bdd->prepare($req_delete);
@@ -90,7 +93,8 @@ function deleteUser($bdd) {
     }
 }
 //deban
-function unbanUser($bdd) {
+function unbanUser($bdd)
+{
     if (isset($_POST['unban-id'])) {
         $req_deban = $bdd->prepare("UPDATE ban SET date_deban = NOW(), definitif = FALSE WHERE id_user = :id_user ORDER BY id_ban DESC LIMIT 1;");
         $req_deban->bindParam(":id_user", $_POST['unban-id']);
@@ -111,6 +115,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -119,6 +124,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link rel="stylesheet" href="../inc/library/bootstrap/bootstrap-icons/font/bootstrap-icons.min.css">
     <title>IDK</title>
 </head>
+
 <body id="backoffice_moderation_user" class="backoffice">
     <?php require_once('../inc/components/backoffice/header.php'); ?>
     <div class="container-fluid">
@@ -126,9 +132,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <?php require_once('../inc/components/backoffice/sidebar.php'); ?>
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
                 <div class="container border border-black rounded-2 border-2 mt-3">
-                    
+
                     <h1 class="text-center mt-4">Modération</h1>
-                    <p class="text-end mb-0">Administrateur connecté : <?php echo $res_display_admin_co['prenom'] .' '. $res_display_admin_co['nom'];?></p>
+                    <p class="text-end mb-0">Administrateur connecté : <?php echo $res_display_admin_co['prenom'] . ' ' . $res_display_admin_co['nom']; ?></p>
                     <p class="text-end mt-0"><?php echo date('o-m-d H:i:s'); ?></p>
                     <hr class="featurette-divider my-2">
 
@@ -139,12 +145,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </div>
                         <div class="overflow-auto menu-oeuvre-2">
                             <table class="table table-striped table-sm border border-3 border-dark" id="users-table">
-                                <tbody class="table-dark"> 
+                                <tbody class="table-dark">
                                     <?php
-                                        foreach($res_display_user as $user) {
-                                            echo '<tr><td class="table-cell text-start">#' .$user['id_user']. '    ' .$user['pseudo']. ' (' .$user['prenom'].$user['nom']. ')</td>';
-                                            echo '<td class="table-cell w-25"><button type="submit" data-id="' .$user['id_user']. '" class="btn btn-warning w-100 fs-6 show">En voir plus</button></td></tr>';
-                                        }
+                                    foreach ($res_display_user as $user) {
+                                        echo '<tr><td class="table-cell text-start">#' . $user['id_user'] . '    ' . $user['pseudo'] . ' (' . $user['prenom'] . $user['nom'] . ')</td>';
+                                        echo '<td class="table-cell w-25"><button type="submit" data-id="' . $user['id_user'] . '" class="btn btn-warning w-100 fs-6 show">En voir plus</button></td></tr>';
+                                    }
                                     ?>
                                 </tbody>
                             </table>
@@ -159,12 +165,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </div>
                         <div class="overflow-auto menu-oeuvre-2">
                             <table class="table table-striped table-sm border border-3 border-dark" id="users-table">
-                                <tbody class="table-dark"> 
+                                <tbody class="table-dark">
                                     <?php
-                                        foreach($res_display_user_ban as $user_ban) {
-                                            echo '<tr><td class="table-cell text-start">#' .$user_ban['id_user']. '    ' .$user_ban['pseudo']. ' (' .$user_ban['prenom'].$user_ban['nom']. ')</td>';
-                                            echo '<td class="table-cell w-25"><button type="submit" data-id="' .$user_ban['id_user']. '" class="btn btn-warning w-100 fs-6 show">En voir plus</button></td></tr>';
-                                        }
+                                    foreach ($res_display_user_ban as $user_ban) {
+                                        echo '<tr><td class="table-cell text-start">#' . $user_ban['id_user'] . '    ' . $user_ban['pseudo'] . ' (' . $user_ban['prenom'] . $user_ban['nom'] . ')</td>';
+                                        echo '<td class="table-cell w-25"><button type="submit" data-id="' . $user_ban['id_user'] . '" class="btn btn-warning w-100 fs-6 show">En voir plus</button></td></tr>';
+                                    }
                                     ?>
                                 </tbody>
                             </table>
@@ -182,12 +188,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </div>
                         <div class="overflow-auto menu-oeuvre-2">
                             <table class="table table-striped table-sm border border-3 border-dark" id="users-table">
-                                <tbody class="table-dark"> 
+                                <tbody class="table-dark">
                                     <?php
-                                        foreach($res_display_admin as $admin) {
-                                            echo '<tr><td class="table-cell text-start">#' .$admin['id_user']. '    ' .$admin['pseudo']. ' (' .$admin['prenom'].$admin['nom']. ')</td>';
-                                            echo '<td class="table-cell w-25"><button type="submit" data-id="' .$admin['id_user']. '" class="btn btn-warning w-100 fs-6 show">En voir plus</button></td></tr>';
-                                        }
+                                    foreach ($res_display_admin as $admin) {
+                                        echo '<tr><td class="table-cell text-start">#' . $admin['id_user'] . '    ' . $admin['pseudo'] . ' (' . $admin['prenom'] . $admin['nom'] . ')</td>';
+                                        echo '<td class="table-cell w-25"><button type="submit" data-id="' . $admin['id_user'] . '" class="btn btn-warning w-100 fs-6 show">En voir plus</button></td></tr>';
+                                    }
                                     ?>
                                 </tbody>
                             </table>
@@ -195,12 +201,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     </div>
 
                     <div class="row justify-content-center gap-5 d-none" id="user">
-                        
+
                         <hr class="featurette-divider my-2">
                         <div class="col-md-4">
                             <div class="card card-profile text-center border-0" style="background-color: transparent;">
                                 <div class="card-body">
-                                    <img id="user-photo" src="" alt="Photo de l'utilisateur" class="mb-3 card-img-top img-fluid rounded-circle">                            
+                                    <img id="user-photo" src="" alt="Photo de l'utilisateur" class="mb-3 card-img-top img-fluid rounded-circle">
                                     <h3 id="user-pseudo-id" class="card-title"></h3>
                                     <h4 id="user-fullname" class="card-text text-start my-0"></h4>
                                     <p id="user-registration-date" class="card-text text-start my-0"></p>
@@ -313,12 +319,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                     <button class="w-100 btn btn-warning border-dark d-flex m-auto justify-content-center mt-1" id="new-mdp-btn" type="button">Changer mot de passe</button>
                                 </form>
                             </div>
-                            <div class="d-flex flex-column align-items-center mt-8">                    
+                            <div class="d-flex flex-column align-items-center mt-8">
                                 <?php
-                                    if(isset($_GET['2mdp0'])) {echo "<div class='alert alert-danger' role='alert'>Les deux MDP ne correspondent pas</div>";}
-                                    if(isset($_GET['ex_mdp0'])) {echo "<div class='alert alert-danger' role='alert'>l'ancien MDP est faux</div>";}
-                                    if(isset($_GET['mdp1'])) {echo "<div class='alert alert-danger' role='alert'>Le changement de MDP a été effectué avec succès</div>";}
-                                    if(isset($_GET['mdp0'])) {echo "<div class='alert alert-danger' role='alert'>Le MDP ne s'est pas modifié</div>";}
+                                if (isset($_GET['2mdp0'])) {
+                                    echo "<div class='alert alert-danger' role='alert'>Les deux MDP ne correspondent pas</div>";
+                                }
+                                if (isset($_GET['ex_mdp0'])) {
+                                    echo "<div class='alert alert-danger' role='alert'>l'ancien MDP est faux</div>";
+                                }
+                                if (isset($_GET['mdp1'])) {
+                                    echo "<div class='alert alert-danger' role='alert'>Le changement de MDP a été effectué avec succès</div>";
+                                }
+                                if (isset($_GET['mdp0'])) {
+                                    echo "<div class='alert alert-danger' role='alert'>Le MDP ne s'est pas modifié</div>";
+                                }
                                 ?>
                                 <form action="parameters.php" id="new-mdp-form" class="d-none d-flex flex-column w-100 align-items-center mt-3" method="POST">
                                     <div class="col-12">
@@ -338,12 +352,94 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             </div>
 
                             <div class="d-flex">
-                                <form class="w-50 me-1">
-                                    <button class="w-100 btn btn-warning border-dark d-flex m-auto justify-content-center mt-1" id="" type="submit" name="">Bannir</button>
-                                </form>
-                                <form class="w-50">
-                                    <button class="w-100 btn btn-warning border-dark d-flex m-auto justify-content-center mb-3 mt-1" id="" type="submit" name="">Supprimer</button>
-                                </form>
+                                <button class="w-100 btn btn-warning border-dark d-flex m-auto justify-content-center mt-1" id="ban-menu-btn" data-bs-toggle="modal" data-bs-target="#banModal">Bannir</button>
+
+                                <div class="modal fade" id="banModal" tabindex="-1">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5">Voulez vous bannir cet utilisateur ?</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                            </div>
+                                            <form action="moderation_userTEST.php" method="post">
+                                                <div class="modal-body">
+                                                    <div class="container align-items-center fs-5">
+                                                        <input class="form-check-input p-1" type="checkbox" name="definitif" id="definitif" data-bs-toggle="collapse" data-bs-target="#duree-ban">
+                                                        <label for="definitif">Bannir définitivement</label>
+                                                    </div>
+                                                    <div class="container mt-3">
+                                                        <label for="raison">Raison</label>
+                                                        <input type="text" class="form-control" name="raison" id="raison" required>
+                                                    </div>
+                                                    <div class="collapse show mt-3" id="duree-ban">
+                                                        <div class="container d-flex justify-content-center">
+                                                            <div class="row row-cols-2 col-7">
+                                                                <label for="ban-time-year" class="col text-end">Année(s)</label>
+                                                                <input type="number" name="ban-time-year" class="col" id="ban-time-year" min=0 max=100 value="0">
+
+                                                                <label for="ban-time-month" class="col text-end">Mois</label>
+                                                                <input type="number" name="ban-time-month" class="col" id="ban-time-month" min=0 max=1000 value="0">
+
+                                                                <label for="ban-time-day" class="col text-end">Jour(s)</label>
+                                                                <input type="number" name="ban-time-day" class="col" id="ban-time-day" min=0 max=1000 value="0">
+
+                                                                <label for="ban-time-hour" class="col text-end">Heure(s)</label>
+                                                                <input type="number" name="ban-time-hour" class="col" id="ban-time-hour" min=0 max=10000 value="0">
+
+                                                                <label for="ban-time-minute" class="col text-end">Minute(s)</label>
+                                                                <input type="number" name="ban-time-minute" class="col" id="ban-time-minute" min=0 max=10000 value="0">
+
+                                                                <label for="ban-time-second" class="col text-end">Seconde(s)</label>
+                                                                <input type="number" name="ban-time-second" class="col" id="ban-time-second" min=0 max=10000 value="0">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer d-flex justify-content-between">
+                                                    <button type="submit" id="ban-btn" class="btn btn-danger" name="ban-id">Bannir</button>
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="modal fade" id="unbanModal" tabindex="-1">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5">Voulez vous débannir cet utilisateur ?</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="moderation_userTEST.php" method="post" class="d-flex justify-content-between">
+                                                    <button type="submit" id="unban-btn" class="btn btn-success" name="unban-id" value="">Débannir</button>
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <button class="w-100 btn btn-warning border-dark d-flex m-auto justify-content-center mb-3 mt-1" data-bs-toggle="modal" data-bs-target="#deleteModal">Supprimer</button>
+
+                                <div class="modal fade" id="deleteModal" tabindex="-1">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5">Voulez vous supprimer cet utilisateur ?</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="moderation_userTEST.php" method="post" class="d-flex justify-content-between">
+                                                    <button type="submit" id="delete-btn" class="btn btn-danger" name="delete-id" value="">Supprimer</button>
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
 
                         </div>
@@ -356,7 +452,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const buttons = document.querySelectorAll('.show');
-            const content = document.getElementById('user');  
+            const content = document.getElementById('user');
             const userId = document.getElementById('id_user')
 
             const userPhoto = document.getElementById('user-photo');
@@ -367,7 +463,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             const numberOfFriends = document.getElementById('number-of-friends');
             const averageFriendsAge = document.getElementById('average-friends-age');
             const majorityFriendsSexe = document.getElementById('majority-friends-sexe');
-            const relationWaiting =document.getElementById('relation-pending');
+            const relationWaiting = document.getElementById('relation-pending');
             const relationRefused = document.getElementById('relation-refused');
             const numberOfListPublic = document.getElementById('number-of-list-public');
             const numberOflistPrivate = document.getElementById('number-of-list-private');
@@ -389,90 +485,109 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             const newMdpBtn = document.getElementById('new-mdp-btn');
             const newMdpForm = document.getElementById('new-mdp-form');
-            
+            const banBtn = document.getElementById('ban-btn');
+            const banMenuBtn = document.getElementById('ban-menu-btn');
+            const deleteBtn = document.getElementById('delete-btn');
+            const unbanBtn = document.getElementById('unban-btn');
+
+            const bannedUsers = <?php echo json_encode($res_display_user_ban); ?>;
+
             newMdpBtn.addEventListener('click', function() {
-                newMdpForm.classList.toggle('d-none'); 
-                newMdpForm.scrollIntoView({ behavior: 'smooth' });
+                newMdpForm.classList.toggle('d-none');
+                newMdpForm.scrollIntoView({
+                    behavior: 'smooth'
+                });
             });
 
             buttons.forEach(button => {
                 button.addEventListener('click', function() {
                     const userId = this.getAttribute('data-id');
-                    
+
                     fetch(`../inc/php/function_moderation_user.php?id=${userId}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.status === 'success') {
-                            
-                            userPhoto.src = `../inc/img/user_img/${data.user.photo_utilisateur}?${Date.now()}`;
-                            userPseudoId.innerHTML = `<b>${data.user.pseudo} (#${data.user.id_user})</b>`;
-                            userFullname.innerHTML = `<b>${data.user.nom} ${data.user.prenom}</b>`;
-                            userRegistrationDate.innerHTML = `<b>Inscrit depuis :</b> ${data.user.date_inscription}`;
-                            lastConnexion.innerHTML = `<b>Dèrnière connexion :</b> ${data.user.derniere_connexion}`;
-                            numberOfFriends.textContent = `${data.user.nombre_amis} amis`;
-                            averageFriendsAge.innerHTML = `<b>Moyenne d'age d'amis :</b> ${data.user.moyenne_age_ami}`;
-                            majorityFriendsSexe.innerHTML = `<b>Genre majoritaire de relations :</b> ${data.user.majorite_genre_ami}`;
-                            relationWaiting.innerHTML = `<b>Demande d'amis en attente :</b> ${data.user.nombre_demandes_amis}`;
-                            relationRefused.innerHTML = `<b>Demande d'amis refusées :</b> ${data.user.nombre_demandes_refusees}`;
-                            numberOfListPublic.innerHTML = `<b>Nombres de listes publiques :</b> ${data.user.nombre_listes_publique}`;
-                            numberOflistPrivate.innerHTML = `<b>Nombres de listes privées :</b> ${data.user.nombre_listes_privee}`;
-                            numberOflistOnlyFriend.innerHTML = `<b>Nombres de listes uniquement pour amis :</b> ${data.user.nombre_listes_only_amis}`;
-                            numberOfOpinionPublic.innerHTML = `<b>Nombres d'avis publiques :</b> ${data.user.nombre_avis_publique}`;
-                            numberOfOpinionPrivate.innerHTML = `<b>Nombres d'avis privées :</b> ${data.user.nombre_avis_privee}`;
-                            if (data.user.id_ban === null) {
-                                ban.classList.add('d-none');
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.status === 'success') {
+
+                                userPhoto.src = `../inc/img/user_img/${data.user.photo_utilisateur}?${Date.now()}`;
+                                userPseudoId.innerHTML = `<b>${data.user.pseudo} (#${data.user.id_user})</b>`;
+                                userFullname.innerHTML = `<b>${data.user.nom} ${data.user.prenom}</b>`;
+                                userRegistrationDate.innerHTML = `<b>Inscrit depuis :</b> ${data.user.date_inscription}`;
+                                lastConnexion.innerHTML = `<b>Dèrnière connexion :</b> ${data.user.derniere_connexion}`;
+                                numberOfFriends.textContent = `${data.user.nombre_amis} amis`;
+                                averageFriendsAge.innerHTML = `<b>Moyenne d'age d'amis :</b> ${data.user.moyenne_age_ami}`;
+                                majorityFriendsSexe.innerHTML = `<b>Genre majoritaire de relations :</b> ${data.user.majorite_genre_ami}`;
+                                relationWaiting.innerHTML = `<b>Demande d'amis en attente :</b> ${data.user.nombre_demandes_amis}`;
+                                relationRefused.innerHTML = `<b>Demande d'amis refusées :</b> ${data.user.nombre_demandes_refusees}`;
+                                numberOfListPublic.innerHTML = `<b>Nombres de listes publiques :</b> ${data.user.nombre_listes_publique}`;
+                                numberOflistPrivate.innerHTML = `<b>Nombres de listes privées :</b> ${data.user.nombre_listes_privee}`;
+                                numberOflistOnlyFriend.innerHTML = `<b>Nombres de listes uniquement pour amis :</b> ${data.user.nombre_listes_only_amis}`;
+                                numberOfOpinionPublic.innerHTML = `<b>Nombres d'avis publiques :</b> ${data.user.nombre_avis_publique}`;
+                                numberOfOpinionPrivate.innerHTML = `<b>Nombres d'avis privées :</b> ${data.user.nombre_avis_privee}`;
+
+                                banBtn.value = data.user.id_user;
+                                unbanBtn.value = data.user.id_user;
+                                deleteBtn.value = data.user.id_user;
+
+                                if (!Object.values(bannedUsers).includes(data.user.id_user)) {
+                                    ban.classList.add('d-none');
+                                    banMenuBtn.setAttribute('data-bs-target', "#banModal");
+                                    banMenuBtn.innerText = "Bannir";
+                                } else {
+                                    ban.innerHTML = `<b>Banni du ${data.user.date_ban} jusqu'au ${data.user.date_deban} pour motif :</b>  ${data.user.raison}`;
+                                    banMenuBtn.setAttribute('data-bs-target', "#unbanModal");
+                                    banMenuBtn.innerText = "Débannir";
+                                }
+
+                                firstNameInput.value = data.user.prenom;
+                                lastNameInput.value = data.user.nom;
+                                usernameInput.value = data.user.pseudo;
+
+
+                                const dateNaissance = data.user.date_naissance.split("-");
+                                birthdayDayInput.value = dateNaissance[2];
+                                for (let i = 0; i < birthdayMonthSelect.options.length; i++) {
+                                    if (birthdayMonthSelect.options[i].value === String(dateNaissance[1])) {
+                                        birthdayMonthSelect.options[i].selected = true;
+                                        break;
+                                    }
+                                }
+                                birthdayYearInput.value = dateNaissance[0];
+
+                                console.log(birthdayYearInput);
+                                for (let i = 0; i < sexeSelect.options.length; i++) {
+                                    if (sexeSelect.options[i].value === String(data.user.sexe)) {
+                                        sexeSelect.options[i].selected = true;
+                                        break;
+                                    }
+                                }
+                                emailInput.value = data.user.mail;
+                                phoneInput.value = data.user.telephone;
+                                for (let i = 0; i < newsletterSelect.options.length; i++) {
+                                    if (newsletterSelect.options[i].value === String(data.user.statut_newsletter)) {
+                                        newsletterSelect.options[i].selected = true;
+                                        break;
+                                    }
+                                }
+                                userId.value = data.user.id_user;
+
+                                content.classList.remove('d-none');
+                                content.scrollIntoView({
+                                    behavior: 'smooth'
+                                });
                             } else {
-                                ban.innerHTML = `<b>Banni du ${data.user.date_ban} jusqu'au ${data.user.date_deban} pour motif :</b>  ${data.user.raison}`;
+                                // renvoyer vers une pages ? 
+                                console.error('Erreur:', data.message);
                             }
-
-                            firstNameInput.value = data.user.prenom;
-                            lastNameInput.value = data.user.nom;
-                            usernameInput.value = data.user.pseudo;
-
-
-                            const dateNaissance = data.user.date_naissance.split("-");
-                            birthdayDayInput.value = dateNaissance[2];
-                            for (let i = 0; i < birthdayMonthSelect.options.length; i++) {
-                                if (birthdayMonthSelect.options[i].value === String(dateNaissance[1])) {
-                                    birthdayMonthSelect.options[i].selected = true;
-                                    break; 
-                                }
-                            }
-                            birthdayYearInput.value = dateNaissance[0];
-
-                            console.log(birthdayYearInput);
-                            for (let i = 0; i < sexeSelect.options.length; i++) {
-                                if (sexeSelect.options[i].value === String(data.user.sexe)) {
-                                    sexeSelect.options[i].selected = true;
-                                    break; 
-                                }
-                            }
-                            emailInput.value = data.user.mail;
-                            phoneInput.value = data.user.telephone;
-                            for (let i = 0; i < newsletterSelect.options.length; i++) {
-                                if (newsletterSelect.options[i].value === String(data.user.statut_newsletter)) {
-                                    newsletterSelect.options[i].selected = true;
-                                    break; 
-                                }
-                            }
-                            userId.value = data.user.id_user;
-
-                            content.classList.remove('d-none');
-                            content.scrollIntoView({ behavior: 'smooth' });
-                        } else {
-                            // renvoyer vers une pages ? 
-                            console.error('Erreur:', data.message);
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Erreur lors de la récupération des informations de l\'utilisateur', error);
-                    });
+                        })
+                        .catch(error => {
+                            console.error('Erreur lors de la récupération des informations de l\'utilisateur', error);
+                        });
                 });
             });
         });
-
     </script>
     <script src="../inc/library/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="../inc/js/moderation_user.js"></script>
 </body>
+
 </html>
