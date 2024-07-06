@@ -340,6 +340,7 @@
                         <button class="w-100 btn btn-secondary btn-warning border-dark mt-2" type="submit" data-mdb-button-init data-mdb-ripple-init name="send_comment">Envoyer</button>
                     </form>
 
+
                 </div>
             </div>
         </div>
@@ -349,67 +350,49 @@
         <script src="../../inc/js/add_movie_to_my_lists.js"></script>
         <script>
             document.addEventListener('DOMContentLoaded', function() {
-                var privee = document.getElementById("private-comment");
-                var ami = document.getElementById("only-friends-comment");
-                var publique = document.getElementById("public-comment");
+            var selectedStatut = document.querySelector('input[name="list-status"]:checked').value;
 
-                var selectedStatut = privee.value; // par défaut la valeur sélectionnée est 'privee'
-
-                // Recup statut
-                privee.addEventListener("change", function(event) {
-                    selectStatut(privee);
+            // Event listener for radio buttons
+            document.querySelectorAll('input[name="list-status"]').forEach(function(radio) {
+                radio.addEventListener('change', function(event) {
+                    selectedStatut = event.target.value;
                 });
+            });
 
-                ami.addEventListener("change", function(event) {
-                    selectStatut(ami);
-                });
-
-                publique.addEventListener("change", function(event) {
-                    selectStatut(publique);
-                });
-
-                function selectStatut(statutElement) {
-                    selectedStatut = statutElement.value;
-                }
-                document.getElementById("myComment").addEventListener("submit", function(event) {
+            document.getElementById("myComment").addEventListener("submit", function(event) {
                     event.preventDefault();
 
                     var currentUrl = window.location.href;
                     var urlParams = new URLSearchParams(window.location.search);
                     var idMovie = urlParams.get('mv');
-                    var currentUrl = window.location.href;
-                    var urlParams = new URLSearchParams(window.location.search);
-                    var idMovie = urlParams.get('mv');
-
                     var commentText = document.getElementById('commentText').value;
-                    var commentText = document.getElementById('commentText').value;
-
+                    
                     fetch('../../inc/php/send_comment_and_note.php', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({
-                                comment: commentText,
-                                statut: selectedStatut,
-                                idMovie: idMovie
-                            })
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            comment: commentText,
+                            statut: selectedStatut,
+                            idMovie: idMovie
                         })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.status === 'success') {
-                                // Vider
-                                document.getElementById('commentText').value = "";
-                                alert("Message envoyé avec succès !");
-                            } else {
-                                alert("Er du message : " + data.error);
-                            }
-                        })
-                        .catch(error => {
-                            alert("Erreur lors u message : " + error.message);
-                        });
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === 'success') {
+                            document.getElementById('commentText').value = "";
+                            alert("Message envoyé avec succès !");
+                        } else {
+                            alert("Erreur lors de l'envoi du message : " + data.error);
+                        }
+                    })
+                    .catch(error => {
+                        alert("Erreur lors de l'envoi du message : " + error.message);
+                    });
                 });
             });
+
 
             const cinq = document.getElementById("commentaire-cinq");
             const quatre = document.getElementById("commentaire-quatre");
