@@ -1,4 +1,5 @@
 <?php require_once('../inc/php/access.php'); ?>
+<?php require_once('../inc/php/parameter_user_update.php'); ?>
 <?php require_once('../inc/php/affichage_data_user.php'); ?>
 <?php require_once('../inc/library/fpdf/function_fpdf_admin.php'); ?>
 <?php require_once('../inc/php/function_create_admin.php'); ?>
@@ -224,7 +225,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                     <p id="ban" class="card-text text-start my-0"></p>
                                 </div>
                             </div>
-                            <form method="POST" enctype="multipart/form-data" action="parameters.php" class="mt-2">
+                            <form method="POST" enctype="multipart/form-data" action="moderation_userTEST.php" class="mt-2">
                                 <div class="mb-3">
                                     <input type="file" name="image" class="form-control">
                                 </div>
@@ -307,12 +308,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                             <option value="0">Je refuse de recevoir la Newsletter</option>
                                         </select>
                                     </div>
-                                    <button class="w-100 btn btn-warning border-dark" type="submit" name="id_user" id="id_user">Mettre à jour</button>
+                                    <button class="w-100 btn btn-warning border-dark" type="submit" name="id_user" id="update-user-btn">Mettre à jour</button>
                                 </div>
                             </form>
 
                             <div class="d-flex">
-                                <form action="parameters.php" method="POST" class="w-50 me-1">
+                                <form action="moderation_userTEST.php" method="POST" class="w-50 me-1">
                                     <button class="w-100 btn btn-warning border-dark d-flex m-auto justify-content-center mt-1" type="submit" name="export">Exporter données</button>
                                 </form>
                                 <form class="w-50">
@@ -334,7 +335,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                     echo "<div class='alert alert-danger' role='alert'>Le MDP ne s'est pas modifié</div>";
                                 }
                                 ?>
-                                <form action="parameters.php" id="new-mdp-form" class="d-none d-flex flex-column w-100 align-items-center mt-3" method="POST">
+                                <form action="moderation_userTEST.php" id="new-mdp-form" class="d-none d-flex flex-column w-100 align-items-center mt-3" method="POST">
                                     <div class="col-12">
                                         <label for="current-password" class="form-label">Mot de passe actuel</label>
                                         <input type="password" class="form-control" id="current-password" name="current-password" required>
@@ -489,6 +490,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             const banMenuBtn = document.getElementById('ban-menu-btn');
             const deleteBtn = document.getElementById('delete-btn');
             const unbanBtn = document.getElementById('unban-btn');
+            const updateBtn = document.getElementById('update-user-btn');
 
             const bannedUsers = <?php echo json_encode($res_display_user_ban); ?>;
 
@@ -507,6 +509,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         .then(response => response.json())
                         .then(data => {
                             if (data.status === 'success') {
+                                let isBanned = false;
 
                                 userPhoto.src = `../inc/img/user_img/${data.user.photo_utilisateur}?${Date.now()}`;
                                 userPseudoId.innerHTML = `<b>${data.user.pseudo} (#${data.user.id_user})</b>`;
@@ -527,15 +530,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 banBtn.value = data.user.id_user;
                                 unbanBtn.value = data.user.id_user;
                                 deleteBtn.value = data.user.id_user;
+                                updateBtn.value = data.user.id_user;
 
-                                if (!Object.values(bannedUsers).includes(data.user.id_user)) {
+                                for (const user of bannedUsers) {
+                                    if (Object.values(user).includes(data.user.id_user)) {
+                                        ban.innerHTML = `<b>Banni du ${data.user.date_ban} jusqu'au ${data.user.date_deban} pour motif :</b>  ${data.user.raison}`;
+                                        banMenuBtn.setAttribute('data-bs-target', "#unbanModal");
+                                        banMenuBtn.innerText = "Débannir";
+                                        isBanned = true;
+                                    }
+                                }
+
+                                if (!isBanned) {
                                     ban.classList.add('d-none');
                                     banMenuBtn.setAttribute('data-bs-target', "#banModal");
                                     banMenuBtn.innerText = "Bannir";
-                                } else {
-                                    ban.innerHTML = `<b>Banni du ${data.user.date_ban} jusqu'au ${data.user.date_deban} pour motif :</b>  ${data.user.raison}`;
-                                    banMenuBtn.setAttribute('data-bs-target', "#unbanModal");
-                                    banMenuBtn.innerText = "Débannir";
                                 }
 
                                 firstNameInput.value = data.user.prenom;
