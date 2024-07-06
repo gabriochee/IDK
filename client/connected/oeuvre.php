@@ -303,43 +303,15 @@
                         
                     </div>
 
-                    <div id="commentaire-cinq" class="row justify-content-center" style="display: none;">
-                        <div class="col-12 border border-2 border-top-0 border-dark color-custom-2">
-                            <div class="overflow-auto menu-oeuvre-2" id="comments-cinq">
-                            </div>
-                        </div>
-                    </div>
-                    <div id="commentaire-quatre" class="row justify-content-center" style="display: none;">
+                    
+                    <div id="commentaire" class="row justify-content-center" style="display;">
                         <div class="col-12 border border-2 border-top-0 border-dark color-custom-2">
                             <div class="overflow-auto menu-oeuvre-2" id="comments-quatre">
 
                             </div>
                         </div>
                     </div>
-                    <div id="commentaire-trois" class="row justify-content-center" style="display: none;">
-                        <div class="col-12 border border-2 border-top-0 border-dark color-custom-2">
-                            <div class="overflow-auto menu-oeuvre-2" id="comments-trois">
-                            </div>
-                        </div>
-                    </div>
-                    <div id="commentaire-deux" class="row justify-content-center" style="display: none;">
-                        <div class="col-12 border border-2 border-top-0 border-dark color-custom-2">
-                            <div class="overflow-auto menu-oeuvre-2" id="comments-deux">
-                            </div>
-                        </div>
-                    </div>
-                    <div id="commentaire-un" class="row justify-content-center" style="display: none;">
-                        <div class="col-12 border border-2 border-top-0 border-dark color-custom-2">
-                            <div class="overflow-auto menu-oeuvre-2" id="comments-un">
-                            </div>
-                        </div>
-                    </div>
-                    <div id="commentaire-zero" class="row justify-content-center" style="display: none;">
-                        <div class="col-12 border border-2 border-top-0 border-dark color-custom-2">
-                            <div class="overflow-auto menu-oeuvre-2" id="comments-zero">
-                            </div>
-                        </div>
-                    </div>
+                    
 
                     
 
@@ -396,98 +368,86 @@
             });
 
 
-            const cinq = document.getElementById("commentaire-cinq");
-            const quatre = document.getElementById("commentaire-quatre");
-            const trois = document.getElementById("commentaire-trois");
-            const deux = document.getElementById("commentaire-deux");
-            const un = document.getElementById("commentaire-un");
-            const zero = document.getElementById("commentaire-zero");
-            let intervalId = null;
+            document.addEventListener("DOMContentLoaded", function() {
+    const commentsContainer = document.getElementById("comments-quatre");
+    let intervalId = null;
 
-            const sections = {
-                5: cinq,
-                4: quatre,
-                3: trois,
-                2: deux,
-                1: un
-            };
+    function handleNoteClick(note) {
+        if (intervalId) {
+            clearInterval(intervalId);
+        }
+        showCommentByNote(note);
+    }
 
-            function handleNoteClick(note) {
-                for (const key in sections) {
-                    sections[key].style.display = "none";
-                }
+    document.getElementById("note-cinq").addEventListener("click", function() {
+        handleNoteClick(10);
+    });
+    document.getElementById("note-cinq").addEventListener("click", function() {
+        handleNoteClick(9);
+    });
+    document.getElementById("note-quatre").addEventListener("click", function() {
+        handleNoteClick(8);
+    });
+    document.getElementById("note-quatre").addEventListener("click", function() {
+        handleNoteClick(7);
+    });
+    document.getElementById("note-trois").addEventListener("click", function() {
+        handleNoteClick(6);
+    });
+    document.getElementById("note-trois").addEventListener("click", function() {
+        handleNoteClick(5);
+    });
+    document.getElementById("note-deux").addEventListener("click", function() {
+        handleNoteClick(4);
+    });
+    document.getElementById("note-deux").addEventListener("click", function() {
+        handleNoteClick(3);
+    });
+    document.getElementById("note-un").addEventListener("click", function() {
+        handleNoteClick(2);
+    });
+    document.getElementById("note-un").addEventListener("click", function() {
+        handleNoteClick(1);
+    });
 
-                sections[note].style.display = "block";
-                if (intervalId) {
-                    clearInterval(intervalId);
-                }
-                showCommentByNote(note);
+    function showCommentByNote(note) {
+        var currentUrl2 = window.location.href;
+        var urlParams2 = new URLSearchParams(window.location.search);
+        var idMovie2 = urlParams2.get('mv');
+        
+        fetch('../../inc/php/function_comment_by_note.php', {
+            method: 'POST',
+            credentials: 'same-origin',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                idMovie2: idMovie2,
+                note: note
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'error') {
+                console.error(data.message);
+            } else {
+                console.log(data.reviews);
+
+                commentsContainer.innerHTML = '';
+
+                data.reviews.forEach(review => {
+                    const paragraph = document.createElement('p');
+                    paragraph.textContent = `${review.date_avis} - ${review.pseudo} - ${review.critique}`;
+                    commentsContainer.appendChild(paragraph);
+                });
             }
+        })
+        .catch(error => {
+            console.error('Error fetching reviews:', error);
+        });
+    }
+});
 
-            document.getElementById("note-cinq").addEventListener("click", function() {
-                alert("10");
-                handleNoteClick(5);
-            });
-            document.getElementById("note-quatre").addEventListener("click", function() {
-                alert("8");
-                handleNoteClick(4);
-            });
-            document.getElementById("note-trois").addEventListener("click", function() {
-                alert("6");
-                handleNoteClick(3);
-            });
-            document.getElementById("note-deux").addEventListener("click", function() {
-                alert("4");
-                handleNoteClick(2);
-            });
-            document.getElementById("note-un").addEventListener("click", function() {
-                alert("2");
-                handleNoteClick(1);
-            });
-            
-
-            function showCommentByNote(note) {
-                var note = note;
-                var currentUrl2 = window.location.href;
-                var urlParams2 = new URLSearchParams(window.location.search);
-                var idMovie2 = urlParams2.get('mv');
-                fetch('../../inc/php/function_comment_by_note.php', {
-                        method: 'POST',
-                        credentials: 'same-origin',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            idMovie2: idMovie2,
-                            note: note
-                        })
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.status === 'error') {
-                            console.error(data.message);
-                        } else {
-                            console.log(data.reviews);
-
-                            const commentsContainer = document.getElementById(`comments-quatre`);
-
-                            commentsContainer.innerHTML = '';
-
-                            data.reviews.forEach(review => {
-                                const paragraph = document.createElement('p');
-
-                                paragraph.textContent = `${review.date_avis} - ${review.pseudo} -${review.critique} `;
-
-                                commentsContainer.appendChild(paragraph);
-                            });
-
-
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error fetching reviews:', error);
-                    });
-            }
         </script>
         <script src="../../inc/library/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
