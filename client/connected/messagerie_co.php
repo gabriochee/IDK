@@ -9,11 +9,12 @@
     <link rel="stylesheet" href="../../inc/library/bootstrap/bootstrap-icons/font/bootstrap-icons.min.css">
     <title>IDK</title>
 </head>
-<body id="not_connected_contact">
+<body id="connected_contact">
     <?php require_once('../../inc/php/function_messagerie_co.php'); ?>
-    <?php require_once('../../inc/components/not_connected/header.php'); ?>
+    <?php require_once('../../inc/components/connected/header.php'); ?>
     <main>
         <div class="container text-center m-auto">
+            <a href="my_ticket.php" class="nav-btn btn btn-sm btn-warning text-white border border-light border-2 rounded-3 mt-5">Voir mes tickets</a>
             <div class="row">
                 <div class="col-lg-6 m-auto p-4">
                     <img src="../../inc/img/logo.svg" alt="Logo IDK" class="navbar-brand img-fluid my-5" width="150px" height="150px">

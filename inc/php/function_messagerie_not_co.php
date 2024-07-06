@@ -21,9 +21,25 @@
         $req1->execute();
         echo "<div class='alert alert-success text-center' role='alert'>Votre message a bien été envoyé, vous recevrez un retour d'ici 24h.</div>";
     }
-    $req3 = $bdd->prepare("SELECT id , mail, date_message, titre, messages FROM demande_admin where statut = 0");
+    $req3 = $bdd->prepare("SELECT id ,id_admin, mail, date_message, titre, messages,statut_ticket FROM demande_admin where statut = 0");
     $req3->execute();  
     $recup_messages_not_co = $req3->fetchAll(PDO::FETCH_ASSOC);
+
+    if (isset($_POST['Statuer_not_co'])) {
+        $id_demande = $_POST['id_demande'];
+    
+        $ticket_status = $_POST['ticket_status'];
+    
+        $id_user = $_SESSION['id_user'];
+    
+        $req4 = $bdd->prepare("UPDATE demande_admin SET id_admin = :id_user, statut_ticket = :ticket_status WHERE id = :id_demande");
+        $req4->bindParam(':id_user', $id_user);
+        $req4->bindParam(':ticket_status', $ticket_status);
+        $req4->bindParam(':id_demande', $id_demande);
+        $req4->execute();
+
+        header('Location: messagerie_adm.php');
+    }
 
     
 
