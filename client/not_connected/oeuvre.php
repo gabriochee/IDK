@@ -19,7 +19,7 @@
         <div class="container mt-5">
             <div class="row justify-content-center">
                 <div class="row col-12 col-lg-6 img-fluid img-custom-1 ">
-                    <img src="../../inc/img/test.jpeg" id="movie-poster" alt="affiche de l'oeuvre">
+                    <img src="" id="movie-poster" alt="affiche de l'oeuvre">
                 </div>
                 <div class="col-12 col-lg-5">
                     <div>

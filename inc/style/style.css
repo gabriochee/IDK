@@ -8,17 +8,10 @@ body, .bg-idk {
   transition: background-color 0.1s, color 0.1s;
 }
 
-body.dark-mode, .bg-idk.dark-mode, body#sidebarMenu.dark-mode{
+body.dark-mode, .bg-idk.dark-mode{
   background-color: #8D8780;
   color: white;
 }
-
-.dark-mode {
-  background-color: #444;
-  color: #eee;
-  border: 1px solid #666;
-}
-
 
 .backoffice body {
   font-size: .875rem;
@@ -199,6 +192,18 @@ body.dark-mode, .bg-idk.dark-mode, body#sidebarMenu.dark-mode{
   border-top: 1px solid #ccc; 
 }
 
+.offcanvas.show .offcanvas-body ul{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.offcanvas.show .offcanvas-body .ul-2{
+  flex-direction: row;
+  justify-content: flex-start;
+  margin-left: 1rem;
+}
+
+
 /* ------------ NOT_CONNECTED-CONNECTED/FOOTER ------------- */
 .icon-white {
   color: white;
@@ -281,12 +286,6 @@ body.dark-mode, .bg-idk.dark-mode, body#sidebarMenu.dark-mode{
 .backoffice .sidebar-heading {
   font-size: .75rem;
   text-transform: uppercase;
-}
-
-@media (max-width: 767.98px) {
-  .backoffice .sidebar {
-      top: 5rem;
-  }
 }
 
 /* ------------------- BACKOFFICE/NAVBAR ------------------- */

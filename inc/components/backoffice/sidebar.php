@@ -1,6 +1,6 @@
-<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse" data-bs-backdrop="static" tabindex="-1">
+<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
     <div class="position-sticky pt-3">
-        <ul class="nav flex-column mt-5 scrollarea">
+        <ul class="nav flex-column mt-5 scrollarea" style="overflow-y: auto; max-height: 100vh;">
             <li class="nav-item">
                 <a <?php if(basename($_SERVER['PHP_SELF']) == 'home.php') echo 'class="nav-link active"'; ?> class="nav-link" aria-current="page" href="../admin/home.php">Acceuil</a>
             </li>

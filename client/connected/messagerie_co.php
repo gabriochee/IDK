@@ -18,7 +18,7 @@
                 <div class="col-lg-6 m-auto p-4">
                     <img src="../../inc/img/logo.svg" alt="Logo IDK" class="navbar-brand img-fluid my-5" width="150px" height="150px">
                     <h3 class="mt-1">Contact</h3>
-                    <a href="my_ticket.php" class="nav-btn btn btn-warning text-white mt-5 w-50 border-dark border-2">Voir mes tickets</a>
+                    <a href="my_ticket.php" class="nav-btn btn btn-warning mt-5 w-50 border-dark border-1">Voir mes tickets</a>
                 </div>
             </div>
         </div>

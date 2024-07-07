@@ -87,24 +87,24 @@ if (isset($_GET['id_liste'])) {
                 <hr>
             </div>
 
-        <div class="container m-0 mt-5 p-0 w-100 list-height m-auto border border-3 border-dark rounded-3 overflow-auto no-overflow-x" style="background-color: #CFDBD5;">
-            <div class="d-lg-flex row gx-2 gy-3 px-5 py-3 row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-1" id="cards-container">
-            <?php
-                if (isset($_GET['id_liste'])) {
-                    $req = $bdd->prepare("SELECT element_liste.id_work, work_basics.primaryTitle, work_basics.startYear FROM element_liste JOIN work_basics ON element_liste.id_work = work_basics.id_work WHERE id_liste = :id_liste ORDER BY date_ajout;");
-                    $req->bindParam(":id_liste", $_GET['id_liste']);
-                    $req->execute();
-                    $res;
-                    while (($res = $req->fetch()) != null) {
-                        $filmName = $res['primaryTitle'];
-                        $filmId = $res['id_work'];
-                        $filmYear = $res['startYear'];
-                        require('../../inc/components/card.php');
-                    }
-                }
-            ?>
+            <div class="container mt-5 p-0 w-100 m-auto border border-3 border-dark rounded-3 overflow-auto no-overflow-x" style="background-color: #CFDBD5; height: 100%;">
+                <div class="d-lg-flex row gx-2 gy-3 px-3 py-3 row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4" id="cards-container">
+                    <?php
+                        if (isset($_GET['id_liste'])) {
+                            $req = $bdd->prepare("SELECT element_liste.id_work, work_basics.primaryTitle, work_basics.startYear FROM element_liste JOIN work_basics ON element_liste.id_work = work_basics.id_work WHERE id_liste = :id_liste ORDER BY date_ajout;");
+                            $req->bindParam(":id_liste", $_GET['id_liste']);
+                            $req->execute();
+                            $res;
+                            while (($res = $req->fetch()) != null) {
+                                $filmName = $res['primaryTitle'];
+                                $filmId = $res['id_work'];
+                                $filmYear = $res['startYear'];
+                                require('../../inc/components/card.php');
+                            }
+                        }
+                    ?>
+                </div>
             </div>
-        </div>
 
         <div class="container-fluid text-center my-5">
             <div <?php if (!$isOwner) {
