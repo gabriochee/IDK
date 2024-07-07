@@ -5,7 +5,7 @@
     <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="navbar-nav">
+    <div class="me-md-0 me-5 navbar-nav">
         <div class="nav-item text-nowrap d-flex align-items-center">
             <form method="" action="../inc/php/logout.php" class="me-2">
                 <button type="submit" class="btn btn-link p-0">
