@@ -45,14 +45,17 @@
                                     if ($message['etre_admin'] == 1) {
                                         $rowClass = 'justify-content-end';
                                         $alertClass = 'alert-primary';
+                                        $role = 'Admin';
                                     } else {
                                         $rowClass = 'justify-content-start';
                                         $alertClass = 'alert-secondary';
+                                        $role = 'Utilisateur';
                                     }
                                     ?>
                                     <div class="row <?php echo $rowClass; ?>">
                                         <div class="col-auto">
                                             <div class="alert <?php echo $alertClass; ?>" role="alert">
+                                                <p class="mb-0"><strong><?php echo $role; ?></strong></p>
                                                 Message : <?php echo nl2br(htmlspecialchars($message['message'])); ?><br>
                                                 Date : <?php echo htmlspecialchars($message['date_message']); ?><br>
                                             </div>
