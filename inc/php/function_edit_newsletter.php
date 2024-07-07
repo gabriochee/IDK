@@ -8,7 +8,6 @@
     require '../inc/library/PHPMailer/src/PHPMailer.php';
     require '../inc/library/PHPMailer/src/SMTP.php';
 
-    // Supprimer une newsletter
     if (isset($_POST['supress'])) {
         $id_to_suppress = $_POST['id_newsletter'];
         $req7 = $bdd->prepare("DELETE FROM administration_contenu WHERE id_bloc = :id_bloc");
@@ -21,26 +20,22 @@
         $req4->execute();
     }
 
-    // Mettre à jour la newsletter
     if (isset($_POST['update'])) {
         $id_to_update = $_POST['id_newsletter'];
         $subject_update = $_POST['subject_update'];
         $corps_message_update = $_POST['corps_message_update'];
     
-        // Récupérer le titre et le corps avant l'update
         $req8 = $bdd->prepare("SELECT titre, corps FROM contenu WHERE id_bloc = :id_bloc");
         $req8->bindParam(':id_bloc', $id_to_update);
         $req8->execute();
-        $recup_before_update = $req8->fetch(PDO::FETCH_ASSOC); // Utilisez fetch() au lieu de fetchAll() pour récupérer une seule ligne
+        $recup_before_update = $req8->fetch(PDO::FETCH_ASSOC); 
     
-        // Maj table contenu
         $req6 = $bdd->prepare("UPDATE contenu SET titre = :subject_update, corps = :corps_message_update WHERE id_bloc = :id_bloc");
         $req6->bindParam(':subject_update', $subject_update);
         $req6->bindParam(':corps_message_update', $corps_message_update);
         $req6->bindParam(':id_bloc', $id_to_update);
         $req6->execute();
     
-        // Insérer dans administration_contenu
         $req5 = $bdd->prepare("INSERT INTO administration_contenu(
                 id_user, id_bloc, date_maj, before_maj_titre, before_maj_corps, after_maj_titre, after_maj_corps
             ) VALUES(
@@ -59,7 +54,6 @@
     
 
 
-    // Envoyer l'historique de la newsletter
     if (isset($_POST['envoyer_hist'])) {
         try {
             $mail = new PHPMailer(true);
@@ -111,12 +105,12 @@
             }
 
             if ($mail->send()) {
-                echo "Le message a été envoyé avec succès";
+                $_SESSION['message'] = 'Le message a été envoyé avec succès';
             } else {
-                echo "Erreur lors de l'envoi du message : " . $mail->ErrorInfo;
+                $_SESSION['message'] = 'Erreur lors de l\'envoi du message : ' . $mail->ErrorInfo;
             }
         } catch (Exception $e) {
-            echo "Erreur lors de l'envoi du message : " . $mail->ErrorInfo;
+            $_SESSION['message'] = 'Erreur lors de l\'envoi du message : ' . $mail->ErrorInfo;
         }
     }
     
@@ -181,12 +175,14 @@
                 $req2_news->bindParam(':sujet', $_POST["subject"]);
                 $req2_news->bindParam(':corps', $_POST["corps_message"]);
                 $req2_news->execute();
-                echo '<div class="alert alert-success text-center" role="alert">Le message a été envoyé avec succès</div>';
+                $_SESSION['message'] = 'Le message a été envoyé avec succès';
+                
+                
             } else {
-                echo "<div class='alert alert-danger text-center' role='alert'>Erreur lors de l'envoi du message : " . $mail->ErrorInfo . "</div>";
+                $_SESSION['message'] = 'Erreur lors de l\'envoi du message : ' . $mail->ErrorInfo;
             }
         } catch (Exception $e) {
-            echo "<div class='alert alert-danger text-center' role='alert'>Erreur lors de l'envoi du message : " . $mail->ErrorInfo . "</div>";
+            $_SESSION['message'] = 'Erreur lors de l\'envoi du message : ' . $mail->ErrorInfo;
         }
     }
 ?>

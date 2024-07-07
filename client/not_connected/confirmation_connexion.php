@@ -12,10 +12,11 @@
 </head>
 <body id="not_connected_confirmation_connexion">
     <header class="container w-100 d-flex justify-content-end mt-5">
-        <button class="nav-link btn">
+        <button id="dark-mode" class="nav-link btn">
             <i class="bi bi-moon-stars fs-3" height="100" width="100"></i>
         </button>
     </header>
+
     <main>
         <div class="container text-center m-auto">
             <div class="row">
@@ -70,6 +71,40 @@
             </div>
         </div>
     </main>
+
+    <script>
+
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const toggleButton = document.getElementById('dark-mode');
+
+            const enableDarkMode = () => {
+                document.body.classList.add('dark-mode');
+                localStorage.setItem('dark-mode', 'enabled');
+            };
+
+            const disableDarkMode = () => {
+                document.body.classList.remove('dark-mode');
+                localStorage.setItem('dark-mode', 'disabled');
+            };
+
+            if (localStorage.getItem('dark-mode') === 'enabled') {
+                enableDarkMode();
+            } else if (localStorage.getItem('dark-mode') === 'disabled') {
+                disableDarkMode();
+            } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                enableDarkMode();
+            }
+
+            toggleButton.addEventListener('click', () => {
+                if (document.body.classList.contains('dark-mode')) {
+                    disableDarkMode();
+                } else {
+                    enableDarkMode();
+                }
+            });
+        });
+
+    </script>
     <script src="../../inclibrary/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
