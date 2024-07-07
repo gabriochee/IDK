@@ -19,7 +19,7 @@
                         <a <?php if(basename($_SERVER['PHP_SELF']) == 'terms_and_conditions.php') echo 'class="nav-link text-decoration-underline text-white"'; ?> class="nav-link text-white" href="../../client/connected/terms_and_conditions.php" class="nav-link text-white text-start">Conditions générales</a>
                     </li>
                     <li class="nav-item">
-                        <a <?php if(basename($_SERVER['PHP_SELF']) == 'contact.php') echo 'class="nav-link text-decoration-underline text-white"'; ?> class="nav-link text-white" href="../../client/connected/contact.php" class="nav-link text-white text-start">Contact</a>
+                        <a <?php if(basename($_SERVER['PHP_SELF']) == 'messagerie_co.php') echo 'class="nav-link text-decoration-underline text-white"'; ?> class="nav-link text-white" href="../../client/connected/messagerie_co.php" class="nav-link text-white text-start">Contact</a>
                     </li>
                 </ul>
             </div>

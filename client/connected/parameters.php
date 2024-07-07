@@ -126,9 +126,26 @@
                         </div>
                     </form>
 
-                    <form action="parameters.php" method="POST">
-                        <button class="w-100 btn btn-warning border-dark d-flex m-auto justify-content-center mt-1" id="signin-btn" type="submit" name="export">Exporter mes données</button>
-                    </form>
+                    <button class="w-100 btn btn-warning border-dark d-flex m-auto justify-content-center mt-1" type="submit" data-bs-toggle="modal" data-bs-target="#form-signature">Exporter mes données</button>
+
+                    <div class="modal fade" id="form-signature" tabindex="-1">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5">Signez</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="parameters.php" method="POST" id="signature-form">
+                                        <canvas id="signature-pad" style="border:1px solid #000; width: 100%; height: 200px;"></canvas>
+                                        <button id="effacer" class="btn btn-warning btn-orange btn-primary" type="button">Effacer</button>
+                                        <button id="sauvegarder" class="btn btn-success btn-orange btn-primary" id="export" name="export" type="button">Enregistrer</button>
+                                        <input type="hidden" name="signature" id="signature">
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                     <button class="w-100 btn btn-warning border-dark d-flex m-auto justify-content-center mt-1" id="new-mdp-btn" type="button">Changer mon mot de passe</button>
                     
@@ -164,17 +181,53 @@
         </div>
     </main>
     <?php require_once('../../inc/components/connected/footer.php'); ?>
+    <script src="../../inc/library/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-        const newMdpBtn = document.getElementById('new-mdp-btn');
-        const newMdpForm = document.getElementById('new-mdp-form');
+        var canvas = document.getElementById('signature-pad');
+        var signaturePad = canvas.getContext('2d');
+        var isDrawing = false;
 
-        newMdpBtn.addEventListener('click', function() {
-            newMdpForm.classList.toggle('d-none'); 
-            newMdpForm.scrollIntoView({ behavior: 'smooth' });
+        canvas.addEventListener('mousedown', function(e) {
+            isDrawing = true;
+            signaturePad.beginPath();
+            signaturePad.moveTo(e.offsetX, e.offsetY);
+        });
+
+        canvas.addEventListener('mousemove', function(e) {
+            if (isDrawing) {
+                signaturePad.lineTo(e.offsetX, e.offsetY);
+                signaturePad.stroke();
+            }
+        });
+
+        canvas.addEventListener('mouseup', function() {
+            isDrawing = false;
+        });
+
+        canvas.addEventListener('mouseleave', function() {
+            isDrawing = false;
+        });
+
+        document.getElementById('effacer').addEventListener('click', function() {
+            signaturePad.clearRect(0, 0, canvas.width, canvas.height);
+        });
+
+        document.getElementById('sauvegarder').addEventListener('click', function() {
+            var dataURL = canvas.toDataURL('image/png');
+            document.getElementById('signature').value = dataURL;
+            document.getElementById('signature-form').submit();
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const newMdpBtn = document.getElementById('new-mdp-btn');
+            const newMdpForm = document.getElementById('new-mdp-form');
+
+            newMdpBtn.addEventListener('click', function() {
+                newMdpForm.classList.toggle('d-none'); 
+                newMdpForm.scrollIntoView({ behavior: 'smooth' });
             });
         });
     </script>
-    <script src="../../inc/library/bootstrap/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>

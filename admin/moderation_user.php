@@ -95,44 +95,45 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                 </div>
                                 <div class="modal-body">
-                                <form action="moderation_user.php" method="POST" class="d-flex flex-column w-100 align-items-center mt-3">
-                                    <div class="col-12">
-                                        <label for="nom" class="form-label">Nom</label>
-                                        <input type="text" class="form-control" id="nom" name="nom" required>
-                                    </div>
-                                    <div class="col-12">
-                                        <label for="prenom" class="form-label">Prénom</label>
-                                        <input type="text" class="form-control" id="prenom" name="prenom" required>
-                                    </div>
-                                    <div class="col-12">
-                                        <label for="pseudo" class="form-label">Pseudo</label>
-                                        <input type="text" class="form-control" id="pseudo" name="pseudo" required>
-                                    </div>
-                                    <div class="col-12">
-                                        <label for="sexe" class="form-label">Sexe</label>
-                                        <select class="form-select" id="sexe" name="sexe" required>
-                                            <option value="homme">Homme</option>
-                                            <option value="femme">Femme</option>
-                                            <option value="autre">Autre</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-12">
-                                        <label for="date_naissance" class="form-label">Date de naissance</small></label>
-                                        <input type="date" class="form-control" id="date_naissance" name="date_naissance" required>
-                                    </div>
-                                    <div class="col-12">
-                                        <label for="mail" class="form-label">Email</label>
-                                        <input type="email" class="form-control" id="mail" name="mail" required>
-                                    </div>
-                                    <div class="col-12">
-                                        <label for="phone" class="form-label">Numéro de téléphone</label>
-                                        <input type="tel" class="form-control" id="phone" name="phone" pattern="{,100}" required>
-                                    </div>
-                                    <div class="col-12">
-                                        <label for="pseudo" class="form-label">Mot de passe</label>
-                                        <input type="password" class="form-control" id="mdp" name="mdp" required>
-                                    </div>
-                                    <button class="btn btn-sm btn-warning fs-4 mt-3 w-100" type="submit" name="push_data_admin">Créer</button>
+                                    <form action="moderation_user.php" method="POST" class="d-flex flex-column w-100 align-items-center mt-3">
+                                        <div class="col-12">
+                                            <label for="nom" class="form-label">Nom</label>
+                                            <input type="text" class="form-control" id="nom" name="nom" required>
+                                        </div>
+                                        <div class="col-12">
+                                            <label for="prenom" class="form-label">Prénom</label>
+                                            <input type="text" class="form-control" id="prenom" name="prenom" required>
+                                        </div>
+                                        <div class="col-12">
+                                            <label for="pseudo" class="form-label">Pseudo</label>
+                                            <input type="text" class="form-control" id="pseudo" name="pseudo" required>
+                                        </div>
+                                        <div class="col-12">
+                                            <label for="sexe" class="form-label">Sexe</label>
+                                            <select class="form-select" id="sexe-admin" name="sexe-admin" required>
+                                                <option value="homme">Homme</option>
+                                                <option value="femme">Femme</option>
+                                                <option value="autre">Autre</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-12">
+                                            <label for="date_naissance" class="form-label">Date de naissance</small></label>
+                                            <input type="date" class="form-control" id="date_naissance" name="date_naissance" required>
+                                        </div>
+                                        <div class="col-12">
+                                            <label for="mail" class="form-label">Email</label>
+                                            <input type="email" class="form-control" id="mail" name="mail" required>
+                                        </div>
+                                        <div class="col-12">
+                                            <label for="phone" class="form-label">Numéro de téléphone</label>
+                                            <input type="tel" class="form-control" id="phone-admin" name="phone-admin" pattern="{,100}" required>
+                                        </div>
+                                        <div class="col-12">
+                                            <label for="pseudo" class="form-label">Mot de passe</label>
+                                            <input type="password" class="form-control" id="mdp" name="mdp" required>
+                                        </div>
+                                        <button class="btn btn-sm btn-warning fs-4 mt-3 w-100" type="submit" name="push_data_admin">Créer</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -162,10 +163,11 @@
                                     <p id="ban" class="card-text text-start my-0"></p>
                                 </div>
                             </div>
-                            <form method="POST" enctype="multipart/form-data" action="moderation_user.php" class="mt-2">
+                            <form method="POST" class="mt-2">
                                 <div class="mb-3">
                                     <input type="file" name="image" class="form-control">
                                 </div>
+                                <input type="hidden" name="id_user_for_img" id="id_user_for_img">
                                 <button type="submit" name="submit_img" class="btn btn-warning border-dark w-100">Modifier photo profil</button>
                             </form>
                         </div>
@@ -409,7 +411,7 @@
             const numberOfOpinionPublic = document.getElementById('number-of-opinion-public');
             const numberOfOpinionPrivate = document.getElementById('number-of-opinion-private');
             const ban = document.getElementById('ban');
-
+            const hiddenForImgUpdate =document.getElementById('id_user_for_img');
             const firstNameInput = document.getElementById('firstName');
             const lastNameInput = document.getElementById('lastName');
             const usernameInput = document.getElementById('username');
@@ -463,7 +465,7 @@
                                 numberOflistOnlyFriend.innerHTML = `<b>Nombres de listes uniquement pour amis :</b> ${data.user.nombre_listes_only_amis}`;
                                 numberOfOpinionPublic.innerHTML = `<b>Nombres d'avis publiques :</b> ${data.user.nombre_avis_publique}`;
                                 numberOfOpinionPrivate.innerHTML = `<b>Nombres d'avis privées :</b> ${data.user.nombre_avis_privee}`;
-
+                                hiddenForImgUpdate.value = data.user.id_user;
                                 banBtn.value = data.user.id_user;
                                 unbanBtn.value = data.user.id_user;
                                 deleteBtn.value = data.user.id_user;
