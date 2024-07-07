@@ -32,6 +32,19 @@ if(isset($_GET['mv'])) {
 
 
     if (isset($_SESSION['id_user'])){
+
+        $id_work = $_GET['mv'];
+    $id_user = $_SESSION['id_user'];
+    $req1 = $bdd->prepare("SELECT a.id_work ,a.critique, a.date_avis, a.statut, a.note/2 AS note, u.id_user, u.pseudo
+                            FROM avis AS a
+                            JOIN utilisateur AS u ON a.id_user = u.id_user
+                            WHERE a.id_user = :id_user and a.id_work = :id_work");
+    $req1->bindParam(":id_user", $id_user);
+    $req1->bindParam(":id_work", $id_work);
+    $req1->execute();
+    $recup_my_comment = $req1->fetch();
+
+
         $req8 = $bdd->prepare('SELECT note, statut FROM avis WHERE id_user = :id_user AND id_work = :id_work;');
         $req8->bindParam(":id_user", $_SESSION['id_user']);
         $req8->bindParam(":id_work", $_GET['mv']);
