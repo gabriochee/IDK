@@ -21,20 +21,18 @@
                 <div class="col-md-4 border-right">
                     <div class="card card-profile text-center border-0" style="background-color: transparent;">
                         <div class="card-body">
-                        <?php
-                            $photo_utilisateur = $rep_data_user1['photo_utilisateur'];
-                            $photo_path = '';
+                            <?php
+                                $photo_utilisateur = $rep_data_user1['photo_utilisateur'];
+                                $photo_path = '';
 
-                            // Vérifier si $photo_utilisateur est null ou vide
-                            if (empty($photo_utilisateur)) {
-                                $photo_path = '../../inc/img/user_img/profile.svg';
-                            } else {
-                                $photo_path = '../../inc/img/user_img/' . htmlspecialchars($photo_utilisateur);
-                            }
-                        ?>
+                                if (empty($photo_utilisateur)) {
+                                    $photo_path = '../../inc/img/user_img/profile.svg';
+                                } else {
+                                    $photo_path = '../../inc/img/user_img/' . htmlspecialchars($photo_utilisateur);
+                                }
+                            ?>
 
                             <img src="<?php echo $photo_path; ?>" alt="Photo de l'utilisateur" class="mb-3 card-img-top img-fluid rounded-circle">
-
                             <h4 class="card-title"><?php echo $rep_data_user1['pseudo'] . ' (#' . $rep_data_user1['id_user'] . ')'; ?></h4>
                             <p class="card-text text-start my-0"><?php echo $rep_data_user1['nom'] . ' ' . $rep_data_user1['prenom']; ?></p>
                             <p class="card-text text-start my-0">Inscrit depuis : <?php echo $rep_data_user1['date_inscription']; ?></p>
@@ -143,5 +141,4 @@
     <script src="../../inc/js/friend_lists.js"></script>
     <script src="../../inc/library/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>

@@ -83,7 +83,7 @@ if (isset($_POST['connect'])) {
                     $req_avg_age->execute();
                     $avg_age_result = $req_avg_age->fetch(PDO::FETCH_ASSOC); 
 
-                    $req_majority_genre = $bdd->prepare("SELECT u.sexe AS majorite_genre_ami FROM ami a INNER JOIN utilisateur u ON a.id_user_2 = u.id_user WHERE a.id_user_1 = :id_user GROUP BY u.sexe ORDER BY COUNT(*) DESC LIMIT 1");
+                    $req_majority_genre = $bdd->prepare("SELECT u.sexe AS majorite_genre_ami FROM ami a INNER JOIN utilisateur u ON a.id_user_2 = u.id_user WHERE a.id_user_1 = :id_user GROUP BY u.sexe ORDER BY COUNT(a.id_user_2) DESC LIMIT 1");
                     $req_majority_genre->bindParam(':id_user', $_SESSION['id_user']);
                     $req_majority_genre->execute();
                     $majority_genre_result = $req_majority_genre->fetch(PDO::FETCH_ASSOC); 

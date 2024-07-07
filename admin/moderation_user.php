@@ -36,7 +36,7 @@
                                 <tbody class="table-dark" id="users-tab">
                                     <?php
                                     foreach ($res_display_user as $user) {
-                                        echo '<tr><td class="table-cell text-start">#' . $user['id_user'] . '    ' . $user['pseudo'] . ' (' . $user['prenom'] . $user['nom'] . ')</td>';
+                                        echo '<tr><td class="table-cell text-start">#' . $user['id_user'] . '    ' . $user['pseudo'] . ' (' . $user['prenom'] . ' ' . $user['nom'] . ')</td>';
                                         echo '<td class="table-cell w-25"><button type="submit" data-id="' . $user['id_user'] . '" class="btn btn-warning w-100 fs-6 show">En voir plus</button></td></tr>';
                                     }
                                     ?>
@@ -56,7 +56,7 @@
                                 <tbody class="table-dark" id="banned-users-tab">
                                     <?php
                                     foreach ($res_display_user_ban as $user_ban) {
-                                        echo '<tr><td class="table-cell text-start">#' . $user_ban['id_user'] . '    ' . $user_ban['pseudo'] . ' (' . $user_ban['prenom'] . $user_ban['nom'] . ')</td>';
+                                        echo '<tr><td class="table-cell text-start">#' . $user_ban['id_user'] . '    ' . $user_ban['pseudo'] . ' (' . $user_ban['prenom'] . ' ' . $user_ban['nom'] . ')</td>';
                                         echo '<td class="table-cell w-25"><button type="submit" data-id="' . $user_ban['id_user'] . '" class="btn btn-warning w-100 fs-6 show">En voir plus</button></td></tr>';
                                     }
                                     ?>
@@ -79,7 +79,7 @@
                                 <tbody class="table-dark" id="administrators-tab">
                                     <?php
                                     foreach ($res_display_admin as $admin) {
-                                        echo '<tr><td class="table-cell text-start">#' . $admin['id_user'] . '    ' . $admin['pseudo'] . ' (' . $admin['prenom'] . $admin['nom'] . ')</td>';
+                                        echo '<tr><td class="table-cell text-start">#' . $admin['id_user'] . '    ' . $admin['pseudo'] . ' (' . $admin['prenom'] . ' ' . $admin['nom'] . ')</td>';
                                         echo '<td class="table-cell w-25"><button type="submit" data-id="' . $admin['id_user'] . '" class="btn btn-warning w-100 fs-6 show">En voir plus</button></td></tr>';
                                     }
                                     ?>
