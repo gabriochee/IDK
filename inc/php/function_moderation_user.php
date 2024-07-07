@@ -15,8 +15,7 @@ if (!isset($_GET['id'])) {
 $userId = $_GET['id'];
 
 try {
-    $stmt = $bdd->prepare("
-        SELECT DISTINCT
+    $stmt = $bdd->prepare("SELECT DISTINCT
     u.id_user, 
     u.nom, 
     u.prenom, 
