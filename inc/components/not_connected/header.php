@@ -5,7 +5,9 @@
         <img src="../../inc/img/logo.svg" alt="Logo IDK" class="navbar-brand img-fluid logo-white" width="50px" height="50px">
       </a>
     </nav>
+    <style>
 
+    </style>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark d-flex flex-lg-fill ms-3">
       <div class="container-fluid ps-4 pe-0">
         <button class="navbar-toggler bg-warning" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -21,7 +23,7 @@
           </div>
 
           <div class="offcanvas-body d-md-flex gap-lg-5">
-            <ul class="nav justify-content-center fw-light col-1 col-sm-4 col-md-9 m-auto">
+            <ul class="nav justify-content-center fw-light col-1 col-sm-4 col-md-8 m-auto">
               <li>
                 <a <?php if(basename($_SERVER['PHP_SELF']) == 'home.php') echo 'class="nav-link text-decoration-underline text-white"'; ?> class="nav-link text-white" href="../../client/not_connected/home.php">Acceuil</a>
               </li>
@@ -39,7 +41,7 @@
               </li>
             </ul>
 
-            <ul class="navbar-nav d-flex justify-content-lg-end align-items-center gap-2 flex-grow-1 col-3 m-md-0 m-auto">
+            <ul class="navbar-nav d-flex justify-content-lg-end align-items-center gap-2 flex-grow-1 col-3 m-md-0 m-auto ul-2">
               <li class="nav-item">
                 <a href="../../client/not_connected/signin.php">
                   <button class="nav-btn btn btn-sm btn-warning text-white border border-light border-2 rounded-3">Inscription</button>
@@ -64,24 +66,24 @@
   <?php 
     if (isset($_SESSION['role_user']) &&  $_SESSION['role_user'] == 'admin') { 
       echo '<div class="container">
-              <div class="row justify-content-center mt-1">
+              <div class="row justify-content-center mt-2">
                 <div class="col-10 col-md-6 col-lg-3">
                     <form method="" action="../../admin/home.php">
-                        <button type="submit" name="" class="nav-btn btn btn-warning border border-light border-2 rounded-3 w-100">Backoffice</button>
+                        <button type="submit" name="" class="nav-btn btn btn-warning w-100">Backoffice</button>
                     </form>
                 </div>
             </div>
             <div class="row justify-content-center mt-1">
                 <div class="col-10 col-md-6 col-lg-3">
-                    <form method="" action="../../client/not_connected/home.php">
-                        <button type="submit" name="" class="nav-btn btn btn-warning border border-light border-2 rounded-3 w-100">Acceuil non connecté</button>
+                    <form method="" action="../../client/connected/home.php">
+                        <button type="submit" name="" class="nav-btn btn btn-warning w-100">Acceuil connecté</button>
                     </form>
                 </div>
             </div>
           </div>';
     }
   ?>
-  <form class="d-flex justify-content-center col-5 m-auto mt-2 mb-2">
+  <form class="d-flex justify-content-center col-10 col-md-7 col-lg-5 m-auto mt-2 mb-2">
     <input type="search" onkeydown="searchKeywordMovie()" class="form-control bg-dark text-white form-control-dark" placeholder="Rechercher une oeuvre !" aria-label="Search" id="navbar_movie">
   </form>
 

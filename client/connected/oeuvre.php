@@ -19,110 +19,116 @@
     <main>
         <div class="container mt-5">
             <div class="row justify-content-center">
-                <div class="row col-12 col-lg-6 img-fluid img-custom-1 ">
-                    <img src="../../inc/img/test.jpeg" id="movie-poster" alt="affiche de l'oeuvre">
+                <div class="col-10 col-lg-6 img-fluid img-custom-1">
+                    <img src="" id="movie-poster" alt="affiche de l'oeuvre">
                 </div>
                 <div class="col-12 col-lg-5">
                     <div>
                         <h1 class="m-1 mb-3" id="movie-title"><?php echo $rep1['primaryTitle']; ?></h1>
                         <p class="m-1" id="movie-year">Durée : <?php echo $rep1['runtimeMinutes']; ?> minutes</p>
                         <p class="m-1">Date de sortie : <?php echo $rep1['startYear']; ?></p>
-                        <p class="m-1">Genres : <?php foreach ($rep3 as $genre) {
-                                                    echo $genre['genre'] . ((end($rep3) != $genre) ? ", " : "");
-                                                } ?></p>
-                        <p class="m-1">Acteurs principaux : <?php foreach ($rep5 as $acteur) {
-                                                                echo $acteur["name"] . ((end($rep5) != $acteur) ? ", " : "");
-                                                            } ?></p>
-                        <p class="m-1">Réalisateur : <?php foreach ($rep6 as $realisateur) {
-                                                            echo $realisateur["name"] . ((end($rep6) != $realisateur) ? ", " : "");
-                                                        } ?></p>
-                        <p class="m-1">Producteur : <?php foreach ($rep7 as $producteur) {
-                                                        echo $producteur["name"] . ((end($rep7) != $producteur) ? ", " : "");
-                                                    } ?></p>
+                        <p class="m-1">Genres : <?php foreach ($rep3 as $genre) { echo $genre['genre'] . ((end($rep3) != $genre) ? ", " : ""); } ?></p>
+                        <p class="m-1">Acteurs principaux : <?php foreach ($rep5 as $acteur) { echo $acteur["name"] . ((end($rep5) != $acteur) ? ", " : ""); } ?></p>
+                        <p class="m-1">Réalisateur : <?php foreach ($rep6 as $realisateur) { echo $realisateur["name"] . ((end($rep6) != $realisateur) ? ", " : ""); } ?></p>
+                        <p class="m-1">Producteur : <?php foreach ($rep7 as $producteur) { echo $producteur["name"] . ((end($rep7) != $producteur) ? ", " : ""); } ?></p>
                     </div>
                     <div class="container mt-4">
-                        <div class="d-flex justify-content-center mt-2">
-                            <div class="card col-1 mx-1 p-3 color-custom-1" style="width: 170px;">
-                                <div class="card-body d-flex flex-column justify-content-start align-items-center p-0">
-                                    <p class="m-0 fw-bold fs-5">Public</p>
-                                    <p class="m-0 note-count fs-5 mt-2"><?php echo $averageRating; ?>/5</p>
-                                    <div class="d-flex justify-content-center my-2">
-                                        <?php
-                                        $a = $partie_decimale > 0 ? '1' : '0';
-                                        for ($i = $a; $i < $averageRating; $i++) {
-                                            echo '<i class="bi bi-star-fill"></i>';
-                                        }
-                                        if ($partie_decimale > 0) {
-                                            echo '<i class="bi bi-star-half"></i>';
-                                        }
-                                        for ($i = $a; $i < (5 - $averageRating); $i++) {
-                                            echo '<i class="bi bi-star"></i>';
-                                        }
-                                        ?>
-                                    </div>
-                                    <p class="mb-0 text-center"><?php echo $rep4['numVotes']; ?> notes<br>2 critiques</p>
-                                </div>
-                            </div>
-                            <div class="card col-1 mx-1 p-3 color-custom-1" style="width: 170px;">
-                                <div class="card-body d-flex flex-column justify-content-start align-items-center p-0">
-                                    <p class="m-0 fw-bold fs-5">Mes amis</p>
-                                    <p class="m-0 note-count fs-5 mt-2"><?php if ($rep9 && $rep9['COUNT(id_user)'] > 0) {
-                                                                            echo $myFriendsRating;
-                                                                        } else {
-                                                                            echo '--';
-                                                                        } ?></p>
-                                    <div class="d-flex justify-content-center my-2" id="my-stars-rating">
-                                        <?php
-                                        if ($rep9) {
-                                            $a = $myFriendsPartie_decimale > 0 ? '1' : '0';
-                                            for ($i = $a; $i < $myFriendsRating; $i++) {
+                        <div class="row d-flex justify-content-center mt-2">
+                            <div class="col-6 mb-4">
+                                <div class="card color-custom-1" style="height: 200px">
+                                    <div class="card-body text-center">
+                                        <p class="m-0 fw-bold fs-5">Public</p>
+                                        <p class="m-0 note-count fs-5 mt-2"><?php echo $averageRating; ?>/5</p>
+                                        <div class="d-flex justify-content-center my-2">
+                                            <?php
+                                            $a = $partie_decimale > 0 ? '1' : '0';
+                                            for ($i = $a; $i < $averageRating; $i++) {
                                                 echo '<i class="bi bi-star-fill"></i>';
                                             }
-                                            if ($myFriendsPartie_decimale > 0) {
+                                            if ($partie_decimale > 0) {
                                                 echo '<i class="bi bi-star-half"></i>';
                                             }
-                                            for ($i = $a; $i < (5 - $myFriendsRating); $i++) {
+                                            for ($i = $a; $i < (5 - $averageRating); $i++) {
                                                 echo '<i class="bi bi-star"></i>';
                                             }
-                                        } else {
-                                            for ($i = 0; $i < 5; $i++) {
-                                                echo '<i class="bi bi-star"></i>';
-                                            }
-                                        }
-                                        ?>
+                                            ?>
+                                        </div>
+                                        <p class="mb-0 text-center"><?php echo $rep4['numVotes']; ?> notes<br>2 critiques</p>
                                     </div>
-                                    <p class="mb-0 text-center"> </p>
                                 </div>
                             </div>
-                            <div class="card col-1 mx-1 p-3 color-custom-1" style="width: 170px;">
-                                <div class="card-body d-flex flex-column justify-content-start align-items-center p-0">
-                                    <p class="m-0 fw-bold fs-5">Ma note</p>
-                                    <p class="m-0 note-count fs-5 mt-2" id="my-rating"><?php if ($rep8) {
-                                                                                            echo $myRating;
-                                                                                        } else {
-                                                                                            echo '--';
-                                                                                        } ?></p>
-                                    <div class="d-flex justify-content-center my-2" id="my-stars-rating">
-                                        <?php
-                                        if ($rep8) {
-                                            $a = $myPartie_decimale > 0 ? '1' : '0';
-                                            for ($i = $a; $i < $myRating; $i++) {
-                                                echo '<i class="bi bi-star-fill"></i>';
+                            <div class="col-6 mb-4">
+                                <div class="card color-custom-1" style="height: 200px">
+                                    <div class="card-body text-center">
+                                        <p class="m-0 fw-bold fs-5">Mes amis</p>
+                                        <p class="m-0 note-count fs-5 mt-2">
+                                            <?php 
+                                            if ($rep9 && $rep9['COUNT(id_user)'] > 0) {
+                                                echo $myFriendsRating;
+                                            } else {
+                                                echo '--';
                                             }
-                                            if ($myPartie_decimale > 0) {
-                                                echo '<i class="bi bi-star-half"></i>';
+                                            ?>
+                                        </p>
+                                        <div class="d-flex justify-content-center my-2" id="my-stars-rating">
+                                            <?php
+                                            if ($rep9) {
+                                                $a = $myFriendsPartie_decimale > 0 ? '1' : '0';
+                                                for ($i = $a; $i < $myFriendsRating; $i++) {
+                                                    echo '<i class="bi bi-star-fill"></i>';
+                                                }
+                                                if ($myFriendsPartie_decimale > 0) {
+                                                    echo '<i class="bi bi-star-half"></i>';
+                                                }
+                                                for ($i = $a; $i < (5 - $myFriendsRating); $i++) {
+                                                    echo '<i class="bi bi-star"></i>';
+                                                }
+                                            } else {
+                                                for ($i = 0; $i < 5; $i++) {
+                                                    echo '<i class="bi bi-star"></i>';
+                                                }
                                             }
-                                            for ($i = $a; $i < (5 - $myRating); $i++) {
-                                                echo '<i class="bi bi-star"></i>';
-                                            }
-                                        } else {
-                                            for ($i = 0; $i < 5; $i++) {
-                                                echo '<i class="bi bi-star"></i>';
-                                            }
-                                        }
-                                        ?>
+                                            ?>
+                                        </div>
+                                        <p class="mb-0 text-center"> </p>
                                     </div>
-                                    <p class="mb-0"> </p>
+                                </div>
+                            </div>
+                            <div class="col-6 mb-4">
+                                <div class="card color-custom-1" style="height: 200px">
+                                    <div class="card-body text-center">
+                                        <p class="m-0 fw-bold fs-5">Ma note</p>
+                                        <p class="m-0 note-count fs-5 mt-2" id="my-rating">
+                                            <?php 
+                                            if ($rep8) {
+                                                echo $myRating;
+                                            } else {
+                                                echo '--';
+                                            } 
+                                            ?>
+                                        </p>
+                                        <div class="d-flex justify-content-center my-2" id="my-stars-rating">
+                                            <?php
+                                            if ($rep8) {
+                                                $a = $myPartie_decimale > 0 ? '1' : '0';
+                                                for ($i = $a; $i < $myRating; $i++) {
+                                                    echo '<i class="bi bi-star-fill"></i>';
+                                                }
+                                                if ($myPartie_decimale > 0) {
+                                                    echo '<i class="bi bi-star-half"></i>';
+                                                }
+                                                for ($i = $a; $i < (5 - $myRating); $i++) {
+                                                    echo '<i class="bi bi-star"></i>';
+                                                }
+                                            } else {
+                                                for ($i = 0; $i < 5; $i++) {
+                                                    echo '<i class="bi bi-star"></i>';
+                                                }
+                                            }
+                                            ?>
+                                        </div>
+                                        <p class="mb-0"> </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>

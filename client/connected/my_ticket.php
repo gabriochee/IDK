@@ -12,13 +12,15 @@
 <body id="my_ticket">
     <?php require_once('../../inc/php/function_my_ticket.php'); ?>
     <?php require_once('../../inc/components/connected/header.php'); ?>
-    <main class="d-flex justify-content-center align-items-center">
-        <div class="container col-md-9 col-lg-10 border border-black rounded-2 border-2 mt-3">
-            <div class="d-flex flex-column align-items-center p-4">
-                <img src="../../inc/img/logo.svg" alt="Logo IDK" class="navbar-brand img-fluid my-5" width="150px" height="150px">
-                <h3 class="mt-1">Mes tickets</h3>
+    <main>
+        <div class="container text-center m-auto">
+            <div class="row">
+                <div class="col-lg-6 m-auto p-4">
+                    <img src="../../inc/img/logo.svg" alt="Logo IDK" class="navbar-brand img-fluid my-5" width="150px" height="150px">
+                    <h3 class="mt-1">Mes tickets</h3>
+                </div>
             </div>
-            <h1 class="text-center">Historique de mes demandes</h1>
+            <h1 class="text-center mb-3">Historique de mes demandes</h1>
             <div class="table-responsive">
                 <table class="table table-bordered table-hover">
                     <thead class="table-light text-center">

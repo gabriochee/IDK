@@ -40,12 +40,9 @@
               <li>
                 <a <?php if(basename($_SERVER['PHP_SELF']) == 'parameters.php') echo 'class="nav-link text-decoration-underline text-white"'; ?> class="nav-link text-white" href="../../client/connected/parameters.php">Paramètres</a>
               </li>
-              <li>
-                <a <?php if(basename($_SERVER['PHP_SELF']) == 'messagerie_co.php') echo 'class="nav-link text-decoration-underline text-white"'; ?> class="nav-link text-white" href="../../client/connected/messagerie_co.php">Ticket admin</a>
-              </li>
             </ul>
 
-            <ul class="navbar-nav d-flex justify-content-lg-end align-items-center gap-2 flex-grow-1 m-md-0 mt-5">
+            <ul class="navbar-nav d-flex justify-content-lg-end align-items-center gap-2 flex-grow-1 m-md-0 mt-5 ul-2">
               <li class="nav-item">
                 <form method="" action="../../inc/php/logout.php">
                   <button type="submit" name="" class="nav-btn btn btn-sm btn-warning text-white border border-light border-2 rounded-3">Déconnexion</button>
@@ -65,24 +62,24 @@
   <?php 
     if (isset($_SESSION['role_user']) &&  $_SESSION['role_user'] == 'admin') { 
       echo '<div class="container">
-              <div class="row justify-content-center mt-1">
+              <div class="row justify-content-center mt-2">
                 <div class="col-10 col-md-6 col-lg-3">
                     <form method="" action="../../admin/home.php">
-                        <button type="submit" name="" class="nav-btn btn btn-warning border border-light border-2 rounded-3 w-100">Backoffice</button>
+                        <button type="submit" name="" class="nav-btn btn btn-warning w-100">Backoffice</button>
                     </form>
                 </div>
             </div>
             <div class="row justify-content-center mt-1">
                 <div class="col-10 col-md-6 col-lg-3">
                     <form method="" action="../../client/not_connected/home.php">
-                        <button type="submit" name="" class="nav-btn btn btn-warning border border-light border-2 rounded-3 w-100">Acceuil non connecté</button>
+                        <button type="submit" name="" class="nav-btn btn btn-warning w-100">Acceuil non connecté</button>
                     </form>
                 </div>
             </div>
           </div>';
     }
   ?>
-  <form class="d-flex justify-content-center col-5 m-auto mt-2 mb-2">
+  <form class="d-flex justify-content-center col-10 col-md-7 col-lg-5 m-auto mt-2 mb-2">
     <input type="search" onkeydown="searchKeywordMovie()" class="form-control bg-dark text-white form-control-dark" placeholder="Rechercher une oeuvre !" aria-label="Search" id="navbar_movie">
   </form>
 
