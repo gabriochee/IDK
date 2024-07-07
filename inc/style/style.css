@@ -13,7 +13,6 @@ body.dark-mode, .bg-idk.dark-mode{
   color: white;
 }
 
-
 .backoffice body {
   font-size: .875rem;
 }
@@ -193,6 +192,18 @@ body.dark-mode, .bg-idk.dark-mode{
   border-top: 1px solid #ccc; 
 }
 
+.offcanvas.show .offcanvas-body ul{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.offcanvas.show .offcanvas-body .ul-2{
+  flex-direction: row;
+  justify-content: flex-start;
+  margin-left: 1rem;
+}
+
+
 /* ------------ NOT_CONNECTED-CONNECTED/FOOTER ------------- */
 .icon-white {
   color: white;
@@ -275,12 +286,6 @@ body.dark-mode, .bg-idk.dark-mode{
 .backoffice .sidebar-heading {
   font-size: .75rem;
   text-transform: uppercase;
-}
-
-@media (max-width: 767.98px) {
-  .backoffice .sidebar {
-      top: 5rem;
-  }
 }
 
 /* ------------------- BACKOFFICE/NAVBAR ------------------- */
