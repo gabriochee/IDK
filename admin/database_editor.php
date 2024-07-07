@@ -14,58 +14,63 @@
         <div class="row">
             <?php require_once('../inc/components/backoffice/sidebar.php'); ?>
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-                <div class="table-responsive mt-4">
-                    <!-- ajouter un overflow -->
-                    <form action="./database_editor.php" method="POST">
-                        <div class="col-12">
-                            <label for="query-prompt" class="form-label fs-2">Requête</label>
-                            <textarea class="form-control fs-3" id="query-prompt" name="query-prompt" rows="7" minlength="0" maxlength="1000" required><?php if (isset($_POST['query-prompt'])) { echo trim($_POST['query-prompt']); } ?></textarea>
-                        </div>
+                <div class="container border border-black rounded-2 border-2 mt-3">
+                    <h1 class="text-center mt-4">Émulateur de gestionnaire de base de donnée</h1>
+                    <hr class="featurette-divider my-2">
 
-                        <button type="submit" class="btn btn-sm btn-primary fs-2 mt-5">Envoyer</button>
-                        <button type="button" class="btn btn-danger fs-2 mt-5" id="clear-button">Effacer</button>
-                    </form>
-                </div>
-                <?php
-                if (isset($_POST['query-prompt'])) {
-                    require_once('../inc/php/db.php');
+                    <div class="table-responsive mt-4">
+                        <!-- ajouter un overflow -->
+                        <form action="./database_editor.php" method="POST">
+                            <div class="col-12">
+                                <label for="query-prompt" class="form-label fs-2">Requête</label>
+                                <textarea class="form-control fs-3" id="query-prompt" name="query-prompt" rows="7" minlength="0" maxlength="1000" required><?php if (isset($_POST['query-prompt'])) { echo trim($_POST['query-prompt']); } ?></textarea>
+                            </div>
 
-                    try {
-                        $query = $_POST['query-prompt'];
-                        $result = $bdd->query($query);
-                        $fetchedResult = $result->fetchAll();
-                        
-                        if (!$fetchedResult) {
-                            echo 'vide.';
-                        } else if (str_contains($query, "SHOW COLUMNS")) {
-                            foreach ($fetchedResult as $row) {
-                                echo $row['Field'] . " " . $row['Type'];
-                                echo '<br>';
-                            }
-                        } else if (str_contains($query, "SELECT")) {
-                            echo '<table class="table table-responsive"><tr>';
-                            foreach ($fetchedResult[0] as $attribute => $value) {
-                                echo "<th>" . $attribute . "</th>";
-                            }
-                            echo '</tr>';
-                            foreach ($fetchedResult as $row) {
-                                echo '<tr>';
-                                foreach ($row as $key => $value){
-                                    echo "<td>" . $value . "</td>";
+                            <button type="submit" class="btn w-25 btn-primary fs-2 my-4">Envoyer</button>
+                            <button type="button" class="btn w-25 btn-danger fs-2 my-4" id="clear-button">Effacer</button>
+                        </form>
+                    </div>
+                    <?php
+                    if (isset($_POST['query-prompt'])) {
+                        require_once('../inc/php/db.php');
+
+                        try {
+                            $query = $_POST['query-prompt'];
+                            $result = $bdd->query($query);
+                            $fetchedResult = $result->fetchAll();
+                            
+                            if (!$fetchedResult) {
+                                echo 'vide.';
+                            } else if (str_contains($query, "SHOW COLUMNS")) {
+                                foreach ($fetchedResult as $row) {
+                                    echo $row['Field'] . " " . $row['Type'];
+                                    echo '<br>';
+                                }
+                            } else if (str_contains($query, "SELECT")) {
+                                echo '<table class="table table-responsive"><tr>';
+                                foreach ($fetchedResult[0] as $attribute => $value) {
+                                    echo "<th>" . $attribute . "</th>";
                                 }
                                 echo '</tr>';
+                                foreach ($fetchedResult as $row) {
+                                    echo '<tr>';
+                                    foreach ($row as $key => $value){
+                                        echo "<td>" . $value . "</td>";
+                                    }
+                                    echo '</tr>';
+                                }
+                                echo '</table>';
+                            } else {
+                                var_dump($fetchedResult);
                             }
-                            echo '</table>';
-                        } else {
-                            var_dump($fetchedResult);
+                        } catch (PDOException $e) {
+                            echo "Erreur : " . $e->getMessage();
+                            echo '<br>';
+                            echo "Code erreur : " . $e->getCode();
                         }
-                    } catch (PDOException $e) {
-                        echo "Erreur : " . $e->getMessage();
-                        echo '<br>';
-                        echo "Code erreur : " . $e->getCode();
                     }
-                }
-                ?>
+                    ?>
+                </div>
             </main>
         </div>
     </div>

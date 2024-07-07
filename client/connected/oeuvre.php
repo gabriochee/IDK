@@ -377,9 +377,6 @@
                         .then(data => {
                             if (data.status === 'success') {
                                 document.getElementById('commentText').value = "";
-                                alert("Message envoyé avec succès !");
-                            } else {
-                                alert("Erreur lors de l'envoi du message : " + data.error);
                             }
                         })
                         .catch(error => {

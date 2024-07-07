@@ -23,18 +23,13 @@
                     <div class="mx-3 mb-3">
                         <?php echo nl2br('<div class="mx-3">' . str_replace("\n", '</div><div class="mx-3">', htmlspecialchars($recup_ticket['message_demande'])) . '</div>'); ?>
                     </div>
-
-                    
                 </div>
             </div>
         </div>
-
-
         <div class="table table-striped table-sm border border-3 border-dark rounded-2 border-2 mt-3 ">
             <div class="row justify-content-center">
                 <div class="col-12 ">
                     <h1 class="text-center bg-dark text-light">Messages du ticket n°<?php echo htmlspecialchars($recup_ticket['id_demande']);?></h1>
-                    
                     <div class="container my-2 overflow-y-auto" style="max-height: 400px;">
                         <?php foreach ($recup_message as $message): ?>
                             <?php
@@ -59,8 +54,6 @@
                             </div>
                         <?php endforeach; ?>
                     </div>
-
-                    
                 </div>
             </div>
         </div>
@@ -74,16 +67,11 @@
                         </div>
                         <?php echo '<input type="hidden" name="id_demande" value="'. htmlspecialchars($recup_ticket["id_demande"]) .  '">'?>
                         <button type="submit" class="btn btn-sm btn-warning fs-4 w-100" name="envoyer_demande">Envoyer</button>
-                    </form>
-                    
-
-                    
+                    </form>         
                 </div>
             </div>
         </div>
     </main>
-
-
     <?php require_once('../../inc/components/connected/footer.php'); ?>
     <script src="../../inc/library/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>

@@ -69,6 +69,26 @@ try {
     $total = getTopGenres($bdd, "1=1");
 
 
+    $req_log_today = $bdd->prepare("SELECT REPLACE(log_action, 'Consultation de la page /client/', '') as log_action, COUNT(id_log) as views FROM logs WHERE log_action LIKE 'Consultation de la page /client/not_connected/%' OR log_action LIKE 'Consultation de la page /client/connected/%' AND DATE(date_log) = CURDATE() GROUP BY log_action ORDER BY views DESC LIMIT 5;");
+    $req_log_today->execute();
+    $res_log_today = $req_log_today->fetchAll();
+    
+    $req_log_week = $bdd->prepare("SELECT REPLACE(log_action, 'Consultation de la page /client/', '') as log_action, COUNT(id_log) as views FROM logs WHERE log_action LIKE 'Consultation de la page /client/not_connected/%' OR log_action LIKE 'Consultation de la page /client/connected/%' AND YEARWEEK(date_log, 1) = YEARWEEK(CURDATE(), 1) GROUP BY log_action ORDER BY views DESC LIMIT 5;");
+    $req_log_week->execute();
+    $res_log_week = $req_log_week->fetchAll();
+    
+    $req_log_month = $bdd->prepare("SELECT REPLACE(log_action, 'Consultation de la page /client/', '') as log_action, COUNT(id_log) as views FROM logs WHERE log_action LIKE 'Consultation de la page /client/not_connected/%' OR log_action LIKE 'Consultation de la page /client/connected/%' AND MONTH(date_log) = MONTH(CURDATE()) AND YEAR(date_log) = YEAR(CURDATE()) GROUP BY log_action ORDER BY views DESC LIMIT 5;");
+    $req_log_month->execute();
+    $res_log_month = $req_log_month->fetchAll();
+
+    $req_log_year = $bdd->prepare("SELECT REPLACE(log_action, 'Consultation de la page /client/', '') as log_action, COUNT(id_log) as views FROM logs WHERE log_action LIKE 'Consultation de la page /client/not_connected/%' OR log_action LIKE 'Consultation de la page /client/connected/%' AND YEAR(date_log) = YEAR(CURDATE()) GROUP BY log_action ORDER BY views DESC LIMIT 5;");
+    $req_log_year->execute();
+    $res_log_year = $req_log_year->fetchAll();
+
+    $req_log_total = $bdd->prepare("SELECT REPLACE(log_action, 'Consultation de la page /client/', '') as log_action, COUNT(id_log) as views FROM logs WHERE log_action LIKE 'Consultation de la page /client/not_connected/%' OR log_action LIKE 'Consultation de la page /client/connected/%' GROUP BY log_action ORDER BY views DESC LIMIT 5;");
+    $req_log_total->execute();
+    $res_log_total = $req_log_total->fetchAll();
+
 } catch (PDOException $e) {
     echo $e->getMessage();
 }

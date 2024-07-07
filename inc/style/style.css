@@ -408,7 +408,11 @@ body.dark-mode, .bg-idk.dark-mode{
     font-size: 3.5rem;
   }
 }
-
+@media (max-width: 1000px) {
+  .small-ecran {
+      display: none !important;
+  }
+}
 /* -------------------- CONNECTED/HOME --------------------- */
 @media(max-width: 490px) {
   #connected-home .small-text {
@@ -423,9 +427,24 @@ body.dark-mode, .bg-idk.dark-mode{
 
 /* -------------------- CONNECTED/LOGIN -------------------- */
 @media (max-width: 425px) {
-.minimize-input{
-  font-size: 0.9em !important;
+  .minimize-input{
+    font-size: 0.9em !important;
+  }
 }
+
+/* -------------------- CONNECTED/CHAT_FRIEND -------------------- */
+.pseudo_size {
+  font-size: 0.5em;
+}
+.date_size {
+  font-size: 0.5em;
+}
+.message-container {
+  max-height: 400px; 
+  overflow-y: scroll;
+}
+.custom-no-underline {
+text-decoration: none !important;
 }
 
 /* ------------- NOT_CONNECTED-CONNECTED/OEUVRE ------------ */
@@ -464,11 +483,6 @@ body.dark-mode, .bg-idk.dark-mode{
   height: auto;
 }
 
-@media (min-width: 1200px) {
-  .img-custom-1 img {
-      max-width: 300px; 
-  }
-}
 /* ----------------- QUESTIONNAIRE_RESULT ------------------ */
 .list-list-height {
   max-height: 30vh;
