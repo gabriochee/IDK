@@ -29,11 +29,11 @@
                     <div class="col-md-12 overflow-auto mt-4">
                         <div class="d-md-flex">
                             <h3 class="w-25 text-start">Utilisateurs :</h3>
-                            <input class="form-control form-control-white w-100 mb-3" type="text" placeholder="Recherche" aria-label="Search">
+                            <input class="form-control form-control-white w-100 mb-3" id="search-user" name="search-user" type="text" placeholder="Recherche" aria-label="Search">
                         </div>
                         <div class="overflow-auto menu-oeuvre-2" style="max-height: 300px;">
                             <table class="table table-striped table-sm border border-3 border-dark" id="users-table">
-                                <tbody class="table-dark">
+                                <tbody class="table-dark" id="users-tab">
                                     <?php
                                     foreach ($res_display_user as $user) {
                                         echo '<tr><td class="table-cell text-start">#' . $user['id_user'] . '    ' . $user['pseudo'] . ' (' . $user['prenom'] . $user['nom'] . ')</td>';
@@ -49,11 +49,11 @@
                     <div class="col-md-12 overflow-auto mt-4">
                         <div class="d-md-flex">
                             <h3 class="w-25 text-start">Utilisateurs ban :</h3>
-                            <input class="form-control form-control-white w-100 mb-3" type="text" placeholder="Recherche" aria-label="Search">
+                            <input class="form-control form-control-white w-100 mb-3" id="search-banned-user" name="search-banned-user" type="text" placeholder="Recherche" aria-label="Search">
                         </div>
                         <div class="overflow-auto menu-oeuvre-2" style="max-height: 300px;">
                             <table class="table table-striped table-sm border border-3 border-dark" id="users-table">
-                                <tbody class="table-dark">
+                                <tbody class="table-dark" id="banned-users-tab">
                                     <?php
                                     foreach ($res_display_user_ban as $user_ban) {
                                         echo '<tr><td class="table-cell text-start">#' . $user_ban['id_user'] . '    ' . $user_ban['pseudo'] . ' (' . $user_ban['prenom'] . $user_ban['nom'] . ')</td>';
@@ -70,13 +70,13 @@
                         <div class="d-md-flex">
                             <h3 class="text-start w-25">Administrateur :</h3>
                             <div class="d-flex w-100">
-                                <input class="w-100 form-control form-control-white mb-3 me-3" type="text" placeholder="Recherche" aria-label="Search">
+                                <input class="w-100 form-control form-control-white mb-3 me-3" id="search-administrators" name="search-administrators" type="text" placeholder="Recherche" aria-label="Search">
                                 <button class="w-25 btn btn-warning border-dark d-flex m-auto justify-content-center mb-3" data-bs-toggle="modal" data-bs-target="#create-admin">Crée un admin</button>
                             </div>
                         </div>
                         <div class="overflow-auto menu-oeuvre-2" style="max-height: 300px;">
                             <table class="table table-striped table-sm border border-3 border-dark" id="users-table">
-                                <tbody class="table-dark">
+                                <tbody class="table-dark" id="administrators-tab">
                                     <?php
                                     foreach ($res_display_admin as $admin) {
                                         echo '<tr><td class="table-cell text-start">#' . $admin['id_user'] . '    ' . $admin['pseudo'] . ' (' . $admin['prenom'] . $admin['nom'] . ')</td>';
@@ -390,6 +390,25 @@
         </div>
     </div>
     <script>
+        function preciseUserSearch(keyword, isBanned, isAdministrator, table) {
+            fetch('../inc/php/precise_search_user.php?' + new URLSearchParams({
+                    keyword: keyword,
+                    isBanned: isBanned,
+                    isAdministrator: isAdministrator,
+                }))
+                .then(data => data.json())
+                .then(json => {
+                    table.innerHTML = "";
+                    for (const user of json) {
+                        table.innerHTML += 
+                        `<tr><td class="table-cell text-start">#${user.id_user} ${user.pseudo} (${user.nom_prenom})</td>
+                        <td class="table-cell w-25"><button type="submit" data-id="${user.id_user}" class="btn btn-warning w-100 fs-6 show">En voir plus</button></td></tr>`;
+
+                    }
+                })
+                .catch(error => console.error(error));
+        }
+
         document.addEventListener("DOMContentLoaded", function() {
             const buttons = document.querySelectorAll('.show');
             const content = document.getElementById('user');
@@ -411,7 +430,7 @@
             const numberOfOpinionPublic = document.getElementById('number-of-opinion-public');
             const numberOfOpinionPrivate = document.getElementById('number-of-opinion-private');
             const ban = document.getElementById('ban');
-            const hiddenForImgUpdate =document.getElementById('id_user_for_img');
+            const hiddenForImgUpdate = document.getElementById('id_user_for_img');
             const firstNameInput = document.getElementById('firstName');
             const lastNameInput = document.getElementById('lastName');
             const usernameInput = document.getElementById('username');
@@ -533,6 +552,26 @@
                 });
             });
         });
+
+        const userSearch = document.getElementById('search-user');
+        const bannedUsersSearch = document.getElementById('search-banned-user');
+        const administratorsSearch = document.getElementById('search-administrators');
+
+        const usersTab = document.getElementById('users-tab');
+        const bannedUsersTab = document.getElementById('banned-users-tab');
+        const administratorsTab = document.getElementById('administrators-tab');
+
+        userSearch.onkeyup = function(e) {
+            preciseUserSearch(userSearch.value, 0, 0, usersTab);
+        }
+
+        bannedUsersSearch.onkeyup = function(e) {
+            preciseUserSearch(bannedUsersSearch.value, 1, 0, bannedUsersTab);
+        }
+
+        administratorsSearch.onkeyup = function(e) {
+            preciseUserSearch(administratorsSearch.value, 0, 1, administratorsTab);
+        }
     </script>
     <script src="../inc/library/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="../inc/js/moderation_user.js"></script>

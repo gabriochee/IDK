@@ -51,7 +51,7 @@ if(isset($_GET['mv'])) {
         $req8->execute();
         $rep8 = $req8->fetch();
 
-        $req9 = $bdd->prepare('SELECT AVG(note), COUNT(id_user) FROM avis JOIN ami ON avis.id_user = ami.id_user_1 WHERE id_work = :id_work AND id_user != :id_user AND statut IN (\'publique\', \'amis seulement\') AND (id_user_1 = :id_user OR id_user_2 = :id_user);');
+        $req9 = $bdd->prepare('SELECT AVG(note), COUNT(id_user) FROM avis JOIN ami ON avis.id_user = ami.id_user_2 WHERE id_work = :id_work AND id_user != :id_user AND statut IN (\'publique\', \'amis seulement\') AND (id_user_1 = :id_user OR id_user_2 = :id_user);');
         $req9->bindParam(":id_user", $_SESSION['id_user']);
         $req9->bindParam(":id_work", $_GET['mv']);
         $req9->execute();
