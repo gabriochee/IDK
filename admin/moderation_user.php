@@ -163,7 +163,7 @@
                                     <p id="ban" class="card-text text-start my-0"></p>
                                 </div>
                             </div>
-                            <form method="POST" class="mt-2">
+                            <form method="POST" enctype="multipart/form-data" action="../inc/php/function_display_moderation_user.php" class="mt-2">
                                 <div class="mb-3">
                                     <input type="file" name="image" class="form-control">
                                 </div>
