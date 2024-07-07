@@ -450,6 +450,17 @@ body.dark-mode, .bg-idk.dark-mode{
 #oeuvre #commentaire-deux, #oeuvre #commentaire-un, #oeuvre #commentaire-zero {
   display: none;
 }
+
+.img-custom-1 img {
+  width: 100%; 
+  height: auto;
+}
+
+@media (min-width: 1200px) {
+  .img-custom-1 img {
+      max-width: 300px; 
+  }
+}
 /* ----------------- QUESTIONNAIRE_RESULT ------------------ */
 .list-list-height {
   max-height: 30vh;

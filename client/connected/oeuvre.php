@@ -53,7 +53,7 @@
                                             }
                                             ?>
                                         </div>
-                                        <p class="mb-0 text-center"><?php echo $rep4['numVotes']; ?> notes<br>2 critiques</p>
+                                        <p class="mb-0 text-center"><?php echo $rep4['numVotes']; ?> notes</p>
                                     </div>
                                 </div>
                             </div>
@@ -137,15 +137,14 @@
             </div>
             <div class="container mt-3">
                 <div id="connected" class="row justify-content-center">
-                    <div class="col-3 d-flex justify-content-center align-items-center border border-2 border-end-0 border-dark color-custom-1 menu-oeuvre" data-bs-toggle="modal" data-bs-target="#rateModal">
-                        <p class="text fw-bold m-0">NOTER :</p>
+                    <div class="col-md-3 col-sm-6 d-flex justify-content-center align-items-center border border-dark color-custom-1 menu-oeuvre" data-bs-toggle="modal" data-bs-target="#rateModal">
+                        <p class="m-0">Noter :</p>
                         <i class="bi bi-star ms-4"></i>
                         <i class="bi bi-star"></i>
                         <i class="bi bi-star"></i>
                         <i class="bi bi-star"></i>
                         <i class="bi bi-star"></i>
                     </div>
-
                     <div class="modal fade" id="rateModal" tabindex="-1" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -167,11 +166,10 @@
                         </div>
                     </div>
 
-                    <div class="col-3 d-flex justify-content-center align-items-center border border-2 border-end-0 border-dark color-custom-1 menu-oeuvre" data-bs-toggle="modal" data-bs-target="#commentModal">
+                    <div class="col-md-3 col-sm-6 d-flex justify-content-center align-items-center border border-dark color-custom-1 menu-oeuvre" data-bs-toggle="modal" data-bs-target="#commentModal">
                         <p class="m-0">Rédiger/Modifier ma critique</p>
                         <i class="bi bi-chat-left-dots ms-3"></i>
                     </div>
-
                     <div class="modal fade" id="commentModal" tabindex="-1" aria-labelledby="commentModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -180,37 +178,25 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                <div id="existingComment" class="mb-3">
-                                    <?php if (!empty($recup_my_comment) && isset($recup_my_comment['statut'])) : ?>
-                                        <h6>Statut de visibilité: <?php echo htmlspecialchars($recup_my_comment['statut']); ?></h6>
-                                    <?php endif; ?>
-                                    
-                                    <?php if (!empty($recup_my_comment) && isset($recup_my_comment['critique'])) : ?>
-                                        <h6>Mon commentaire :</h6>
-                                        <p><?php echo nl2br(htmlspecialchars($recup_my_comment['critique'])); ?></p>
-                                    <?php endif; ?>
-                                </div>
-
+                                    <div id="existingComment" class="mb-3">
+                                        <?php if (!empty($recup_my_comment) && isset($recup_my_comment['statut'])) : ?>
+                                            <h6>Statut de visibilité : <?php echo htmlspecialchars($recup_my_comment['statut']); ?></h6>
+                                        <?php endif; ?>
+                                        
+                                        <?php if (!empty($recup_my_comment) && isset($recup_my_comment['critique'])) : ?>
+                                            <h6>Mon commentaire : <?php echo nl2br(htmlspecialchars($recup_my_comment['critique'])); ?></p>
+                                        <?php endif; ?>
+                                    </div>
                                     <form id="myComment" onsubmit="submitForm(event);">
                                         <div data-mdb-input-init class="form-outline my-3">
                                             <textarea class="form-control" id="commentText" rows="4" name="commentText"></textarea>
                                             <div class="container d-flex justify-content-center mt-3">
-                                                <input type="radio" class="btn-check" name="list-status" id="private-list" value="privee" autocomplete="off" <?php if (isset($statut) && ($statut == 'privee')) {
-                                                                                                                                                                    echo 'checked';
-                                                                                                                                                                } ?>>
-                                                <label class="btn" for="private-list">privée</label>
+                                                <input type="radio" class="btn-check" name="list-status" id="private-list" value="privee" autocomplete="off" <?php if (isset($statut) && ($statut == 'privee')) { echo 'checked'; }?>>
+                                                <label class="btn" for="private-list">Privée</label>
                                                 <input type="radio" class="btn-check" name="list-status" id="only-friends-list" value="amis seulement" autocomplete="off" <?php if (isset($statut) && ($statut == 'amis seulement')) { echo 'checked';} ?>>
-
-                                                <input type="radio" class="btn-check" name="list-status" id="only-friends-list" value="amis seulement" autocomplete="off" <?php if (isset($statut) && ($statut == 'amis seulement')) {
-                                                                                                                                                                                echo 'checked';
-                                                                                                                                                                            } ?>>
-                                                <label class="btn" for="only-friends-list">amis seulement</label>
+                                                <label class="btn" for="only-friends-list">Amis seulement</label>
                                                 <input type="radio" class="btn-check" name="list-status" id="public-list" value="publique" autocomplete="off" <?php if (isset($statut) && ($statut == 'publique')) { echo 'checked';} ?>>
-
-                                                <input type="radio" class="btn-check" name="list-status" id="public-list" value="publique" autocomplete="off" <?php if (isset($statut) && ($statut == 'publique')) {
-                                                                                                                                                                    echo 'checked';
-                                                                                                                                                                } ?>>
-                                                <label class="btn" for="public-list">publique</label>
+                                                <label class="btn" for="public-list">Publique</label>
                                             </div>
                                         </div>
                                         <button class="w-100 btn btn-secondary btn-warning border-dark mt-2" type="submit" data-mdb-button-init data-mdb-ripple-init name="send_comment">Envoyer</button>
@@ -220,11 +206,10 @@
                         </div>
                     </div>
 
-                    <div class="col-3 d-flex justify-content-center align-items-center border border-2 border-end-0 border-dark color-custom-1 menu-oeuvre" data-bs-toggle="modal" data-bs-target="#addMovieToListModal">
+                    <div class="col-md-3 col-sm-6 d-flex justify-content-center align-items-center border border-dark color-custom-1 menu-oeuvre" data-bs-toggle="modal" data-bs-target="#addMovieToListModal">
                         <p class="m-0">Ajouter à une liste</p>
                         <i class="bi bi-plus-circle ms-3"></i>
                     </div>
-
                     <div class="modal fade" id="addMovieToListModal" tabindex="-1" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -246,35 +231,47 @@
                         </div>
                     </div>
 
-                    <div class="col-1 d-flex justify-content-center align-items-center border border-2 border-dark color-custom-1 menu-oeuvre">
-                        <i class="bi bi-share" data-bs-toggle="modal" data-bs-target="#shareMovieModal"></i>
+                    <div class="col-md-1 col-sm-6 d-flex justify-content-center align-items-center border border-dark color-custom-1 menu-oeuvre" data-bs-toggle="modal" data-bs-target="#shareMovieModal">
+                        <i class="bi bi-share"></i>
+                    </div>
+                    <div class="modal fade" id="shareMovieModal" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5">Partager ce film</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body d-flex flex-column justify-content-start">
+                                    <label for="share-comment" class="form-label text-start">Votre message</label>
+                                    <textarea class="form-control" id="share-comment" name="share-comment"></textarea>
+                                    <hr>
+                                    <label for="search-friend-input" class="form-label text-start">Rechercher un ami</label>
+                                    <input type="search" class="form-control mb-2" id="search-friend-input" onkeydown="searchFriend()">
+                                    <div class="container d-flex flex-column form-check" id="friends-result-container">
 
-                        <div class="modal fade" id="shareMovieModal" tabindex="-1" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h1 class="modal-title fs-5">Partager ce film</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
-                                    <div class="modal-body d-flex flex-column justify-content-start">
-                                        <label for="share-comment" class="form-label text-start">Votre message</label>
-                                        <textarea class="form-control" id="share-comment" name="share-comment"></textarea>
-                                        <hr>
-                                        <label for="search-friend-input" class="form-label text-start">Rechercher un ami</label>
-                                        <input type="search" class="form-control mb-2" id="search-friend-input" onkeydown="searchFriend()">
-                                        <div class="container d-flex flex-column form-check" id="friends-result-container">
-
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer d-flex justify-content-between">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-                                    </div>
+                                </div>
+                                <div class="modal-footer d-flex justify-content-between">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
+                <div class="row justify-content-center mt-2">
+                    <div class="col-md-10 border border-dark color-custom-1 menu-oeuvre overflow-auto" style="height: 150px;">
+                        <div id="existingComment">
+                            <?php if (!empty($recup_my_comment) && isset($recup_my_comment['statut'])) : ?>
+                                <h6 class="mt-1">Statut de visibilité : <?php echo htmlspecialchars($recup_my_comment['statut']); ?></h6>
+                            <?php endif; ?>
+                            
+                            <?php if (!empty($recup_my_comment) && isset($recup_my_comment['critique'])) : ?>
+                                <h6>Mon commentaire : <?php echo nl2br(htmlspecialchars($recup_my_comment['critique'])); ?></p>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
+
                 <div>
                     <div>
                         <div>
@@ -285,7 +282,7 @@
                         <h3 class="m-3">Critiques publiques :</h3>
                     </div>
                     <div class="row justify-content-center mt-5">
-                        <div class="col-2 d-flex justify-content-center align-items-center border border-2 border-end-0 border-dark color-custom-1 menu-oeuvre" id="note-cinq">
+                        <div class="col-lg-2 col-md-10 col-sm-10 d-flex justify-content-center align-items-center border border-dark color-custom-1 menu-oeuvre" id="note-cinq">
                             <p class="text fw-bold m-0 ms-3">5/5</p>
                             <i class="bi bi-star-fill ms-3"></i>
                             <i class="bi bi-star-fill"></i>
@@ -293,7 +290,7 @@
                             <i class="bi bi-star-fill"></i>
                             <i class="bi bi-star-fill"></i>
                         </div>
-                        <div class="col-2 d-flex justify-content-center align-items-center border border-2 border-end-0 border-dark color-custom-1 menu-oeuvre" id="note-quatre">
+                        <div class="col-lg-2 col-md-10 col-sm-10 d-flex justify-content-center align-items-center border border-dark color-custom-1 menu-oeuvre" id="note-quatre">
                             <p class="text fw-bold m-0 ms-3">4/5</p>
                             <i class="bi bi-star-fill ms-3"></i>
                             <i class="bi bi-star-fill"></i>
@@ -301,7 +298,7 @@
                             <i class="bi bi-star-fill"></i>
                             <i class="bi bi-star"></i>
                         </div>
-                        <div class="col-2 d-flex justify-content-center align-items-center border border-2 border-end-0 border-dark color-custom-1 menu-oeuvre" id="note-trois">
+                        <div class="col-lg-2 col-md-10 col-sm-10 d-flex justify-content-center align-items-center border border-dark color-custom-1 menu-oeuvre" id="note-trois">
                             <p class="text fw-bold m-0 ms-3">3/5</p>
                             <i class="bi bi-star-fill ms-3"></i>
                             <i class="bi bi-star-fill"></i>
@@ -309,7 +306,7 @@
                             <i class="bi bi-star"></i>
                             <i class="bi bi-star"></i>
                         </div>
-                        <div class="col-2 d-flex justify-content-center align-items-center border border-2 border-end-0 border-dark color-custom-1 menu-oeuvre" id="note-deux">
+                        <div class="col-lg-2 col-md-10 col-sm-10 d-flex justify-content-center align-items-center border border-dark color-custom-1 menu-oeuvre" id="note-deux">
                             <p class="text fw-bold m-0 ms-3">2/5</p>
                             <i class="bi bi-star-fill ms-3"></i>
                             <i class="bi bi-star-fill"></i>
@@ -317,7 +314,7 @@
                             <i class="bi bi-star"></i>
                             <i class="bi bi-star"></i>
                         </div>
-                        <div class="col-2 d-flex justify-content-center align-items-center border border-2 border-dark color-custom-1 menu-oeuvre" id="note-un">
+                        <div class="col-lg-2 col-md-10 col-sm-10 d-flex justify-content-center align-items-center border border-dark color-custom-1 menu-oeuvre" id="note-un">
                             <p class="text fw-bold m-0 ms-3">1/5</p>
                             <i class="bi bi-star-fill ms-3"></i>
                             <i class="bi bi-star"></i>
@@ -327,10 +324,9 @@
                         </div>
 
                     </div>
-                    <div id="commentaire" class="row justify-content-center" style="display;">
-                        <div class="col-12 border border-2 border-top-0 border-dark color-custom-2">
+                    <div id="commentaire" class="row justify-content-center mt-2">
+                        <div class="col-md-10 border border-dark color-custom-1 menu-oeuvre overflow-auto" style="height: 200px;">
                             <div class="overflow-auto menu-oeuvre-2" id="comments-quatre">
-
                             </div>
                         </div>
                     </div>
