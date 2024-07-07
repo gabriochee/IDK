@@ -1,4 +1,6 @@
 <?php
+require_once('db.php');
+
 $req_display_admin_co = $bdd->prepare("SELECT id_user, nom, prenom, pseudo FROM utilisateur WHERE id_user = :id_user;");
 $req_display_admin_co->execute(array("id_user" => $_SESSION['id_user']));
 $res_display_admin_co = $req_display_admin_co->fetch();
@@ -138,7 +140,7 @@ function updatePhoto($bdd) {
         if($req1->execute()) {
             if(move_uploaded_file($tempname, $folder)) {
                 echo "<h2>Upload réussi</h2>";
-                header('Location: parameters.php');
+                header('Location: ../../admin/moderation_user.php');
             } else {
                 echo "<h2>Upload échoué</h2>";
             }
@@ -149,6 +151,7 @@ function updatePhoto($bdd) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    updatePhoto($bdd);
     updateUser($bdd);
     banUser($bdd);
     deleteUser($bdd);

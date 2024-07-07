@@ -77,7 +77,21 @@
                                 </tbody>
                             </table>
                         </div>
-                    
+                        <form action="edit_newsletter.php" method="post">
+                            <label for="days">Jours:</label>
+                            <input type="number" id="days" name="days" min="0" value="0">
+                            <br>
+                            <label for="hours">Heures:</label>
+                            <input type="number" id="hours" name="hours" min="0" value="0">
+                            <br>
+                            <label for="minutes">Minutes:</label>
+                            <input type="number" id="minutes" name="minutes" min="0" value="0">
+                            <br>
+                            <label for="seconds">Secondes:</label>
+                            <input type="number" id="seconds" name="seconds" min="0" value="0">
+                            <br>
+                            <button type="submit">Définir l'intervalle</button>
+                        </form>
                 </div>
             </main>
         </div>
