@@ -1,5 +1,4 @@
 <?php require_once('../../inc/php/access.php'); ?>
-
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -14,6 +13,7 @@
 </head>
 
 <body id="oeuvre">
+    
     <?php require_once('../../inc/php/function_oeuvre.php'); ?>
     <?php require_once('../../inc/components/connected/header.php'); ?>
     <main>
@@ -174,20 +174,26 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <form id="myComment">
+                                    <div id="existingComment" class="mb-3">
+                                        <h6>Statut de visibilité: <?php echo htmlspecialchars($recup_my_comment['statut']); ?></h6>
+                                        <h6>Mon commentaire :</h6>
+                                        <p><?php echo nl2br(htmlspecialchars($recup_my_comment['critique'])); ?></p>
+                                    </div>
+                                    <form id="myComment" onsubmit="submitForm(event);">
                                         <div data-mdb-input-init class="form-outline my-3">
                                             <textarea class="form-control" id="commentText" rows="4" name="commentText"></textarea>
-
                                             <div class="container d-flex justify-content-center mt-3">
                                                 <input type="radio" class="btn-check" name="list-status" id="private-list" value="privee" autocomplete="off" <?php if (isset($statut) && ($statut == 'privee')) {
                                                                                                                                                                     echo 'checked';
                                                                                                                                                                 } ?>>
                                                 <label class="btn" for="private-list">privée</label>
+                                                <input type="radio" class="btn-check" name="list-status" id="only-friends-list" value="amis seulement" autocomplete="off" <?php if (isset($statut) && ($statut == 'amis seulement')) { echo 'checked';} ?>>
 
                                                 <input type="radio" class="btn-check" name="list-status" id="only-friends-list" value="amis seulement" autocomplete="off" <?php if (isset($statut) && ($statut == 'amis seulement')) {
                                                                                                                                                                                 echo 'checked';
                                                                                                                                                                             } ?>>
                                                 <label class="btn" for="only-friends-list">amis seulement</label>
+                                                <input type="radio" class="btn-check" name="list-status" id="public-list" value="publique" autocomplete="off" <?php if (isset($statut) && ($statut == 'publique')) { echo 'checked';} ?>>
 
                                                 <input type="radio" class="btn-check" name="list-status" id="public-list" value="publique" autocomplete="off" <?php if (isset($statut) && ($statut == 'publique')) {
                                                                                                                                                                     echo 'checked';
@@ -324,6 +330,13 @@
         <script src="../../inc/js/oeuvre.js"></script>
         <script src="../../inc/js/add_movie_to_my_lists.js"></script>
         <script>
+            function submitForm(event) {
+                event.preventDefault();
+
+                var commentModal = document.getElementById('commentModal');
+                var modal = bootstrap.Modal.getInstance(commentModal); 
+                modal.hide(); 
+            }
             document.addEventListener('DOMContentLoaded', function() {
                 var selectedStatut = document.querySelector('input[name="list-status"]:checked').value;
 

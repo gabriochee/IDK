@@ -24,7 +24,7 @@ try {
     $note2 = $data['note2'];
     $idMovie = $data['idMovie2'];
 
-    $req2 = $bdd->prepare("SELECT a.critique, a.date_avis, a.statut, a.note/2 AS note, u.id_user, u.pseudo
+    $req2 = $bdd->prepare("SELECT a.critique, a.date_avis, a.statut, ceil(a.note/2) AS note, u.id_user, u.pseudo
         FROM avis AS a
         JOIN utilisateur AS u ON a.id_user = u.id_user
         WHERE (a.statut = 'publique' OR a.statut = 'amis seulement')
