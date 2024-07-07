@@ -18,7 +18,7 @@
         </div>
         <h1>Erreur 404, vous allez être rediriger automatique d'ici 30 secondes vers la page d'acceuil</h1>
     </main>
-    <script> setTimeout(function() { window.location.href='../client/not_connected/home.php';}, 5000); // server_modif</script>
+    <script> setTimeout(function() { window.location.href='../client/not_connected/home.php';}, 30000); // server_modif</script>
     <script src="../library/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
