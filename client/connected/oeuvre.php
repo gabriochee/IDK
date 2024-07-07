@@ -180,11 +180,17 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <div id="existingComment" class="mb-3">
+                                <div id="existingComment" class="mb-3">
+                                    <?php if (!empty($recup_my_comment) && isset($recup_my_comment['statut'])) : ?>
                                         <h6>Statut de visibilité: <?php echo htmlspecialchars($recup_my_comment['statut']); ?></h6>
+                                    <?php endif; ?>
+                                    
+                                    <?php if (!empty($recup_my_comment) && isset($recup_my_comment['critique'])) : ?>
                                         <h6>Mon commentaire :</h6>
                                         <p><?php echo nl2br(htmlspecialchars($recup_my_comment['critique'])); ?></p>
-                                    </div>
+                                    <?php endif; ?>
+                                </div>
+
                                     <form id="myComment" onsubmit="submitForm(event);">
                                         <div data-mdb-input-init class="form-outline my-3">
                                             <textarea class="form-control" id="commentText" rows="4" name="commentText"></textarea>
