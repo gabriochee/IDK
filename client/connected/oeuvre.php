@@ -1,5 +1,4 @@
 <?php require_once('../../inc/php/access.php'); ?>
-
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -9,10 +8,12 @@
     <link rel="stylesheet" href="../../inc/library/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../../inc/style/style.css">
     <link rel="stylesheet" href="../../inc/library/bootstrap/bootstrap-icons/font/bootstrap-icons.min.css">
+    
     <title>IDK</title>
 </head>
 
 <body id="oeuvre">
+    
     <?php require_once('../../inc/php/function_oeuvre.php'); ?>
     <?php require_once('../../inc/components/connected/header.php'); ?>
     <main>
@@ -173,17 +174,19 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <form id="myComment">
+                                    <div id="existingComment" class="mb-3">
+                                        <h6>Statut de visibilité: <?php echo htmlspecialchars($recup_my_comment['statut']); ?></h6>
+                                        <h6>Mon commentaire :</h6>
+                                        <p><?php echo nl2br(htmlspecialchars($recup_my_comment['critique'])); ?></p>
+                                    </div>
+                                    <form id="myComment" onsubmit="submitForm(event);">
                                         <div data-mdb-input-init class="form-outline my-3">
                                             <textarea class="form-control" id="commentText" rows="4" name="commentText"></textarea>
-
                                             <div class="container d-flex justify-content-center mt-3">
                                                 <input type="radio" class="btn-check" name="list-status" id="private-list" value="privee" autocomplete="off" <?php if (isset($statut) && ($statut == 'privee')) { echo 'checked'; } ?>>
                                                 <label class="btn" for="private-list">privée</label>
-
                                                 <input type="radio" class="btn-check" name="list-status" id="only-friends-list" value="amis seulement" autocomplete="off" <?php if (isset($statut) && ($statut == 'amis seulement')) { echo 'checked';} ?>>
                                                 <label class="btn" for="only-friends-list">amis seulement</label>
-
                                                 <input type="radio" class="btn-check" name="list-status" id="public-list" value="publique" autocomplete="off" <?php if (isset($statut) && ($statut == 'publique')) { echo 'checked';} ?>>
                                                 <label class="btn" for="public-list">publique</label>
                                             </div>
@@ -324,6 +327,13 @@
         <script src="../../inc/js/oeuvre.js"></script>
         <script src="../../inc/js/add_movie_to_my_lists.js"></script>
         <script>
+            function submitForm(event) {
+                event.preventDefault();
+
+                var commentModal = document.getElementById('commentModal');
+                var modal = bootstrap.Modal.getInstance(commentModal); 
+                modal.hide(); 
+            }
             document.addEventListener('DOMContentLoaded', function() {
             var selectedStatut = document.querySelector('input[name="list-status"]:checked').value;
 
@@ -369,84 +379,89 @@
 
 
             document.addEventListener("DOMContentLoaded", function() {
-    const commentsContainer = document.getElementById("comments-quatre");
-    let intervalId = null;
+                const commentsContainer = document.getElementById("comments-quatre");
+                let intervalId = null;
 
-    function handleNoteClick(note) {
-        if (intervalId) {
-            clearInterval(intervalId);
-        }
-        showCommentByNote(note);
-    }
+                function handleNoteClick(note1, note2) {
+                    if (intervalId) {
+                        clearInterval(intervalId);
+                    }
+                    showCommentByNote(note1,note2);
+                }
 
-    document.getElementById("note-cinq").addEventListener("click", function() {
-        handleNoteClick(10);
-    });
-    document.getElementById("note-cinq").addEventListener("click", function() {
-        handleNoteClick(9);
-    });
-    document.getElementById("note-quatre").addEventListener("click", function() {
-        handleNoteClick(8);
-    });
-    document.getElementById("note-quatre").addEventListener("click", function() {
-        handleNoteClick(7);
-    });
-    document.getElementById("note-trois").addEventListener("click", function() {
-        handleNoteClick(6);
-    });
-    document.getElementById("note-trois").addEventListener("click", function() {
-        handleNoteClick(5);
-    });
-    document.getElementById("note-deux").addEventListener("click", function() {
-        handleNoteClick(4);
-    });
-    document.getElementById("note-deux").addEventListener("click", function() {
-        handleNoteClick(3);
-    });
-    document.getElementById("note-un").addEventListener("click", function() {
-        handleNoteClick(2);
-    });
-    document.getElementById("note-un").addEventListener("click", function() {
-        handleNoteClick(1);
-    });
+                const noteCinq = document.getElementById("note-cinq");
+                if (noteCinq) {
+                    noteCinq.addEventListener("click", function() {
+                        handleNoteClick(10, 9);
+                    });
+                }
 
-    function showCommentByNote(note) {
-        var currentUrl2 = window.location.href;
-        var urlParams2 = new URLSearchParams(window.location.search);
-        var idMovie2 = urlParams2.get('mv');
-        
-        fetch('../../inc/php/function_comment_by_note.php', {
-            method: 'POST',
-            credentials: 'same-origin',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                idMovie2: idMovie2,
-                note: note
-            })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.status === 'error') {
-                console.error(data.message);
-            } else {
-                console.log(data.reviews);
+                const noteQuatre = document.getElementById("note-quatre");
+                if (noteQuatre) {
+                    noteQuatre.addEventListener("click", function() {
+                        handleNoteClick(8, 7);
+                    });
+                }
 
-                commentsContainer.innerHTML = '';
+                const noteTrois = document.getElementById("note-trois");
+                if (noteTrois) {
+                    noteTrois.addEventListener("click", function() {
+                        handleNoteClick(6, 5);
+                    });
+                }
 
-                data.reviews.forEach(review => {
-                    const paragraph = document.createElement('p');
-                    paragraph.textContent = `${review.date_avis} - ${review.pseudo} - ${review.critique}`;
-                    commentsContainer.appendChild(paragraph);
-                });
-            }
-        })
-        .catch(error => {
-            console.error('Error fetching reviews:', error);
-        });
-    }
-});
+                const noteDeux = document.getElementById("note-deux");
+                if (noteDeux) {
+                    noteDeux.addEventListener("click", function() {
+                        handleNoteClick(4, 3);
+                    });
+                }
+
+                const noteUn = document.getElementById("note-un");
+                if (noteUn) {
+                    noteUn.addEventListener("click", function() {
+                        handleNoteClick(2, 1);
+                    });
+                }
+
+                function showCommentByNote(note1,note2) {
+                    var currentUrl2 = window.location.href;
+                    var urlParams2 = new URLSearchParams(window.location.search);
+                    var idMovie2 = urlParams2.get('mv');
+                    
+                    fetch('../../inc/php/function_comment_by_note.php', {
+                        method: 'POST',
+                        credentials: 'same-origin',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            idMovie2: idMovie2,
+                            note1: note1,
+                            note2: note2
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === 'error') {
+                            console.error(data.message);
+                        } else {
+                            console.log(data.reviews);
+
+                            commentsContainer.innerHTML = '';
+
+                            data.reviews.forEach(review => {
+                                const paragraph = document.createElement('p');
+                                paragraph.textContent = `${review.date_avis} - ${review.pseudo} - ${review.critique}`;
+                                commentsContainer.appendChild(paragraph);
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching reviews:', error);
+                    });
+                }
+            });
 
         </script>
         <script src="../../inc/library/bootstrap/js/bootstrap.bundle.min.js"></script>
