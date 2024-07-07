@@ -37,3 +37,40 @@
         </ul>
     </div>
 </nav>
+
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        const toggleButton = document.getElementById('dark-mode');
+        const sidebarMenu = document.getElementById('sidebarMenu');
+
+        const enableDarkMode = () => {
+            document.body.classList.add('dark-mode');
+            sidebarMenu.classList.add('dark-mode'); 
+            localStorage.setItem('dark-mode', 'enabled');
+        };
+
+        const disableDarkMode = () => {
+            document.body.classList.remove('dark-mode');
+            sidebarMenu.classList.remove('dark-mode'); 
+            localStorage.setItem('dark-mode', 'disabled');
+        };
+
+        if (localStorage.getItem('dark-mode') === 'enabled') {
+            enableDarkMode();
+        } else if (localStorage.getItem('dark-mode') === 'disabled') {
+            disableDarkMode();
+        } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            enableDarkMode(); 
+        }
+
+        toggleButton.addEventListener('click', () => {
+            if (document.body.classList.contains('dark-mode')) {
+                disableDarkMode();
+            } else {
+                enableDarkMode(); 
+            }
+        });
+    });
+
+
+</script>

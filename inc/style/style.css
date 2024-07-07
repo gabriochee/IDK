@@ -12,6 +12,14 @@ body.dark-mode, .bg-idk.dark-mode{
   background-color: #8D8780;
   color: white;
 }
+.dark-mode #sidebarMenu {
+  background-color: #333;
+  color: #fff;
+
+}
+
+
+
 
 .backoffice body {
   font-size: .875rem;
