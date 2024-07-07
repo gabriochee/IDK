@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../../inc/library/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../../inc/style/style.css">
     <link rel="stylesheet" href="../../inc/library/bootstrap/bootstrap-icons/font/bootstrap-icons.min.css">
-    
+
     <title>IDK</title>
 </head>
 
@@ -98,10 +98,10 @@
                                 <div class="card-body d-flex flex-column justify-content-start align-items-center p-0">
                                     <p class="m-0 fw-bold fs-5">Ma note</p>
                                     <p class="m-0 note-count fs-5 mt-2" id="my-rating"><?php if ($rep8) {
-                                                                            echo $myRating;
-                                                                        } else {
-                                                                            echo '--';
-                                                                        } ?></p>
+                                                                                            echo $myRating;
+                                                                                        } else {
+                                                                                            echo '--';
+                                                                                        } ?></p>
                                     <div class="d-flex justify-content-center my-2" id="my-stars-rating">
                                         <?php
                                         if ($rep8) {
@@ -189,11 +189,21 @@
                                         <div data-mdb-input-init class="form-outline my-3">
                                             <textarea class="form-control" id="commentText" rows="4" name="commentText"></textarea>
                                             <div class="container d-flex justify-content-center mt-3">
-                                                <input type="radio" class="btn-check" name="list-status" id="private-list" value="privee" autocomplete="off" <?php if (isset($statut) && ($statut == 'privee')) { echo 'checked'; } ?>>
+                                                <input type="radio" class="btn-check" name="list-status" id="private-list" value="privee" autocomplete="off" <?php if (isset($statut) && ($statut == 'privee')) {
+                                                                                                                                                                    echo 'checked';
+                                                                                                                                                                } ?>>
                                                 <label class="btn" for="private-list">privée</label>
                                                 <input type="radio" class="btn-check" name="list-status" id="only-friends-list" value="amis seulement" autocomplete="off" <?php if (isset($statut) && ($statut == 'amis seulement')) { echo 'checked';} ?>>
+
+                                                <input type="radio" class="btn-check" name="list-status" id="only-friends-list" value="amis seulement" autocomplete="off" <?php if (isset($statut) && ($statut == 'amis seulement')) {
+                                                                                                                                                                                echo 'checked';
+                                                                                                                                                                            } ?>>
                                                 <label class="btn" for="only-friends-list">amis seulement</label>
                                                 <input type="radio" class="btn-check" name="list-status" id="public-list" value="publique" autocomplete="off" <?php if (isset($statut) && ($statut == 'publique')) { echo 'checked';} ?>>
+
+                                                <input type="radio" class="btn-check" name="list-status" id="public-list" value="publique" autocomplete="off" <?php if (isset($statut) && ($statut == 'publique')) {
+                                                                                                                                                                    echo 'checked';
+                                                                                                                                                                } ?>>
                                                 <label class="btn" for="public-list">publique</label>
                                             </div>
                                         </div>
@@ -309,10 +319,8 @@
                             <i class="bi bi-star"></i>
                             <i class="bi bi-star"></i>
                         </div>
-                        
-                    </div>
 
-                    
+                    </div>
                     <div id="commentaire" class="row justify-content-center" style="display;">
                         <div class="col-12 border border-2 border-top-0 border-dark color-custom-2">
                             <div class="overflow-auto menu-oeuvre-2" id="comments-quatre">
@@ -320,11 +328,6 @@
                             </div>
                         </div>
                     </div>
-                    
-
-                    
-
-
                 </div>
             </div>
         </div>
@@ -341,45 +344,45 @@
                 modal.hide(); 
             }
             document.addEventListener('DOMContentLoaded', function() {
-            var selectedStatut = document.querySelector('input[name="list-status"]:checked').value;
+                var selectedStatut = document.querySelector('input[name="list-status"]:checked').value;
 
-            document.querySelectorAll('input[name="list-status"]').forEach(function(radio) {
-                radio.addEventListener('change', function(event) {
-                    selectedStatut = event.target.value;
+                document.querySelectorAll('input[name="list-status"]').forEach(function(radio) {
+                    radio.addEventListener('change', function(event) {
+                        selectedStatut = event.target.value;
+                    });
                 });
-            });
 
-            document.getElementById("myComment").addEventListener("submit", function(event) {
+                document.getElementById("myComment").addEventListener("submit", function(event) {
                     event.preventDefault();
 
                     var currentUrl = window.location.href;
                     var urlParams = new URLSearchParams(window.location.search);
                     var idMovie = urlParams.get('mv');
                     var commentText = document.getElementById('commentText').value;
-                    
+
                     fetch('../../inc/php/send_comment_and_note.php', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            comment: commentText,
-                            statut: selectedStatut,
-                            idMovie: idMovie
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                comment: commentText,
+                                statut: selectedStatut,
+                                idMovie: idMovie
+                            })
                         })
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.status === 'success') {
-                            document.getElementById('commentText').value = "";
-                            alert("Message envoyé avec succès !");
-                        } else {
-                            alert("Erreur lors de l'envoi du message : " + data.error);
-                        }
-                    })
-                    .catch(error => {
-                        alert("Erreur lors de l'envoi du message : " + error.message);
-                    });
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.status === 'success') {
+                                document.getElementById('commentText').value = "";
+                                alert("Message envoyé avec succès !");
+                            } else {
+                                alert("Erreur lors de l'envoi du message : " + data.error);
+                            }
+                        })
+                        .catch(error => {
+                            alert("Erreur lors de l'envoi du message : " + error.message);
+                        });
                 });
             });
 
@@ -392,7 +395,7 @@
                     if (intervalId) {
                         clearInterval(intervalId);
                     }
-                    showCommentByNote(note1,note2);
+                    showCommentByNote(note1, note2);
                 }
 
                 const noteCinq = document.getElementById("note-cinq");
@@ -430,45 +433,44 @@
                     });
                 }
 
-                function showCommentByNote(note1,note2) {
+                function showCommentByNote(note1, note2) {
                     var currentUrl2 = window.location.href;
                     var urlParams2 = new URLSearchParams(window.location.search);
                     var idMovie2 = urlParams2.get('mv');
-                    
+
                     fetch('../../inc/php/function_comment_by_note.php', {
-                        method: 'POST',
-                        credentials: 'same-origin',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            idMovie2: idMovie2,
-                            note1: note1,
-                            note2: note2
+                            method: 'POST',
+                            credentials: 'same-origin',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                idMovie2: idMovie2,
+                                note1: note1,
+                                note2: note2
+                            })
                         })
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.status === 'error') {
-                            console.error(data.message);
-                        } else {
-                            console.log(data.reviews);
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.status === 'error') {
+                                console.error(data.message);
+                            } else {
+                                console.log(data.reviews);
 
-                            commentsContainer.innerHTML = '';
+                                commentsContainer.innerHTML = '';
 
-                            data.reviews.forEach(review => {
-                                const paragraph = document.createElement('p');
-                                paragraph.textContent = `${review.date_avis} - ${review.pseudo} - ${review.critique}`;
-                                commentsContainer.appendChild(paragraph);
-                            });
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error fetching reviews:', error);
-                    });
+                                data.reviews.forEach(review => {
+                                    const paragraph = document.createElement('p');
+                                    paragraph.textContent = `${review.date_avis} - ${review.pseudo} - ${review.critique}`;
+                                    commentsContainer.appendChild(paragraph);
+                                });
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error fetching reviews:', error);
+                        });
                 }
             });
-
         </script>
         <script src="../../inc/library/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
