@@ -107,11 +107,29 @@ if (isset($_GET['id_liste'])) {
             </div>
 
         <div class="container-fluid text-center my-5">
-            <div <?php if (!$isOwner) {
-                        echo 'class="mb-3"';
-                    } ?>>
+            <div <?php if (!$isOwner) { echo 'class="mb-3"'; } ?>>
+
                 <?php if ($isOwner) { ?>
-                    <button class="btn btn-primary btn-sm btn-warning border border-dark border-2 rounded-3 fs-4 col-md-3" data-bs-toggle="modal" data-bs-target="#addMovieModal">Ajouter un film</button>
+                    <div class="container d-flex justify-content-center mb-5 border-bottom border-2 border-dark py-2 w-50">
+                        <input type="radio" class="btn-check" name="list-status" id="private-list" value="privee" autocomplete="off" <?php if ($statut == 'privee') {
+                                                                                                                                            echo 'checked';
+                                                                                                                                        } ?>>
+                        <label class="btn" for="private-list">privée</label>
+
+                        <input type="radio" class="btn-check" name="list-status" id="only-friends-list" value="amis seulement" autocomplete="off" <?php if ($statut == 'amis seulement') {
+                                                                                                                                                        echo 'checked';
+                                                                                                                                                    } ?>>
+                        <label class="btn" for="only-friends-list">amis seulement</label>
+
+                        <input type="radio" class="btn-check" name="list-status" id="public-list" value="publique" autocomplete="off" <?php if ($statut == 'publique') {
+                                                                                                                                            echo 'checked';
+                                                                                                                                        } ?>>
+                        <label class="btn" for="public-list">publique</label>
+                    </div>
+                <?php } ?>
+
+                <?php if ($isOwner) { ?>
+                    <button class="btn btn-lg btn-warning border border-dark border-2 rounded-3 col-md-3" data-bs-toggle="modal" data-bs-target="#addMovieModal">Ajouter un film</button>
 
                     <div class="modal fade" id="addMovieModal" tabindex="-1" aria-hidden="true">
                         <div class="modal-dialog">
@@ -132,7 +150,7 @@ if (isset($_GET['id_liste'])) {
                     </div>
                 <?php } ?>
 
-                <button class="btn btn-primary btn-sm btn-warning border border-dark border-2 rounded-3 fs-4 col-md-3" data-bs-toggle="modal" data-bs-target="#shareListModal">Partager !</button>
+                <button class="btn btn-lg btn-warning border border-dark border-2 rounded-3 col-md-3" data-bs-toggle="modal" data-bs-target="#shareListModal">Partager !</button>
 
                 <div class="modal fade" id="shareListModal" tabindex="-1" aria-hidden="true">
                     <div class="modal-dialog">
@@ -160,8 +178,7 @@ if (isset($_GET['id_liste'])) {
             </div>
 
         <?php if ($isOwner) { ?>
-            <button class="btn btn-primary btn-sm btn-danger border border-dark border-2 rounded-3 fs-4 col-md-3 mt-5" data-bs-toggle="modal" data-bs-target="#deleteListModal">Supprimer la liste</button>
-
+            <button class="btn btn-lg btn-danger border border-dark border-2 rounded-3 col-md-3 mt-3" data-bs-toggle="modal" data-bs-target="#deleteListModal">Supprimer la liste</button>
             <div class="modal fade" id="deleteListModal" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -179,25 +196,6 @@ if (isset($_GET['id_liste'])) {
                     </div>
                 </div>
             </div>
-            </div>
-        <?php } ?>
-
-        <?php if ($isOwner) { ?>
-            <div class="container d-flex justify-content-center mb-5">
-                <input type="radio" class="btn-check" name="list-status" id="private-list" value="privee" autocomplete="off" <?php if ($statut == 'privee') {
-                                                                                                                                    echo 'checked';
-                                                                                                                                } ?>>
-                <label class="btn" for="private-list">privée</label>
-
-                <input type="radio" class="btn-check" name="list-status" id="only-friends-list" value="amis seulement" autocomplete="off" <?php if ($statut == 'amis seulement') {
-                                                                                                                                                echo 'checked';
-                                                                                                                                            } ?>>
-                <label class="btn" for="only-friends-list">amis seulement</label>
-
-                <input type="radio" class="btn-check" name="list-status" id="public-list" value="publique" autocomplete="off" <?php if ($statut == 'publique') {
-                                                                                                                                    echo 'checked';
-                                                                                                                                } ?>>
-                <label class="btn" for="public-list">publique</label>
             </div>
         <?php } ?>
     </main>

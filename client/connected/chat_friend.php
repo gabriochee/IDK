@@ -9,21 +9,6 @@
     <link rel="stylesheet" href="../../inc/style/style.css">
     <link rel="stylesheet" href="../../inc/library/bootstrap/bootstrap-icons/font/bootstrap-icons.min.css">
     <title>IDK</title>
-    <style>
-        .pseudo_size {
-            font-size: 0.5em;
-        }
-        .date_size {
-            font-size: 0.5em;
-        }
-        .message-container {
-            max-height: 400px; 
-            overflow-y: scroll;
-        }
-        .custom-no-underline {
-         text-decoration: none !important;
-        }
-    </style>
 </head>
 <body>
     <?php require_once('../../inc/components/connected/header.php'); ?>
@@ -66,10 +51,7 @@
             messageContainer.scrollTop = messageContainer.scrollHeight;
         }
         let intervalId = null; 
-        let currentFriendId = 0; // variable pour stocker l'id de l'utilisateur qu'on a cliqué et qu'on a 
-        // fetch mes amis pour que je puisse cliquer et envoyer message à cet amis
-        let expression = /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/gi;
-        let regex = new RegExp(expression);
+        let currentFriendId = 0; 
 
         document.addEventListener('DOMContentLoaded', function() {
             

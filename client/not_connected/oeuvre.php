@@ -18,7 +18,7 @@
     <main>
         <div class="container mt-5">
             <div class="row justify-content-center">
-                <div class="col-10 col-lg-6 img-fluid img-custom-1">
+                <div class="col-10 img-fluid img-custom-1">
                     <img src="" id="movie-poster" alt="affiche de l'oeuvre">
                 </div>
                 <div class="col-12 col-lg-5">
@@ -122,7 +122,7 @@
                             <p class="m-1" id="movie-synopsis"></p>
                         </div>
                         <br>
-                        <h3 class="m-3">Critiques publiques :</h3>
+                        <div><h3 class="m-5">Critiques publiques : (réserver aux utilisateurs inscrit)</h3></div>
                     </div>
                     <div class="row justify-content-center mt-5">
                         <div class="col-lg-2 col-md-10 col-sm-10 d-flex justify-content-center align-items-center border border-dark color-custom-1 menu-oeuvre" id="note-cinq">
