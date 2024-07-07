@@ -390,27 +390,29 @@
         </div>
     </div>
     <script>
-        function preciseUserSearch(keyword, isBanned, isAdministrator, table) {
-            fetch('../inc/php/precise_search_user.php?' + new URLSearchParams({
+        async function preciseUserSearch(keyword, isBanned, isAdministrator, table) {
+            try {
+            let req = await fetch('../inc/php/precise_search_user.php?' + new URLSearchParams({
                     keyword: keyword,
                     isBanned: isBanned,
                     isAdministrator: isAdministrator,
                 }))
-                .then(data => data.json())
-                .then(json => {
+            let json = await req.json();
                     table.innerHTML = "";
                     for (const user of json) {
-                        table.innerHTML += 
-                        `<tr><td class="table-cell text-start">#${user.id_user} ${user.pseudo} (${user.nom_prenom})</td>
+                        table.innerHTML +=
+                            `<tr><td class="table-cell text-start">#${user.id_user} ${user.pseudo} (${user.nom_prenom})</td>
                         <td class="table-cell w-25"><button type="submit" data-id="${user.id_user}" class="btn btn-warning w-100 fs-6 show">En voir plus</button></td></tr>`;
 
                     }
-                })
-                .catch(error => console.error(error));
+            } catch (error){
+                console.error(error)
+            };
         }
 
+
         document.addEventListener("DOMContentLoaded", function() {
-            const buttons = document.querySelectorAll('.show');
+            let buttons = document.querySelectorAll('.show');
             const content = document.getElementById('user');
             const userId = document.getElementById('id_user')
 
@@ -452,6 +454,98 @@
             const bannedUsers = <?php echo json_encode($res_display_user_ban); ?>;
             const exportData = document.getElementById('export');
 
+            function addEventOnButton(btn) {
+                const userId = btn.getAttribute('data-id');
+                console.log(userId);
+
+                fetch(`../inc/php/function_moderation_user.php?id=${userId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === 'success') {
+                            let isBanned = false;
+
+                            userPhoto.src = `../inc/img/user_img/${data.user.photo_utilisateur}?${Date.now()}`;
+                            userPseudoId.innerHTML = `<b>${data.user.pseudo} (#${data.user.id_user})</b>`;
+                            userFullname.innerHTML = `<b>${data.user.nom} ${data.user.prenom}</b>`;
+                            userRegistrationDate.innerHTML = `<b>Inscrit depuis :</b> ${data.user.date_inscription}`;
+                            lastConnexion.innerHTML = `<b>Dèrnière connexion :</b> ${data.user.derniere_connexion}`;
+                            numberOfFriends.textContent = `${data.user.nombre_amis} amis`;
+                            averageFriendsAge.innerHTML = `<b>Moyenne d'age d'amis :</b> ${data.user.moyenne_age_ami}`;
+                            majorityFriendsSexe.innerHTML = `<b>Genre majoritaire de relations :</b> ${data.user.majorite_genre_ami}`;
+                            relationWaiting.innerHTML = `<b>Demande d'amis en attente :</b> ${data.user.nombre_demandes_amis}`;
+                            relationRefused.innerHTML = `<b>Demande d'amis refusées :</b> ${data.user.nombre_demandes_refusees}`;
+                            numberOfListPublic.innerHTML = `<b>Nombres de listes publiques :</b> ${data.user.nombre_listes_publique}`;
+                            numberOflistPrivate.innerHTML = `<b>Nombres de listes privées :</b> ${data.user.nombre_listes_privee}`;
+                            numberOflistOnlyFriend.innerHTML = `<b>Nombres de listes uniquement pour amis :</b> ${data.user.nombre_listes_only_amis}`;
+                            numberOfOpinionPublic.innerHTML = `<b>Nombres d'avis publiques :</b> ${data.user.nombre_avis_publique}`;
+                            numberOfOpinionPrivate.innerHTML = `<b>Nombres d'avis privées :</b> ${data.user.nombre_avis_privee}`;
+                            hiddenForImgUpdate.value = data.user.id_user;
+                            banBtn.value = data.user.id_user;
+                            unbanBtn.value = data.user.id_user;
+                            deleteBtn.value = data.user.id_user;
+                            updateBtn.value = data.user.id_user;
+                            exportData.value = data.user.id_user;
+
+                            for (const user of bannedUsers) {
+                                if (Object.values(user).includes(data.user.id_user)) {
+                                    ban.innerHTML = `<b>Banni du ${data.user.date_ban} jusqu'au ${data.user.date_deban} pour motif :</b>  ${data.user.raison}`;
+                                    banMenuBtn.setAttribute('data-bs-target', "#unbanModal");
+                                    banMenuBtn.innerText = "Débannir";
+                                    isBanned = true;
+                                }
+                            }
+
+                            if (!isBanned) {
+                                ban.classList.add('d-none');
+                                banMenuBtn.setAttribute('data-bs-target', "#banModal");
+                                banMenuBtn.innerText = "Bannir";
+                            }
+
+                            firstNameInput.value = data.user.prenom;
+                            lastNameInput.value = data.user.nom;
+                            usernameInput.value = data.user.pseudo;
+
+
+                            const dateNaissance = data.user.date_naissance.split("-");
+                            birthdayDayInput.value = dateNaissance[2];
+                            for (let i = 0; i < birthdayMonthSelect.options.length; i++) {
+                                if (birthdayMonthSelect.options[i].value === String(dateNaissance[1])) {
+                                    birthdayMonthSelect.options[i].selected = true;
+                                    break;
+                                }
+                            }
+                            birthdayYearInput.value = dateNaissance[0];
+
+                            console.log(birthdayYearInput);
+                            for (let i = 0; i < sexeSelect.options.length; i++) {
+                                if (sexeSelect.options[i].value === String(data.user.sexe)) {
+                                    sexeSelect.options[i].selected = true;
+                                    break;
+                                }
+                            }
+                            emailInput.value = data.user.mail;
+                            phoneInput.value = data.user.telephone;
+                            for (let i = 0; i < newsletterSelect.options.length; i++) {
+                                if (newsletterSelect.options[i].value === String(data.user.statut_newsletter)) {
+                                    newsletterSelect.options[i].selected = true;
+                                    break;
+                                }
+                            }
+                            userId.value = data.user.id_user;
+
+                            content.classList.remove('d-none');
+                            content.scrollIntoView({
+                                behavior: 'smooth'
+                            });
+                        } else {
+                            console.error('Erreur:', data.message);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Erreur lors de la récupération des informations de l\'utilisateur', error);
+                    });
+            }
+
             newMdpBtn.addEventListener('click', function() {
                 newMdpForm.classList.toggle('d-none');
                 newMdpForm.scrollIntoView({
@@ -460,118 +554,50 @@
             });
 
             buttons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const userId = this.getAttribute('data-id');
-
-                    fetch(`../inc/php/function_moderation_user.php?id=${userId}`)
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.status === 'success') {
-                                let isBanned = false;
-
-                                userPhoto.src = `../inc/img/user_img/${data.user.photo_utilisateur}?${Date.now()}`;
-                                userPseudoId.innerHTML = `<b>${data.user.pseudo} (#${data.user.id_user})</b>`;
-                                userFullname.innerHTML = `<b>${data.user.nom} ${data.user.prenom}</b>`;
-                                userRegistrationDate.innerHTML = `<b>Inscrit depuis :</b> ${data.user.date_inscription}`;
-                                lastConnexion.innerHTML = `<b>Dèrnière connexion :</b> ${data.user.derniere_connexion}`;
-                                numberOfFriends.textContent = `${data.user.nombre_amis} amis`;
-                                averageFriendsAge.innerHTML = `<b>Moyenne d'age d'amis :</b> ${data.user.moyenne_age_ami}`;
-                                majorityFriendsSexe.innerHTML = `<b>Genre majoritaire de relations :</b> ${data.user.majorite_genre_ami}`;
-                                relationWaiting.innerHTML = `<b>Demande d'amis en attente :</b> ${data.user.nombre_demandes_amis}`;
-                                relationRefused.innerHTML = `<b>Demande d'amis refusées :</b> ${data.user.nombre_demandes_refusees}`;
-                                numberOfListPublic.innerHTML = `<b>Nombres de listes publiques :</b> ${data.user.nombre_listes_publique}`;
-                                numberOflistPrivate.innerHTML = `<b>Nombres de listes privées :</b> ${data.user.nombre_listes_privee}`;
-                                numberOflistOnlyFriend.innerHTML = `<b>Nombres de listes uniquement pour amis :</b> ${data.user.nombre_listes_only_amis}`;
-                                numberOfOpinionPublic.innerHTML = `<b>Nombres d'avis publiques :</b> ${data.user.nombre_avis_publique}`;
-                                numberOfOpinionPrivate.innerHTML = `<b>Nombres d'avis privées :</b> ${data.user.nombre_avis_privee}`;
-                                hiddenForImgUpdate.value = data.user.id_user;
-                                banBtn.value = data.user.id_user;
-                                unbanBtn.value = data.user.id_user;
-                                deleteBtn.value = data.user.id_user;
-                                updateBtn.value = data.user.id_user;
-                                exportData.value = data.user.id_user;
-
-                                for (const user of bannedUsers) {
-                                    if (Object.values(user).includes(data.user.id_user)) {
-                                        ban.innerHTML = `<b>Banni du ${data.user.date_ban} jusqu'au ${data.user.date_deban} pour motif :</b>  ${data.user.raison}`;
-                                        banMenuBtn.setAttribute('data-bs-target', "#unbanModal");
-                                        banMenuBtn.innerText = "Débannir";
-                                        isBanned = true;
-                                    }
-                                }
-
-                                if (!isBanned) {
-                                    ban.classList.add('d-none');
-                                    banMenuBtn.setAttribute('data-bs-target', "#banModal");
-                                    banMenuBtn.innerText = "Bannir";
-                                }
-
-                                firstNameInput.value = data.user.prenom;
-                                lastNameInput.value = data.user.nom;
-                                usernameInput.value = data.user.pseudo;
-
-
-                                const dateNaissance = data.user.date_naissance.split("-");
-                                birthdayDayInput.value = dateNaissance[2];
-                                for (let i = 0; i < birthdayMonthSelect.options.length; i++) {
-                                    if (birthdayMonthSelect.options[i].value === String(dateNaissance[1])) {
-                                        birthdayMonthSelect.options[i].selected = true;
-                                        break;
-                                    }
-                                }
-                                birthdayYearInput.value = dateNaissance[0];
-
-                                console.log(birthdayYearInput);
-                                for (let i = 0; i < sexeSelect.options.length; i++) {
-                                    if (sexeSelect.options[i].value === String(data.user.sexe)) {
-                                        sexeSelect.options[i].selected = true;
-                                        break;
-                                    }
-                                }
-                                emailInput.value = data.user.mail;
-                                phoneInput.value = data.user.telephone;
-                                for (let i = 0; i < newsletterSelect.options.length; i++) {
-                                    if (newsletterSelect.options[i].value === String(data.user.statut_newsletter)) {
-                                        newsletterSelect.options[i].selected = true;
-                                        break;
-                                    }
-                                }
-                                userId.value = data.user.id_user;
-
-                                content.classList.remove('d-none');
-                                content.scrollIntoView({
-                                    behavior: 'smooth'
-                                });
-                            } else {
-                                console.error('Erreur:', data.message);
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Erreur lors de la récupération des informations de l\'utilisateur', error);
-                        });
+                button.addEventListener('click', () => {
+                    addEventOnButton(button)
                 });
             });
+
+            const userSearch = document.getElementById('search-user');
+            const bannedUsersSearch = document.getElementById('search-banned-user');
+            const administratorsSearch = document.getElementById('search-administrators');
+
+            const usersTab = document.getElementById('users-tab');
+            const bannedUsersTab = document.getElementById('banned-users-tab');
+            const administratorsTab = document.getElementById('administrators-tab');
+
+            userSearch.onkeyup = async function(e) {
+                await preciseUserSearch(userSearch.value, 0, 0, usersTab);
+                buttons = document.querySelectorAll('.show');
+                buttons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        addEventOnButton(button)
+                    });
+                });
+            }
+
+            bannedUsersSearch.onkeyup = async function(e) {
+                await preciseUserSearch(bannedUsersSearch.value, 1, 0, bannedUsersTab);
+                buttons = document.querySelectorAll('.show');
+                console.log(buttons);
+                buttons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        addEventOnButton(button)
+                    });
+                });
+            }
+
+            administratorsSearch.onkeyup = async function(e) {
+                await preciseUserSearch(administratorsSearch.value, 0, 1, administratorsTab);
+                buttons = document.querySelectorAll('.show');
+                buttons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        addEventOnButton(button)
+                    });
+                });
+            }
         });
-
-        const userSearch = document.getElementById('search-user');
-        const bannedUsersSearch = document.getElementById('search-banned-user');
-        const administratorsSearch = document.getElementById('search-administrators');
-
-        const usersTab = document.getElementById('users-tab');
-        const bannedUsersTab = document.getElementById('banned-users-tab');
-        const administratorsTab = document.getElementById('administrators-tab');
-
-        userSearch.onkeyup = function(e) {
-            preciseUserSearch(userSearch.value, 0, 0, usersTab);
-        }
-
-        bannedUsersSearch.onkeyup = function(e) {
-            preciseUserSearch(bannedUsersSearch.value, 1, 0, bannedUsersTab);
-        }
-
-        administratorsSearch.onkeyup = function(e) {
-            preciseUserSearch(administratorsSearch.value, 0, 1, administratorsTab);
-        }
     </script>
     <script src="../inc/library/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="../inc/js/moderation_user.js"></script>
