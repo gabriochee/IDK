@@ -136,7 +136,7 @@
                     <div class="col">
                         <div class="card mb-4 rounded-3 shadow-sm">
                             <div class="card-header py-3">
-                                <h4 class="my-0 fw-normal">L'année la plus choisis - Total</h4>
+                                <h4 class="my-0 fw-normal">L'année la plus choisis questionnaire - Total</h4>
                             </div>
                             <div class="card-body">
                                 <h1 class="card-title pricing-card-title">
@@ -148,11 +148,9 @@
                                 </h1>
                             </div>
                         </div>
-                    </div>
-                    <div class="col">
                         <div class="card mb-4 rounded-3 shadow-sm">
                             <div class="card-header py-3">
-                                <h4 class="my-0 fw-normal">La provenance la plus choisis - Total</h4>
+                                <h4 class="my-0 fw-normal">La provenance la plus choisis questionnaire - Total</h4>
                             </div>
                             <div class="card-body">
                                 <h1 class="card-title pricing-card-title">
@@ -239,6 +237,86 @@
                                     <small class="text-muted">
                                         <?php foreach ($total as $genre => $count) : ?>
                                             <span class="badge rounded-pill text-bg-warning fw-light w-100"><?php echo htmlspecialchars($genre) . ' : ' . $count; ?></span>
+                                        <?php endforeach; ?>
+                                    </small>
+                                </h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card mb-4 rounded-3 shadow-sm">
+                            <div class="card-header py-3">
+                                <h4 class="my-0 fw-normal">Pages les plus visités - Aujourd'hui</h4>
+                            </div>
+                            <div class="card-body">
+                                <h1 class="card-title pricing-card-title">
+                                    <small class="text-muted">
+                                    <?php foreach ($res_log_today as $page_today) : ?>
+                                        <span class="badge rounded-pill text-bg-warning fw-light w-100 overflow-auto"><?php echo $page_today['log_action'] . ' : ' . $page_today['views']; ?></span>
+                                    <?php endforeach; ?>
+                                    </small>
+                                </h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card mb-4 rounded-3 shadow-sm">
+                            <div class="card-header py-3">
+                                <h4 class="my-0 fw-normal">Pages les plus visités - Cette semaine</h4>
+                            </div>
+                            <div class="card-body">
+                                <h1 class="card-title pricing-card-title">
+                                    <small class="text-muted">
+                                        <?php foreach ($res_log_week as $page_week) : ?>
+                                            <span class="badge rounded-pill text-bg-warning fw-light w-100 overflow-auto"><?php echo htmlspecialchars($page_week['log_action']) . ' : ' . $page_week['views']; ?></span>
+                                        <?php endforeach; ?>
+                                    </small>
+                                </h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card mb-4 rounded-3 shadow-sm">
+                            <div class="card-header py-3">
+                                <h4 class="my-0 fw-normal">Pages les plus visités - Ce mois</h4>
+                            </div>
+                            <div class="card-body">
+                                <h1 class="card-title pricing-card-title">
+                                    <small class="text-muted">
+                                        <?php foreach ($res_log_month as $page) : ?>
+                                            <span class="badge rounded-pill text-bg-warning fw-light w-100 overflow-auto"><?php echo htmlspecialchars($page['log_action']) . ' : ' . $page['views']; ?></span>
+                                        <?php endforeach; ?>
+                                    </small>
+                                </h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card mb-4 rounded-3 shadow-sm">
+                            <div class="card-header py-3">
+                                <h4 class="my-0 fw-normal">Pages les plus visités - Cette année</h4>
+                            </div>
+                            <div class="card-body">
+                                <h1 class="card-title pricing-card-title">
+                                    <small class="text-muted">
+                                        <?php foreach ($res_log_year as $page) : ?>
+                                            <span class="badge rounded-pill text-bg-warning fw-light w-100 overflow-auto"><?php echo htmlspecialchars($page['log_action']) . ' : ' . $page['views']; ?></span>
+                                        <?php endforeach; ?>
+                                    </small>
+                                </h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card mb-4 rounded-3 shadow-sm">
+                            <div class="card-header py-3">
+                                <h4 class="my-0 fw-normal">Pages les plus visités - Total</h4>
+                            </div>
+                            <div class="card-body">
+                                <h1 class="card-title pricing-card-title">
+                                    <small class="text-muted">
+                                        <?php foreach ($res_log_total as $page) : ?>
+                                            <span class="badge rounded-pill text-bg-warning fw-light w-100 overflow-auto"><?php echo htmlspecialchars($page['log_action']) . ' : ' . $page['views']; ?></span>
                                         <?php endforeach; ?>
                                     </small>
                                 </h1>

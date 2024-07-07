@@ -400,7 +400,11 @@ body.dark-mode, .bg-idk.dark-mode{
     font-size: 3.5rem;
   }
 }
-
+@media (max-width: 1000px) {
+  .small-ecran {
+      display: none !important;
+  }
+}
 /* -------------------- CONNECTED/HOME --------------------- */
 @media(max-width: 490px) {
   #connected-home .small-text {

@@ -76,7 +76,7 @@
                                         <p><br><br>De <?php echo $film['name']; ?><br><?php if (isset($film['genre'])) { echo $film['genre']; } ?><br>Sortie en <?php echo $film['startYear']; ?><br><br><br></p>
                                         <a href="oeuvre.php?mv=<?php echo $film['id_work']; ?>" class="nav-btn btn btn-lg btn-warning text-white border border-light border-2 rounded-3 m-auto">En voir plus</a>
                                     </div>
-                                    <div class="w-50 d-flex justify-content-center" style="background-color: #E8EDDF;">
+                                    <div class="w-50 d-flex justify-content-center small-ecran">
                                         <img class="movie-poster" movie-title="<?php echo $film['primaryTitle']; ?>" movie-year="<?php echo $film['startYear']; ?>" src="">
                                     </div>
                                 </div>

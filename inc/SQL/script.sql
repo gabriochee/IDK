@@ -1,3 +1,16 @@
+create table avis
+(
+    id_work   int unsigned  not null,
+    id_user   int           not null,
+    statut    varchar(50)   null,
+    critique  varchar(1000) null,
+    note      varchar(20)   null,
+    date_avis datetime      null,
+    id_avis   int auto_increment primary key,
+    constraint avis_pk_1
+        unique (id_work, id_user)
+);
+
 create table captcha
 (
     id_captcha int auto_increment
@@ -11,29 +24,7 @@ create table contenu
         primary key,
     page_appartenance varchar(100)  null,
     titre             varchar(1000) null,
-    corps             text          null,
-    last_titre        varchar(1000) null,
-    last_corps        text          null,
-    date_maj          datetime      null,
-    last_date_maj     datetime      null
-);
-
-create table demande_admin
-(
-    id            int auto_increment
-        primary key,
-    id_admin      int          null,
-    id_user       int          null,
-    mail          varchar(150) null,
-    date_message  datetime     null,
-    titre         varchar(100) null,
-    messages      text         null,
-    sexe          varchar(50)  null,
-    prenom        varchar(100) null,
-    nom           varchar(100) null,
-    telephone     varchar(15)  null,
-    statut        tinyint(1)   null,
-    statut_ticket varchar(30)  null
+    corps             text          null
 );
 
 create table logs
@@ -135,6 +126,8 @@ create table utilisateur
     supprime           tinyint(1)   null,
     verification_code  char(6)      null,
     telephone          varchar(15)  null,
+    derniere_connexion datetime     null,
+    signature          varchar(300) null,
     constraint mail
         unique (mail)
 );
@@ -186,7 +179,7 @@ create table ami
 (
     id_user_1   int      not null,
     id_user_2   int      not null,
-    date_amitié datetime null,
+    date_amitie datetime null,
     constraint ami_ibfk_1
         foreign key (id_user_1) references utilisateur (id_user),
     constraint ami_ibfk_2
@@ -216,31 +209,33 @@ create table ban
 create index id_user
     on ban (id_user);
 
-create table consultation_logs
+create table demande_admin
 (
-    id_user int not null,
-    id_log  int not null,
-    primary key (id_user, id_log),
-    constraint consultation_logs_ibfk_1
-        foreign key (id_log) references logs (id_log),
-    constraint consultation_logs_ibfk_2
+    id            int auto_increment
+        primary key,
+    id_admin      int          null,
+    id_user       int          null,
+    mail          varchar(150) null,
+    date_message  datetime     null,
+    titre         varchar(100) null,
+    messages      text         null,
+    sexe          varchar(50)  null,
+    prenom        varchar(100) null,
+    nom           varchar(100) null,
+    telephone     varchar(15)  null,
+    statut        tinyint(1)   null,
+    statut_ticket varchar(30)  null,
+    constraint demande_admin_ibfk_1
         foreign key (id_user) references utilisateur (id_user),
-    constraint consultation_logs_ibfk_3
-        foreign key (id_log) references logs (id_log),
-    constraint consultation_logs_ibfk_4
-        foreign key (id_user) references utilisateur (id_user),
-    constraint consultation_logs_ibfk_5
-        foreign key (id_log) references logs (id_log),
-    constraint consultation_logs_ibfk_6
-        foreign key (id_user) references utilisateur (id_user),
-    constraint consultation_logs_ibfk_7
-        foreign key (id_log) references logs (id_log),
-    constraint consultation_logs_ibfk_8
-        foreign key (id_user) references utilisateur (id_user)
+    constraint demande_admin_ibfk_2
+        foreign key (id_admin) references utilisateur (id_user)
 );
 
-create index id_log
-    on consultation_logs (id_log);
+create index id_admin
+    on demande_admin (id_admin);
+
+create index id_user
+    on demande_admin (id_user);
 
 create table demande_ami
 (
@@ -248,43 +243,67 @@ create table demande_ami
     receveur       int         not null,
     statut_demande varchar(42) null,
     date_demande   datetime    null,
-    primary key (envoyeur, receveur),
-    constraint demande_ami_ibfk_1
-        foreign key (receveur) references utilisateur (id_user),
-    constraint demande_ami_ibfk_2
+    id_demande     int auto_increment
+        primary key,
+    constraint demande_ami_utilisateur_id_user_fk
         foreign key (envoyeur) references utilisateur (id_user),
-    constraint demande_ami_ibfk_3
-        foreign key (receveur) references utilisateur (id_user),
-    constraint demande_ami_ibfk_4
-        foreign key (envoyeur) references utilisateur (id_user),
-    constraint demande_ami_ibfk_5
-        foreign key (receveur) references utilisateur (id_user),
-    constraint demande_ami_ibfk_6
-        foreign key (envoyeur) references utilisateur (id_user),
-    constraint demande_ami_ibfk_7
-        foreign key (receveur) references utilisateur (id_user),
-    constraint demande_ami_ibfk_8
-        foreign key (envoyeur) references utilisateur (id_user)
+    constraint demande_ami_utilisateur_id_user_fk_2
+        foreign key (receveur) references utilisateur (id_user)
 );
-
-create index receveur
-    on demande_ami (receveur);
 
 create table listes
 (
     id_liste      int auto_increment
         primary key,
-    date_creation datetime     null,
-    details       varchar(250) null,
-    statut        varchar(42)  null,
-    id_user       int          not null,
-    nom           varchar(300) null,
+    date_creation datetime      null,
+    details       varchar(250)  null,
+    statut        varchar(42)   null,
+    id_user       int           not null,
+    nom           varchar(300)  null,
+    partages      int default 0 null,
     constraint listes_utilisateur_id_user_fk
         foreign key (id_user) references utilisateur (id_user)
 );
 
+create fulltext index `fulltext`
+    on listes (nom);
+
 create index id_user
     on listes (id_user);
+
+create table message_demande
+(
+    id_message_dem  int auto_increment
+        primary key,
+    id_user         int          not null,
+    id_admin        int          null,
+    titre_demande   varchar(100) null,
+    message_demande text         null,
+    message         text         null,
+    date_message    datetime     null,
+    id_demande      int          null,
+    statut_ticket   varchar(30)  null,
+    envoyeur        int          null,
+    receveur        int          null,
+    etre_message    tinyint(1)   null,
+    etre_admin      tinyint(1)   null,
+    constraint message_demande_ibfk_1
+        foreign key (id_admin) references utilisateur (id_user),
+    constraint message_demande_ibfk_2
+        foreign key (id_user) references utilisateur (id_user),
+    constraint message_demande_ibfk_3
+        foreign key (id_user) references utilisateur (id_user),
+    constraint message_demande_utilisateur_id_user_fk
+        foreign key (envoyeur) references utilisateur (id_user),
+    constraint message_demande_utilisateur_id_user_fk_2
+        foreign key (receveur) references utilisateur (id_user)
+);
+
+create index id_admin
+    on message_demande (id_admin);
+
+create index id_user
+    on message_demande (id_user);
 
 create table messages
 (
@@ -297,18 +316,6 @@ create table messages
     constraint messages_ibfk_1
         foreign key (id_user_2) references utilisateur (id_user),
     constraint messages_ibfk_2
-        foreign key (id_user_1) references utilisateur (id_user),
-    constraint messages_ibfk_3
-        foreign key (id_user_2) references utilisateur (id_user),
-    constraint messages_ibfk_4
-        foreign key (id_user_1) references utilisateur (id_user),
-    constraint messages_ibfk_5
-        foreign key (id_user_2) references utilisateur (id_user),
-    constraint messages_ibfk_6
-        foreign key (id_user_1) references utilisateur (id_user),
-    constraint messages_ibfk_7
-        foreign key (id_user_2) references utilisateur (id_user),
-    constraint messages_ibfk_8
         foreign key (id_user_1) references utilisateur (id_user)
 );
 
@@ -320,12 +327,13 @@ create index id_user_2
 
 create table reponses_questionnaire
 (
-    id_reponse     int           not null
+    id_reponse       int auto_increment
         primary key,
-    date           datetime      null,
-    corps_question varchar(1000) null,
-    corps_reponse  varchar(1000) null,
-    id_user        int           not null,
+    date             datetime      null,
+    corps_question   varchar(1000) null,
+    corps_reponse    varchar(1000) null,
+    id_user          int           not null,
+    id_questionnaire varchar(255)  not null,
     constraint reponses_questionnaire_ibfk_1
         foreign key (id_user) references utilisateur (id_user),
     constraint reponses_questionnaire_ibfk_2
@@ -338,6 +346,9 @@ create table reponses_questionnaire
 
 create index id_user
     on reponses_questionnaire (id_user);
+
+create fulltext index pseudo
+    on utilisateur (pseudo);
 
 create table work_akas
 (
@@ -368,29 +379,12 @@ create table work_basics
     runtimeMinutes mediumint unsigned                                                                                                                   null
 );
 
-create table avis
-(
-    id_work   int unsigned  not null,
-    id_user   int           not null,
-    statut    tinyint(1)    null,
-    critique  varchar(1000) null,
-    note      int           null,
-    date_avis datetime      null,
-    primary key (id_work, id_user),
-    constraint avis_ibfk_1
-        foreign key (id_work) references work_basics (id_work),
-    constraint avis_ibfk_2
-        foreign key (id_user) references utilisateur (id_user)
-);
-
-create index id_user
-    on avis (id_user);
-
 create table element_liste
 (
     id_liste   int          not null,
     id_work    int unsigned not null,
     date_ajout datetime     null,
+    detail     varchar(50)  null,
     primary key (id_liste, id_work),
     constraint element_liste_ibfk_1
         foreign key (id_work) references work_basics (id_work),

@@ -122,7 +122,7 @@
                             <p class="m-1" id="movie-synopsis"></p>
                         </div>
                         <br>
-                        <div><h3 class="m-5">Critiques publiques : (réserver aux utilisateurs inscrit)</h3></div>
+                        <div><h3 class="m-5">Critiques publiques (réserver aux utilisateurs inscrit)</h3></div>
                     </div>
                     <div class="row justify-content-center mt-5">
                         <div class="col-lg-2 col-md-10 col-sm-10 d-flex justify-content-center align-items-center border border-dark color-custom-1 menu-oeuvre" id="note-cinq">
