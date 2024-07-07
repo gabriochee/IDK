@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../../inc/library/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../../inc/style/style.css">
     <link rel="stylesheet" href="../../inc/library/bootstrap/bootstrap-icons/font/bootstrap-icons.min.css">
+    
     <title>IDK</title>
 </head>
 
@@ -369,84 +370,89 @@
 
 
             document.addEventListener("DOMContentLoaded", function() {
-    const commentsContainer = document.getElementById("comments-quatre");
-    let intervalId = null;
+                const commentsContainer = document.getElementById("comments-quatre");
+                let intervalId = null;
 
-    function handleNoteClick(note) {
-        if (intervalId) {
-            clearInterval(intervalId);
-        }
-        showCommentByNote(note);
-    }
+                function handleNoteClick(note1, note2) {
+                    if (intervalId) {
+                        clearInterval(intervalId);
+                    }
+                    showCommentByNote(note1,note2);
+                }
 
-    document.getElementById("note-cinq").addEventListener("click", function() {
-        handleNoteClick(10);
-    });
-    document.getElementById("note-cinq").addEventListener("click", function() {
-        handleNoteClick(9);
-    });
-    document.getElementById("note-quatre").addEventListener("click", function() {
-        handleNoteClick(8);
-    });
-    document.getElementById("note-quatre").addEventListener("click", function() {
-        handleNoteClick(7);
-    });
-    document.getElementById("note-trois").addEventListener("click", function() {
-        handleNoteClick(6);
-    });
-    document.getElementById("note-trois").addEventListener("click", function() {
-        handleNoteClick(5);
-    });
-    document.getElementById("note-deux").addEventListener("click", function() {
-        handleNoteClick(4);
-    });
-    document.getElementById("note-deux").addEventListener("click", function() {
-        handleNoteClick(3);
-    });
-    document.getElementById("note-un").addEventListener("click", function() {
-        handleNoteClick(2);
-    });
-    document.getElementById("note-un").addEventListener("click", function() {
-        handleNoteClick(1);
-    });
+                const noteCinq = document.getElementById("note-cinq");
+                if (noteCinq) {
+                    noteCinq.addEventListener("click", function() {
+                        handleNoteClick(10, 9);
+                    });
+                }
 
-    function showCommentByNote(note) {
-        var currentUrl2 = window.location.href;
-        var urlParams2 = new URLSearchParams(window.location.search);
-        var idMovie2 = urlParams2.get('mv');
-        
-        fetch('../../inc/php/function_comment_by_note.php', {
-            method: 'POST',
-            credentials: 'same-origin',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                idMovie2: idMovie2,
-                note: note
-            })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.status === 'error') {
-                console.error(data.message);
-            } else {
-                console.log(data.reviews);
+                const noteQuatre = document.getElementById("note-quatre");
+                if (noteQuatre) {
+                    noteQuatre.addEventListener("click", function() {
+                        handleNoteClick(8, 7);
+                    });
+                }
 
-                commentsContainer.innerHTML = '';
+                const noteTrois = document.getElementById("note-trois");
+                if (noteTrois) {
+                    noteTrois.addEventListener("click", function() {
+                        handleNoteClick(6, 5);
+                    });
+                }
 
-                data.reviews.forEach(review => {
-                    const paragraph = document.createElement('p');
-                    paragraph.textContent = `${review.date_avis} - ${review.pseudo} - ${review.critique}`;
-                    commentsContainer.appendChild(paragraph);
-                });
-            }
-        })
-        .catch(error => {
-            console.error('Error fetching reviews:', error);
-        });
-    }
-});
+                const noteDeux = document.getElementById("note-deux");
+                if (noteDeux) {
+                    noteDeux.addEventListener("click", function() {
+                        handleNoteClick(4, 3);
+                    });
+                }
+
+                const noteUn = document.getElementById("note-un");
+                if (noteUn) {
+                    noteUn.addEventListener("click", function() {
+                        handleNoteClick(2, 1);
+                    });
+                }
+
+                function showCommentByNote(note1,note2) {
+                    var currentUrl2 = window.location.href;
+                    var urlParams2 = new URLSearchParams(window.location.search);
+                    var idMovie2 = urlParams2.get('mv');
+                    
+                    fetch('../../inc/php/function_comment_by_note.php', {
+                        method: 'POST',
+                        credentials: 'same-origin',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            idMovie2: idMovie2,
+                            note1: note1,
+                            note2: note2
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === 'error') {
+                            console.error(data.message);
+                        } else {
+                            console.log(data.reviews);
+
+                            commentsContainer.innerHTML = '';
+
+                            data.reviews.forEach(review => {
+                                const paragraph = document.createElement('p');
+                                paragraph.textContent = `${review.date_avis} - ${review.pseudo} - ${review.critique}`;
+                                commentsContainer.appendChild(paragraph);
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching reviews:', error);
+                    });
+                }
+            });
 
         </script>
         <script src="../../inc/library/bootstrap/js/bootstrap.bundle.min.js"></script>
