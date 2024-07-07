@@ -70,7 +70,7 @@
                                             }
                                             ?>
                                         </p>
-                                        <div class="d-flex justify-content-center my-2" id="my-stars-rating">
+                                        <div class="d-flex justify-content-center my-2">
                                             <?php
                                             if ($rep9) {
                                                 $a = $myFriendsPartie_decimale > 0 ? '1' : '0';
