@@ -1,5 +1,6 @@
 <?php require_once('../inc/php/access.php'); ?>
 <?php require_once('../inc/php/function_edit_newsletter.php') ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -12,6 +13,13 @@
 </head>
 <body id="backoffice_edit_newsletter" class="backoffice">
     <?php require_once('../inc/components/backoffice/header.php'); ?>
+
+    <?php
+    if (isset($_SESSION['message'])) {
+        echo '<div class="alert alert-success text-center col-md-9 ms-sm-auto col-lg-10 px-md-4" role="alert">' . $_SESSION['message'] . '</div>';
+        unset($_SESSION['message']);
+    }
+    ?>
     <div class="container-fluid">
         <div class="row">
             <?php require_once('../inc/components/backoffice/sidebar.php'); ?>            

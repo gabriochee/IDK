@@ -37,14 +37,14 @@ try {
     b.date_ban, 
     b.date_deban, 
     b.raison, 
-    (SELECT COUNT(*) FROM demande_ami WHERE (receveur = u.id_user OR envoyeur = u.id_user) AND statut_demande = 'En attente') AS nombre_demandes_amis, 
-    (SELECT COUNT(*) FROM demande_ami WHERE (receveur = u.id_user OR envoyeur = u.id_user) AND statut_demande = 'Refuser') AS nombre_demandes_refusees, 
-    (SELECT COUNT(*) FROM listes WHERE statut = 'publique' AND id_user = :id_user) AS nombre_listes_publique, 
-    (SELECT COUNT(*) FROM listes WHERE statut = 'privé' AND id_user = :id_user) AS nombre_listes_privee, 
-    (SELECT COUNT(*) FROM listes WHERE statut = 'amis seulement' AND id_user = :id_user) AS nombre_listes_only_amis, 
-    (SELECT COUNT(*) FROM avis WHERE statut = 'publique' AND id_user = :id_user) AS nombre_avis_publique, 
-    (SELECT COUNT(*) FROM avis WHERE statut = 'privee' AND id_user = :id_user) AS nombre_avis_privee,
-    (SELECT COUNT(*) FROM ami WHERE id_user_1 = u.id_user OR id_user_2 = u.id_user) AS nombre_amis
+    (SELECT COUNT(id_demande) FROM demande_ami WHERE (receveur = u.id_user OR envoyeur = u.id_user) AND statut_demande = 'En attente') AS nombre_demandes_amis, 
+    (SELECT COUNT(id_demande) FROM demande_ami WHERE (receveur = u.id_user OR envoyeur = u.id_user) AND statut_demande = 'Refuser') AS nombre_demandes_refusees, 
+    (SELECT COUNT(id_liste) FROM listes WHERE statut = 'publique' AND id_user = :id_user) AS nombre_listes_publique, 
+    (SELECT COUNT(id_liste) FROM listes WHERE statut = 'privé' AND id_user = :id_user) AS nombre_listes_privee, 
+    (SELECT COUNT(id_liste) FROM listes WHERE statut = 'amis seulement' AND id_user = :id_user) AS nombre_listes_only_amis, 
+    (SELECT COUNT(id_avis) FROM avis WHERE statut = 'publique' AND id_user = :id_user) AS nombre_avis_publique, 
+    (SELECT COUNT(id_avis) FROM avis WHERE statut = 'privee' AND id_user = :id_user) AS nombre_avis_privee,
+    (SELECT COUNT(id_user_1) FROM ami WHERE id_user_1 = u.id_user OR id_user_2 = u.id_user) AS nombre_amis
 FROM 
     utilisateur u
 LEFT JOIN 

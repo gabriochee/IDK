@@ -137,7 +137,7 @@
 
     function check_friend_request_status_from_me($my_user_id, $other_user_id, $bdd) {
         try {
-            $check_status_friend = "SELECT COUNT(*) FROM demande_ami WHERE envoyeur = :me AND receveur = :other AND statut_demande = 'En attente'";
+            $check_status_friend = "SELECT COUNT(id_demande) FROM demande_ami WHERE envoyeur = :me AND receveur = :other AND statut_demande = 'En attente'";
             $stmt = $bdd->prepare($check_status_friend);
             $stmt->bindParam(':me', $my_user_id);
             $stmt->bindParam(':other', $other_user_id);
@@ -150,7 +150,7 @@
 
     function check_friend_request_status_from_other($my_user_id, $other_user_id, $bdd) {
         try {
-            $check_status_friend = "SELECT COUNT(*) FROM demande_ami WHERE envoyeur = :other AND receveur = :me AND statut_demande = 'En attente'";
+            $check_status_friend = "SELECT COUNT(id_demande) FROM demande_ami WHERE envoyeur = :other AND receveur = :me AND statut_demande = 'En attente'";
             $stmt = $bdd->prepare($check_status_friend);
             $stmt->bindParam(':me', $my_user_id);
             $stmt->bindParam(':other', $other_user_id);
@@ -184,7 +184,7 @@
 
     function is_friend_already($my_user_id, $other_user_id, $bdd){
         try{
-            $check_friend = $bdd->prepare("SELECT COUNT(*) FROM ami WHERE (id_user_1= :me AND id_user_2=:other) OR (id_user_2= :me AND id_user_1= :other)");
+            $check_friend = $bdd->prepare("SELECT COUNT(id_user_1) FROM ami WHERE (id_user_1= :me AND id_user_2=:other) OR (id_user_2= :me AND id_user_1= :other)");
             $check_friend->bindParam(':me', $my_user_id);
             $check_friend->bindParam(':other', $other_user_id);
             $check_friend->execute();
