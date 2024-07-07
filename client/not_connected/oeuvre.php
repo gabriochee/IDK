@@ -1,6 +1,7 @@
 <?php require_once('../../inc/php/access.php'); ?>
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,14 +10,15 @@
     <link rel="stylesheet" href="../../inc/library/bootstrap/bootstrap-icons/font/bootstrap-icons.min.css">
     <title>IDK</title>
 </head>
+
 <body id="oeuvre">
     <?php require_once('../../inc/php/db.php'); ?>
-    <?php require_once('../../inc/php/function_oeuvre.php'); ?>    
-    <?php require_once('../../inc/components/not_connected/header.php'); ?>  
+    <?php require_once('../../inc/php/function_oeuvre.php'); ?>
+    <?php require_once('../../inc/components/not_connected/header.php'); ?>
     <main>
         <div class="container mt-5">
             <div class="row justify-content-center">
-                <div class="row col-12 col-lg-6 img-fluid img-custom-1 " >
+                <div class="row col-12 col-lg-6 img-fluid img-custom-1 ">
                     <img src="../../inc/img/test.jpeg" id="movie-poster" alt="affiche de l'oeuvre">
                 </div>
                 <div class="col-12 col-lg-5">
@@ -24,19 +26,27 @@
                         <h1 class="m-1 mb-3" id="movie-title"><?php echo $rep1['primaryTitle']; ?></h1>
                         <p class="m-1">Durée : <?php echo $rep1['runtimeMinutes']; ?> minutes</p>
                         <p class="m-1" id="movie-year">Date de sortie : <?php echo $rep1['startYear']; ?></p>
-                        <p class="m-1">Genres : <?php foreach($rep3 as $genre){ echo $genre['genre'] . ((end($rep3) != $genre) ? ", " : "");} ?></p>
-                        <p class="m-1">Acteurs principaux : <?php foreach($rep5 as $acteur){ echo $acteur["name"] . ((end($rep5) != $acteur) ? ", " : "");}?></p>
-                        <p class="m-1">Réalisateur : <?php foreach($rep6 as $realisateur){ echo $realisateur["name"] . ((end($rep6) != $realisateur) ? ", " : "");}?></p>
-                        <p class="m-1">Producteur : <?php foreach($rep7 as $producteur){ echo $producteur["name"] . ((end($rep7) != $producteur) ? ", " : "");}?></p>  
+                        <p class="m-1">Genres : <?php foreach ($rep3 as $genre) {
+                                                    echo $genre['genre'] . ((end($rep3) != $genre) ? ", " : "");
+                                                } ?></p>
+                        <p class="m-1">Acteurs principaux : <?php foreach ($rep5 as $acteur) {
+                                                                echo $acteur["name"] . ((end($rep5) != $acteur) ? ", " : "");
+                                                            } ?></p>
+                        <p class="m-1">Réalisateur : <?php foreach ($rep6 as $realisateur) {
+                                                            echo $realisateur["name"] . ((end($rep6) != $realisateur) ? ", " : "");
+                                                        } ?></p>
+                        <p class="m-1">Producteur : <?php foreach ($rep7 as $producteur) {
+                                                        echo $producteur["name"] . ((end($rep7) != $producteur) ? ", " : "");
+                                                    } ?></p>
                     </div>
-                    <div class ="container mt-4">
+                    <div class="container mt-4">
                         <div class="d-flex justify-content-center mt-2">
-                            <div class="card col-1 mx-1 p-3 color-custom-1" style="width: 170px;">
+                            <div class="card mx-1 p-3 color-custom-1">
                                 <div class="card-body d-flex flex-column justify-content-start align-items-center p-0">
                                     <p class="m-0 fw-bold fs-5">Public</p>
                                     <p class="m-0 note-count fs-5 mt-2"><?php echo $averageRating; ?>/5</p>
                                     <div class="d-flex justify-content-center my-2">
-                                    <?php 
+                                        <?php
                                         $a = $partie_decimale > 0 ? '1' : '0';
                                         for ($i = $a; $i < $averageRating; $i++) {
                                             echo '<i class="bi bi-star-fill"></i>';
@@ -47,12 +57,12 @@
                                         for ($i = $a; $i < (5 - $averageRating); $i++) {
                                             echo '<i class="bi bi-star"></i>';
                                         }
-                                    ?>
+                                        ?>
                                     </div>
                                     <p class="mb-0 text-center"><?php echo $rep4['numVotes']; ?> notes<br>2 critiques</p>
                                 </div>
                             </div>
-                            <div class="card col-1 mx-1 p-3 color-custom-1" style="width: 170px;">
+                            <div class="card mx-1 p-3 color-custom-1">
                                 <div class="card-body d-flex flex-column justify-content-start align-items-center p-0">
                                     <p class="m-0 fw-bold fs-5">Mes amis</p>
                                     <p class="m-0 note-count fs-5 mt-2">--</p>
@@ -66,11 +76,11 @@
                                     <p class="mb-0 text-center"> </p>
                                 </div>
                             </div>
-                            <div class="card col-1 mx-1 p-3 color-custom-1" style="width: 170px;">
+                            <div class="card mx-1 p-3 color-custom-1">
                                 <div class="card-body d-flex flex-column justify-content-start align-items-center p-0">
                                     <p class="m-0 fw-bold fs-5">Ma note</p>
-                                    <p class="m-0 note-count fs-5 mt-2">--</p>
-                                    <div class="d-flex justify-content-center my-2">
+                                    <p class="m-0 note-count fs-5 mt-2" id="my-rating">--</p>
+                                    <div class="d-flex justify-content-center my-2" id="my-stars-rating">
                                         <i class="bi bi-star"></i>
                                         <i class="bi bi-star"></i>
                                         <i class="bi bi-star"></i>
@@ -81,31 +91,32 @@
                                 </div>
                             </div>
                         </div>
-                    </div>        
+                    </div>
                 </div>
             </div>
             <div class="container mt-3">
                 <div id="no-connected" class="row justify-content-center">
-                    <div class="col-3 d-flex justify-content-center align-items-center border border-2 border-end-0 border-dark color-custom-1 menu-oeuvre">
+                    <div class="col-12 col-md-3 d-flex justify-content-center align-items-center border border-2 border-end-md-0 border-dark color-custom-1 menu-oeuvre mb-2 mb-md-0">
                         <p class="text fw-bold m-0">NOTER :</p>
-                        <i class="bi bi-star ms-4"></i>
+                        <i class="bi bi-star ms-2 ms-md-4"></i>
                         <i class="bi bi-star"></i>
                         <i class="bi bi-star"></i>
                         <i class="bi bi-star"></i>
                         <i class="bi bi-star"></i>
                     </div>
-                    <div class="col-3 d-flex justify-content-center align-items-center border border-2 border-end-0 border-dark color-custom-1 menu-oeuvre">
+                    <div class="col-12 col-md-3 d-flex justify-content-center align-items-center border border-2 border-end-md-0 border-dark color-custom-1 menu-oeuvre mb-2 mb-md-0">
                         <p class="m-0">Rédiger/Modifier ma critique</p>
-                        <i class="bi bi-chat-left-dots ms-3"></i>
+                        <i class="bi bi-chat-left-dots ms-2 ms-md-3"></i>
                     </div>
-                    <div class="col-3 d-flex justify-content-center align-items-center border border-2 border-end-0 border-dark color-custom-1 menu-oeuvre">
+                    <div class="col-12 col-md-3 d-flex justify-content-center align-items-center border border-2 border-end-md-0 border-dark color-custom-1 menu-oeuvre mb-2 mb-md-0">
                         <p class="m-0">Ajouter à une liste</p>
-                        <i class="bi bi-plus-circle ms-3"></i>
+                        <i class="bi bi-plus-circle ms-2 ms-md-3"></i>
                     </div>
-                    <div class="col-1 d-flex justify-content-center align-items-center border border-2 border-dark color-custom-1 menu-oeuvre">
+                    <div class="col-12 col-md-1 d-flex justify-content-center align-items-center border border-2 border-dark color-custom-1 menu-oeuvre">
                         <i class="bi bi-share"></i>
                     </div>
                 </div>
+
                 <div>
                     <div>
                         <div>
@@ -177,7 +188,7 @@
                                     <p class="mb-0">This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>
                                 </div>
                             </div>
-                        </div>           
+                        </div>
                     </div>
                     <div id="commentaire-quatre" class="row justify-content-center">
                         <div class="col-12 border border-2 border-top-0 border-dark color-custom-2">
@@ -195,7 +206,7 @@
                                     <p class="mb-0">This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>
                                 </div>
                             </div>
-                        </div>           
+                        </div>
                     </div>
                     <div id="commentaire-trois" class="row justify-content-center">
                         <div class="col-12 border border-2 border-top-0 border-dark color-custom-2">
@@ -213,7 +224,7 @@
                                     <p class="mb-0">This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>
                                 </div>
                             </div>
-                        </div>           
+                        </div>
                     </div>
                     <div id="commentaire-deux" class="row justify-content-center">
                         <div class="col-12 border border-2 border-top-0 border-dark color-custom-2">
@@ -231,7 +242,7 @@
                                     <p class="mb-0">This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>
                                 </div>
                             </div>
-                        </div>           
+                        </div>
                     </div>
                     <div id="commentaire-un" class="row justify-content-center">
                         <div class="col-12 border border-2 border-top-0 border-dark color-custom-2">
@@ -249,7 +260,7 @@
                                     <p class="mb-0">This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>
                                 </div>
                             </div>
-                        </div>           
+                        </div>
                     </div>
                     <div id="commentaire-zero" class="row justify-content-center">
                         <div class="col-12 border border-2 border-top-0 border-dark color-custom-2">
@@ -267,14 +278,15 @@
                                     <p class="mb-0">This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>
                                 </div>
                             </div>
-                        </div>           
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-                    
-    <?php require_once('../../inc/components/not_connected/footer.php'); ?>
-    <script src="../../inc/js/oeuvre.js"></script>
-    <script src="../../inc/library/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+        <?php require_once('../../inc/components/not_connected/footer.php'); ?>
+        <script src="../../inc/js/oeuvre.js"></script>
+        <script src="../../inc/library/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

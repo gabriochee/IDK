@@ -27,7 +27,7 @@
                     <hr class="featurette-divider my-2">
 
                     <div class="col-md-12 overflow-auto mt-4">
-                        <div class="d-flex">
+                        <div class="d-md-flex">
                             <h3 class="w-25 text-start">Utilisateurs :</h3>
                             <input class="form-control form-control-white w-100 mb-3" type="text" placeholder="Recherche" aria-label="Search">
                         </div>
@@ -47,7 +47,7 @@
                     <hr class="featurette-divider my-2">
 
                     <div class="col-md-12 overflow-auto mt-4">
-                        <div class="d-flex">
+                        <div class="d-md-flex">
                             <h3 class="w-25 text-start">Utilisateurs ban :</h3>
                             <input class="form-control form-control-white w-100 mb-3" type="text" placeholder="Recherche" aria-label="Search">
                         </div>
@@ -67,7 +67,7 @@
                     <hr class="featurette-divider my-2">
 
                     <div class="col-md-12 overflow-auto mt-4">
-                        <div class="d-flex">
+                        <div class="d-md-flex">
                             <h3 class="text-start w-25">Administrateur :</h3>
                             <div class="d-flex w-100">
                                 <input class="w-100 form-control form-control-white mb-3 me-3" type="text" placeholder="Recherche" aria-label="Search">
