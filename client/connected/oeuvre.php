@@ -63,7 +63,7 @@
                                         <p class="m-0 fw-bold fs-5">Mes amis</p>
                                         <p class="m-0 note-count fs-5 mt-2">
                                             <?php 
-                                            if ($rep9 && $rep9['COUNT(id_user)'] > 0) {
+                                            if ($rep9 && sizeof($rep9) > 1) {
                                                 echo $myFriendsRating;
                                             } else {
                                                 echo '--';

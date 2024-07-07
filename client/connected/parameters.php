@@ -139,7 +139,7 @@
                                     <form action="parameters.php" method="POST" id="signature-form">
                                         <canvas id="signature-pad" style="border:1px solid #000; width: 100%; height: 200px;"></canvas>
                                         <button id="effacer" class="btn btn-warning btn-orange btn-primary" type="button">Effacer</button>
-                                        <button id="sauvegarder" class="btn btn-success btn-orange btn-primary" id="export" name="export" type="button">Enregistrer</button>
+                                        <button id="sauvegarder" class="btn btn-success btn-orange btn-primary" id="export" name="export" type="submit">Enregistrer</button>
                                         <input type="hidden" name="signature" id="signature">
                                     </form>
                                 </div>

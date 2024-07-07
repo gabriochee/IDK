@@ -51,7 +51,8 @@ if(isset($_GET['mv'])) {
         $req8->execute();
         $rep8 = $req8->fetch();
 
-        $req9 = $bdd->prepare('SELECT AVG(note), COUNT(id_user) FROM avis JOIN ami ON avis.id_user = ami.id_user_2 WHERE id_work = :id_work AND id_user != :id_user AND statut IN (\'publique\', \'amis seulement\') AND (id_user_1 = :id_user OR id_user_2 = :id_user);');
+        $req9 = $bdd->prepare("SELECT AVG(note) AS average_note FROM avis WHERE id_work = :id_work AND id_user IN (SELECT id_user_2 FROM ami WHERE id_user_1 = :id_user AND statut IN ('publique', 'amis seulement') UNION SELECT id_user_1 FROM ami WHERE id_user_2 = :id_user AND statut IN ('publique', 'amis seulement'));");
+
         $req9->bindParam(":id_user", $_SESSION['id_user']);
         $req9->bindParam(":id_work", $_GET['mv']);
         $req9->execute();
@@ -65,7 +66,7 @@ if(isset($_GET['mv'])) {
         }
 
         if ($rep9) {
-            $myFriendsRating = $rep9['AVG(note)'] / 2;
+            $myFriendsRating = $rep9['average_note'] / 2;
             $myFriendsPartie_decimale = fmod($myFriendsRating, 1);
             $myFriendsPartie_entiere = intval($myFriendsRating);
         }
